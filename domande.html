@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ e Contatti</title>
+</head>
+<body>
+
+    <header>
+        <nav aria-label="Navigazione principale">
+            </nav>
+    </header>
+
+    <main>
+        <section id="faq" aria-labelledby="titolo-faq">
+            <h1 id="titolo-faq">FAQ</h1>
+            <p>
+                Le nostre domande frequenti sono il modo più rapido per ottenere l'aiuto
+                di cui avete bisogno. Se non riuscite a trovare la risposta che cercate
+                nelle nostre FAQ o avete bisogno di ulteriore assistenza, vi consigliamo
+                di contattare il nostro team di assistenza clienti, siamo qui per aiutarvi.
+            </p>
+
+            <details>
+                <summary>Quanto dura un match?</summary>
+                <p>Purtroppo non è possibile determinare la duratà specifica di un match.</p>
+            </details>
+
+            <details>
+                <summary>Il biglietto che acquisto è nominativo?</summary>
+                <p>No, i biglietti NON sono nominativi. E' indicato il nome dell'acquirente, ma possono essere ceduti ad altri.</p>
+            </details>
+
+            <details>
+                <summary>L'impianto è accessibile per le persone con disabilità motorie?</summary></summary>
+                <p>Assolutamente sì. Tutti i campi principali sono dotati di rampe e ascensori.</p>
+            </details>
+             
+            <details>
+                <summary>Posso portare cibo, bevande o macchine fotografiche nell'impianto?</summary>
+                <p>È consentito portare piccoli snack e bottiglie non in vetro di massimo 500ml. Non è permesso l'ingresso con borse frigo. Le macchine fotografiche sono ammesse solo se senza flash e con obiettivi non professionali. Se gli oggetti portati non sono in linea con le regole dell'impianto, il nostro staff li costudirà all'ingresso.</p>
+            </details>
+
+            <details>
+                <summary>Quali sono le regole di comportamento durante gli incontri?</summary>
+                <p>Per garantire la concentrazione dei tennisti, chiediamo al pubblico di mantenere il silenzio durante gli scambi e di muoversi sugli spalti o alzarsi dal proprio posto esclusivamente durante i cambi campo (ogni due game). I telefoni cellulari devono rigorosamente essere impostati in modalità silenziosa.</p>
+            </details>
+
+            
+            <details>
+                <summary>I minori devono essere accompagnati da un adulto?</summary>
+                <p>Il minore entro i 14 anni deve necessariamente essere accompagnato da un adulto per accedere ai campi; sia il minore sia l'adulto dovranno essere muniti di regolare titolo di ingresso.</p>
+            </details>
+
+            
+            <details>
+                <summary>Posso entrare anche a sessione iniziata?</summary>
+                <p>Si, è possibile accedere in qualsiasi momento, compatibilmente ai tempi di gioco.</p>
+            </details>
+
+        </section>
+
+        <hr>
+
+        <section id="contattaci" aria-labelledby="titolo-contatti">
+            <h2 id="titolo-contatti">CONTATTACI</h2>
+
+            <form action="#" method="POST">
+                
+                <div>
+                    <label for="nome">Nome</label><br>
+                    <input type="text" id="nome" name="nome" placeholder="Mario" required autocomplete="given-name">
+                </div>
+                <br>
+
+                <div>
+                    <label for="cognome">Cognome</label><br>
+                    <input type="text" id="cognome" name="cognome" placeholder="Rossi" required autocomplete="family-name">
+                </div>
+                <br>
+
+                <div>
+                    <label for="telefono">Numero di telefono</label><br>
+                    <input type="tel" id="telefono" name="telefono" placeholder="+39 123 456 7890" autocomplete="tel">
+                </div>
+                <br>
+
+                <div>
+                    <label for="messaggio">Messaggio</label><br>
+                    <textarea id="messaggio" name="messaggio" rows="5" placeholder="Scrivi qui il messaggio..." required></textarea>
+                </div>
+                <br>
+
+                <div>
+                    <input type="checkbox" id="privacy" name="privacy" required>
+                    <label for="privacy">Accetto i termini della <a href="/privacy-policy">Privacy Policy</a></label>
+                </div>
+                <br>
+
+                <button type="submit">Invia richiesta</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        </footer>
+
+</body>
+</html>
