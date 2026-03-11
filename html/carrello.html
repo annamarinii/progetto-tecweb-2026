@@ -3,42 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrello - Patavium Open</title>
+    <title>Carrello</title>
 </head>
 <body>
 
-    <h1>Il tuo Carrello</h1>
+    <header>
+        <h1>CARRELLO</h1>
+    </header>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th scope="col">Prodotto</th>
-                <th scope="col">Quantità</th>
-                <th scope="col">Prezzo</th>
-            </tr>
-        </thead>
+    <main>
+        <section aria-label="Elenco biglietti nel carrello">
+            
+            <article>
+                <p>Mercoledì 6 maggio Sessione Diurna · Settore Blu</p>
+                
+                <p>Quantità: 2</p>
 
-        <tbody>
-            <tr>
-                <td colspan="3" style="text-align: center;">Il tuo carrello è attualmente vuoto.</td>
-            </tr>
-        </tbody>
+                <p>€ 48.00</p>
 
-        <tfoot>
-            <tr>
-                <td colspan="2"><strong>Totale</strong></td>
-                <td><strong>0€</strong></td>
-            </tr>
-        </tfoot>
-    </table>
+                <button type="button" aria-label="Rimuovi biglietto Mercoledì 6 maggio diurna">
+                    Elimina
+                </button>
+            </article>
 
-    <br>
+            <hr aria-hidden="true">
 
-    <button type="button" disabled>Procedi al pagamento</button>
-    
-    <p>
-        <a href="prezzi.html">Continua lo shopping</a>
-    </p>
+            <article>
+                <p>Mercoledì 6 maggio Sessione Serale · Settore Giallo</p>
+                
+                <p>Quantità: 2</p>
+
+                <p>€ 45.00</p>
+
+                <button type="button" aria-label="Rimuovi biglietto Mercoledì 6 maggio serale">
+                    Elimina
+                </button>
+            </article>
+
+        </section>
+
+        <section aria-label="Riepilogo ordine">
+            <p><strong>Totale: € 186.00</strong></p>
+            <button type="button">Procedi al pagamento</button>
+        </section>
+    </main>
 
 </body>
 </html>
