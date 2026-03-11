@@ -2,14 +2,15 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
 
     <h1>LOGIN</h1>
 
-    <form>
-        <label for="email">E-mail</label>
+    <form action="/tuo-endpoint-login" method="POST">
+        <label for="email">Email</label>
         <br>
         <input type="email" id="email" name="email" required>
         
@@ -23,13 +24,9 @@
 
         <button type="submit">Accedi</button>
     </form>
-
-    <br>
-
-    <a href="recupero-password.html">Hai dimenticato la password?</a>
-
+    
     <p>
-        Non hai un Account? <a href="registrazione.html">Registrati</a>
+        Non hai un account? <a href="registrazione.html">Registrati</a>
     </p>
 
 </body>
