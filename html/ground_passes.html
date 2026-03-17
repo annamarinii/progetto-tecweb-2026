@@ -209,41 +209,19 @@
                 <h3>Ingresso Giornaliero <span lang="en">Standard</span></h3>
                 <p>Accesso completo al villaggio ospitalità e a tutti i campi secondari (1-6).</p>
                 <p class="time-info">Apertura cancelli: ore 09:00</p>
+                </div>
+                <span class="seat-price">€45,00</span>
+            </div>
             </div>
             
-            <div class="purchase-container">
-    
+    <div class="purchase-container">
     <p id="qty-label" class="sr-only">Seleziona il numero di biglietti desiderati (massimo 10)</p>
 
     <div class="purchase-controls">
         <div class="quantity-selector" role="group" aria-labelledby="qty-label">
-            <button type="button" 
-                    class="qty-btn minus" 
-                    aria-label="Diminuisci quantità" 
-                    onclick="changeQty(-1)">
-                <span aria-hidden="true">−</span>
-            </button>
-            
-            <input type="number" 
-                   id="ticket-qty" 
-                   value="1" 
-                   min="1" 
-                   max="10" 
-                   readonly 
-                   aria-labelledby="qty-label"
-                   data-base-price="25.00">
-            
-            <button type="button" 
-                    class="qty-btn plus" 
-                    aria-label="Aumenta quantità" 
-                    onclick="changeQty(1)">
-                <span aria-hidden="true">+</span>
-            </button>
-        </div>
-
-        <div class="price-display-box">
-            <span class="price-label">Totale:</span>
-            <span class="price" id="display-price" aria-live="polite">€ 25,00</span>
+            <button type="button" class="qty-btn minus" aria-label="Diminuisci quantità" onclick="changeQty(-1)">−</button>
+            <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly aria-labelledby="qty-label">
+            <button type="button" class="qty-btn plus" aria-label="Aumenta quantità" onclick="changeQty(1)">+</button>
         </div>
     </div>
 
@@ -253,9 +231,8 @@
         </a>
     </div>
 
-</div>
-        </div>
     </div>
+
 </section>
 </main>
 <footer>

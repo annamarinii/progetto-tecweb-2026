@@ -146,9 +146,23 @@
                 <span class="seat-price">€ 190,00</span>
             </div>
 
-            <a href="carrello.html" id="final-buy-btn" class="buy-button">
-                AGGIUNGI AL CARRELLO
-            </a>
+            <div class="purchase-container">
+    <p id="qty-label" class="sr-only">Seleziona il numero di biglietti desiderati (massimo 10)</p>
+
+    <div class="purchase-controls">
+        <div class="quantity-selector" role="group" aria-labelledby="qty-label">
+            <button type="button" class="qty-btn minus" aria-label="Diminuisci quantità" onclick="changeQty(-1)">−</button>
+            <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly aria-labelledby="qty-label">
+            <button type="button" class="qty-btn plus" aria-label="Aumenta quantità" onclick="changeQty(1)">+</button>
+        </div>
+    </div>
+
+    <div class="action-box">
+        <a href="carrello.html" id="final-buy-btn" class="buy-button">
+            AGGIUNGI AL CARRELLO
+        </a>
+    </div>
+</div>
 
         </div>
     </div>
