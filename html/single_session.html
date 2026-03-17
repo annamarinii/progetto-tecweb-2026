@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biglietti-Single Session</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header-sito">
+    <div class="navbar">
+        <div class="header-sx">
+            <a href="home.html">
+                <img src="logo.png" alt="">
+                <span>Patavium Open</span>
+            </a>
+        </div>
+
+        <nav class="header-centro" aria-label="Menu principale">
+            <ul>
+                <li><a href="home.html" lang="en">Home</a></li>
+                <li><a href="biglietti.html" aria-current="page">Biglietti</a></li>
+                <li><a href="news.html" lang="en">News</a></li>
+                <li><a href="domande.html">Domande</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-dx">
+            <a href="registrazione.html" aria-label="Area personale Profilo">Profilo</a>
+            <a href="carrello.html" aria-label="Carrello, 0 articoli inseriti">
+                Carrello <span aria-hidden="true">(0)</span>
+            </a>
+        </div>
+    </div>
+
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; Biglietti &gt; <span lang="en">Single Session</span></p>
+    </nav>
+</header>
+<main>
+    <div id="sticky-bar" class="sticky-bar">
+        <div class="sticky-content">
+            <div class="sticky-title"><span lang="en">Single Session</span></div>
+            
+           <div class="stepper">
+            <div class="step active" id="step-date">
+                <span id="icon-date" class="step-icon"><img src="calendario.jpg" alt=""></span>
+                <span class="step-label">DATA</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" id="step-session">
+                <span id="icon-session" class="step-icon"><img src="pallina_tennis.jpg" alt=""></span>
+                <span class="step-label"><span lang="en">SESSION</span></span>
+            </div>
+            </div>
+
+            <div class="sticky-action">
+                <a href="#date-selection" id="sticky-btn" class="btn-select-date">SELEZIONA DATA</a>
+            </div>
+        </div>
+    </div>
+    <div class="intro-section">
+        <h1><span lang="en">Single Session</span></h1>
+        <a href="#date-selection" class="btn-select-date">Seleziona Data</a>
+    </div>
+    
+    <div class="session-hero">
+        <img src="campo_centrale.jpg" alt="Vista panoramica del Campo Centrale del Patavium Open" class="hero-full-img">
+    </div>
+
+    <h2>Scegli la tua sessione e scendi in campo con i campioni</h2>
+    <p>Vivi l'emozione del grande tennis internazionale selezionando la singola sessione 
+        più adatta ai tuoi programmi. Che tu preferisca l'energia dei match mattutini sotto 
+        il sole di Padova o l'atmosfera elettrizzante delle sessioni serali sotto i riflettori 
+        del Patavium Open, ogni biglietto <span lang="en">Single Session</span> ti garantisce 
+        un posto riservato numerato sulle tribune del Campo Centrale. Oltre al <span lang="en">match</span> 
+        principale, il tuo titolo d'ingresso ti permette di esplorare liberamente i campi secondari per 
+        l'intera durata della sessione scelta.</p>
+
+    <section class="benefits-section">
+        <h3>Cosa include un biglietto <span lang="en">Single Session</span></h3>
+        <div class="benefits-wrapper">
+            <div class="benefit-card">
+                <img src="pallina_tennis.jpg" class="benefit-icon" alt="">
+                <div class="benefit-text">
+                    <h4>Posto riservato al Campo Centrale</h4>
+                    <p>Posto numerato garantito per 2-3 match a sessione nel <span lang="en">Main Stadium</span>.</p>
+                </div>
+            </div>
+
+            <div class="benefit-card">
+                <img src="ombrellone.jpg" class="benefit-icon" alt="">
+                <div class="benefit-text">
+                    <h4><span lang="en">Campus Experience</span></h4>
+                    <p>Accesso completo al villaggio, ristoranti, store ufficiali e aree intrattenimento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="date-selection" class="section-container">
+    <div class="step-header">
+        <span class="step-badge"><span lang="en">STEP</span> 1</span>
+        <h2>Seleziona la data</h2>
+        <p><time datetime="2026-05-15">15</time> - <time datetime="2026-05-22">22 Maggio 2026</time></p>
+    </div>
+
+    <div class="calendar-wrapper">
+        
+        <div class="date-tile" 
+             role="button" 
+             aria-label="Venerdì 15 Maggio, Opening Day"
+             onclick="selectDate('Venerdì', '15', event)">
+            <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
+            <p class="day-number">15</p>
+            <div class="tag new-session"><span lang="en">OPENING DAY</span></div>
+            <p class="matches-info">Qualificazioni Maschili, 1° Turno Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             aria-label="Sabato 16 Maggio, Best Value"
+             onclick="selectDate('Sabato', '16', event)">
+            <p class="day-name"><abbr title="Sabato">Sab</abbr></p>
+            <p class="day-number">16</p>
+            <div class="tag"><span lang="en">BEST VALUE</span></div>
+            <p class="matches-info">1° Turno Maschile, 1° Turno Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             aria-label="Domenica 17 Maggio, Best Value"
+             onclick="selectDate('Domenica', '17', event)">
+            <p class="day-name"><abbr title="Domenica">Dom</abbr></p>
+            <p class="day-number">17</p>
+            <div class="tag"><span lang="en">BEST VALUE</span></div>
+            <p class="matches-info">2° Turno Maschile, 2° Turno Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             aria-label="Lunedì 18 Maggio, Most Popular"
+             onclick="selectDate('Lunedì', '18', event)">
+            <p class="day-name"><abbr title="Lunedì">Lun</abbr></p>
+            <p class="day-number">18</p>
+            <div class="tag most-popular"><span lang="en">MOST POPULAR</span></div>
+            <p class="matches-info">3° Turno Maschile e Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             aria-label="Martedì 19 Maggio, Top Matches"
+             onclick="selectDate('Martedì', '19', event)">
+            <p class="day-name"><abbr title="Martedì">Mar</abbr></p>
+            <p class="day-number">19</p>
+            <div class="tag"><span lang="en">TOP MATCHES</span></div>
+            <p class="matches-info">Ottavi di Finale Maschili e Femminili</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             aria-label="Mercoledì 20 Maggio, Semi-Finals"
+             onclick="selectDate('Mercoledì', '20', event)">
+            <p class="day-name"><abbr title="Mercoledì">Mer</abbr></p>
+            <p class="day-number">20</p>
+            <div class="tag"><span lang="en">SEMI-FINALS</span></div>
+            <p class="matches-info">Quarti di Finale e Semifinali</p>
+        </div>
+
+        <div class="date-tile highlight" 
+             role="button" 
+             aria-label="Giovedì 21 Maggio, Finali Femminile e Doppio"
+             onclick="selectDate('Giovedì', '21', event)">
+            <p class="day-name"><abbr title="Giovedì">Gio</abbr></p>
+            <p class="day-number">21</p>
+            <div class="tag finals"><span lang="en">FINALS</span></div>
+            <p class="matches-info">Finale Singolare Femminile & Finale Doppio</p>
+        </div>
+
+        <div class="date-tile highlight" 
+             role="button" 
+             aria-label="Venerdì 22 Maggio, Finale Maschile"
+             onclick="selectDate('Venerdì', '22', event)">
+            <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
+            <p class="day-number">22</p>
+            <div class="tag finals"><span lang="en">THE FINAL</span></div>
+            <p class="matches-info">Finale Singolare Maschile & Premiazione</p>
+        </div>
+
+    </div> </section>
+
+<section id="session-selection" class="section-container" style="display: none;">
+    
+    <div class="step-header">
+        <span class="step-badge"><span lang="en">STEP</span> 2</span>
+        <h2>Seleziona sessione</h2>
+        <h3 id="selected-full-date" class="date-display">Seleziona una data sopra</h3>
+    </div>
+
+    <div class="session-wrapper">
+        
+        <div class="session-card">
+            <div class="session-top">
+                <div class="session-icon">
+                    <img src="/img/sun.png" alt="">
+                </div>
+                <div class="session-title-group">
+                    <h3>Sessione Diurna</h3>
+                    <p class="session-time">Inizio incontri: ore 11:00</p>
+                </div>
+            </div>
+            
+            <div class="session-details">
+                <p>La sessione diurna ha sede nel Prato <span lang="en">Stadium</span></p>
+                <p class="match-highlight"><span lang="en">Match</span> del: <strong class="current-date-label"></strong></p>
+            </div>
+
+            <div class="session-footer">
+                <span class="price">da €45,00</span>
+                <button class="buy-btn">AGGIUNGI AL CARRELLO</button>
+            </div>
+        </div>
+
+        <div class="session-card">
+            <div class="session-top">
+                <div class="session-icon">
+                    <img src="/img/moon.png" alt="">
+                </div>
+                <div class="session-title-group">
+                    <h3>Sessione Serale</h3>
+                    <p class="session-time">Inizio incontri: ore 19:00</p>
+                </div>
+            </div>
+
+            <div class="session-details">
+                <p>La sessione serale ha sede nel Giotto <span lang="en">Court</span></p>
+                <p class="match-highlight"><span lang="en">Match</span> del: <strong class="current-date-label"></strong></p>
+            </div>
+
+            <div class="session-footer">
+                <span class="price">da €60,00</span>
+                <button class="buy-btn">AGGIUNGI AL CARRELLO</button>
+            </div>
+        </div>
+    </div> 
+</section>
+</main>
+<footer>
+
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
+
+    

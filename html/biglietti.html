@@ -7,20 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="header sito">
+ <header class="header-sito">
+    <div class="navbar">
         <div class="header-sx">
+            <a href="home.html">
                 <img src="logo.png" alt="">
+                <span>Patavium Open</span>
+            </a>
         </div>
 
-        <nav id="breadcrumb">
-            <p>Ti trovi in: <span lang="en">Biglietti</span></p>
-        </nav>
-
-        <nav class="header centro" aria-label="Menu principale">
+        <nav class="header-centro" aria-label="Menu principale">
             <ul>
-                <li><a href="home.html"><span lang="en">Home</span></a></li>
-                <li id="currentLink">Programma</a></li>
-                <li><a href="prezzi.html">Prezzi</a></li>
+                <li><a href="home.html" lang="en">Home</a></li>
+                <li><a href="biglietti.html" aria-current="page">Biglietti</a></li>
+                <li><a href="news.html" lang="en">News</a></li>
                 <li><a href="domande.html">Domande</a></li>
             </ul>
         </nav>
@@ -31,222 +31,60 @@
                 Carrello <span aria-hidden="true">(0)</span>
             </a>
         </div>
+    </div>
+
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; Biglietti</p>
+    </nav>
     </header>
     <main>
-    <section id="hero-tickets" class="section-container">
+    
 
     <h1>Biglietti</h1>
+    <p>Scegli l'esperienza perfetta per vivere il grande tennis internazionale nel cuore di Padova. 
+        Che tu voglia goderti l'intensità di una Singola Sessione sul Campo Centrale, assicurarti un 
+        posto per l'intero torneo con i nostri Abbonamenti esclusivi, o vivere l'atmosfera vibrante 
+        del villaggio ospitalità con i <span lang="en">Ground Passes</span>, qui troverai la soluzione 
+        ideale per non perdere nemmeno un <span lang="en">set</span>. Seleziona la tua tipologia di accesso preferita 
+        e preparati a sostenere i grandi campioni sulla terra rossa del <span lang="la">Patavium</span> <span lang="en">Open</span>.</p>
 
+    <section id="hero-tickets" class="section-container">
     <div class="cards-wrapper">
+        
         <div class="ticket-card" id="card-single">
             <div class="card-header">
-                <button class="scroll-arrow" onclick="scrollToSection('date-selection')">↗</button>
+                <img src="img.jpg" alt="Interno dello stadio di tennis" class="card-img">
             </div>
-            <img src="img.jpg" alt="Single Session" class="card-img">
             <div class="card-body">
                 <h2><span lang="en">Single Session</span></h2>
-                <p>Posti riservati nel campo principale per singola sessione.</p>
-
-                <button class="info-toggle" onclick="toggleDetails('info-single')">+ Maggiori Informazioni</button>
-
-                <div id="info-single" class="extra-info">
-                    <p>• Accesso a 2-3 <span lang="en">match</span> per sessione.</p>
-                    <p>• Posto a sedere numerato in <span lang="en">Stadium Court.</span></p>
-                </div>
+                <p>Accesso con posti riservati nel campo principale per una singola sessione.</p>
+                <a href="single_session.html" class="buy-button">Acquista Singolo</a>
             </div>
         </div>
 
         <div class="ticket-card" id="card-multi">
             <div class="card-header">
-                <button class="scroll-arrow" onclick="scrollToSection('date-selection')">↗</button>
+                <img src="img2.jpg" alt="Campo da tennis in terra rossa" class="card-img">
             </div>
-            <img src="img2.jpg" alt="Multi-Session" class="card-img">
             <div class="card-body">
-                <h2><span lang="en">Multi-Session Packages</span></h2>
-                <p>Pacchetti per più giornate di torneo.</p>
-
-                <button class="info-toggle" onclick="toggleDetails('info-multi')">+ Maggiori Informazioni</button>
-
-                <div id="info-multi" class="extra-info">
-                    <p>• Risparmio garantito rispetto ai biglietti singoli.</p>
-                    <p>• Stesso posto riservato per tutte le sessioni incluse.</p>
-                </div>
+                <h2>Abbonamento</h2> <p>Abbonamento stagionale completo per tutti gli eventi e <span lang="en">pass</span> esclusivi.</p>
+                <a href="abbonamento.html" class="buy-button">Acquista Abbonamento</a>
             </div>
         </div>
 
         <div class="ticket-card" id="card-group">
             <div class="card-header">
-                <button class="scroll-arrow" onclick="scrollToSection('date-selection')">↗</button>
+                <img src="img3.jpg" alt="Tifosi nell'area hospitality" class="card-img">
             </div>
-            <img src="img3.jpg" alt="Group Packages" class="card-img">
             <div class="card-body">
-                <h2><span lang="en">Group Packages</span></h2>
-                <p>Offerte speciali per gruppi di 10 o più persone.</p>
-
-                <button class="info-toggle" onclick="toggleDetails('info-group')">+ Maggiorni Informazioni</button>
-
-                <div id="info-group" class="extra-info">
-                    <p>• Esperienze personalizzate nell'area <span lang="en">hospitality.</span></p>
-                    <p>• Assistenza dedicata per la prenotazione.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<hr>
-
-<section id="date-selection" class="section-container">
-    <div class="step-header">
-        <p class="step-badge"><span lang="en">STEP</span>1</p>
-        <h2>Seleziona la data</h2>
-        <p><time datetime="2026-05-15">15</time> - <time datetime="2026-05-22">22 Maggio 2026</time> </p>
-    </div>
-
-    <div class="calendar-wrapper">
-        
-        <div class="date-tile" 
-             role="button" 
-             aria-label="Venerdì 15 Maggio, Opening Day"
-             onclick="selectDate('Venerdì', '15', event)">
-            <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
-            <p class="day-number">15</p>
-            <div class="tag new-session"><span lang="en">OPENING DAY</span></div>
-            <p class="matches-info">Qualificazioni Maschili, 1° Turno Femminile</p>
-        </div>
-
-        <div class="date-tile" 
-             role="button" 
-             aria-label="Sabato 16 Maggio, Best Value"
-             onclick="selectDate('Sabato', '16', event)">
-            <p class="day-name"><abbr title="Sabato">Sab</abbr></p>
-            <p class="day-number">16</p>
-            <div class="tag"><span lang="en">BEST VALUE</span></div>
-            <p class="matches-info">1° Turno Maschile, 1° Turno Femminile</p>
-        </div>
-
-        <div class="date-tile" 
-             role="button" 
-             aria-label="Domenica 17 Maggio, Best Value"
-             onclick="selectDate('Domenica', '17', event)">
-            <p class="day-name"><abbr title="Domenica">Dom</abbr></p>
-            <p class="day-number">17</p>
-            <div class="tag"><span lang="en">BEST VALUE</span></div>
-            <p class="matches-info">2° Turno Maschile, 2° Turno Femminile</p>
-        </div>
-
-        <div class="date-tile" 
-             role="button" 
-             aria-label="Lunedì 18 Maggio, Most Popular"
-             onclick="selectDate('Lunedì', '18', event)">
-            <p class="day-name"><abbr title="Lunedì">Lun</abbr></p>
-            <p class="day-number">18</p>
-            <div class="tag most-popular"><span lang="en">MOST POPULAR</span></div>
-            <p class="matches-info">3° Turno Maschile e Femminile</p>
-        </div>
-
-        <div class="date-tile" 
-             role="button" 
-             aria-label="Martedì 19 Maggio, Top Matches"
-             onclick="selectDate('Martedì', '19', event)">
-            <p class="day-name"><abbr title="Martedì">Mar</abbr></p>
-            <p class="day-number">19</p>
-            <div class="tag"><span lang="en">TOP MATCHES</span></div>
-            <p class="matches-info">Ottavi di Finale Maschili e Femminili</p>
-        </div>
-
-        <div class="date-tile" 
-             role="button" 
-             aria-label="Mercoledì 20 Maggio, Semi-Finals"
-             onclick="selectDate('Mercoledì', '20', event)">
-            <p class="day-name"><abbr title="Mercoledì">Mer</abbr></p>
-            <p class="day-number">20</p>
-            <div class="tag"><span lang="en">SEMI-FINALS</span></div>
-            <p class="matches-info">Quarti di Finale e Semifinali</p>
-        </div>
-
-        <div class="date-tile highlight" 
-             role="button" 
-             aria-label="Giovedì 21 Maggio, Finali Femminile e Doppio"
-             onclick="selectDate('Giovedì', '21', event)">
-            <p class="day-name"><abbr title="Giovedì">Gio</abbr></p>
-            <p class="day-number">21</p>
-            <div class="tag finals"><span lang="en">FINALS</span></div>
-            <p class="matches-info">Finale Singolare Femminile & Finale Doppio</p>
-        </div>
-
-        <div class="date-tile highlight" 
-             role="button" 
-             aria-label="Venerdì 22 Maggio, Finale Maschile"
-             onclick="selectDate('Venerdì', '22', event)">
-            <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
-            <p class="day-number">22</p>
-            <div class="tag finals"><span lang="en">THE FINAL</span></div>
-            <p class="matches-info">Finale Singolare Maschile & Premiazione</p>
-        </div>
-
-    </div>
-</section>
-
-<hr>
-
-<section id="session-selection" class="section-container" style="display: none;">
-    
-    <div class="step-header">
-        <span class="step-badge"><span lang="en">STEP</span> 2</span>
-        <h2>Seleziona sessione</h2>
-        <h3 id="selected-full-date" class="date-display">Seleziona una data sopra</h3>
-    </div>
-
-    <div class="session-wrapper">
-        
-        <div class="session-card">
-            <div class="session-top">
-                <div class="session-icon">
-                    <img src="/img/sun.png" alt=" ">
-                </div>
-                <div class="session-title-group">
-                    <h3>Sessione Diurna</h3>
-                    <p class="session-time">Inizio incontri: ore 11:00</p>
-                </div>
-            </div>
-            
-            <div class="session-details">
-                <p>Include l'accesso a tutti i <span lang="en">match </span>programmati durante il giorno sul campo centrale e l'accesso libero a tutti i campi secondari.</p>
-                <p class="match-highlight"><span lang="en">Match</span> del: <strong class="current-date-label"></strong></p>
-            </div>
-
-            <div class="session-footer">
-                <span class="price">da €45,00</span>
-                <button class="buy-btn">AGGIUNGI AL CARRELLO</button>
+                <h2><span lang="en">Ground Passes</span></h2>
+                <p>Ingresso giornaliero per i campi secondari e tutte le attività del villaggio.</p>
+                <a href="ground_passes.html" class="buy-button">Acquista <span lang="en">Pass</span></a>
             </div>
         </div>
 
-        <div class="session-card">
-            <div class="session-top">
-                <div class="session-icon">
-                    <img src="/img/moon.png" alt="">
-                </div>
-                <div class="session-title-group">
-                    <h3>Sessione Serale</h3>
-                    <p class="session-time">Inizio incontri: ore 19:00</p>
-                </div>
-            </div>
-
-            <div class="session-details">
-                <p>Vivi l'atmosfera unica dei <span lang="en">match</span> in notturna. Include il "Match of the Day" maschile o femminile e l'accesso al villaggio hospitality.</p>
-                <p class="match-highlight"><span lang="en">Match</span> del: <strong class="current-date-label"></strong></p>
-            </div>
-
-            <div class="session-footer">
-                <span class="price">da €60,00</span>
-                <button class="buy-btn">AGGIUNGI AL CARRELLO</button>
-            </div>
-        </div>
-
-    </div>
-
-</section>
+    </div> 
+    </section>
 </main>
 <footer>
 
