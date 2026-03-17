@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Personale Utente | Patavium Open</title>
+</head>
+<body>
+    <main>
+        <section id="profilo" aria-labelledby="titolo-profilo">
+            <h2 id="titolo-profilo">Dati Personali</h2>
+            <form>
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" value="Mario" readonly>
+                </div>
+                <div>
+                    <label for="cognome">Cognome:</label>
+                    <input type="text" id="cognome" name="cognome" value="Rossi" readonly>
+                </div>
+                <div>
+                    <label for="email">Indirizzo Email:</label>
+                    <input type="email" id="email" name="email" value="mario.rossi@email.it" readonly>
+                </div>
+                <button type="button" aria-label="Modifica i tuoi dati personali">Modifica Profilo</button>
+            </form>
+        </section>
+
+        <hr aria-hidden="true">
+
+        <section id="miei-biglietti" aria-labelledby="titolo-biglietti">
+            <h2 id="titolo-biglietti">Storico ordini</h2>
+            
+            <ul style="list-style: none; padding: 0;">
+                <li>
+                    <article aria-labelledby="ordine-001">
+                        <h3 id="ordine-001">Ordine n. #PO-2024-001</h3>
+                        <dl>
+                            <dt>Data Evento:</dt>
+                            <dd><time datetime="2024-06-12">12 Giugno 2024</time></dd>
+                            
+                            <dt>Sessione:</dt>
+                            <dd>Diurna</dd>
+                            
+                            <dt>Tribuna / Settore:</dt>
+                            <dd>Tribuna Ovest</dd>
+                            
+                            <dt>Prezzo:</dt>
+                            <dd>45,00€</dd>
+                        </dl>
+                    </article>
+                </li>
+
+                <hr aria-hidden="true">
+
+                <li>
+                    <article aria-labelledby="ordine-089">
+                        <h3 id="ordine-089">Ordine n. #PO-2024-089</h3>
+                        <dl>
+                            <dt>Data Evento:</dt>
+                            <dd><time datetime="2024-06-15">15 Giugno 2024</time></dd>
+                            
+                            <dt>Sessione:</dt>
+                            <dd>Serale</dd>
+                            
+                            <dt>Tribuna / Settore:</dt>
+                            <dd>Tribuna VIP</dd>
+                            
+                            <dt>Prezzo:</dt>
+                            <dd>120,00€</dd>
+                        </dl>
+                    </article>
+                </li>
+            </ul>
+        </section>
+
+        <hr aria-hidden="true">
+
+        <section id="centro-notifiche" aria-labelledby="titolo-notifiche">
+            <h2 id="titolo-notifiche">Comunicazioni dal Team Patavium</h2>
+            
+            <div role="region" aria-live="polite">
+                <ul>
+                    <li>
+                        <article>
+                            <h3>Domanda sulla Tribuna Ovest</h3>
+                            <p><strong>La tua domanda:</strong> "C'è ombra in Tribuna Ovest durante la sessione diurna?"</p>
+                            
+                            <blockquote>
+                                <p><strong>Risposta dell'organizzatore:</strong> Ciao Mario! La Tribuna Ovest è coperta, quindi avrai ombra per tutta la durata della sessione diurna. Ti aspettiamo al Patavium Open!</p>
+                                <footer>— Inviata il <time datetime="2024-05-12">12 Maggio 2024</time></footer>
+                            </blockquote>
+                        </article>
+                    </li>
+                </ul>
+                
+                </div>
+        </section>
+    </main>
+</body>
+</html>

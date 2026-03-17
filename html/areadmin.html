@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannello Amministrazione | Patavium Open</title>
+</head>
+<body>
+    <main>
+
+        <section id="nuove-domande" aria-labelledby="titolo-notifiche">
+            <h2 id="titolo-notifiche">Notifiche: Nuove Domande Ricevute</h2>
+            
+            <div role="region" aria-live="polite">
+                <ul style="list-style: none; padding: 0;">
+                    <li>
+                        <article>
+                            <h3>Domanda dall'utente: <em>mario_rossi</em></h3>
+                            <p><strong>Messaggio:</strong> "Vorrei sapere se è possibile introdurre cani di piccola taglia in tribuna."</p>
+                            <p><small>Ricevuta il: <time datetime="2024-05-18">18 Maggio 2024</time></small></p>
+                            
+                            <form action="/invia-risposta" method="post">
+                                <div>
+                                    <label for="risposta-tennis99">Scrivi la tua risposta:</label><br>
+                                    <textarea id="risposta-tennis99" name="risposta" rows="4" cols="50" required placeholder="Inserisci qui la risposta per l'utente..."></textarea>
+                                </div>
+                                
+                                <input type="hidden" name="username_destinatario" value="mario_rossi">
+                                
+                                <br>
+                                <button type="submit">Invia Risposta</button>
+                            </form>
+                        </article>
+                    </li>
+                </ul>
+                
+                </div>
+        </section>
+
+        <hr aria-hidden="true">
+
+ <section id="gestione-news" aria-labelledby="titolo-news">
+            <h2 id="titolo-news">Gestione News del Torneo</h2>
+            <p>Aggiungi nuove comunicazioni o modifica direttamente i testi di quelle già pubblicate.</p>
+
+            <section aria-labelledby="titolo-nuova-news">
+                <h3 id="titolo-nuova-news">Pubblica una Nuova News</h3>
+                
+                <form action="/inserisci-news" method="post">
+                    <fieldset>
+                        <legend>Dettagli Nuova News</legend>
+                        
+                        <div>
+                            <label for="nuovo-titolo">Titolo:</label><br>
+                            <input type="text" id="nuovo-titolo" name="titolo" required style="width: 100%; max-width: 400px;" placeholder="Es: Risultati Semifinale">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="nuovo-testo">Testo della News:</label><br>
+                            <textarea id="nuovo-testo" name="contenuto" rows="4" cols="60" required placeholder="Scrivi il contenuto dell'articolo..."></textarea>
+                        </div>
+                        <br>
+                        <div>
+                            <input type="checkbox" id="nuova-evidenza" name="in_home" value="si">
+                            <label for="nuova-evidenza"><strong>Metti in evidenza nella Home Page</strong></label>
+                        </div>
+                        <br>
+                        <button type="submit">Pubblica Nuova News</button>
+                    </fieldset>
+                </form>
+            </section>
+
+            <hr aria-hidden="true">
+
+            <section aria-labelledby="titolo-elenco-news">
+                <h3 id="titolo-elenco-news">News Attualmente Pubblicate (Modificabili)</h3>
+                
+                <ul style="list-style: none; padding: 0;">
+                    
+                    <li>
+                        <fieldset>
+                            <legend>News #1 (Pubblicata il <time datetime="2024-05-18">18 Maggio 2024</time>)</legend>
+                            
+                            <form action="/aggiorna-news" method="post" style="display:inline-block; margin-bottom: 10px;">
+                                <input type="hidden" name="id_news" value="1">
+                                
+                                <div>
+                                    <label for="titolo-news-1">Titolo:</label><br>
+                                    <input type="text" id="titolo-news-1" name="titolo" value="Milanese conferma la sua presenza al Patavium!" required style="width: 100%; max-width: 400px;">
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="testo-news-1">Testo della News:</label><br>
+                                    <textarea id="testo-news-1" name="contenuto" rows="4" cols="60" required>Il campione patavino ha confermato ufficialmente la sua partecipazione al torneo di quest'anno, portando grande entusiasmo tra i fan...</textarea>
+                                </div>
+                                <br>
+                                <div>
+                                    <input type="checkbox" id="evidenza-news-1" name="in_home" value="si" checked>
+                                    <label for="evidenza-news-1"><strong>In evidenza nella Home Page</strong></label>
+                                </div>
+                                <br>
+                                <button type="submit" aria-label="Salva le modifiche per la news 1">Salva Modifiche</button>
+                            </form>
+
+                            <form action="/elimina-news" method="post" style="display:inline-block; vertical-align: bottom;">
+                                <input type="hidden" name="id_news" value="1">
+                                <button type="submit" aria-label="Elimina la news 1 in modo definitivo">Elimina News</button>
+                            </form>
+                        </fieldset>
+                    </li>
+
+                    <br>
+
+                    <li>
+                        <fieldset>
+                            <legend>News #2 (Pubblicata il <time datetime="2024-05-15">15 Maggio 2024</time>)</legend>
+                            
+                            <form action="/aggiorna-news" method="post" style="display:inline-block; margin-bottom: 10px;">
+                                <input type="hidden" name="id_news" value="2">
+                                
+                                <div>
+                                    <label for="titolo-news-2">Titolo:</label><br>
+                                    <input type="text" id="titolo-news-2" name="titolo" value="Chiusura strade per il weekend del torneo" required style="width: 100%; max-width: 400px;">
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="testo-news-2">Testo della News:</label><br>
+                                    <textarea id="testo-news-2" name="contenuto" rows="4" cols="60" required>Si avvisano gli spettatori che via Roma e le strade adiacenti al circolo saranno chiuse al traffico dalle ore 14:00 di sabato...</textarea>
+                                </div>
+                                <br>
+                                <div>
+                                    <input type="checkbox" id="evidenza-news-2" name="in_home" value="si">
+                                    <label for="evidenza-news-2"><strong>In evidenza nella Home Page</strong></label>
+                                </div>
+                                <br>
+                                <button type="submit" aria-label="Salva le modifiche per la news 2">Salva Modifiche</button>
+                            </form>
+
+                            <form action="/elimina-news" method="post" style="display:inline-block; vertical-align: bottom;">
+                                <input type="hidden" name="id_news" value="2">
+                                <button type="submit" aria-label="Elimina la news 2 in modo definitivo">Elimina News</button>
+                            </form>
+                        </fieldset>
+                    </li>
+                    
+                </ul>
+            </section>
+
+        </section>
+
+    </main>
+</body>
+</html>
