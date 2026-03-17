@@ -9,21 +9,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <header class="header sito">
+     <header class="header-sito">
+    <div class="navbar">
         <div class="header-sx">
+            <a href="home.html">
                 <img src="logo.png" alt="">
-                
+                <span>Patavium Open</span>
+            </a>
         </div>
 
-        <nav id="breadcrumb">
-            <p>Ti trovi in: <span lang="en">Home</span></p>
-        </nav>
-
-        <nav class="header centro" aria-label="Menu principale">
+        <nav class="header-centro" aria-label="Menu principale">
             <ul>
-                <li id="currentLink" lang="en">Home</li>
-                <li><a href="biglietti.html">Programma</a></li>
-                <li><a href="prezzi.html">Prezzi</a></li>
+                <li><a href="home.html" aria-current="page" lang="en">Home</a></li>
+                <li><a href="biglietti.html">Biglietti</a></li>
+                <li><a href="news.html" lang="en">News</a></li>
                 <li><a href="domande.html">Domande</a></li>
             </ul>
         </nav>
@@ -34,7 +33,12 @@
                 Carrello <span aria-hidden="true">(0)</span>
             </a>
         </div>
-    </header>
+    </div>
+
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <p>Ti trovi in: <span lang="en">Home</span></p>
+    </nav>
+</header>
 
     <aside class="sidebar-notizie">
         <h2 id="sidebar-titolo">Ultime <span lang="en">News</span></h2>
