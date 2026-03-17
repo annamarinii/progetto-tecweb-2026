@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biglietti-Ground Passes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header-sito">
+    <div class="navbar">
+        <div class="header-sx">
+            <a href="home.html">
+                <img src="logo.png" alt="">
+                <span>Patavium Open</span>
+            </a>
+        </div>
+
+        <nav class="header-centro" aria-label="Menu principale">
+            <ul>
+                <li><a href="home.html" lang="en">Home</a></li>
+                <li><a href="biglietti.html" aria-current="page">Biglietti</a></li>
+                <li><a href="news.html" lang="en">News</a></li>
+                <li><a href="domande.html">Domande</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-dx">
+            <a href="registrazione.html" aria-label="Area personale Profilo">Profilo</a>
+            <a href="carrello.html" aria-label="Carrello, 0 articoli inseriti">
+                Carrello <span aria-hidden="true">(0)</span>
+            </a>
+        </div>
+    </div>
+
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; <a href="biglietti.html">Biglietti</a> &gt; <span lang="en">Ground Passes</span></p>
+    </nav>
+</header>
+<main>
+
+    <h1><span lang="en">Ground Passes</span></h1>
+
+    <div class="session-hero">
+        <img src="campo_centrale.jpg" alt="Vista panoramica del Campo Centrale del Patavium Open" class="hero-full-img">
+    </div>
+
+    <p>Vivi il Patavium <span lang="en">Open</span> in totale libertà. Il <span lang="en">Ground Pass</span> è la chiave d'accesso perfetta 
+        per chi vuole respirare la vera atmosfera del torneo, passeggiando tra i viali del 
+        nostro circolo. Con questo biglietto d'ingresso generale potrai esplorare il villaggio 
+        ospitalità, assistere da bordo campo agli avvincenti <span lang="en">match</span> sui campi secondari, tifare 
+        per i giovani talenti e spiare gli allenamenti dei <span lang="en">top player</span> a pochi metri di distanza. 
+        Un'esperienza dinamica, accessibile e perfetta da condividere con gli amici.</p>
+
+    <section class="benefits-section">
+        <h2>Cosa include un biglietto <span lang="en">Ground Passes</span></h2>
+        <div class="benefits-wrapper">
+            <div class="benefit-card">
+                <img src="pallina_tennis.jpg" class="benefit-icon" alt="">
+                <div class="benefit-text">
+                    <h3>Il torneo ai tuoi ritmi</h3>
+                    <p>Con il <span lang="en">Ground Pass</span> non sei vincolato a un unico sedile. Puoi spostarti 
+                        liberamente tra tutti i campi secondari (dal Campo 1 al Campo 6), 
+                        scegliendo quale sfida seguire e cambiando prospettiva ogni volta che vuoi.</p>
+                </div>
+            </div>
+
+            <div class="benefit-card">
+                <img src="ombrellone.jpg" class="benefit-icon" alt="">
+                <div class="benefit-text">
+                    <h3>Oltre il tennis</h3>
+                    <p>Il tuo <span lang="en">pass</span> ti apre le porte del cuore pulsante del <span lang="en">Patavium Open</span>: 
+                        il villaggio commerciale. Goditi i maxischermi, l'area ristorazione, 
+                        gli stand degli sponsor e gli eventi musicali che animano il circolo dal 
+                        mattino fino a tarda sera.</p>
+                </div>
+            </div>
+
+            <div class="benefit-card">
+                <img src="racchetta.jpg" class="benefit-icon" alt="">
+                <div class="benefit-text">
+                    <h3>Scopri i segreti dei pro</h3>
+                    <p>Avrai accesso esclusivo alle tribune dei campi di allenamento. 
+                        È l'occasione unica per vedere i <span lang="en">top player</span> mondiali mentre 
+                        rifiniscono la tecnica, provano i servizi e si preparano ai 
+                        grandi <span lang="en">match</span> del Campo Centrale.</p>
+                </div>
+            </div>
+
+            <div class="benefit-card">
+                <img src="soldi.jpg" class="benefit-icon" alt="">
+                <div class="benefit-text">
+                    <h3>Grande tennis, piccola spesa</h3>
+                    <p>È la soluzione più economica per non perdere l'appuntamento con 
+                        il grande tennis internazionale a Padova. Ideale per gruppi di amici, 
+                        famiglie e per chi vuole tornare più giorni senza pesare sul budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="date-selection" class="section-container" aria-labelledby="date-title">
+    <div class="step-header">
+        <h2 id="date-title">Seleziona la data</h2>
+        <p><time datetime="2026-05-15">15</time> - <time datetime="2026-05-22">22 Maggio 2026</time></p>
+    </div>
+
+    <div class="calendar-wrapper">
+        
+        <div class="date-tile" 
+             role="button" 
+             tabindex="0"
+             aria-label="Venerdì 15 Maggio, Opening Day"
+             onclick="selectDate('Venerdì', '15', event)">
+            <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
+            <p class="day-number">15</p>
+            <div class="tag new-session"><span lang="en">OPENING DAY</span></div>
+            <p class="matches-info">Qualificazioni Maschili, 1° Turno Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             tabindex="0"
+             aria-label="Sabato 16 Maggio, Best Value"
+             onclick="selectDate('Sabato', '16', event)">
+            <p class="day-name"><abbr title="Sabato">Sab</abbr></p>
+            <p class="day-number">16</p>
+            <div class="tag"><span lang="en">BEST VALUE</span></div>
+            <p class="matches-info">1° Turno Maschile, 1° Turno Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             tabindex="0"
+             aria-label="Domenica 17 Maggio, Best Value"
+             onclick="selectDate('Domenica', '17', event)">
+            <p class="day-name"><abbr title="Domenica">Dom</abbr></p>
+            <p class="day-number">17</p>
+            <div class="tag"><span lang="en">BEST VALUE</span></div>
+            <p class="matches-info">2° Turno Maschile, 2° Turno Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             tabindex="0"
+             aria-label="Lunedì 18 Maggio, Most Popular"
+             onclick="selectDate('Lunedì', '18', event)">
+            <p class="day-name"><abbr title="Lunedì">Lun</abbr></p>
+            <p class="day-number">18</p>
+            <div class="tag most-popular"><span lang="en">MOST POPULAR</span></div>
+            <p class="matches-info">3° Turno Maschile e Femminile</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             tabindex="0"
+             aria-label="Martedì 19 Maggio, Top Matches"
+             onclick="selectDate('Martedì', '19', event)">
+            <p class="day-name"><abbr title="Martedì">Mar</abbr></p>
+            <p class="day-number">19</p>
+            <div class="tag"><span lang="en">TOP MATCHES</span></div>
+            <p class="matches-info">Ottavi di Finale Maschili e Femminili</p>
+        </div>
+
+        <div class="date-tile" 
+             role="button" 
+             tabindex="0"
+             aria-label="Mercoledì 20 Maggio, Semi-Finals"
+             onclick="selectDate('Mercoledì', '20', event)">
+            <p class="day-name"><abbr title="Mercoledì">Mer</abbr></p>
+            <p class="day-number">20</p>
+            <div class="tag"><span lang="en">SEMI-FINALS</span></div>
+            <p class="matches-info">Quarti di Finale e Semifinali</p>
+        </div>
+
+        <div class="date-tile highlight" 
+             role="button" 
+             tabindex="0"
+             aria-label="Giovedì 21 Maggio, Finali Femminile e Doppio"
+             onclick="selectDate('Giovedì', '21', event)">
+            <p class="day-name"><abbr title="Giovedì">Gio</abbr></p>
+            <p class="day-number">21</p>
+            <div class="tag finals"><span lang="en">FINALS</span></div>
+            <p class="matches-info">Finale Singolare Femminile & Finale Doppio</p>
+        </div>
+
+        <div class="date-tile highlight" 
+             role="button" 
+             tabindex="0"
+             aria-label="Venerdì 22 Maggio, Finale Maschile"
+             onclick="selectDate('Venerdì', '22', event)">
+            <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
+            <p class="day-number">22</p>
+            <div class="tag finals"><span lang="en">THE FINAL</span></div>
+            <p class="matches-info">Finale Singolare Maschile & Premiazione</p>
+        </div>
+
+    </div>
+    </section>
+    <section id="ground-pass-selection" class="section-container d-none" aria-labelledby="selection-title">
+    <div class="step-header">
+        <h2 id="selection-title">Riepilogo Selezione</h2>
+        <h3 id="selected-full-date" class="date-display">Seleziona una data sopra</h3>
+    </div>
+
+    <div class="ground-card-final">
+        <div class="ground-card-content">
+            <div class="ground-info-main">
+                <h3>Ingresso Giornaliero <span lang="en">Standard</span></h3>
+                <p>Accesso completo al villaggio ospitalità e a tutti i campi secondari (1-6).</p>
+                <p class="time-info">Apertura cancelli: ore 09:00</p>
+            </div>
+            
+            <div class="purchase-container">
+    
+    <p id="qty-label" class="sr-only">Seleziona il numero di biglietti desiderati (massimo 10)</p>
+
+    <div class="purchase-controls">
+        <div class="quantity-selector" role="group" aria-labelledby="qty-label">
+            <button type="button" 
+                    class="qty-btn minus" 
+                    aria-label="Diminuisci quantità" 
+                    onclick="changeQty(-1)">
+                <span aria-hidden="true">−</span>
+            </button>
+            
+            <input type="number" 
+                   id="ticket-qty" 
+                   value="1" 
+                   min="1" 
+                   max="10" 
+                   readonly 
+                   aria-labelledby="qty-label"
+                   data-base-price="25.00">
+            
+            <button type="button" 
+                    class="qty-btn plus" 
+                    aria-label="Aumenta quantità" 
+                    onclick="changeQty(1)">
+                <span aria-hidden="true">+</span>
+            </button>
+        </div>
+
+        <div class="price-display-box">
+            <span class="price-label">Totale:</span>
+            <span class="price" id="display-price" aria-live="polite">€ 25,00</span>
+        </div>
+    </div>
+
+    <div class="action-box">
+        <a href="carrello.html" id="final-buy-btn" class="buy-button">
+            AGGIUNGI AL CARRELLO
+        </a>
+    </div>
+
+</div>
+        </div>
+    </div>
+</section>
+</main>
+<footer>
+
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
