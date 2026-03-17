@@ -34,7 +34,7 @@
     </div>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; Biglietti &gt; <span lang="en">Single Session</span></p>
+        <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; <a href="biglietti.html">Biglietti</a> &gt; <span lang="en">Single Session</span></p>
     </nav>
 </header>
 <main>
@@ -52,6 +52,10 @@
                 <span id="icon-session" class="step-icon"><img src="pallina_tennis.jpg" alt=""></span>
                 <span class="step-label"><span lang="en">SESSION</span></span>
             </div>
+            <div class="step-line"></div>
+            <div class="step" id="step-seat">
+                <span id="icon-seat" class="step-icon"><img src="polotrona.jpg"></span> <span class="step-label">POSTO</span>
+            </div>
             </div>
 
             <div class="sticky-action">
@@ -59,10 +63,8 @@
             </div>
         </div>
     </div>
-    <div class="intro-section">
+    
         <h1><span lang="en">Single Session</span></h1>
-        <a href="#date-selection" class="btn-select-date">Seleziona Data</a>
-    </div>
     
     <div class="session-hero">
         <img src="campo_centrale.jpg" alt="Vista panoramica del Campo Centrale del Patavium Open" class="hero-full-img">
@@ -109,6 +111,7 @@
         
         <div class="date-tile" 
              role="button" 
+             tabindex="0"
              aria-label="Venerdì 15 Maggio, Opening Day"
              onclick="selectDate('Venerdì', '15', event)">
             <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
@@ -119,6 +122,7 @@
 
         <div class="date-tile" 
              role="button" 
+             tabindex="0"
              aria-label="Sabato 16 Maggio, Best Value"
              onclick="selectDate('Sabato', '16', event)">
             <p class="day-name"><abbr title="Sabato">Sab</abbr></p>
@@ -129,6 +133,7 @@
 
         <div class="date-tile" 
              role="button" 
+             tabindex="0"
              aria-label="Domenica 17 Maggio, Best Value"
              onclick="selectDate('Domenica', '17', event)">
             <p class="day-name"><abbr title="Domenica">Dom</abbr></p>
@@ -139,6 +144,7 @@
 
         <div class="date-tile" 
              role="button" 
+             tabindex="0"
              aria-label="Lunedì 18 Maggio, Most Popular"
              onclick="selectDate('Lunedì', '18', event)">
             <p class="day-name"><abbr title="Lunedì">Lun</abbr></p>
@@ -149,6 +155,7 @@
 
         <div class="date-tile" 
              role="button" 
+             tabindex="0"
              aria-label="Martedì 19 Maggio, Top Matches"
              onclick="selectDate('Martedì', '19', event)">
             <p class="day-name"><abbr title="Martedì">Mar</abbr></p>
@@ -159,6 +166,7 @@
 
         <div class="date-tile" 
              role="button" 
+             tabindex="0"
              aria-label="Mercoledì 20 Maggio, Semi-Finals"
              onclick="selectDate('Mercoledì', '20', event)">
             <p class="day-name"><abbr title="Mercoledì">Mer</abbr></p>
@@ -169,6 +177,7 @@
 
         <div class="date-tile highlight" 
              role="button" 
+             tabindex="0"
              aria-label="Giovedì 21 Maggio, Finali Femminile e Doppio"
              onclick="selectDate('Giovedì', '21', event)">
             <p class="day-name"><abbr title="Giovedì">Gio</abbr></p>
@@ -179,6 +188,7 @@
 
         <div class="date-tile highlight" 
              role="button" 
+             tabindex="0"
              aria-label="Venerdì 22 Maggio, Finale Maschile"
              onclick="selectDate('Venerdì', '22', event)">
             <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
@@ -189,7 +199,7 @@
 
     </div> </section>
 
-<section id="session-selection" class="section-container" style="display: none;">
+<section id="session-selection" class="section-container d-none">
     
     <div class="step-header">
         <span class="step-badge"><span lang="en">STEP</span> 2</span>
@@ -217,7 +227,7 @@
 
             <div class="session-footer">
                 <span class="price">da €45,00</span>
-                <button class="buy-btn">AGGIUNGI AL CARRELLO</button>
+                <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event)">SELEZIONA POSTO</a>
             </div>
         </div>
 
@@ -239,10 +249,64 @@
 
             <div class="session-footer">
                 <span class="price">da €60,00</span>
-                <button class="buy-btn">AGGIUNGI AL CARRELLO</button>
+                <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event)">SELEZIONA POSTO</a>
             </div>
         </div>
     </div> 
+</section>
+
+<section id="seat-selection" class="section-container d-none">
+    <div class="step-header">
+        <span class="step-badge"><span lang="en">STEP</span> 3</span>
+        <h2>Seleziona la Tribuna</h2>
+        <p>Scegli il tuo punto di vista perfetto per il <span lang="en">match</span>.</p>
+    </div>
+
+    <div class="seat-wrapper">
+        <div class="stadium-map">
+            <img src="mappa_campo.jpg" alt="Mappa stilizzata del Campo Centrale" class="map-img">
+        </div>
+
+        <div class="seat-options">
+            
+            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                <div class="seat-info">
+                    <h4><span lang="en">Courtside Premium</span></h4>
+                    <p>Prima fila, a bordo campo</p>
+                </div>
+                <span class="seat-price">€120,00</span>
+            </div>
+
+            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                <div class="seat-info">
+                    <h4>Tribuna Antenore (Lungo Linea)</h4>
+                    <p>Ottima visuale laterale bassa</p>
+                </div>
+                <span class="seat-price">€85,00</span>
+            </div>
+
+            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                <div class="seat-info">
+                    <h4>Tribuna Fondo Campo</h4>
+                    <p>La visuale tattica perfetta</p>
+                </div>
+                <span class="seat-price">€60,00</span>
+            </div>
+
+            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                <div class="seat-info">
+                    <h4>Anello Superiore</h4>
+                    <p>Visione panoramica globale</p>
+                </div>
+                <span class="seat-price">€45,00</span>
+            </div>
+
+            <a href="carrello.html" id="final-buy-btn" class="btn-select-date">
+                AGGIUNGI AL CARRELLO
+            </a>
+
+        </div>
+    </div>
 </section>
 </main>
 <footer>
