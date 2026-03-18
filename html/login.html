@@ -3,31 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Patavium Open</title>
 </head>
 <body>
 
-    <h1>LOGIN</h1>
+        <header class="header-sito">
+    <div class="navbar">
+        <div class="header-sx">
+            <a href="home.html">
+                <img src="logo.png" alt="">
+                <span>Patavium Open</span>
+            </a>
+        </div>
 
-    <form action="/tuo-endpoint-login" method="POST">
-        <label for="email">Email</label>
-        <br>
-        <input type="email" id="email" name="email" required>
-        
-        <br><br>
+        <nav class="header-centro" aria-label="Menu principale">
+            <ul>
+                <li><a href="home.html" lang="en">Home</a></li>
+                <li><a href="biglietti.html">Biglietti</a></li>
+                <li><a href="news.html" lang="en">News</a></li>
+                <li><a href="domande.html" aria-current="page">Domande</a></li>
+            </ul>
+        </nav>
 
-        <label for="pass">Password</label>
-        <br>
-        <input type="password" id="pass" name="password" required>
+        <div class="header-dx">
+            <a href="registrazione.html" aria-label="Area personale Profilo">Profilo</a>
+            <a href="carrello.html" aria-label="Carrello, 0 articoli inseriti">
+                Carrello <span aria-hidden="true">(0)</span>
+            </a>
+        </div>
+    </div>
 
-        <br><br>
+    <main>
+        <section aria-labelledby="titolo-login">
+            <h2 id="titolo-login">SONO GIÀ CLIENTE.</h2>
+            
+            <form action="app/login.php" method="post">
+                <div>
+                    <label for="email">E-mail</label>
+                    <br>
+                    <input type="email" id="email" name="email" placeholder="Inserisci l'e-mail" required>
+                </div>
 
-        <button type="submit">Accedi</button>
-    </form>
-    
-    <p>
-        Non hai un account? <a href="registrazione.html">Registrati</a>
-    </p>
+                <br>
+
+                <div>
+                    <label for="pass">Password</label>
+                    <br>
+                    <input type="password" id="pass" name="password" placeholder="Inserisci la password" required>
+                </div>
+
+                <br>
+
+                <button type="submit">Login</button>
+            </form>
+        </section>
+
+        <hr aria-hidden="true">
+
+        <section aria-labelledby="titolo-nuovo">
+            <h2 id="titolo-nuovo">NUOVO CLIENTE?</h2>
+            <p>Se non hai ancora un account, registrati per acquistare i biglietti del Patavium Open.</p>
+            
+            <a href="registrazione.html" role="button">Registrazione</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Patavium Open Tennis Tournament</p>
+    </footer>
 
 </body>
 </html>
