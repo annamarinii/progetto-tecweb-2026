@@ -1,0 +1,165 @@
+/* 1. VARIABILI COLORI (dalla tua 3° immagine) */
+:root {
+    --blu-scuro: #07246F;
+    --crema: #FDF7EB;
+    --arancione: #E17414;
+    --azzurro: #F1F3FC;
+}
+
+/* 2. IMPOSTAZIONI DI BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif; /* Puoi cambiare font in seguito se vuoi */
+}
+
+/* Rimuove la sottolineatura da tutti i link */
+a {
+    text-decoration: none;
+    color: inherit; /* Il link prende il colore del testo circostante */
+}
+
+/* 3. HEADER E NAVIGAZIONE (Simile alla 2° immagine) */
+header {
+    background-color: var(--blu-scuro);
+    color: white;
+    display: flex; /* Mette gli elementi in riga */
+    align-items: center; /* Li centra verticalmente */
+    padding: 15px 30px;
+}
+
+header h1 {
+    font-size: 1.5em;
+    margin-left: 15px;
+}
+
+/* Contenitore di tutti i menu */
+#menu {
+    display: flex;
+    flex-grow: 1; /* Prende tutto lo spazio rimanente */
+    justify-content: space-between; /* Spinge gli elementi alle estremità */
+    align-items: center;
+}
+
+/* Menu principale (Home, Biglietti, ecc.) */
+#menu > ul:first-of-type {
+    display: flex;
+    list-style: none; /* Rimuove i puntini della lista */
+    gap: 30px; /* Spazio tra i link */
+    margin: 0 auto; /* Centra questo menu nello spazio disponibile */
+}
+
+/* Menu Utente (Profilo, Carrello) */
+#menu-utente {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+/* Stile dei testi nel menu */
+header li, header a {
+    color: white;
+    font-weight: bold;
+    padding-bottom: 5px; /* Spazio tra testo e la linea arancione */
+}
+
+/* Evidenzia la pagina corrente (Home) e crea l'effetto al passaggio del mouse */
+#currentLink, header a:hover {
+    color: var(--arancione);
+    border-bottom: 3px solid var(--arancione);
+}
+
+/* 4. BREADCRUMB (La riga "Ti trovi in:") */
+#breadcrumb {
+    background-color: var(--azzurro); /* Colore azzurro chiaro */
+    padding: 10px 30px;
+    font-size: 0.9em;
+}
+
+#breadcrumb span {
+    color: var(--arancione);
+    font-weight: bold;
+}
+
+/* 5. HERO SECTION (Immagine statica e bottone centrato) */
+.hero-section {
+    /* ATTENZIONE: sostituisci 'sfondo-tennis.jpg' con il nome reale della tua immagine! */
+    background-image: url('sfondo-tennis.jpg'); 
+    background-size: cover; /* Copre tutto lo spazio */
+    background-position: center; /* Centra l'immagine */
+    height: 70vh; /* Occupa il 70% dell'altezza dello schermo */
+    display: flex;
+    flex-direction: column; /* Mette gli elementi in colonna (uno sotto l'altro) */
+    align-items: center; /* Li centra orizzontalmente */
+    justify-content: center; /* Li centra verticalmente */
+    color: white;
+    text-align: center;
+    /* Un leggero filtro scuro per far leggere meglio il testo bianco sull'immagine */
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: multiply;
+}
+
+.hero-section h1 {
+    font-size: 4em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Ombreggiatura per leggibilità */
+}
+
+.hero-section h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+/* IL BOTTONE (Simile alla 1° immagine) */
+.btn-biglietti {
+    background-color: var(--arancione);
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 30px; /* Arrotonda i bordi */
+    transition: background-color 0.3s ease; /* Effetto fluido al passaggio del mouse */
+}
+
+.btn-biglietti:hover {
+    background-color: #c4620f; /* Un arancione leggermente più scuro quando ci passi sopra */
+}
+
+/* --- SISTEMAZIONE BASE PER IL RESTO DELLA PAGINA --- */
+/* Questa parte assicura che il resto dei contenuti sia leggibile con i tuoi colori */
+main {
+    background-color: var(--crema);
+    padding-bottom: 40px;
+}
+
+main > h2, main > p, .section-champions {
+    padding: 20px 30px;
+    color: var(--blu-scuro);
+}
+
+.section-champions ul {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    overflow-x: auto; /* Permette di scorrere le foto se sono tante */
+}
+
+.section-champions img {
+    height: 150px;
+    border-radius: 10px;
+}
+
+.sidebar-notizie {
+    background-color: white;
+    margin: 20px 30px;
+    padding: 20px;
+    border-top: 4px solid var(--blu-scuro);
+}
+
+.footer-sito {
+    background-color: var(--blu-scuro);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
