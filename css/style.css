@@ -1,4 +1,4 @@
-/* 1. VARIABILI COLORI (dalla tua 3° immagine) */
+/* 1. VARIABILI COLORI E SPAZI */
 :root {
     --blu-scuro: #07246F;
     --crema: #FDF7EB;
@@ -6,6 +6,9 @@
     --azzurro: #F1F3FC;
     --black: #101010;
     --white: #f1f1f1;
+    
+    /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
+    --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
 }
 
 /* 2. IMPOSTAZIONI DI BASE */
@@ -13,69 +16,82 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif; /* Puoi cambiare font in seguito se vuoi */
+    font-family: Arial, sans-serif;
 }
 
-/* Rimuove la sottolineatura da tutti i link */
+body {
+    color: var(--black); /* Testo base scuro, ma non nero puro */
+}
+
 a {
     text-decoration: none;
-    color: inherit; /* Il link prende il colore del testo circostante */
+    color: inherit;
 }
 
-/* 3. HEADER E NAVIGAZIONE (Simile alla 2° immagine) */
+/* 3. HEADER E NAVIGAZIONE */
 header {
     background-color: var(--blu-scuro);
     color: var(--white);
-    display: flex; /* Mette gli elementi in riga */
-    align-items: center; /* Li centra verticalmente */
-    padding: 15px 30px;
+    display: flex; 
+    align-items: center; 
+    padding: 15px 30px;; 
+}
+
+/* --- REGOLE PER LOGO E TITOLO (Nascondono il bianco!) --- */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--white);
+}
+
+#logo-sito {
+    width: 70px; 
+    height: auto;
+    border-radius: 50%; /* Questo taglia gli angoli bianchi e fa il cerchio */
+    margin-right: 15px; 
 }
 
 header h1 {
     font-size: 1.5em;
-    margin-left: 15px;
 }
+/* ----------------------------------------------------- */
 
-/* Contenitore di tutti i menu */
 #menu {
     display: flex;
-    flex-grow: 1; /* Prende tutto lo spazio rimanente */
-    justify-content: space-between; /* Spinge gli elementi alle estremità */
+    flex-grow: 1; 
+    justify-content: space-between; 
     align-items: center;
 }
 
-/* Menu principale (Home, Biglietti, ecc.) */
 #menu > ul:first-of-type {
     display: flex;
-    list-style: none; /* Rimuove i puntini della lista */
-    gap: 30px; /* Spazio tra i link */
-    margin: 0 auto; /* Centra questo menu nello spazio disponibile */
+    list-style: none; 
+    gap: 30px; 
+    margin: 0 auto; 
 }
 
-/* Menu Utente (Profilo, Carrello) */
 #menu-utente {
     display: flex;
     list-style: none;
     gap: 20px;
 }
 
-/* Stile dei testi nel menu */
 header li, header a {
     color: var(--white);
     font-weight: bold;
-    padding-bottom: 5px; /* Spazio tra testo e la linea arancione */
+    padding-bottom: 5px; 
 }
 
-/* Evidenzia la pagina corrente (Home) e crea l'effetto al passaggio del mouse */
 #currentLink, header a:hover {
     color: var(--arancione);
     border-bottom: 3px solid var(--arancione);
 }
 
-/* 4. BREADCRUMB (La riga "Ti trovi in:") */
+/* 4. BREADCRUMB */
 #breadcrumb {
-    background-color: var(--crema); /* Colore azzurro chiaro */
-    padding: 10px 30px;
+    background-color: var(--crema); 
+    padding: 10px 30px; /* <-- Modificato: rimessi i 30px fissi! */
     font-size: 0.9em;
 }
 
@@ -84,20 +100,20 @@ header li, header a {
     font-weight: bold;
 }
 
-/* 5. HERO SECTION (Immagine statica e bottone centrato) */
+/* 5. HERO SECTION */
 .hero-section {
-    /* ATTENZIONE: sostituisci 'sfondo-tennis.jpg' con il nome reale della tua immagine! */
-    background-image: url('sfondo-tennis.jpg'); 
-    background-size: cover; /* Copre tutto lo spazio */
-    background-position: center; /* Centra l'immagine */
-    height: 70vh; /* Occupa il 70% dell'altezza dello schermo */
+    background-image: url('../assets/images/stadio1.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    height: 70vh; 
     display: flex;
-    flex-direction: column; /* Mette gli elementi in colonna (uno sotto l'altro) */
-    align-items: center; /* Li centra orizzontalmente */
-    justify-content: center; /* Li centra verticalmente */
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
     color: var(--white);
     text-align: center;
-    /* Un leggero filtro scuro per far leggere meglio il testo bianco sull'immagine */
+    /* Applichiamo lo spazio laterale */
+    padding: 0 var(--spazio-laterale);
     background-color: rgba(0, 0, 0, 0.4);
     background-blend-mode: multiply;
 }
@@ -105,7 +121,7 @@ header li, header a {
 .hero-section h1 {
     font-size: 4em;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Ombreggiatura per leggibilità */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
 }
 
 .hero-section h2 {
@@ -113,30 +129,29 @@ header li, header a {
     margin-bottom: 30px;
 }
 
-/* IL BOTTONE (Simile alla 1° immagine) */
 .btn-biglietti {
     background-color: var(--arancione);
     color: var(--white);
     padding: 15px 40px;
     font-size: 1.2em;
     font-weight: bold;
-    border-radius: 30px; /* Arrotonda i bordi */
-    transition: background-color 0.3s ease; /* Effetto fluido al passaggio del mouse */
+    border-radius: 30px; 
+    transition: background-color 0.3s ease; 
 }
 
 .btn-biglietti:hover {
-    background-color: #c4620f; /* Un arancione leggermente più scuro quando ci passi sopra */
+    background-color: #c4620f; 
 }
 
-/* --- SISTEMAZIONE BASE PER IL RESTO DELLA PAGINA --- */
-/* Questa parte assicura che il resto dei contenuti sia leggibile con i tuoi colori */
+/* 6. CORPO PRINCIPALE (MAIN) */
 main {
     background-color: var(--azzurro);
     padding-bottom: 40px;
 }
 
+/* Applichiamo lo spazio laterale intelligente a testi e titoli */
 main > h2, main > p, .section-champions {
-    padding: 20px 30px;
+    padding: 20px var(--spazio-laterale);
     color: var(--black);
 }
 
@@ -144,7 +159,7 @@ main > h2, main > p, .section-champions {
     display: flex;
     gap: 15px;
     list-style: none;
-    overflow-x: auto; /* Permette di scorrere le foto se sono tante */
+    overflow-x: auto; 
 }
 
 .section-champions img {
@@ -152,16 +167,33 @@ main > h2, main > p, .section-champions {
     border-radius: 10px;
 }
 
+/* Applichiamo lo spazio laterale alle notizie */
 .sidebar-notizie {
     background-color: var(--white);
-    margin: 20px 30px;
+    margin: 20px var(--spazio-laterale);
     padding: 20px;
     border-top: 4px solid var(--blu-scuro);
 }
 
+/* 7. FOOTER */
 .footer-sito {
     background-color: var(--blu-scuro);
     color: var(--white);
-    padding: 20px;
+    /* Applichiamo lo spazio laterale */
+    padding: 20px var(--spazio-laterale);
     text-align: center;
+}
+
+
+a:focus, 
+.btn-biglietti:focus {
+    outline: 3px solid var(--arancione);
+    outline-offset: 4px; 
+    box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
 }
