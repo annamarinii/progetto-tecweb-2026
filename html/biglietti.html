@@ -7,36 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <header class="header-sito">
-    <div class="navbar">
-        <div class="header-sx">
-            <a href="home.html">
-                <img src="logo.png" alt="">
-                <span>Patavium Open</span>
-            </a>
-        </div>
+ <header>
+    <img src="logo.png" alt="Logo Patavium Open" width="120" id="logo-sito">
+    <h1>Patavium Open</h1>
 
-        <nav class="header-centro" aria-label="Menu principale">
-            <ul>
-                <li><a href="home.html" lang="en">Home</a></li>
-                <li><a href="biglietti.html" aria-current="page">Biglietti</a></li>
-                <li><a href="news.html" lang="en">News</a></li>
-                <li><a href="domande.html">Domande</a></li>
-            </ul>
-        </nav>
-
-        <div class="header-dx">
-            <a href="registrazione.html" aria-label="Area personale Profilo">Profilo</a>
-            <a href="carrello.html" aria-label="Carrello, 0 articoli inseriti">
-                Carrello <span aria-hidden="true">(0)</span>
-            </a>
-        </div>
-    </div>
-
-    <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; Biglietti</p>
+    <nav id="menu">
+        <ul>
+            <li><a href="home.html" lang="en">Home</a></li>
+            <li id="currentLink">Biglietti</li>
+            <li><a href="news.html" lang="en">News</a></li>
+            <li><a href="domande.html">Domande</a></li>
+        </ul>
+        
+        <ul id="menu-utente">
+            <li><a href="login.html">Profilo</a></li>
+            <li><a href="carrello.html">Carrello (0)</a></li>
+        </ul>
     </nav>
-    </header>
+</header>
+<nav id="breadcrumb">
+    <p>Ti trovi in: <a href="home.html" lang="en">Home</a> &gt; <span>Biglietti</span></p>
+</nav>
     <main>
     
 
