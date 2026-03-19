@@ -85,7 +85,7 @@ header li, header a {
 
 #currentLink, header a:hover {
     color: var(--arancione);
-    border-bottom: 3px solid var(--arancione);
+    
 }
 
 /* 4. BREADCRUMB */
@@ -185,8 +185,8 @@ main > h2, main > p, .section-champions {
 }
 
 
-a:focus, 
-.btn-biglietti:focus {
+a:focus-visible, 
+.btn-biglietti:focus-visible {
     outline: 3px solid var(--arancione);
     outline-offset: 4px; 
     box-shadow: none;
