@@ -4,6 +4,8 @@
     --crema: #FDF7EB;
     --arancione: #E17414;
     --azzurro: #F1F3FC;
+    --black: #101010;
+    --white: #f1f1f1;
 }
 
 /* 2. IMPOSTAZIONI DI BASE */
@@ -23,7 +25,7 @@ a {
 /* 3. HEADER E NAVIGAZIONE (Simile alla 2° immagine) */
 header {
     background-color: var(--blu-scuro);
-    color: white;
+    color: var(--white);
     display: flex; /* Mette gli elementi in riga */
     align-items: center; /* Li centra verticalmente */
     padding: 15px 30px;
@@ -59,7 +61,7 @@ header h1 {
 
 /* Stile dei testi nel menu */
 header li, header a {
-    color: white;
+    color: var(--white);
     font-weight: bold;
     padding-bottom: 5px; /* Spazio tra testo e la linea arancione */
 }
@@ -72,7 +74,7 @@ header li, header a {
 
 /* 4. BREADCRUMB (La riga "Ti trovi in:") */
 #breadcrumb {
-    background-color: var(--azzurro); /* Colore azzurro chiaro */
+    background-color: var(--crema); /* Colore azzurro chiaro */
     padding: 10px 30px;
     font-size: 0.9em;
 }
@@ -93,7 +95,7 @@ header li, header a {
     flex-direction: column; /* Mette gli elementi in colonna (uno sotto l'altro) */
     align-items: center; /* Li centra orizzontalmente */
     justify-content: center; /* Li centra verticalmente */
-    color: white;
+    color: var(--white);
     text-align: center;
     /* Un leggero filtro scuro per far leggere meglio il testo bianco sull'immagine */
     background-color: rgba(0, 0, 0, 0.4);
@@ -114,7 +116,7 @@ header li, header a {
 /* IL BOTTONE (Simile alla 1° immagine) */
 .btn-biglietti {
     background-color: var(--arancione);
-    color: white;
+    color: var(--white);
     padding: 15px 40px;
     font-size: 1.2em;
     font-weight: bold;
@@ -129,13 +131,13 @@ header li, header a {
 /* --- SISTEMAZIONE BASE PER IL RESTO DELLA PAGINA --- */
 /* Questa parte assicura che il resto dei contenuti sia leggibile con i tuoi colori */
 main {
-    background-color: var(--crema);
+    background-color: var(--azzurro);
     padding-bottom: 40px;
 }
 
 main > h2, main > p, .section-champions {
     padding: 20px 30px;
-    color: var(--blu-scuro);
+    color: var(--black);
 }
 
 .section-champions ul {
@@ -151,7 +153,7 @@ main > h2, main > p, .section-champions {
 }
 
 .sidebar-notizie {
-    background-color: white;
+    background-color: var(--white);
     margin: 20px 30px;
     padding: 20px;
     border-top: 4px solid var(--blu-scuro);
@@ -159,7 +161,7 @@ main > h2, main > p, .section-champions {
 
 .footer-sito {
     background-color: var(--blu-scuro);
-    color: white;
+    color: var(--white);
     padding: 20px;
     text-align: center;
 }
