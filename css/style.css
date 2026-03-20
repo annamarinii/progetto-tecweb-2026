@@ -184,7 +184,154 @@ main > h2, main > p, .section-champions {
     text-align: center;
 }
 
+/* =========================================
+   SEZIONE CAMPIONI (Stile Card)
+========================================= */
+.sezione-campioni {
+    /* Usiamo il nostro spazio laterale dinamico per tenerlo allineato al resto */
+    padding: 50px var(--spazio-laterale);
+    text-align: center;
+}
 
+.titoli-campioni {
+    margin-bottom: 40px;
+}
+
+.titoli-campioni h2 {
+    font-size: 2.5em;
+    color: var(--black);
+    margin-bottom: 5px;
+}
+
+.titoli-campioni p {
+    font-size: 1.1em;
+    color: #666; /* Un grigio scuro elegante per il sottotitolo */
+    font-weight: bold;
+}
+
+/* La Griglia che dispone le card automaticamente */
+.griglia-campioni {
+    display: grid;
+    /* Crea colonne larghe minimo 220px. Se c'è spazio, le affianca! */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px; /* Spazio tra una card e l'altra */
+}
+
+/* Stile della singola Card */
+.card-campione {
+    background-color: var(--blu-scuro); /* Sfondo blu scuro per super contrasto! */
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombra un pochino più forte */
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 5px solid var(--arancione); /* Tocco sportivo: bordo arancione in basso */
+}
+
+/* Piccolo effetto quando passi sopra col mouse */
+.card-campione:hover {
+    transform: translateY(-5px); /* La card si solleva leggermente */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* L'ombra diventa più intensa */
+}
+
+.card-campione img {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Costringe l'immagine a essere un quadrato perfetto */
+    object-fit: cover; /* Ritaglia l'immagine senza deformarla per farla entrare nel quadrato */
+    display: block;
+}
+
+/* Contenitore dei testi sotto la foto */
+.info-campione {
+    padding: 15px;
+}
+
+.info-campione .categoria {
+    display: block;
+    font-size: 0.75em;
+    color: var(--arancione); /* L'arancione spicca benissimo sul blu! */
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+}
+
+.info-campione h3 {
+    font-size: 1.2em;
+    color: var(--crema); /* Testo chiaro per contrastare lo sfondo blu scuro */
+    margin: 0;
+}
+/* =========================================
+   SEZIONE NOTIZIE 
+========================================= */
+.sezione-notizie {
+    background-color: var(--azzurro); /* Sfondo chiaro per far risaltare il blu */
+    padding: 50px var(--spazio-laterale);
+}
+
+.titoli-notizie {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.titoli-notizie h2 {
+    font-size: 2.5em;
+    color: var(--blu-scuro);
+    margin-bottom: 5px;
+}
+
+.titoli-notizie p {
+    font-size: 1.1em;
+    color: var(--arancione);
+    font-weight: bold;
+}
+
+/* Contenitore a lista */
+.lista-notizie {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px; 
+}
+
+/* Stile del singolo Rettangolo */
+.rettangolo-notizia {
+    display: block; 
+    background-color: var(--blu-scuro); /* Stesso colore delle card dei campioni! */
+    padding: 25px 30px;
+    border-radius: 8px;
+    border-bottom: 5px solid var(--arancione); /* Bordo identico ai campioni */
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rettangolo-notizia:hover {
+    transform: translateY(-5px); /* Si solleva verso l'alto esattamente come le foto */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Testi dentro il rettangolo */
+.rettangolo-notizia time {
+    display: block;
+    color: var(--arancione); /* La data spicca in arancione */
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.rettangolo-notizia h3 {
+    color: var(--crema); /* Titolo chiaro per leggersi bene sul blu */
+    font-size: 1.6em;
+    margin-bottom: 10px;
+}
+
+.rettangolo-notizia p {
+    color: var(--azzurro); /* Testo un po' più tenue */
+    font-size: 1em;
+    line-height: 1.5;
+    padding: 0;
+}
 a:focus-visible, 
 .btn-biglietti:focus-visible {
     outline: 3px solid var(--arancione);
