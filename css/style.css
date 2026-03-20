@@ -149,31 +149,31 @@ main {
     padding-bottom: 40px;
 }
 
-/* Applichiamo lo spazio laterale intelligente a testi e titoli */
-main > h2, main > p, .section-champions {
-    padding: 20px var(--spazio-laterale);
+/* =========================================
+   SEZIONE BENVENUTO
+========================================= */
+.sezione-benvenuto {
+    text-align: center; /* Centra il testo */
+    padding: 60px var(--spazio-laterale); /* Spazio sopra e sotto per far respirare la sezione */
+    background-color: var(--azzurro); /* Mantiene lo sfondo uniforme */
+}
+
+.sezione-benvenuto h2 {
+    font-size: 2.5em;
+    color: var(--blu-scuro);
+    margin-bottom: 25px;
+}
+
+.sezione-benvenuto p {
+    font-size: 1.15em;
     color: var(--black);
+    line-height: 1.8; /* Aumenta lo spazio tra le righe per facilitare la lettura */
+    
+    /* TRUCCO PER LA LEGGIBILITÀ: */
+    max-width: 900px; /* Non fa allargare il testo oltre i 900px anche su schermi giganti */
+    margin: 0 auto; /* Centra l'intero blocco di testo nella pagina */
 }
 
-.section-champions ul {
-    display: flex;
-    gap: 15px;
-    list-style: none;
-    overflow-x: auto; 
-}
-
-.section-champions img {
-    height: 150px;
-    border-radius: 10px;
-}
-
-/* Applichiamo lo spazio laterale alle notizie */
-.sidebar-notizie {
-    background-color: var(--white);
-    margin: 20px var(--spazio-laterale);
-    padding: 20px;
-    border-top: 4px solid var(--blu-scuro);
-}
 
 /* 7. FOOTER */
 .footer-sito {
