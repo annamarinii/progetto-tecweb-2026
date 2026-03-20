@@ -344,3 +344,54 @@ a:focus-visible,
         transition: none !important;
     }
 }
+
+/* =========================================
+   9. RESPONSIVE DESIGN (Tablet e Smartphone)
+========================================= */
+
+/* Aumentiamo il breakpoint: si attiva già sotto i 992px (Tablet) */
+@media (max-width: 992px) {
+    
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Mettiamo l'intero header in colonna */
+    header {
+        flex-direction: column;
+        padding: 20px 15px; 
+    }
+
+    .logo-link {
+        margin-bottom: 15px;
+    }
+
+    #menu {
+        flex-direction: column; /* Impila il menu principale e quello utente */
+        width: 100%;
+        gap: 15px; /* Spazio tra i due menu */
+    }
+
+    /* Facciamo in modo che i link si dispongano bene anche se sono tanti */
+    #menu > ul:first-of-type,
+    #menu-utente {
+        display: flex;
+        flex-wrap: wrap; /* IL TRUCCO MAGICO: se non ci stanno, vanno a capo ordinatamente! */
+        justify-content: center; /* Li teniamo sempre belli centrati */
+        gap: 15px; /* Spazio tra un link e l'altro */
+    }
+
+    /* Rimpiccioliamo i testi giganti della foto */
+    .hero-section h1 {
+        font-size: 2.8em; 
+    }
+
+    .hero-section h2 {
+        font-size: 1.5em; 
+    }
+
+    /* Riduciamo lo spazio laterale per le schede e i testi */
+    :root {
+        --spazio-laterale: 15px; 
+    }
+}
