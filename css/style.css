@@ -199,13 +199,13 @@ main > h2, main > p, .section-champions {
 
 .titoli-campioni h2 {
     font-size: 2.5em;
-    color: var(--black);
+    color: var(--blu-scuro);
     margin-bottom: 5px;
 }
 
 .titoli-campioni p {
     font-size: 1.1em;
-    color: #666; /* Un grigio scuro elegante per il sottotitolo */
+    color: var(--arancione); /* Un grigio scuro elegante per il sottotitolo */
     font-weight: bold;
 }
 
@@ -321,13 +321,13 @@ main > h2, main > p, .section-champions {
 }
 
 .rettangolo-notizia h3 {
-    color: var(--crema); /* Titolo chiaro per leggersi bene sul blu */
+    color: var(--azzurro); /* Titolo chiaro per leggersi bene sul blu */
     font-size: 1.6em;
     margin-bottom: 10px;
 }
 
 .rettangolo-notizia p {
-    color: var(--azzurro); /* Testo un po' più tenue */
+    color: var(--crema); /* Testo un po' più tenue */
     font-size: 1em;
     line-height: 1.5;
     padding: 0;
