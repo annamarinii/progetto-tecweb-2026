@@ -55,6 +55,19 @@ header {
 header h1 {
     font-size: 1.5em;
 }
+
+.icone-menu {
+    width: 24px; /* Dimensione perfetta e proporzionata. Prova 28px se le vuoi un pelino più grandi */
+    height: auto; /* Mantiene le proporzioni corrette senza schiacciare l'immagine */
+}
+
+
+/* Assicuriamoci che l'icona e il testo "Profilo" o "Carrello" stiano bene affiancati */
+#menu-utente a {
+    display: flex;
+    align-items: center; /* Li centra in verticale l'uno rispetto all'altro */
+    gap: 8px; /* Crea un piccolo spazietto elegante tra l'icona e la parola */
+}
 /* ----------------------------------------------------- */
 
 #menu {
