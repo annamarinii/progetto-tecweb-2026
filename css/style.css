@@ -705,15 +705,20 @@ main {
 }
 
 /* =========================================
-   9. RESPONSIVE DESIGN (Tablet e Smartphone)
+   IL DESIGN PER PC (Griglia a 7 colonne)
+   Questo va FUORI dalle Media Queries
 ========================================= */
+.calendar-wrapper {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonne su Desktop */
+    gap: 15px;
+    align-items: stretch;
+}
 
-/* Aumentiamo il breakpoint: si attiva già sotto i 992px (Tablet) */
+/* =========================================
+   SCALINO 1: TABLET (sotto i 992px)
+========================================= */
 @media (max-width: 992px) {
-    
-    * {
-        transition: none !important;
-    }
     
     body {
         overflow-x: hidden;
@@ -730,21 +735,19 @@ main {
     }
 
     #menu {
-        flex-direction: column; /* Impila il menu principale e quello utente */
+        flex-direction: column;
         width: 100%;
-        gap: 15px; /* Spazio tra i due menu */
+        gap: 15px; 
     }
 
-    /* Facciamo in modo che i link si dispongano bene anche se sono tanti */
     #menu > ul:first-of-type,
     #menu-utente {
         display: flex;
-        flex-wrap: wrap; /* IL TRUCCO MAGICO: se non ci stanno, vanno a capo ordinatamente! */
-        justify-content: center; /* Li teniamo sempre belli centrati */
-        gap: 15px; /* Spazio tra un link e l'altro */
+        flex-wrap: wrap; /* Fa andare a capo i link se non ci stanno */
+        justify-content: center; 
+        gap: 15px; 
     }
 
-    /* Rimpiccioliamo i testi giganti della foto */
     .hero-section h1 {
         font-size: 2.8em; 
     }
@@ -753,38 +756,55 @@ main {
         font-size: 1.5em; 
     }
 
-    /* Riduciamo lo spazio laterale per le schede e i testi */
     :root {
         --spazio-laterale: 15px; 
     }
+}
+
+/* =========================================
+   SCALINO 2: SMARTPHONE (sotto i 768px)
+========================================= */
+@media (max-width: 768px) {
     
+    /* Qui attiviamo la magia dello scorrimento laterale col dito! */
     .calendar-wrapper {
-        display: flex; /* Cambiamo da grid a flex per permettere lo scorrimento */
-        flex-wrap: nowrap; /* Impedisce di andare a capo */
-        overflow-x: auto; /* Abilita la barra di scorrimento orizzontale */
-        scroll-snap-type: x mandatory; /* Effetto calamita morbido quando si scorre col dito */
-        padding-bottom: 15px; /* Spazio per non coprire l'ombra delle card */
-        -webkit-overflow-scrolling: touch; /* Rende lo scorrimento fluido su iPhone */
+        display: flex; /* Sovrascrive la griglia del PC */
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        scroll-snap-type: x mandatory; 
+        padding-bottom: 15px; 
+        -webkit-overflow-scrolling: touch; 
     }
 
     .calendar-wrapper .date-tile {
-        flex: 0 0 180px; /* La card non si rimpicciolisce, resta larga 180px */
-        scroll-snap-align: center; /* Quando sfogli, la card si ferma al centro dello schermo */
+        flex: 0 0 180px; /* Le card restano larghe 180px e le sfogli */
+        scroll-snap-align: center; 
     }
     
-    /* Per nascondere la brutta barra di scorrimento standard e lasciare solo il trascinamento */
+    /* Personalizzazione della barra di scorrimento su mobile */
     .calendar-wrapper::-webkit-scrollbar {
         height: 8px;
     }
     .calendar-wrapper::-webkit-scrollbar-thumb {
-        background-color: #ccc;
+        background-color: var(--arancione); /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
     }
+}/* =========================================
+   SCALINO 3: MONITOR GRANDI E TV (sopra i 1400px)
+========================================= */
+
+/* Questa regola si attiva SOLO se lo schermo è più largo di 1400px */
+@media (min-width: 1400px) {
     
-    .calendar-wrapper {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Forza esattamente 7 colonne di uguale larghezza */
-    gap: 15px;
-    align-items: stretch;
-}
+    :root {
+        /* LA MAGIA: Calcola lo spazio laterale in automatico!
+           Prende tutta la larghezza dello schermo (100vw), sottrae 1200px (la larghezza ideale del sito),
+           e divide lo spazio rimanente a metà per usarlo come margine destro e sinistro. */
+        --spazio-laterale: calc((100vw - 1200px) / 2);
+    }
+
+    /* Rendiamo il titolo della Hero Section un po' più grande per riempire lo schermone */
+    .hero-section h1 {
+        font-size: 5em;
+    }
 }
