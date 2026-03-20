@@ -408,3 +408,111 @@ a:focus-visible,
         --spazio-laterale: 15px; 
     }
 }
+
+/* =========================================
+   FIX ACCESSIBILITÀ PAGINA NEWS
+========================================= */
+
+/* 1. Reset dello sfondo: il 'main' deve essere chiaro per la leggibilità */
+main {
+    background-color: var(--azzurro) !important; 
+    min-height: 80vh;
+    padding-bottom: 60px;
+}
+
+/* 2. Intestazione: contrasto elevato tra testo e sfondo */
+.titoli-notizie {
+    text-align: center;
+    padding: 60px var(--spazio-laterale) 40px;
+    background-color: var(--azzurro) !important;
+}
+
+.titoli-notizie h1 {
+    font-size: 3em;
+    color: var(--blu-scuro) !important; /* Blu scuro su azzurro = Ottimo contrasto */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+/* Divider Arancione: visibile e decorativo */
+.divider {
+    width: 80px;
+    height: 6px;
+    background-color: var(--arancione);
+    margin: 15px auto;
+    border-radius: 3px;
+}
+
+.titoli-notizie p {
+    font-size: 1.25em;
+    color: var(--black) !important; /* Forza il nero per ipovedenti */
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6; /* Spazio tra le righe per facilitare la lettura */
+}
+
+/* 3. La Griglia delle Card */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    padding: 20px var(--spazio-laterale);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 4. La Card: struttura solida e leggibile */
+.news-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; /* Bordo definito per chi ha difficoltà visive */
+}
+
+.card-image img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-bottom: 5px solid var(--arancione);
+}
+
+.card-content {
+    padding: 30px;
+    background-color: var(--white);
+}
+
+.card-content time {
+    display: block;
+    font-weight: 800; /* Extra bold per far risaltare l'arancione */
+    color: var(--arancione);
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    text-transform: uppercase;
+}
+
+.card-content h2 {
+    color: var(--blu-scuro);
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    line-height: 1.2;
+}
+
+/* Testo della notizia: Cruciale per l'accessibilità */
+.card-content p {
+    color: #1a1a1a; /* Nero quasi puro per il massimo contrasto */
+    line-height: 1.8; /* Interlinea ampia per dislessia e ipovisione */
+    font-size: 1.1em;
+    text-align: left; /* Allineamento a sinistra (mai giustificato) */
+}
+
+/* 5. Responsive per schermi piccoli */
+@media (max-width: 768px) {
+    .titoli-notizie h1 { font-size: 2.2em; }
+    .news-grid { 
+        grid-template-columns: 1fr; 
+        gap: 25px;
+    }
+}
