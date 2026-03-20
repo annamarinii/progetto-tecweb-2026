@@ -348,48 +348,52 @@ a:focus-visible,
    9. RESPONSIVE DESIGN (Smartphone e Tablet)
 ========================================= */
 
-/* Questa regola si attiva SOLO se lo schermo è largo meno di 768px */
-@media (max-width: 768px) {
+/* =========================================
+   9. RESPONSIVE DESIGN (Tablet e Smartphone)
+========================================= */
+
+/* Aumentiamo il breakpoint: si attiva già sotto i 992px (Tablet) */
+@media (max-width: 992px) {
     
-    /* 1. Sicurezza: impediamo la fascia bianca laterale */
     body {
         overflow-x: hidden;
     }
 
-    /* 2. Sistemiamo l'Header: tutto in colonna e centrato */
+    /* Mettiamo l'intero header in colonna */
     header {
         flex-direction: column;
-        padding: 15px; 
+        padding: 20px 15px; 
     }
 
     .logo-link {
-        margin-bottom: 20px; /* Diamo spazio sotto al titolo/logo */
+        margin-bottom: 15px;
     }
 
     #menu {
-        flex-direction: column; /* Mette i due menu uno sotto l'altro */
+        flex-direction: column; /* Impila il menu principale e quello utente */
         width: 100%;
-        gap: 20px;
+        gap: 15px; /* Spazio tra i due menu */
     }
 
-    /* Mettiamo i singoli link dei menu in verticale */
+    /* Facciamo in modo che i link si dispongano bene anche se sono tanti */
     #menu > ul:first-of-type,
     #menu-utente {
-        flex-direction: column;
-        align-items: center; /* Li centra perfettamente */
-        gap: 15px;
+        display: flex;
+        flex-wrap: wrap; /* IL TRUCCO MAGICO: se non ci stanno, vanno a capo ordinatamente! */
+        justify-content: center; /* Li teniamo sempre belli centrati */
+        gap: 15px; /* Spazio tra un link e l'altro */
     }
 
-    /* 3. Sistemiamo il Titolo Gigante della foto (Hero Section) */
+    /* Rimpiccioliamo i testi giganti della foto */
     .hero-section h1 {
-        font-size: 2.5em; /* Rimpiccioliamo il titolo rispetto ai 4em originali */
+        font-size: 2.8em; 
     }
 
     .hero-section h2 {
-        font-size: 1.5em; /* Rimpiccioliamo la data */
+        font-size: 1.5em; 
     }
 
-    /* 4. Riduciamo lo spazio laterale per sfruttare meglio i monitor piccoli */
+    /* Riduciamo lo spazio laterale per le schede e i testi */
     :root {
         --spazio-laterale: 15px; 
     }
