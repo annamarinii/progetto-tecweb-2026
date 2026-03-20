@@ -6,6 +6,7 @@
     --azzurro: #F1F3FC;
     --black: #101010;
     --white: #f1f1f1;
+    --arancione-scuro: #BD5205;
     
     /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
     --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
