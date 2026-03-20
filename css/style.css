@@ -796,13 +796,10 @@ main {
 /* Questa regola si attiva SOLO se lo schermo è più largo di 1400px */
 @media (min-width: 1400px) {
     
-    :root {
-        /* LA MAGIA: Calcola lo spazio laterale in automatico!
-           Prende tutta la larghezza dello schermo (100vw), sottrae 1200px (la larghezza ideale del sito),
-           e divide lo spazio rimanente a metà per usarlo come margine destro e sinistro. */
-        --spazio-laterale: calc((100vw - 1200px) / 2);
+   :root {
+        /* Codice corretto */
+        --spazio-laterale: calc((100% - 1200px) / 2);
     }
-
     /* Rendiamo il titolo della Hero Section un po' più grande per riempire lo schermone */
     .hero-section h1 {
         font-size: 5em;
