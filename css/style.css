@@ -344,3 +344,53 @@ a:focus-visible,
         transition: none !important;
     }
 }
+/* =========================================
+   9. RESPONSIVE DESIGN (Smartphone e Tablet)
+========================================= */
+
+/* Questa regola si attiva SOLO se lo schermo è largo meno di 768px */
+@media (max-width: 768px) {
+    
+    /* 1. Sicurezza: impediamo la fascia bianca laterale */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* 2. Sistemiamo l'Header: tutto in colonna e centrato */
+    header {
+        flex-direction: column;
+        padding: 15px; 
+    }
+
+    .logo-link {
+        margin-bottom: 20px; /* Diamo spazio sotto al titolo/logo */
+    }
+
+    #menu {
+        flex-direction: column; /* Mette i due menu uno sotto l'altro */
+        width: 100%;
+        gap: 20px;
+    }
+
+    /* Mettiamo i singoli link dei menu in verticale */
+    #menu > ul:first-of-type,
+    #menu-utente {
+        flex-direction: column;
+        align-items: center; /* Li centra perfettamente */
+        gap: 15px;
+    }
+
+    /* 3. Sistemiamo il Titolo Gigante della foto (Hero Section) */
+    .hero-section h1 {
+        font-size: 2.5em; /* Rimpiccioliamo il titolo rispetto ai 4em originali */
+    }
+
+    .hero-section h2 {
+        font-size: 1.5em; /* Rimpiccioliamo la data */
+    }
+
+    /* 4. Riduciamo lo spazio laterale per sfruttare meglio i monitor piccoli */
+    :root {
+        --spazio-laterale: 15px; 
+    }
+}
