@@ -7,7 +7,7 @@
     --black: #101010;
     --white: #f1f1f1;
     --arancione-scuro: #BD5205;
-    
+
     /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
     --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
 }
@@ -21,7 +21,8 @@
 }
 
 body {
-    color: var(--black); /* Testo base scuro, ma non nero puro */
+    color: var(--black);
+    /* Testo base scuro, ma non nero puro */
 }
 
 a {
@@ -33,9 +34,10 @@ a {
 header {
     background-color: var(--blu-scuro);
     color: var(--white);
-    display: flex; 
-    align-items: center; 
-    padding: 15px 30px;; 
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    ;
 }
 
 /* --- REGOLE PER LOGO E TITOLO (Nascondono il bianco!) --- */
@@ -47,10 +49,11 @@ header {
 }
 
 #logo-sito {
-    width: 70px; 
+    width: 70px;
     height: auto;
-    border-radius: 50%; /* Questo taglia gli angoli bianchi e fa il cerchio */
-    margin-right: 15px; 
+    border-radius: 50%;
+    /* Questo taglia gli angoli bianchi e fa il cerchio */
+    margin-right: 15px;
 }
 
 header h1 {
@@ -58,31 +61,36 @@ header h1 {
 }
 
 .icone-menu {
-    width: 24px; /* Dimensione perfetta e proporzionata. Prova 28px se le vuoi un pelino più grandi */
-    height: auto; /* Mantiene le proporzioni corrette senza schiacciare l'immagine */
+    width: 24px;
+    /* Dimensione perfetta e proporzionata. Prova 28px se le vuoi un pelino più grandi */
+    height: auto;
+    /* Mantiene le proporzioni corrette senza schiacciare l'immagine */
 }
 
 
 /* Assicuriamoci che l'icona e il testo "Profilo" o "Carrello" stiano bene affiancati */
 #menu-utente a {
     display: flex;
-    align-items: center; /* Li centra in verticale l'uno rispetto all'altro */
-    gap: 8px; /* Crea un piccolo spazietto elegante tra l'icona e la parola */
+    align-items: center;
+    /* Li centra in verticale l'uno rispetto all'altro */
+    gap: 8px;
+    /* Crea un piccolo spazietto elegante tra l'icona e la parola */
 }
+
 /* ----------------------------------------------------- */
 
 #menu {
     display: flex;
-    flex-grow: 1; 
-    justify-content: space-between; 
+    flex-grow: 1;
+    justify-content: space-between;
     align-items: center;
 }
 
-#menu > ul:first-of-type {
+#menu>ul:first-of-type {
     display: flex;
-    list-style: none; 
-    gap: 30px; 
-    margin: 0 auto; 
+    list-style: none;
+    gap: 30px;
+    margin: 0 auto;
 }
 
 #menu-utente {
@@ -91,13 +99,15 @@ header h1 {
     gap: 20px;
 }
 
-header li, header a {
+header li,
+header a {
     color: var(--white);
     font-weight: bold;
-    padding-bottom: 5px; 
+    padding-bottom: 5px;
 }
 
-#currentLink, header a:not(.btn-login):not(.btn-register):hover {
+#currentLink,
+header a:not(.btn-login):not(.btn-register):hover {
     color: var(--arancione);
 }
 
@@ -120,7 +130,8 @@ header li, header a {
     transition: all 0.3s ease;
 }
 
-.btn-login:hover, .btn-login:focus-visible {
+.btn-login:hover,
+.btn-login:focus-visible {
     background-color: var(--white);
     color: var(--blu-scuro) !important;
 }
@@ -135,7 +146,8 @@ header li, header a {
     border: none;
 }
 
-.btn-register:hover, .btn-register:focus-visible {
+.btn-register:hover,
+.btn-register:focus-visible {
     background-color: var(--arancione-scuro);
 }
 
@@ -147,8 +159,9 @@ header li, header a {
 
 /* 4. BREADCRUMB */
 #breadcrumb {
-    background-color: var(--crema); 
-    padding: 10px 30px; /* <-- Modificato: rimessi i 30px fissi! */
+    background-color: var(--crema);
+    padding: 10px 30px;
+    /* <-- Modificato: rimessi i 30px fissi! */
     font-size: 0.9em;
 }
 
@@ -159,14 +172,14 @@ header li, header a {
 
 /* 5. HERO SECTION */
 .hero-section {
-    background-image: url('../assets/images/stadio2.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    height: 70vh; 
+    background-image: url('../images/patavium_arena.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: var(--white);
     text-align: center;
     /* Applichiamo lo spazio laterale */
@@ -178,7 +191,7 @@ header li, header a {
 .hero-section h1 {
     font-size: 4em;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-section h2 {
@@ -192,12 +205,12 @@ header li, header a {
     padding: 15px 40px;
     font-size: 1.2em;
     font-weight: bold;
-    border-radius: 30px; 
-    transition: background-color 0.3s ease; 
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-biglietti:hover {
-    background-color: #c4620f; 
+    background-color: #c4620f;
 }
 
 /* 6. CORPO PRINCIPALE (MAIN) */
@@ -210,9 +223,12 @@ main {
    SEZIONE BENVENUTO
 ========================================= */
 .sezione-benvenuto {
-    text-align: center; /* Centra il testo */
-    padding: 60px var(--spazio-laterale); /* Spazio sopra e sotto per far respirare la sezione */
-    background-color: var(--azzurro); /* Mantiene lo sfondo uniforme */
+    text-align: center;
+    /* Centra il testo */
+    padding: 60px var(--spazio-laterale);
+    /* Spazio sopra e sotto per far respirare la sezione */
+    background-color: var(--azzurro);
+    /* Mantiene lo sfondo uniforme */
 }
 
 .sezione-benvenuto h2 {
@@ -224,11 +240,14 @@ main {
 .sezione-benvenuto p {
     font-size: 1.15em;
     color: var(--black);
-    line-height: 1.8; /* Aumenta lo spazio tra le righe per facilitare la lettura */
-    
+    line-height: 1.8;
+    /* Aumenta lo spazio tra le righe per facilitare la lettura */
+
     /* TRUCCO PER LA LEGGIBILITÀ: */
-    max-width: 900px; /* Non fa allargare il testo oltre i 900px anche su schermi giganti */
-    margin: 0 auto; /* Centra l'intero blocco di testo nella pagina */
+    max-width: 900px;
+    /* Non fa allargare il testo oltre i 900px anche su schermi giganti */
+    margin: 0 auto;
+    /* Centra l'intero blocco di testo nella pagina */
 }
 
 
@@ -262,7 +281,7 @@ main {
 
 .titoli-campioni p {
     font-size: 1.1em;
-    color: var(--arancione); /* Un grigio scuro elegante per il sottotitolo */
+    color: var(--blu-scuro);
     font-weight: bold;
 }
 
@@ -271,30 +290,38 @@ main {
     display: grid;
     /* Crea colonne larghe minimo 220px. Se c'è spazio, le affianca! */
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px; /* Spazio tra una card e l'altra */
+    gap: 25px;
+    /* Spazio tra una card e l'altra */
 }
 
 /* Stile della singola Card */
 .card-campione {
-    background-color: var(--blu-scuro); /* Sfondo blu scuro per super contrasto! */
-    border-radius: 8px; 
-    overflow: hidden; 
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombra un pochino più forte */
+    background-color: var(--blu-scuro);
+    /* Sfondo blu scuro per super contrasto! */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    /* Ombra un pochino più forte */
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-bottom: 5px solid var(--arancione); /* Tocco sportivo: bordo arancione in basso */
+    border-bottom: 5px solid var(--arancione);
+    /* Tocco sportivo: bordo arancione in basso */
 }
 
 /* Piccolo effetto quando passi sopra col mouse */
 .card-campione:hover {
-    transform: translateY(-5px); /* La card si solleva leggermente */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* L'ombra diventa più intensa */
+    transform: translateY(-5px);
+    /* La card si solleva leggermente */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    /* L'ombra diventa più intensa */
 }
 
 .card-campione img {
     width: 100%;
-    aspect-ratio: 1 / 1; /* Costringe l'immagine a essere un quadrato perfetto */
-    object-fit: cover; /* Ritaglia l'immagine senza deformarla per farla entrare nel quadrato */
+    aspect-ratio: 1 / 1;
+    /* Costringe l'immagine a essere un quadrato perfetto */
+    object-fit: cover;
+    /* Ritaglia l'immagine senza deformarla per farla entrare nel quadrato */
     display: block;
 }
 
@@ -306,7 +333,8 @@ main {
 .info-campione .categoria {
     display: block;
     font-size: 0.75em;
-    color: var(--arancione); /* L'arancione spicca benissimo sul blu! */
+    color: var(--arancione);
+    /* L'arancione spicca benissimo sul blu! */
     text-transform: uppercase;
     margin-bottom: 5px;
     letter-spacing: 0.5px;
@@ -315,14 +343,17 @@ main {
 
 .info-campione h3 {
     font-size: 1.2em;
-    color: var(--crema); /* Testo chiaro per contrastare lo sfondo blu scuro */
+    color: var(--crema);
+    /* Testo chiaro per contrastare lo sfondo blu scuro */
     margin: 0;
 }
+
 /* =========================================
    SEZIONE NOTIZIE 
 ========================================= */
 .sezione-notizie {
-    background-color: var(--azzurro); /* Sfondo chiaro per far risaltare il blu */
+    background-color: var(--azzurro);
+    /* Sfondo chiaro per far risaltare il blu */
     padding: 50px var(--spazio-laterale);
 }
 
@@ -346,31 +377,35 @@ main {
 /* Contenitore a lista */
 .lista-notizie {
     display: flex;
-    flex-direction: column; 
-    gap: 20px; 
+    flex-direction: column;
+    gap: 20px;
 }
 
 /* Stile del singolo Rettangolo */
 .rettangolo-notizia {
-    display: block; 
-    background-color: var(--blu-scuro); /* Stesso colore delle card dei campioni! */
+    display: block;
+    background-color: var(--blu-scuro);
+    /* Stesso colore delle card dei campioni! */
     padding: 25px 30px;
     border-radius: 8px;
-    border-bottom: 5px solid var(--arancione); /* Bordo identico ai campioni */
+    border-bottom: 5px solid var(--arancione);
+    /* Bordo identico ai campioni */
     text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .rettangolo-notizia:hover {
-    transform: translateY(-5px); /* Si solleva verso l'alto esattamente come le foto */
+    transform: translateY(-5px);
+    /* Si solleva verso l'alto esattamente come le foto */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Testi dentro il rettangolo */
 .rettangolo-notizia time {
     display: block;
-    color: var(--arancione); /* La data spicca in arancione */
+    color: var(--arancione);
+    /* La data spicca in arancione */
     font-size: 0.85em;
     font-weight: bold;
     text-transform: uppercase;
@@ -378,21 +413,24 @@ main {
 }
 
 .rettangolo-notizia h3 {
-    color: var(--azzurro); /* Titolo chiaro per leggersi bene sul blu */
+    color: var(--azzurro);
+    /* Titolo chiaro per leggersi bene sul blu */
     font-size: 1.6em;
     margin-bottom: 10px;
 }
 
 .rettangolo-notizia p {
-    color: var(--crema); /* Testo un po' più tenue */
+    color: var(--crema);
+    /* Testo un po' più tenue */
     font-size: 1em;
     line-height: 1.5;
     padding: 0;
 }
-a:focus-visible, 
+
+a:focus-visible,
 .btn-biglietti:focus-visible {
     outline: 3px solid var(--arancione);
-    outline-offset: 4px; 
+    outline-offset: 4px;
     box-shadow: none;
 }
 
@@ -405,7 +443,7 @@ a:focus-visible,
 
 /* 1. Reset dello sfondo: il 'main' deve essere chiaro per la leggibilità */
 main {
-    background-color: var(--azzurro) !important; 
+    background-color: var(--azzurro) !important;
     min-height: 80vh;
     padding-bottom: 60px;
 }
@@ -419,7 +457,8 @@ main {
 
 .titoli-notizie h1 {
     font-size: 3em;
-    color: var(--blu-scuro) !important; /* Blu scuro su azzurro = Ottimo contrasto */
+    color: var(--blu-scuro) !important;
+    /* Blu scuro su azzurro = Ottimo contrasto */
     margin-bottom: 15px;
     text-transform: uppercase;
 }
@@ -435,10 +474,12 @@ main {
 
 .titoli-notizie p {
     font-size: 1.25em;
-    color: var(--black) !important; /* Forza il nero per ipovedenti */
+    color: var(--black) !important;
+    /* Forza il nero per ipovedenti */
     max-width: 800px;
     margin: 0 auto;
-    line-height: 1.6; /* Spazio tra le righe per facilitare la lettura */
+    line-height: 1.6;
+    /* Spazio tra le righe per facilitare la lettura */
 }
 
 /* 3. La Griglia delle Card */
@@ -459,7 +500,8 @@ main {
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ccc; /* Bordo definito per chi ha difficoltà visive */
+    border: 1px solid #ccc;
+    /* Bordo definito per chi ha difficoltà visive */
 }
 
 .card-image img {
@@ -476,7 +518,8 @@ main {
 
 .card-content time {
     display: block;
-    font-weight: 800; /* Extra bold per far risaltare l'arancione */
+    font-weight: 800;
+    /* Extra bold per far risaltare l'arancione */
     color: var(--arancione);
     margin-bottom: 12px;
     font-size: 0.95em;
@@ -492,10 +535,13 @@ main {
 
 /* Testo della notizia: Cruciale per l'accessibilità */
 .card-content p {
-    color: #1a1a1a; /* Nero quasi puro per il massimo contrasto */
-    line-height: 1.8; /* Interlinea ampia per dislessia e ipovisione */
+    color: #1a1a1a;
+    /* Nero quasi puro per il massimo contrasto */
+    line-height: 1.8;
+    /* Interlinea ampia per dislessia e ipovisione */
     font-size: 1.1em;
-    text-align: left; /* Allineamento a sinistra (mai giustificato) */
+    text-align: left;
+    /* Allineamento a sinistra (mai giustificato) */
 }
 
 /* =========================================
@@ -525,10 +571,12 @@ main {
 
 .intro-sezione p {
     font-size: 1.1em;
-    color: var(--black); /* Alto contrasto per accessibilità */
+    color: var(--black);
+    /* Alto contrasto per accessibilità */
     max-width: 850px;
     margin: 0 auto;
-    line-height: 1.6; /* Maggiore interlinea per leggibilità */
+    line-height: 1.6;
+    /* Maggiore interlinea per leggibilità */
 }
 
 /* Evidenziazione parole chiave per un tocco premium */
@@ -544,17 +592,20 @@ main {
 /* Centra il contenitore principale e dà respiro */
 #hero-tickets {
     padding: 20px var(--spazio-laterale) 50px;
-    background-color: var(--azzurro); /* Aiuta a far staccare le card bianche */
+    background-color: var(--azzurro);
+    /* Aiuta a far staccare le card bianche */
     text-align: center;
 }
 
 /* La griglia che mette le 3 card in fila */
 .cards-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Su PC 3 colonne, su mobile va a capo */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Su PC 3 colonne, su mobile va a capo */
     gap: 20px;
     max-width: 1100px;
-    margin: 0 auto; /* Centra la griglia nella pagina */
+    margin: 0 auto;
+    /* Centra la griglia nella pagina */
 }
 
 /* Struttura della singola card */
@@ -564,7 +615,8 @@ main {
     border-radius: 12px;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* Impila foto, testo e bottone in verticale */
+    flex-direction: column;
+    /* Impila foto, testo e bottone in verticale */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -585,7 +637,8 @@ main {
 .card-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ritaglia la foto per riempire lo spazio senza schiacciarla */
+    object-fit: cover;
+    /* Ritaglia la foto per riempire lo spazio senza schiacciarla */
     border-bottom: 4px solid var(--arancione-scuro);
 }
 
@@ -594,7 +647,8 @@ main {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Fa espandere quest'area per riempire tutto lo spazio disponibile */
+    flex-grow: 1;
+    /* Fa espandere quest'area per riempire tutto lo spazio disponibile */
     text-align: left;
 }
 
@@ -609,26 +663,30 @@ main {
     color: var(--black);
     line-height: 1.4;
     margin-bottom: 20px;
-    flex-grow: 1; /* Il TRUCCO: questo paragrafo spinge il bottone verso il basso! */
+    flex-grow: 1;
+    /* Il TRUCCO: questo paragrafo spinge il bottone verso il basso! */
 }
 
 /* Il tasto arancione scuro */
 .buy-button {
     display: inline-block;
     background-color: var(--arancione-scuro);
-    color: #ffffff; /* Bianco per fare contrasto forte */
+    color: #ffffff;
+    /* Bianco per fare contrasto forte */
     text-align: center;
     padding: 15px 20px;
     font-size: 1.1em;
     font-weight: bold;
     border-radius: 8px;
     transition: background-color 0.3s ease;
-    margin-top: auto; /* Allinea tutti i bottoni in fondo alla card alla stessa altezza */
+    margin-top: auto;
+    /* Allinea tutti i bottoni in fondo alla card alla stessa altezza */
 }
 
 .buy-button:hover,
 .buy-button:focus-visible {
-    background-color: var(--arancione); /* Diventa leggermente più chiaro al passaggio del mouse */
+    background-color: var(--arancione);
+    /* Diventa leggermente più chiaro al passaggio del mouse */
 }
 
 /* =========================================
@@ -638,7 +696,8 @@ main {
 /* 1. Contenitore Principale della Sezione */
 .section-container {
     padding: 60px var(--spazio-laterale);
-    background-color: var(--azzurro); /* Sfondo bianco per staccare dall'azzurro del main */
+    background-color: var(--azzurro);
+    /* Sfondo bianco per staccare dall'azzurro del main */
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -678,7 +737,8 @@ main {
     /* Crea colonne fluide: minimo 160px di larghezza */
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 15px;
-    align-items: stretch; /* Fa sì che tutte le "mattonelle" siano alte uguali */
+    align-items: stretch;
+    /* Fa sì che tutte le "mattonelle" siano alte uguali */
 }
 
 /* 4. La "Mattonella" della Data (Date Tile) */
@@ -689,8 +749,10 @@ main {
     border-radius: 12px;
     padding: 20px 15px;
     text-align: center;
-    cursor: pointer; /* La manina che indica che è cliccabile */
-    transition: all 0.3s ease; /* Transizione morbida come hai fatto per le news */
+    cursor: pointer;
+    /* La manina che indica che è cliccabile */
+    transition: all 0.3s ease;
+    /* Transizione morbida come hai fatto per le news */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -699,11 +761,13 @@ main {
 }
 
 /* Effetto al passaggio del mouse o quando si naviga con la tastiera (tab) */
-.date-tile:hover, 
+.date-tile:hover,
 .date-tile:focus-visible {
     transform: translateY(-5px);
-    border-color: var(--arancione); /* Il bordo si illumina di arancione */
-    box-shadow: 0 8px 15px rgba(225, 116, 20, 0.2); /* Ombra arancione leggera */
+    border-color: var(--arancione);
+    /* Il bordo si illumina di arancione */
+    box-shadow: 0 8px 15px rgba(225, 116, 20, 0.2);
+    /* Ombra arancione leggera */
 }
 
 /* Classe per la data selezionata (aggiunta dal tuo JS) */
@@ -711,7 +775,8 @@ main {
     background-color: var(--blu-scuro);
     border-color: var(--blu-scuro);
     color: var(--white);
-    transform: translateY(-5px); /* Resta sollevata per indicare la selezione */
+    transform: translateY(-5px);
+    /* Resta sollevata per indicare la selezione */
 }
 
 /* 5. Contenuti dentro la mattonella */
@@ -754,17 +819,38 @@ main {
 }
 
 /* Colori specifici per i vari Tag */
-.tag { background-color: #e0e0e0; color: var(--black); } /* Default grigio */
-.new-session { background-color: #4CAF50; color: white; } /* Verde */
-.most-popular { background-color: var(--arancione); color: white; } /* Arancione brand */
-.finals { background-color: var(--blu-scuro); color: white; } /* Blu scuro brand */
+.tag {
+    background-color: #e0e0e0;
+    color: var(--black);
+}
+
+/* Default grigio */
+.new-session {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Verde */
+.most-popular {
+    background-color: var(--arancione);
+    color: white;
+}
+
+/* Arancione brand */
+.finals {
+    background-color: var(--blu-scuro);
+    color: white;
+}
+
+/* Blu scuro brand */
 
 /* 7. Info sui Match (Testo piccolo in basso) */
 .matches-info {
     font-size: 0.85em;
     color: var(--black);
     line-height: 1.3;
-    margin-top: auto; /* Spinge il testo in fondo alla card se questa si allunga */
+    margin-top: auto;
+    /* Spinge il testo in fondo alla card se questa si allunga */
 }
 
 /* Selezionato: testo bianco */
@@ -774,12 +860,14 @@ main {
 
 /* 8. Variante Highlight (Per le finali, se vuoi farle spiccare un po' di più) */
 .date-tile.highlight {
-    background-color: #fff9f2; /* Sfondo leggermente aranciato */
+    background-color: #fff9f2;
+    /* Sfondo leggermente aranciato */
     border: 1px solid rgba(225, 116, 20, 0.3);
 }
 
 .date-tile.highlight.selected {
-    background-color: var(--blu-scuro); /* Torna blu se selezionata */
+    background-color: var(--blu-scuro);
+    /* Torna blu se selezionata */
 }
 
 .day-name abbr {
@@ -792,7 +880,8 @@ main {
 ========================================= */
 .calendar-wrapper {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 colonne su Desktop */
+    grid-template-columns: repeat(7, 1fr);
+    /* 7 colonne su Desktop */
     gap: 15px;
     align-items: stretch;
 }
@@ -812,7 +901,7 @@ main {
     border: 1px solid #dcdcdc;
     border-radius: 8px;
     margin-bottom: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
     overflow: hidden;
 }
 
@@ -874,7 +963,7 @@ main {
     padding: 40px;
     border-radius: 12px;
     border-bottom: 6px solid var(--arancione);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     text-align: left;
 }
 
@@ -971,7 +1060,8 @@ main {
 /* 1. SEZIONE HERO IMMAGINE (Banner) */
 .session-hero {
     width: 100%;
-    height: 350px; /* Banner orizzontale */
+    height: 350px;
+    /* Banner orizzontale */
     overflow: hidden;
     margin-bottom: 25px;
 }
@@ -990,7 +1080,7 @@ main {
     background-color: var(--blu-scuro);
     color: var(--white);
     padding: 15px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-bottom: 4px solid var(--arancione);
 }
 
@@ -1070,7 +1160,8 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.btn-select-date:hover, .btn-select-date:focus-visible {
+.btn-select-date:hover,
+.btn-select-date:focus-visible {
     background-color: var(--arancione-scuro);
 }
 
@@ -1081,7 +1172,8 @@ main {
     text-align: center;
 }
 
-.benefits-section h2, .benefits-section h3 {
+.benefits-section h2,
+.benefits-section h3 {
     font-size: 2em;
     color: var(--blu-scuro);
     margin-bottom: 30px;
@@ -1104,7 +1196,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .benefit-icon {
@@ -1136,7 +1228,8 @@ main {
     transform: scale(1.45);
 }
 
-.benefit-text h4, .benefit-text h3 {
+.benefit-text h4,
+.benefit-text h3 {
     font-size: 1.4em;
     color: var(--blu-scuro);
     margin-bottom: 12px;
@@ -1164,7 +1257,7 @@ main {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -1257,7 +1350,8 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.buy-btn:hover, .buy-btn:focus-visible {
+.buy-btn:hover,
+.buy-btn:focus-visible {
     background-color: var(--arancione-scuro);
 }
 
@@ -1280,7 +1374,7 @@ main {
 .stadium-map .map-img {
     width: 100%;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--blu-scuro);
 }
 
@@ -1302,7 +1396,8 @@ main {
     transition: all 0.3s ease;
 }
 
-.seat-category:hover, .seat-category:focus-visible {
+.seat-category:hover,
+.seat-category:focus-visible {
     border-color: var(--arancione);
     box-shadow: 0 4px 10px rgba(225, 116, 20, 0.15);
     background-color: var(--crema);
@@ -1348,7 +1443,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .purchase-controls {
@@ -1444,13 +1539,14 @@ main {
     display: flex;
     background-color: var(--white);
     border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     overflow: hidden;
     max-width: 1100px;
     width: 100%;
 }
 
-.login-section, .register-section {
+.login-section,
+.register-section {
     flex: 1;
     padding: 60px 50px;
     display: flex;
@@ -1478,7 +1574,8 @@ main {
     background-color: #e8e8e8;
 }
 
-.login-section h2, .register-section h2 {
+.login-section h2,
+.register-section h2 {
     font-size: 2.2em;
     color: var(--blu-scuro);
     margin-bottom: 15px;
@@ -1516,7 +1613,8 @@ main {
     text-align: center;
 }
 
-.btn-auth:hover, .btn-auth:focus-visible {
+.btn-auth:hover,
+.btn-auth:focus-visible {
     background-color: var(--arancione-scuro);
 }
 
@@ -1526,7 +1624,8 @@ main {
     border: 3px solid var(--arancione-scuro);
 }
 
-.btn-auth.outline:hover, .btn-auth.outline:focus-visible {
+.btn-auth.outline:hover,
+.btn-auth.outline:focus-visible {
     background-color: var(--arancione-scuro);
     color: var(--white);
 }
@@ -1553,7 +1652,7 @@ main {
 .titoli-notizie p {
     font-size: 1.1em;
     color: var(--blu-scuro);
-    font-style: italic;
+    font-weight: bold;
 }
 
 .lista-notizie {
@@ -1565,23 +1664,24 @@ main {
 }
 
 .rettangolo-notizia {
-    background-color: var(--white);
+    background-color: var(--blu-scuro);
     display: flex;
     flex-direction: row;
     align-items: stretch;
     border-radius: 12px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     border: 2px solid transparent;
     transition: all 0.3s ease;
 }
 
-.rettangolo-notizia:hover, .rettangolo-notizia:focus-visible {
+.rettangolo-notizia:hover,
+.rettangolo-notizia:focus-visible {
     transform: translateX(10px);
     border-color: var(--arancione);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     outline: none;
 }
 
@@ -1599,7 +1699,7 @@ main {
     transition: transform 0.3s ease;
 }
 
-.rettangolo-notizia:hover .home-news-img, 
+.rettangolo-notizia:hover .home-news-img,
 .rettangolo-notizia:focus-visible .home-news-img {
     transform: scale(1.05);
 }
@@ -1622,14 +1722,14 @@ main {
 
 .home-news-content h3 {
     font-size: 1.3em;
-    color: var(--blu-scuro);
+    color: var(--white);
     margin-bottom: 8px;
     line-height: 1.3;
 }
 
 .home-news-content p {
     font-size: 1em;
-    color: var(--black);
+    color: var(--white);
     line-height: 1.5;
 }
 
@@ -1646,10 +1746,10 @@ main {
 }
 
 .news-card {
-    background-color: var(--white);
+    background-color: var(--blu-scuro);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease, outline 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -1657,9 +1757,10 @@ main {
 }
 
 /* Accessibilità e Interattività */
-.news-card:hover, .news-card:focus-within {
+.news-card:hover,
+.news-card:focus-within {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     border-color: var(--arancione);
 }
 
@@ -1710,14 +1811,14 @@ main {
 
 .card-content h2 {
     font-size: 1.25em;
-    color: var(--blu-scuro);
+    color: var(--white);
     margin-bottom: 12px;
     line-height: 1.3;
 }
 
 .card-content p {
     font-size: 0.95em;
-    color: var(--black);
+    color: var(--white);
     line-height: 1.5;
     margin-bottom: 0px;
     flex-grow: 1;
@@ -1735,13 +1836,15 @@ main {
     transition: color 0.3s ease;
 }
 
-.read-more:hover, .read-more:focus-visible {
+.read-more:hover,
+.read-more:focus-visible {
     color: var(--arancione-scuro);
     outline: 2px dashed var(--arancione-scuro);
     outline-offset: 4px;
 }
 
-#breadcrumb a:hover, #breadcrumb a:focus-visible {
+#breadcrumb a:hover,
+#breadcrumb a:focus-visible {
     color: var(--arancione-scuro);
 }
 
@@ -1838,6 +1941,7 @@ main {
     .login-container {
         flex-direction: column;
     }
+
     .auth-divider {
         width: 100%;
         height: 2px;
@@ -1848,7 +1952,7 @@ main {
    SCALINO 1: TABLET (sotto i 992px)
 ========================================= */
 @media (max-width: 992px) {
-    
+
     body {
         overflow-x: hidden;
     }
@@ -1856,7 +1960,7 @@ main {
     /* Mettiamo l'intero header in colonna */
     header {
         flex-direction: column;
-        padding: 20px 15px; 
+        padding: 20px 15px;
     }
 
     .logo-link {
@@ -1866,27 +1970,28 @@ main {
     #menu {
         flex-direction: column;
         width: 100%;
-        gap: 15px; 
+        gap: 15px;
     }
 
-    #menu > ul:first-of-type,
+    #menu>ul:first-of-type,
     #menu-utente {
         display: flex;
-        flex-wrap: wrap; /* Fa andare a capo i link se non ci stanno */
-        justify-content: center; 
-        gap: 15px; 
+        flex-wrap: wrap;
+        /* Fa andare a capo i link se non ci stanno */
+        justify-content: center;
+        gap: 15px;
     }
 
     .hero-section h1 {
-        font-size: 2.8em; 
+        font-size: 2.8em;
     }
 
     .hero-section h2 {
-        font-size: 1.5em; 
+        font-size: 1.5em;
     }
 
     :root {
-        --spazio-laterale: 15px; 
+        --spazio-laterale: 15px;
     }
 }
 
@@ -1894,41 +1999,48 @@ main {
    SCALINO 2: SMARTPHONE (sotto i 768px)
 ========================================= */
 @media (max-width: 768px) {
-    
+
     /* Qui attiviamo la magia dello scorrimento laterale col dito! */
     .calendar-wrapper {
-        display: flex; /* Sovrascrive la griglia del PC */
-        flex-wrap: nowrap; 
-        overflow-x: auto; 
-        scroll-snap-type: x mandatory; 
-        padding-bottom: 15px; 
-        -webkit-overflow-scrolling: touch; 
+        display: flex;
+        /* Sovrascrive la griglia del PC */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 15px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .calendar-wrapper .date-tile {
-        flex: 0 0 180px; /* Le card restano larghe 180px e le sfogli */
-        scroll-snap-align: center; 
+        flex: 0 0 180px;
+        /* Le card restano larghe 180px e le sfogli */
+        scroll-snap-align: center;
     }
-    
+
     /* Personalizzazione della barra di scorrimento su mobile */
     .calendar-wrapper::-webkit-scrollbar {
         height: 8px;
     }
+
     .calendar-wrapper::-webkit-scrollbar-thumb {
-        background-color: var(--arancione); /* Usiamo il tuo arancione per la barra! */
+        background-color: var(--arancione);
+        /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
     }
-}/* =========================================
+}
+
+/* =========================================
    SCALINO 3: MONITOR GRANDI E TV (sopra i 1400px)
 ========================================= */
 
 /* Questa regola si attiva SOLO se lo schermo è più largo di 1400px */
 @media (min-width: 1400px) {
-    
-   :root {
+
+    :root {
         /* Codice corretto */
         --spazio-laterale: calc((100% - 1200px) / 2);
     }
+
     /* Rendiamo il titolo della Hero Section un po' più grande per riempire lo schermone */
     .hero-section h1 {
         font-size: 5em;
