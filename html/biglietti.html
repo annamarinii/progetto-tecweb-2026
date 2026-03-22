@@ -1,110 +1,125 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biglietti-Patavium Open</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
-<header>
-      <a href="../index.html" class="logo-link">
-        <img src="../assets/images/logo1.png" alt="" id="logo-sito">
-        <h1>Patavium Open</h1>
-    </a>
+    <header>
+        <a href="../index.html" class="logo-link">
+             <img src="../assets/images/logo1.png" alt="Logo ufficiale del Patavium Open"  id="logo-sito">
+            <h1>Patavium Open</h1>
+        </a>
 
-    <nav id="menu">
-        <ul>
-            <li><a href="../index.html" lang="en">Home</a></li>
-            <li id="currentLink">Biglietti</li>
-            <li><a href="../html/news.html" lang="en">News</a></li>
-            <li><a href="../html/domande.html">Domande</a></li>
-        </ul>
-        
-        <ul id="menu-utente">
-            <li><a href="../html/login.html">
-                <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
-            <li><a href="../html/carrello.html">
-                <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello (0)</a></li>
-        </ul>
-    </nav>
-</header>
-<nav id="breadcrumb">
-    <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span>Biglietti</span></p>
-</nav>
-    <main>
-    
-
-    <section class="intro-sezione" aria-labelledby="titolo-biglietti">
-        <h1 id="titolo-biglietti">Biglietti</h1>
-        <div class="divider" aria-hidden="true"></div>
-        <p>Scegli l'esperienza perfetta per vivere il grande tennis internazionale nel cuore di Padova. 
-        Che tu voglia goderti l'intensità di una <span class="highlight-text">Singola Sessione</span> sul Campo Centrale, assicurarti un 
-        posto per l'intero torneo con i nostri <span class="highlight-text">Abbonamenti</span> esclusivi, o vivere l'atmosfera vibrante 
-        del villaggio ospitalità con i <span class="highlight-text" lang="en">Ground Passes</span>, qui troverai la soluzione 
-        ideale per non perdere nemmeno un <span lang="en">set</span>. Seleziona la tua tipologia di accesso preferita 
-        e preparati a sostenere i grandi campioni sulla terra rossa del <span lang="la">Patavium</span> <span lang="en">Open</span>.</p>
-    </section>
-
-    <section id="hero-tickets" class="section-container" aria-label="Tipologie di biglietti disponibili">
-    <div class="cards-wrapper">
-        
-        <div class="ticket-card" id="card-single">
-            <div class="card-header">
-                <img src="/assets/images/single_session.png" alt="Un'atleta di tennis professionista è ripresa mentre sta per colpire una palla con un dritto su un campo in terra battuta durante il torneo Patavium Open" class="card-img">
-            </div>
-            <div class="card-body">
-                <h2><span lang="en">Single Session</span></h2>
-                <p>Accesso con posti riservati nel campo principale per una singola sessione.</p>
-                <a href="single_session.html" class="buy-button">Acquista Singolo</a>
-            </div>
-        </div>
-
-        <div class="ticket-card" id="card-multi">
-            <div class="card-header">
-                <img src="/assets/images/abbonamento.jpg" alt="" class="card-img">
-            </div>
-            <div class="card-body">
-                <h2>Abbonamento</h2> <p>Abbonamento stagionale completo per tutti gli eventi e <span lang="en">pass</span> esclusivi.</p>
-                <a href="abbonamento.html" class="buy-button">Acquista Abbonamento</a>
-            </div>
-        </div>
-
-        <div class="ticket-card" id="card-group">
-            <div class="card-header">
-                <img src="/assets/images/ground_passes.jpg" alt="Veduta panoramica dell'area Ground Passes del torneo di tennis Patavium Open. In primo piano, spettatori che camminano in un viale fiorito; sullo sfondo, campi in terra rossa con giocatori in azione e stand gastronomici" class="card-img">
-            </div>
-            <div class="card-body">
-                <h2><span lang="en">Ground Passes</span></h2>
-                <p>Ingresso giornaliero per i campi secondari e tutte le attività del villaggio.</p>
-                <a href="ground_passes.html" class="buy-button">Acquista <span lang="en">Pass</span></a>
-            </div>
-        </div>
-
-    </div> 
-    </section>
-
-</main>
-<footer class="footer-sito">
-    <hr aria-hidden="true">
-    
-    <div class="footer-contenuto">
-        
-        <div class="footer-logo">
-            <img src="logo.png" alt="" width="120">
-        </div>
-
-        <nav class="footer-nav" aria-label="Informazioni legali">
+        <nav id="menu">
             <ul>
-                <li><a href="termini.html">Termini e condizioni</a></li>
-                <li><a href="privacy.html">Informativa sulla privacy</a></li>
+                <li><a href="../index.html" lang="en">Home</a></li>
+                <li id="currentLink">Biglietti</li>
+                <li><a href="../html/news.html" lang="en">News</a></li>
+                <li><a href="../html/domande.html">Domande</a></li>
+            </ul>
+
+            <ul id="menu-utente">
+                <li><a href="../html/login.html">
+                        <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
+                <li><a href="../html/carrello.html">
+                        <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello</a>
+                </li>
             </ul>
         </nav>
-        
-    </div>
+    </header>
+    <nav id="breadcrumb">
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span class="breadcrumb-active" aria-current="page">Biglietti</span></p>
+    </nav>
+    <main>
 
-    <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
-</footer>
+
+        <section class="intro-sezione" aria-labelledby="titolo-biglietti">
+            <h1 id="titolo-biglietti">Biglietti</h1>
+            <div class="divider" aria-hidden="true"></div>
+            <p>Scegli l'esperienza perfetta per vivere il grande tennis internazionale nel cuore di Padova.
+                Che tu voglia goderti l'intensità di una <span class="highlight-text">Singola Sessione</span> sul Campo
+                Centrale, assicurarti un
+                posto per l'intero torneo con i nostri <span class="highlight-text">Abbonamenti</span> esclusivi, o
+                vivere l'atmosfera vibrante
+                del villaggio ospitalità con i <span class="highlight-text" lang="en">Ground Passes</span>, qui troverai
+                la soluzione
+                ideale per non perdere nemmeno un <span lang="en">set</span>. Seleziona la tua tipologia di accesso
+                preferita
+                e preparati a sostenere i grandi campioni sulla terra rossa del <span lang="la">Patavium</span> <span
+                    lang="en">Open</span>.</p>
+        </section>
+
+        <section id="hero-tickets" class="section-container" aria-label="Tipologie di biglietti disponibili">
+            <div class="cards-wrapper">
+
+                <div class="ticket-card" id="card-single">
+                    <div class="card-header">
+                        <img src="/assets/images/single_session.png"
+                            alt="Un'atleta di tennis professionista è ripresa mentre sta per colpire una palla con un dritto su un campo in terra battuta durante il torneo Patavium Open"
+                            class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <h2><span lang="en">Single Session</span></h2>
+                        <p>Accesso con posti riservati nel campo principale per una singola sessione.</p>
+                        <a href="single_session.html" class="buy-button">Acquista Singolo</a>
+                    </div>
+                </div>
+
+                <div class="ticket-card" id="card-multi">
+                    <div class="card-header">
+                         <img src="/assets/images/abbonamento.jpg" alt="Dettaglio pass dell abbonamento al torneo"  class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <h2>Abbonamento</h2>
+                        <p>Abbonamento stagionale completo per tutti gli eventi e <span lang="en">pass</span> esclusivi.
+                        </p>
+                        <a href="abbonamento.html" class="buy-button">Acquista Abbonamento</a>
+                    </div>
+                </div>
+
+                <div class="ticket-card" id="card-group">
+                    <div class="card-header">
+                        <img src="/assets/images/ground_passes.jpg"
+                            alt="Veduta panoramica dell'area Ground Passes del torneo di tennis Patavium Open. In primo piano, spettatori che camminano in un viale fiorito; sullo sfondo, campi in terra rossa con giocatori in azione e stand gastronomici"
+                            class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <h2><span lang="en">Ground Passes</span></h2>
+                        <p>Ingresso giornaliero per i campi secondari e tutte le attività del villaggio.</p>
+                        <a href="ground_passes.html" class="buy-button">Acquista <span lang="en">Pass</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+    <footer class="footer-sito">
+        <hr aria-hidden="true">
+
+        <div class="footer-contenuto">
+
+            <div class="footer-logo">
+                 <img src="logo.png" alt="Logo ufficiale del Patavium Open a piè di pagina"  width="120">
+            </div>
+
+            <nav class="footer-nav" aria-label="Informazioni legali">
+                <ul>
+                    <li><a href="termini.html">Termini e condizioni</a></li>
+                    <li><a href="privacy.html">Informativa sulla privacy</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
+    </footer>
 
 </body>
+
 </html>

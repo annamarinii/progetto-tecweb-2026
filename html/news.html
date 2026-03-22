@@ -1,126 +1,154 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News - Patavium Open 2026</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
 
-<header>
-      <a href="../index.html" class="logo-link">
-        <img src="../assets/images/logo1.png" alt="" id="logo-sito">
-        <h1>Patavium Open</h1>
-    </a>
+    <header>
+        <a href="../index.html" class="logo-link">
+             <img src="../assets/images/logo1.png" alt="Logo ufficiale del Patavium Open"  id="logo-sito">
+            <h1>Patavium Open</h1>
+        </a>
 
-    <nav id="menu">
-        <ul>
-            <li><a href="../index.html" lang="en">Home</a></li>
-            <li><a href="../html/biglietti.html">Biglietti</a></li>
-            <li id="currentLink">News</li>
-            <li><a href="../html/domande.html">Domande</a></li>
-        </ul>
-        
-        <ul id="menu-utente">
-            <li><a href="../html/login.html">
-                <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
-            <li><a href="../html/carrello.html">
-                <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello (0)</a></li>
-        </ul>
-    </nav>
-</header>
+        <nav id="menu">
+            <ul>
+                <li><a href="../index.html" lang="en">Home</a></li>
+                <li><a href="../html/biglietti.html">Biglietti</a></li>
+                <li id="currentLink">News</li>
+                <li><a href="../html/domande.html">Domande</a></li>
+            </ul>
 
-<nav id="breadcrumb" aria-label="Ti trovi in:">
-    <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span lang="en">News</span></p>
-</nav>
-
-<main id="main-content">
-    <header class="titoli-notizie" style="margin-top: 40px;" aria-labelledby="titolo-news">
-        <h1 id="titolo-news">Ultime <span lang="en">News Patavium Open</span></h1>
-        <p>Scopri i dettagli, le curiosità e tutti gli aggiornamenti ufficiali sulla nuova edizione del torneo e del mondo del tennis.</p>
+            <ul id="menu-utente">
+                <li><a href="../html/login.html">
+                        <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
+                <li><a href="../html/carrello.html">
+                        <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello</a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="news-grid" aria-label="Elenco completo delle notizie">
+    <nav id="breadcrumb" aria-label="Ti trovi in:">
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span class="breadcrumb-active" aria-current="page" lang="en">News</span></p>
+    </nav>
 
-        <!-- Notizie importate dalla Home -->
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/trofeo_patavium.jpg" alt="Scintillante trofeo in argento esposto sopra un piedistallo circondato dalla terra rossa">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-03-07">7 Marzo 2026</time>
-                <h2>Svelato il montepremi record per l'edizione 2026</h2>
-                <p>Il comitato direttivo ha ufficializzato un clamoroso incremento del 30% del prize money rispetto alla passata stagione, posizionando il torneo tra i più ricchi e prestigiosi della categoria ATP 250. La finale promette già scintille e un assegno da record storico per il vincitore del singolare maschile e femminile.</p>
-            </div>
-        </article>
+    <main id="main-content">
+        <section class="intro-sezione" aria-labelledby="titolo-news">
+            <h1 id="titolo-news">Ultime <span lang="en">News</span></h1>
+            <div class="divider" aria-hidden="true"></div>
+            <p>Scopri i dettagli, le curiosità e tutti gli aggiornamenti ufficiali sulla nuova edizione del torneo e del mondo del tennis.</p>
+        </section>
 
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/lorenzo_milanese.jpg" alt="Il tennista Lorenzo Milanese esulta in campo stringendo i pugni dopo un punto vinto" class="img-top">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-03-06">6 Marzo 2026</time>
-                <h2>Colpo grosso al Patavium <span lang="en">Open</span>: Milanese ci sarà!</h2>
-                <p>Il comitato organizzatore ha svelato il primo grande nome: Lorenzo Milanese ha confermato la sua presenza e difenderà i colori italiani sulla terra rossa di Padova, portando spettacolo ed entusiasmo per i tanti appassionati locali.</p>
-            </div>
-        </article>
+        <section class="news-grid" aria-label="Elenco completo delle notizie">
 
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/date_ufficiali.jpg" alt="Locandina ufficiale che riporta chiaramente le date del torneo dal diciannove al ventiquattro Maggio" class="img-contain">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-03-05">5 Marzo 2026</time>
-                <h2>Ufficializzate le date e i prezzi (18 - 24 Maggio)</h2>
-                <p>Segnatevi queste date: dal 18 al 24 Maggio. La grande prevendita online inizia lunedì con pacchetti scontati per abbonamenti settimanali e agevolazioni dedicate agli under 14 che partecipano alla Tennis Academy padovana.</p>
-            </div>
-        </article>
+            <!-- Notizie importate dalla Home -->
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/trofeo_patavium.jpg"
+                        alt="Scintillante trofeo in argento esposto sopra un piedistallo circondato dalla terra rossa">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-03-07">7 Marzo 2026</time>
+                    <h2>Svelato il montepremi record per l'edizione 2026</h2>
+                    <p>Il comitato direttivo ha ufficializzato un clamoroso incremento del 30% del prize money rispetto
+                        alla passata stagione, posizionando il torneo tra i più ricchi e prestigiosi della categoria ATP
+                        250. La finale promette già scintille e un assegno da record storico per il vincitore del
+                        singolare maschile e femminile.</p>
+                </div>
+            </article>
 
-        <!-- Notizie esistenti -->
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/campo_rulli.jpg" alt="Addetti ai lavori del torneo passano il rullo pesante sulla terra rossa per appiattire e compattare la superficie del campo">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-03-12">12 Marzo 2026</time>
-                <h2>Al via la preparazione dei campi</h2>
-                <p>I tecnici specializzati sono al lavoro per garantire la perfetta manutenzione della terra rossa del Patavium Open. Quest'anno la miscela del terreno è stata arricchita con nuovi minerali organici ad alto assorbimento per prevenire pozzanghere in caso di rovesci primaverili.</p>
-            </div>
-        </article>
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/lorenzo_milanese.jpg"
+                        alt="Il tennista Lorenzo Milanese esulta in campo stringendo i pugni dopo un punto vinto"
+                        class="img-top">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-03-06">6 Marzo 2026</time>
+                    <h2>Colpo grosso al Patavium <span lang="en">Open</span>: Milanese ci sarà!</h2>
+                    <p>Il comitato organizzatore ha svelato il primo grande nome: Lorenzo Milanese ha confermato la sua
+                        presenza e difenderà i colori italiani sulla terra rossa di Padova, portando spettacolo ed
+                        entusiasmo per i tanti appassionati locali.</p>
+                </div>
+            </article>
 
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/news2.jpg" alt="Un tennista professionista inquadrato di schiena durante la fase di intenso caricamento del servizio">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-03-10">10 Marzo 2026</time>
-                <h2>Confermata la presenza dei Top 10</h2>
-                <p>Grandi notizie: tre dei primi dieci giocatori della classifica mondiale ATP hanno ufficialmente confermato la loro partecipazione al tabellone principale del torneo giovanile patavino, promettendo duelli mozzafiato già dai quarti di finale.</p>
-            </div>
-        </article>
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/date_ufficiali.jpg"
+                        alt="Locandina ufficiale che riporta chiaramente le date del torneo dal diciannove al ventiquattro Maggio"
+                        class="img-contain img-left">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-03-05">5 Marzo 2026</time>
+                    <h2>Ufficializzate le date e i prezzi (18 - 24 Maggio)</h2>
+                    <p>Segnatevi queste date: dal 18 al 24 Maggio. La grande prevendita online inizia lunedì con
+                        pacchetti scontati per abbonamenti settimanali e agevolazioni dedicate agli under 14 che
+                        partecipano alla Tennis Academy padovana.</p>
+                </div>
+            </article>
 
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/area_hospitality.jpg" alt="Spaziosa e moderna area relax del torneo con salottini eleganti, larghi ombrelloni bianchi e stand gastronomici in lontananza">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-03-01">01 Marzo 2026</time>
-                <h2>Nuova area <span lang="en">Hospitality</span> per il pubblico</h2>
-                <p>Quest'anno il pubblico potrà godere di un'esclusiva zona ristoro ecosostenibile con maxischermi di ultima generazione incastonati nel verde, per seguire all'aria aperta i match secondari in assoluto relax provando lo street-food locale gourmet.</p>
-            </div>
-        </article>
+            <!-- Notizie esistenti -->
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/campo_rulli.jpg"
+                        alt="Addetti ai lavori del torneo passano il rullo pesante sulla terra rossa per appiattire e compattare la superficie del campo">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-03-12">12 Marzo 2026</time>
+                    <h2>Al via la preparazione dei campi</h2>
+                    <p>I tecnici specializzati sono al lavoro per garantire la perfetta manutenzione della terra rossa
+                        del Patavium Open. Quest'anno la miscela del terreno è stata arricchita con nuovi minerali
+                        organici ad alto assorbimento per prevenire pozzanghere in caso di rovesci primaverili.</p>
+                </div>
+            </article>
 
-        <article class="news-card">
-            <div class="card-image">
-                <img src="../assets/images/patavium_junior.jpg" alt="Due giovani tennisti sorridenti con le racchette in mano stretti in un abbraccio pronti per sfidarsi nel torneo giovanile">
-            </div>
-            <div class="card-content">
-                <time datetime="2026-02-25">25 Febbraio 2026</time>
-                <h2>Torneo <span lang="en">Junior</span>: aperte le iscrizioni</h2>
-                <p>Il Patavium Open non dimentica i talenti in erba e annuncia l'attesa apertura delle iscrizioni per il torneo Under 16 maschile e femminile organizzato nei campi limitrofi al palazzetto, dando inizio così a un festival del tennis a 360 gradi.</p>
-            </div>
-        </article>
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/news2.jpg"
+                        alt="Un tennista professionista inquadrato di schiena durante la fase di intenso caricamento del servizio">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-03-10">10 Marzo 2026</time>
+                    <h2>Confermata la presenza dei Top 10</h2>
+                    <p>Grandi notizie: tre dei primi dieci giocatori della classifica mondiale ATP hanno ufficialmente
+                        confermato la loro partecipazione al tabellone principale del torneo giovanile patavino,
+                        promettendo duelli mozzafiato già dai quarti di finale.</p>
+                </div>
+            </article>
 
-    </section>
-</main>
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/area_hospitality.jpg"
+                        alt="Spaziosa e moderna area relax del torneo con salottini eleganti, larghi ombrelloni bianchi e stand gastronomici in lontananza">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-03-01">01 Marzo 2026</time>
+                    <h2>Nuova area <span lang="en">Hospitality</span> per il pubblico</h2>
+                    <p>Quest'anno il pubblico potrà godere di un'esclusiva zona ristoro ecosostenibile con maxischermi
+                        di ultima generazione incastonati nel verde, per seguire all'aria aperta i match secondari in
+                        assoluto relax provando lo street-food locale gourmet.</p>
+                </div>
+            </article>
+
+            <article class="news-card">
+                <div class="card-image">
+                    <img src="../assets/images/patavium_junior.jpg"
+                        alt="Due giovani tennisti sorridenti con le racchette in mano stretti in un abbraccio pronti per sfidarsi nel torneo giovanile">
+                </div>
+                <div class="card-content">
+                    <time datetime="2026-02-25">25 Febbraio 2026</time>
+                    <h2>Torneo <span lang="en">Junior</span>: aperte le iscrizioni</h2>
+                    <p>Il Patavium Open non dimentica i talenti in erba e annuncia l'attesa apertura delle iscrizioni
+                        per il torneo Under 16 maschile e femminile organizzato nei campi limitrofi al palazzetto, dando
+                        inizio così a un festival del tennis a 360 gradi.</p>
+                </div>
+            </article>
+
+        </section>
+    </main>

@@ -1,184 +1,197 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biglietti-Abbonamento</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
-<header>
-      <a href="../index.html" class="logo-link">
-        <img src="../assets/images/logo1.png" alt="" id="logo-sito">
-        <h1>Patavium Open</h1>
-    </a>
-
-    <nav id="menu">
-        <ul>
-            <li><a href="../index.html" lang="en">Home</a></li>
-            <li id="currentLink">Biglietti</li>
-            <li><a href="../html/news.html" lang="en">News</a></li>
-            <li><a href="../html/domande.html">Domande</a></li>
-        </ul>
-        
-        <ul id="menu-utente">
-            <li><a href="../html/login.html">
-                <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
-            <li><a href="../html/carrello.html">
-                <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello (0)</a></li>
-        </ul>
-    </nav>
-</header>
-  <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="biglietti.html">Biglietti</a> &gt; Abbonamento</p>
-    </nav>
-<main>
-
-
-
-    <h1>Abbonamento</h1>
-    <p>Vivi il Patavium <span lang="en">Open</span> senza perderti nemmeno uno scambio. Con il nostro 
-        abbonamento, 
-        ti assicuri un posto garantito per l'intera durata del torneo, dalle prime emozionanti 
-        sfide fino alla finalissima. Oltre alla comodità del tuo posto fisso, 
-        l'abbonamento ti apre le porte a un'esperienza <span lang="en">premium</span>: ingressi dedicati con <span lang="en">fast-track</span>, 
-        sconti esclusivi sul <span lang="en">merchandising</span> ufficiale e accesso illimitato a tutti i campi 
-        secondari e alle aree <span lang="en">hospitality</span> del villaggio. Abbonati al Patavium <span lang="en">Open</span> 
-        e preparati a una settimana di puro spettacolo sulla terra rossa.</p>
-
-    <section class="benefits-section">
-        <h2>Cosa include l'abbonamento</h2>
-        <div class="benefits-wrapper">
-            <div class="benefit-card">
-                <img src="pallina_tennis.jpg" class="benefit-icon" alt="">
-                <div class="benefit-text">
-                    <h3>Nessuno stress, solo spettacolo</h3>
-                    <p>Assicurati una comoda poltrona numerata nelle migliori tribune. Il tuo posto è garantito per l'intera settimana, permettendoti 
-                        di godere di ogni <span lang="en">match</span>, dalle prime fasi di qualificazione fino alla 
-                        finalissima, con una visuale sempre perfetta.</p>
-                </div>
-            </div>
-
-            <div class="benefit-card">
-                <img src="ombrellone.jpg" class="benefit-icon" alt="">
-                <div class="benefit-text">
-                    <h3><span lang="en">Il tennis a 360 gradi</span></h3>
-                    <p>L'abbonamento non ti limita ai campi principali: avrai la massima libertà 
-                        di esplorare l'intero circolo. Potrai accedere a tutti i campi secondari 
-                        per scoprire i talenti emergenti e assistere da pochissimi metri agli 
-                        allenamenti dei grandi campioni.</p>
-                </div>
-            </div>
-
-            <div class="benefit-card">
-                <img src="orologio.jpg" class="benefit-icon" alt="">
-                <div class="benefit-text">
-                    <h3>Il tuo tempo è prezioso</h3>
-                    <p>Dimentica le lunghe code ai cancelli. Come abbonato, avrai a 
-                        disposizione una corsia di accesso preferenziale e riservata, 
-                        per farti entrare nel cuore dell'evento in modo rapido, fluido e 
-                        senza stress.</p>
-                </div>
-            </div>
-
-            <div class="benefit-card">
-                <img src="soldi.jpg" class="benefit-icon" alt="">
-                <div class="benefit-text">
-                    <h3>Più tennis, meno pensieri</h3>
-                    <p>Vivere l'intero torneo non è mai stato così vantaggioso. 
-                        Il prezzo unico dell'abbonamento ti garantisce un risparmio netto e 
-                        immediato rispetto all'acquisto separato dei singoli biglietti giornalieri.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="seat-selection" class="section-container" aria-labelledby="seat-title">
-    <div class="step-header">
-        <h2 id="seat-title">Seleziona la Tribuna per il tuo Abbonamento</h2>
-        <p>Scegli il tuo punto di vista perfetto per goderti l'intero torneo.</p>
-    </div>
-
-    <div class="seat-wrapper">
-        <div class="stadium-map">
-            <img src="mappa_campo.jpg" alt="Mappa stilizzata del Campo Centrale" class="map-img">
-        </div>
-
-        <div class="seat-options">
-            
-            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
-                <div class="seat-info">
-                    <h3><span lang="en">Courtside Premium</span></h3>
-                    <p>Prima fila, a bordo campo per tutta la settimana</p>
-                </div>
-                <span class="seat-price">€ 550,00</span>
-            </div>
-
-            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
-                <div class="seat-info">
-                    <h3>Tribuna Antenore (Lungo Linea)</h3>
-                    <p>Ottima visuale laterale bassa</p>
-                </div>
-                <span class="seat-price">€ 380,00</span>
-            </div>
-
-            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
-                <div class="seat-info">
-                    <h3>Tribuna Fondo Campo</h3>
-                    <p>La visuale tattica perfetta per ogni match</p>
-                </div>
-                <span class="seat-price">€ 280,00</span>
-            </div>
-
-            <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
-                <div class="seat-info">
-                    <h3>Anello Superiore</h3>
-                    <p>Visione panoramica globale del torneo</p>
-                </div>
-                <span class="seat-price">€ 190,00</span>
-            </div>
-
-            <div class="purchase-container">
-    <p id="qty-label" class="sr-only">Seleziona il numero di biglietti desiderati (massimo 10)</p>
-
-    <div class="purchase-controls">
-        <div class="quantity-selector" role="group" aria-labelledby="qty-label">
-            <button type="button" class="qty-btn minus" aria-label="Diminuisci quantità" onclick="changeQty(-1)">−</button>
-            <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly aria-labelledby="qty-label">
-            <button type="button" class="qty-btn plus" aria-label="Aumenta quantità" onclick="changeQty(1)">+</button>
-        </div>
-    </div>
-
-    <div class="action-box">
-        <a href="carrello.html" id="final-buy-btn" class="buy-button">
-            AGGIUNGI AL CARRELLO
+    <header>
+        <a href="../index.html" class="logo-link">
+             <img src="../assets/images/logo1.png" alt="Logo ufficiale del Patavium Open"  id="logo-sito">
+            <h1>Patavium Open</h1>
         </a>
-    </div>
-    </div>
-    </div>
-    </div>
-</section>
-</main>
-<footer class="footer-sito">
-    <hr aria-hidden="true">
-    
-    <div class="footer-contenuto">
-        
-        <div class="footer-logo">
-            <img src="logo.png" alt="" width="120">
-        </div>
 
-        <nav class="footer-nav" aria-label="Informazioni legali">
+        <nav id="menu">
             <ul>
-                <li><a href="termini.html">Termini e condizioni</a></li>
-                <li><a href="privacy.html">Informativa sulla privacy</a></li>
+                <li><a href="../index.html" lang="en">Home</a></li>
+                <li id="currentLink">Biglietti</li>
+                <li><a href="../html/news.html" lang="en">News</a></li>
+                <li><a href="../html/domande.html">Domande</a></li>
+            </ul>
+
+            <ul id="menu-utente">
+                <li><a href="../html/login.html">
+                        <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
+                <li><a href="../html/carrello.html">
+                        <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello</a>
+                </li>
             </ul>
         </nav>
-        
-    </div>
+    </header>
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="biglietti.html">Biglietti</a> &gt;
+            <span class="breadcrumb-active" aria-current="page">Abbonamento</span></p>
+    </nav>
+    <main>
 
-    <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
-</footer>
-<script src="script.js"></script>
+
+        <section class="intro-sezione" aria-labelledby="titolo-abbonamento">
+            <h1 id="titolo-abbonamento">Abbonamento</h1>
+            <div class="divider" aria-hidden="true"></div>
+            <p>Vivi il Patavium <span lang="en">Open</span> senza perderti nemmeno uno scambio. Con il nostro
+            abbonamento,
+            ti assicuri un posto garantito per l'intera durata del torneo, dalle prime emozionanti
+            sfide fino alla finalissima. Oltre alla comodità del tuo posto fisso,
+            l'abbonamento ti apre le porte a un'esperienza <span lang="en">premium</span>: ingressi dedicati con <span
+                lang="en">fast-track</span>,
+            sconti esclusivi sul <span lang="en">merchandising</span> ufficiale e accesso illimitato a tutti i campi
+            secondari e alle aree <span lang="en">hospitality</span> del villaggio. Abbonati al Patavium <span
+                lang="en">Open</span>
+            e preparati a una settimana di puro spettacolo sulla terra rossa.</p>
+        </section>
+
+        <section class="benefits-section">
+            <h2>Cosa include l'abbonamento</h2>
+            <div class="benefits-wrapper">
+                <div class="benefit-card">
+                     <img src="pallina_tennis.jpg" class="benefit-icon" alt="Icona pallina da tennis decorativa" >
+                    <div class="benefit-text">
+                        <h3>Nessuno stress, solo spettacolo</h3>
+                        <p>Assicurati una comoda poltrona numerata nelle migliori tribune. Il tuo posto è garantito per
+                            l'intera settimana, permettendoti
+                            di godere di ogni <span lang="en">match</span>, dalle prime fasi di qualificazione fino alla
+                            finalissima, con una visuale sempre perfetta.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                     <img src="ombrellone.jpg" class="benefit-icon" alt="Icona relax e area hospitality decorativa" >
+                    <div class="benefit-text">
+                        <h3><span lang="en">Il tennis a 360 gradi</span></h3>
+                        <p>L'abbonamento non ti limita ai campi principali: avrai la massima libertà
+                            di esplorare l'intero circolo. Potrai accedere a tutti i campi secondari
+                            per scoprire i talenti emergenti e assistere da pochissimi metri agli
+                            allenamenti dei grandi campioni.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                     <img src="orologio.jpg" class="benefit-icon" alt="Icona orologio analogico decorativa" >
+                    <div class="benefit-text">
+                        <h3>Il tuo tempo è prezioso</h3>
+                        <p>Dimentica le lunghe code ai cancelli. Come abbonato, avrai a
+                            disposizione una corsia di accesso preferenziale e riservata,
+                            per farti entrare nel cuore dell'evento in modo rapido, fluido e
+                            senza stress.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                     <img src="soldi.jpg" class="benefit-icon" alt="Icona monete a tema vantaggio economico" >
+                    <div class="benefit-text">
+                        <h3>Più tennis, meno pensieri</h3>
+                        <p>Vivere l'intero torneo non è mai stato così vantaggioso.
+                            Il prezzo unico dell'abbonamento ti garantisce un risparmio netto e
+                            immediato rispetto all'acquisto separato dei singoli biglietti giornalieri.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="seat-selection" class="section-container" aria-labelledby="seat-title">
+            <div class="step-header">
+                <h2 id="seat-title">Seleziona la Tribuna per il tuo Abbonamento</h2>
+                <p>Scegli il tuo punto di vista perfetto per goderti l'intero torneo.</p>
+            </div>
+
+            <div class="seat-wrapper">
+                <div class="stadium-map">
+                    <img src="mappa_campo.jpg" alt="Mappa stilizzata del Campo Centrale" class="map-img">
+                </div>
+
+                <div class="seat-options">
+
+                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                        <div class="seat-info">
+                            <h3><span lang="en">Courtside Premium</span></h3>
+                            <p>Prima fila, a bordo campo per tutta la settimana</p>
+                        </div>
+                        <span class="seat-price">â‚¬ 550,00</span>
+                    </div>
+
+                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                        <div class="seat-info">
+                            <h3>Tribuna Antenore (Lungo Linea)</h3>
+                            <p>Ottima visuale laterale bassa</p>
+                        </div>
+                        <span class="seat-price">â‚¬ 380,00</span>
+                    </div>
+
+                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                        <div class="seat-info">
+                            <h3>Tribuna Fondo Campo</h3>
+                            <p>La visuale tattica perfetta per ogni match</p>
+                        </div>
+                        <span class="seat-price">â‚¬ 280,00</span>
+                    </div>
+
+                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                        <div class="seat-info">
+                            <h3>Anello Superiore</h3>
+                            <p>Visione panoramica globale del torneo</p>
+                        </div>
+                        <span class="seat-price">â‚¬ 190,00</span>
+                    </div>
+
+                    <div class="purchase-container">
+                        <p id="qty-label" class="sr-only">Seleziona il numero di biglietti desiderati (massimo 10)</p>
+
+                        <div class="purchase-controls">
+                            <div class="quantity-selector" role="group" aria-labelledby="qty-label">
+                                <button type="button" class="qty-btn minus" aria-label="Diminuisci quantità"
+                                    onclick="changeQty(-1)">âˆ’</button>
+                                <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly
+                                    aria-labelledby="qty-label">
+                                <button type="button" class="qty-btn plus" aria-label="Aumenta quantità"
+                                    onclick="changeQty(1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="action-box">
+                            <a href="carrello.html" id="final-buy-btn" class="buy-button">
+                                AGGIUNGI AL CARRELLO
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer-sito">
+        <hr aria-hidden="true">
+
+        <div class="footer-contenuto">
+
+            <div class="footer-logo">
+                 <img src="logo.png" alt="Logo ufficiale del Patavium Open a piè di pagina"  width="120">
+            </div>
+
+            <nav class="footer-nav" aria-label="Informazioni legali">
+                <ul>
+                    <li><a href="termini.html">Termini e condizioni</a></li>
+                    <li><a href="privacy.html">Informativa sulla privacy</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
+
 </html>
