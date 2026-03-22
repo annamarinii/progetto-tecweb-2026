@@ -22,7 +22,7 @@
         </ul>
         
         <ul id="menu-utente">
-            <li><a href="../html/login.html">
+            <li id="currentLink"><a href="../html/login.html" style="color: inherit;">
                 <img src="../assets/images/user.svg" alt="profilo" class="icone-menu">Profilo</a></li>
             <li><a href="../html/carrello.html">
                 <img src="../assets/images/shopping-cart.svg" alt="carrello" class="icone-menu">Carrello (0)</a></li>
@@ -31,46 +31,56 @@
 </header>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span>Profilo</span></p>
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="login.html" class="breadcrumb-active" aria-current="page">Profilo</a></p>
     </nav>
     
-    <main>
-        <section aria-labelledby="titolo-login">
-            <h2 id="titolo-login">SONO GIÀ CLIENTE.</h2>
+    <main class="login-page">
+        <div class="login-container">
             
-            <form action="app/login.php" method="post">
-                <div>
-                    <label for="email">E-mail</label>
-                    <br>
-                    <input type="email" id="email" name="email" placeholder="Inserisci l'e-mail" required>
-                </div>
+            <section class="login-section" aria-labelledby="titolo-login">
+                <h2 id="titolo-login">Sei già cliente? Login</h2>
+                <p class="login-sub">Accedi con la tua email per gestire i tuoi biglietti e continuare gli acquisti in modo rapido.</p>
+                <form action="app/login.php" method="post" class="auth-form">
+                    <div class="form-gruppo">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="Inserisci l'e-mail" required autocomplete="email">
+                    </div>
+                    <div class="form-gruppo">
+                        <label for="pass">Password</label>
+                        <input type="password" id="pass" name="password" placeholder="Inserisci la password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn-auth">Login</button>
+                </form>
+            </section>
 
-                <br>
+            <div class="auth-divider" aria-hidden="true"></div>
 
-                <div>
-                    <label for="pass">Password</label>
-                    <br>
-                    <input type="password" id="pass" name="password" placeholder="Inserisci la password" required>
-                </div>
+            <section class="register-section" aria-labelledby="titolo-nuovo">
+                <h2 id="titolo-nuovo">Nuovo cliente? Registrati</h2>
+                <p>Crea subito il tuo profilo gratuito per accedere in esclusiva ai biglietti del <span lang="la">Patavium</span> <span lang="en">Open</span> e prenotare velocemente i tuoi posti migliori sulle tribune.</p>
+                <a href="registrazione.html" class="btn-auth outline" role="button">Crea Account</a>
+            </section>
 
-                <br>
-
-                <button type="submit">Login</button>
-            </form>
-        </section>
-
-        <hr aria-hidden="true">
-
-        <section aria-labelledby="titolo-nuovo">
-            <h2 id="titolo-nuovo">NUOVO CLIENTE?</h2>
-            <p>Se non hai ancora un account, registrati per acquistare i biglietti del Patavium Open.</p>
-            
-            <a href="registrazione.html" role="button">Registrazione</a>
-        </section>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Patavium Open Tennis Tournament</p>
+    <footer class="footer-sito">
+        <hr aria-hidden="true">
+        
+        <div class="footer-contenuto">
+            <div class="footer-logo">
+                <img src="logo.png" alt="" width="120">
+            </div>
+
+            <nav class="footer-nav" aria-label="Informazioni legali">
+                <ul>
+                    <li><a href="termini.html">Termini e condizioni</a></li>
+                    <li><a href="privacy.html">Informativa sulla privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
     </footer>
 
 </body>
