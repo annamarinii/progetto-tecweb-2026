@@ -2008,6 +2008,23 @@ main {
         /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
     }
+    /* Mette l'immagine sopra e il testo sotto */
+    .rettangolo-notizia {
+        flex-direction: column; 
+    }
+
+    /* Adatta l'immagine allo schermo mobile */
+    .home-news-img-wrapper {
+        width: 100%; /* L'immagine prende tutta la larghezza dello smartphone */
+        height: 220px; /* Diamo un'altezza fissa per non farla diventare troppo alta */
+        border-right: none; /* Togliamo il bordo arancione laterale... */
+        border-bottom: 4px solid var(--arancione); /* ...e lo spostiamo sotto la foto! */
+    }
+
+    /* Un po' di respiro in più per il testo su mobile */
+    .home-news-content {
+        padding: 25px 20px;
+    }
 }
 
 /* =========================================
