@@ -667,7 +667,7 @@ main {
     font-size: 1.1em;
     font-weight: bold;
     border-radius: 8px;
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
     margin-top: auto;
     /* Allinea tutti i bottoni in fondo alla card alla stessa altezza */
 }
