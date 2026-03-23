@@ -3,10 +3,11 @@
     --blu-scuro: #07246F;
     --crema: #FDF7EB;
     --arancione: #E17414;
+    --arancione-chiaro: #FFBE85;
     --azzurro: #F1F3FC;
     --black: #101010;
-    --white: #f1f1f1;
-    --arancione-scuro: #BD5205;
+    --white: #ffffff;
+    --arancione-scuro: #A54600;
 
     /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
     --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
@@ -46,10 +47,11 @@ header {
     align-items: center;
     text-decoration: none;
     color: var(--white);
+
 }
 
 #logo-sito {
-    width: 70px;
+    width: 80px;
     height: auto;
     border-radius: 50%;
     /* Questo taglia gli angoli bianchi e fa il cerchio */
@@ -75,6 +77,7 @@ header h1 {
     /* Li centra in verticale l'uno rispetto all'altro */
     gap: 8px;
     /* Crea un piccolo spazietto elegante tra l'icona e la parola */
+    padding: 12px;
 }
 
 /* ----------------------------------------------------- */
@@ -89,7 +92,7 @@ header h1 {
 #menu>ul:first-of-type {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 10px;
     margin: 0 auto;
 }
 
@@ -99,16 +102,20 @@ header h1 {
     gap: 20px;
 }
 
-header li,
-header a {
-    color: var(--white);
+header li {
     font-weight: bold;
-    padding-bottom: 5px;
+}
+
+header a,
+#currentLink {
+    color: var(--white);
+    padding: 12px;
+    display: inline-block;
 }
 
 #currentLink,
 header a:not(.btn-login):not(.btn-register):hover {
-    color: var(--arancione-scuro);
+    color: var(--arancione-chiaro);
 }
 
 /* =========================================
@@ -160,6 +167,7 @@ header a:not(.btn-login):not(.btn-register):hover {
 /* 4. BREADCRUMB */
 #breadcrumb {
     background-color: var(--azzurro);
+    color: var(--black);
     padding: 10px 30px;
     /* <-- Modificato: rimessi i 30px fissi! */
     font-size: 0.9em;
@@ -257,8 +265,56 @@ main {
     background-color: var(--blu-scuro);
     color: var(--white);
     /* Applichiamo lo spazio laterale */
-    padding: 20px var(--spazio-laterale);
+    padding: 30px var(--spazio-laterale);
+}
+
+.footer-contenuto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav a {
+    color: var(--crema);
+    display: inline-block;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+    color: var(--arancione-chiaro);
+}
+
+.footer-sito hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0;
+}
+
+.footer-copyright {
     text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--crema);
 }
 
 /* =========================================
@@ -386,6 +442,7 @@ main {
 .rettangolo-notizia {
     display: block;
     background-color: var(--blu-scuro);
+    color: var(--white);
     /* Stesso colore delle card dei campioni! */
     padding: 25px 30px;
     border-radius: 8px;
@@ -405,7 +462,7 @@ main {
 /* Testi dentro il rettangolo */
 .rettangolo-notizia time {
     display: block;
-    color: var(--arancione);
+    color: var(--arancione-chiaro);
     /* La data spicca in arancione */
     font-size: 0.85em;
     font-weight: bold;
@@ -591,7 +648,7 @@ main {
 
 .cards-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     max-width: 1100px;
     margin: 0 auto;
@@ -657,7 +714,7 @@ main {
 }
 
 /* Il tasto arancione scuro */
-.buy-btn{
+.buy-btn {
     display: inline-block;
     background-color: var(--arancione-scuro);
     color: var(--white);
@@ -671,12 +728,14 @@ main {
     margin-top: auto;
     /* Allinea tutti i bottoni in fondo alla card alla stessa altezza */
 }
-.ticket-card
-.buy-btn:hover,
+
+.ticket-card .buy-btn:hover,
 .buy-btn:focus-visible {
     background-color: var(--blu-scuro);
-    color: var(--azzurro); /* Aggiunto punto e virgola */
-    outline: none; /* Gestito dal focus-visible se vuoi personalizzarlo */
+    color: var(--azzurro);
+    /* Aggiunto punto e virgola */
+    outline: none;
+    /* Gestito dal focus-visible se vuoi personalizzarlo */
 }
 
 /* =========================================
@@ -687,7 +746,7 @@ main {
 .section-container {
     padding: 60px var(--spazio-laterale);
     background-color: var(--azzurro);
-    
+
 }
 
 /* 2. Intestazione dello Step */
@@ -882,13 +941,16 @@ main {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px 30px 60px;
-    background-color: var(--azzurro); /* Lo sfondo della pagina resta azzurro chiaro */
+    background-color: var(--azzurro);
+    /* Lo sfondo della pagina resta azzurro chiaro */
 }
 
 .faq-item {
-    background-color: var(--blu-scuro); /* Sfondo blu come le news */
+    background-color: var(--blu-scuro);
+    /* Sfondo blu come le news */
     border: 2px solid transparent;
-    border-bottom: 5px solid var(--arancione); /* Bordo arancione sportivo */
+    border-bottom: 5px solid var(--arancione);
+    /* Bordo arancione sportivo */
     border-radius: 12px;
     margin-bottom: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -907,7 +969,8 @@ main {
     padding: 20px 25px;
     font-size: 1.25em;
     font-weight: bold;
-    color: var(--white); /* Scritta bianca per massimo contrasto */
+    color: var(--white);
+    /* Scritta bianca per massimo contrasto */
     background-color: var(--blu-scuro);
     cursor: pointer;
     list-style-position: inside;
@@ -923,13 +986,15 @@ main {
 
 .faq-content {
     padding: 20px 25px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Una riga sottile per separare */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* Una riga sottile per separare */
     background-color: var(--blu-scuro);
 }
 
 .faq-content p {
     font-size: 1.15em;
-    color: var(--azzurro); /* Testo azzurrino come richiesto */
+    color: var(--azzurro);
+    /* Testo azzurrino come richiesto */
     line-height: 1.7;
 }
 
@@ -937,10 +1002,12 @@ main {
 .faq-item summary::marker {
     color: var(--arancione);
 }
+
 /* Cambia colore al testo della domanda quando è aperta */
 .faq-item[open] summary {
     color: var(--arancione);
 }
+
 /* =========================================
    SEZIONE CONTATTI
 ========================================= */
@@ -948,7 +1015,8 @@ main {
 .contatti-sezione {
     max-width: 800px;
     margin: 0 auto;
-    padding: 60px 30px; /* <-- Anche qui, usiamo 30px fissi */
+    padding: 60px 30px;
+    /* <-- Anche qui, usiamo 30px fissi */
     text-align: center;
 }
 
@@ -1418,8 +1486,12 @@ main {
 }
 
 .seat-category.selected h3,
-.seat-category.selected p,
+.seat-category.selected p {
+    color: var(--white);
+}
+
 .seat-category.selected .seat-price {
+    background-color: var(--arancione);
     color: var(--white);
 }
 
@@ -1435,9 +1507,13 @@ main {
 }
 
 .seat-price {
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--blu-scuro);
+    background-color: var(--arancione-chiaro);
+    padding: 8px 15px;
+    border-radius: 20px;
+    white-space: nowrap;
 }
 
 /* CONTAINER DELL'ACQUISTO FINALE */
@@ -1551,6 +1627,7 @@ main {
 .img-left {
     object-position: left center !important;
 }
+
 .login-container {
     display: flex;
     background-color: var(--white);
@@ -1730,7 +1807,7 @@ main {
 .home-news-content time {
     font-size: 0.85em;
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--arancione-chiaro);
     margin-bottom: 8px;
     display: block;
     text-transform: uppercase;
@@ -1756,7 +1833,7 @@ main {
 .news-grid {
     display: grid;
     /* Usa la stessa magia dei biglietti per adattarsi in automatico */
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 40px;
     padding: 30px var(--spazio-laterale);
     /* ELIMINATO max-width ed ELIMINATO margin: 0 auto; */
@@ -1873,13 +1950,13 @@ main {
 
 .auth-form input:hover {
     border-color: #b0b0b0 !important;
-    background-color: var(--white) ;
+    background-color: var(--white);
 }
 
 .auth-form input:focus {
     outline: none !important;
     border-color: var(--arancione) !important;
-    background-color: var(--white) ;
+    background-color: var(--white);
     box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15) !important;
 }
 
@@ -1983,7 +2060,7 @@ main {
     :root {
         --spazio-laterale: 15px;
     }
-   
+
 }
 
 /* =========================================
@@ -2018,17 +2095,22 @@ main {
         /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
     }
+
     /* Mette l'immagine sopra e il testo sotto */
     .rettangolo-notizia {
-        flex-direction: column; 
+        flex-direction: column;
     }
 
     /* Adatta l'immagine allo schermo mobile */
     .home-news-img-wrapper {
-        width: 100%; /* L'immagine prende tutta la larghezza dello smartphone */
-        height: 220px; /* Diamo un'altezza fissa per non farla diventare troppo alta */
-        border-right: none; /* Togliamo il bordo arancione laterale... */
-        border-bottom: 4px solid var(--arancione); /* ...e lo spostiamo sotto la foto! */
+        width: 100%;
+        /* L'immagine prende tutta la larghezza dello smartphone */
+        height: 220px;
+        /* Diamo un'altezza fissa per non farla diventare troppo alta */
+        border-right: none;
+        /* Togliamo il bordo arancione laterale... */
+        border-bottom: 4px solid var(--arancione);
+        /* ...e lo spostiamo sotto la foto! */
     }
 
     /* Un po' di respiro in più per il testo su mobile */
@@ -2052,5 +2134,17 @@ main {
     /* Rendiamo il titolo della Hero Section un po' più grande per riempire lo schermone */
     .hero-section h1 {
         font-size: 5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-contenuto {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        gap: 10px;
     }
 }
