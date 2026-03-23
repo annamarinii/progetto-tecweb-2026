@@ -526,7 +526,7 @@ main {
 
 /* Testo della notizia: Cruciale per l'accessibilità */
 .card-content p {
-    color: #1a1a1a;
+    color: var (--black);
     /* Nero quasi puro per il massimo contrasto */
     line-height: 1.8;
     /* Interlinea ampia per dislessia e ipovisione */
@@ -541,7 +541,7 @@ main {
 .intro-sezione {
     text-align: center;
     padding: 30px var(--spazio-laterale) 5px;
-    background-color: var(--white);
+    background-color: var(--azzurro);
 }
 
 .intro-sezione h1 {
@@ -598,7 +598,7 @@ main {
 
 /* Struttura della singola card */
 .ticket-card {
-    background-color: #ffffff;
+    background-color: var (--white);
     border: 1px solid var(--black);
     border-radius: 12px;
     overflow: hidden;
@@ -659,7 +659,7 @@ main {
 .buy-button {
     display: inline-block;
     background-color: var(--arancione-scuro);
-    color: #ffffff;
+    color: var (--white);
     /* Bianco per fare contrasto forte */
     text-align: center;
     padding: 15px 20px;
@@ -875,10 +875,11 @@ main {
 /* =========================================
    SEZIONE FAQ
 ========================================= */
+
 .faq-wrapper {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px var(--spazio-laterale) 60px;
+    padding: 20px 30px 60px; /* <-- Invece della variabile, usiamo 30px di margine fisso */
     background-color: var(--azzurro);
 }
 
@@ -924,10 +925,11 @@ main {
 /* =========================================
    SEZIONE CONTATTI
 ========================================= */
+
 .contatti-sezione {
     max-width: 800px;
     margin: 0 auto;
-    padding: 60px var(--spazio-laterale);
+    padding: 60px 30px; /* <-- Anche qui, usiamo 30px fissi */
     text-align: center;
 }
 
@@ -1852,13 +1854,13 @@ main {
 
 .auth-form input:hover {
     border-color: #b0b0b0 !important;
-    background-color: #ffffff !important;
+    background-color: var (--white) ;
 }
 
 .auth-form input:focus {
     outline: none !important;
     border-color: var(--arancione) !important;
-    background-color: #ffffff !important;
+    background-color: var (--white) ;
     box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15) !important;
 }
 
