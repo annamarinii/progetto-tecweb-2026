@@ -599,7 +599,7 @@ main {
 
 /* Struttura della singola card */
 .ticket-card {
-    background-color: var(--white);
+    background-color: var(--azzurro);
     border: 1px solid var(--black);
     border-radius: 12px;
     overflow: hidden;
