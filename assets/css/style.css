@@ -159,7 +159,7 @@ header a:not(.btn-login):not(.btn-register):hover {
 
 /* 4. BREADCRUMB */
 #breadcrumb {
-    background-color: var(--crema);
+    background-color: var(--azzurro);
     padding: 10px 30px;
     /* <-- Modificato: rimessi i 30px fissi! */
     font-size: 0.9em;
@@ -482,15 +482,6 @@ main {
     /* Spazio tra le righe per facilitare la lettura */
 }
 
-/* 3. La Griglia delle Card */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    padding: 20px var(--spazio-laterale);
-    max-width: 1400px;
-    margin: 0 auto;
-}
 
 /* 4. La Card: struttura solida e leggibile */
 .news-card {
@@ -597,15 +588,12 @@ main {
     text-align: center;
 }
 
-/* La griglia che mette le 3 card in fila */
 .cards-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    /* Su PC 3 colonne, su mobile va a capo */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 20px;
     max-width: 1100px;
     margin: 0 auto;
-    /* Centra la griglia nella pagina */
 }
 
 /* Struttura della singola card */
@@ -697,9 +685,7 @@ main {
 .section-container {
     padding: 60px var(--spazio-laterale);
     background-color: var(--azzurro);
-    /* Sfondo bianco per staccare dall'azzurro del main */
-    max-width: 1400px;
-    margin: 0 auto;
+    
 }
 
 /* 2. Intestazione dello Step */
@@ -1745,13 +1731,15 @@ main {
 /* =========================================
    PAGINA NEWS
 ========================================= */
+
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1050px;
-    margin: 30px auto;
-    padding: 0 var(--spazio-laterale);
+    /* Usa la stessa magia dei biglietti per adattarsi in automatico */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 40px;
+    padding: 30px var(--spazio-laterale);
+    /* ELIMINATO max-width ed ELIMINATO margin: 0 auto; */
+    /* Lo spazio laterale centra già tutto alla perfezione! */
 }
 
 /* =========================================
@@ -1974,6 +1962,7 @@ main {
     :root {
         --spazio-laterale: 15px;
     }
+   
 }
 
 /* =========================================
