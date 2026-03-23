@@ -879,49 +879,66 @@ main {
 .faq-wrapper {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px 30px 60px; /* <-- Invece della variabile, usiamo 30px di margine fisso */
-    background-color: var(--azzurro);
+    padding: 20px 30px 60px;
+    background-color: var(--azzurro); /* Lo sfondo della pagina resta azzurro chiaro */
 }
 
 .faq-item {
-    background-color: var(--white);
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+    background-color: var(--blu-scuro); /* Sfondo blu come le news */
+    border: 2px solid transparent;
+    border-bottom: 5px solid var(--arancione); /* Bordo arancione sportivo */
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Effetto sollevamento come nelle card biglietti/news */
+.faq-item:hover,
+.faq-item:focus-within {
+    transform: translateY(-5px);
+    border-color: var(--arancione);
 }
 
 .faq-item summary {
     padding: 20px 25px;
     font-size: 1.25em;
     font-weight: bold;
-    color: var(--blu-scuro);
-    background-color: var(--white);
+    color: var(--white); /* Scritta bianca per massimo contrasto */
+    background-color: var(--blu-scuro);
     cursor: pointer;
     list-style-position: inside;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
+/* Quando passi sopra alla domanda, diventa arancione */
 .faq-item summary:hover,
 .faq-item summary:focus-visible {
-    background-color: var(--crema);
-    color: var(--arancione-scuro);
+    color: var(--arancione);
     outline: none;
 }
 
 .faq-content {
     padding: 20px 25px;
-    border-top: 1px solid #dcdcdc;
-    background-color: var(--crema);
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Una riga sottile per separare */
+    background-color: var(--blu-scuro);
 }
 
 .faq-content p {
     font-size: 1.15em;
-    color: var(--black);
-    line-height: 1.6;
+    color: var(--azzurro); /* Testo azzurrino come richiesto */
+    line-height: 1.7;
 }
 
+/* Colora il triangolino (marker) del summary */
+.faq-item summary::marker {
+    color: var(--arancione);
+}
+/* Cambia colore al testo della domanda quando è aperta */
+.faq-item[open] summary {
+    color: var(--arancione);
+}
 /* =========================================
    SEZIONE CONTATTI
 ========================================= */
