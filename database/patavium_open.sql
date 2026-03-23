@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS DOMANDE;
 DROP TABLE IF EXISTS NEWS;
 DROP TABLE IF EXISTS INCONTRO;
 DROP TABLE IF EXISTS UTENTE;
+DROP TABLE IF EXISTS FAQ;
+
 
 -- tabelle primarie
 CREATE TABLE UTENTE (
@@ -185,7 +187,7 @@ INSERT INTO BIGLIETTI (prezzo, tribuna, idIncontro) VALUES
 (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14),
 (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14);
 
-INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES --chiedi perchè ogni tanto ci sono tutti quegli span
+INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES
 ('A che ora aprono i cancelli del torneo?','I cancelli aprono tutti i giorni alle ore 09:00 del mattino. L''accesso alle tribune è consentito circa 30 minuti prima dell match della giornata.'),
 ('Il biglietto che acquisto è nominativo?', 'No, i biglietti NON sono nominativi. E'' indicato il nome dell''acquirente, ma possono essere ceduti ad altri.'),
 ('L''impianto è accessibile per le persone con disabilità motorie?','Assolutamente sì. Tutti i campi principali sono dotati di rampe e ascensori.'),
