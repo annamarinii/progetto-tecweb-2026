@@ -206,11 +206,12 @@ header a:not(.btn-login):not(.btn-register):hover {
     font-size: 1.2em;
     font-weight: bold;
     border-radius: 30px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .btn-biglietti:hover {
-    background-color: #c4620f;
+    background-color: var(--blu-scuro);
+    color: var(--azzurro)
 }
 
 /* 6. CORPO PRINCIPALE (MAIN) */
@@ -656,25 +657,26 @@ main {
 }
 
 /* Il tasto arancione scuro */
-.buy-button {
+.buy-btn{
     display: inline-block;
     background-color: var(--arancione-scuro);
-    color: var (--white);
+    color: var(--white);
     /* Bianco per fare contrasto forte */
     text-align: center;
     padding: 15px 20px;
     font-size: 1.1em;
     font-weight: bold;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3 ease;
     margin-top: auto;
     /* Allinea tutti i bottoni in fondo alla card alla stessa altezza */
 }
-
-.buy-button:hover,
-.buy-button:focus-visible {
-    background-color: var(--arancione);
-    /* Diventa leggermente più chiaro al passaggio del mouse */
+.ticket-card
+.buy-btn:hover,
+.buy-btn:focus-visible {
+    background-color: var(--blu-scuro);
+    color: var(--azzurro); /* Aggiunto punto e virgola */
+    outline: none; /* Gestito dal focus-visible se vuoi personalizzarlo */
 }
 
 /* =========================================
@@ -1347,7 +1349,7 @@ main {
 }
 
 .buy-btn {
-    background-color: var(--arancione);
+    background-color: var(--arancione-scuro);
     color: var(--white);
     padding: 12px 20px;
     font-weight: bold;
@@ -1357,7 +1359,7 @@ main {
 
 .buy-btn:hover,
 .buy-btn:focus-visible {
-    background-color: var(--arancione-scuro);
+    background-color: var(--arancione);
 }
 
 /* 5. SELEZIONE POSTO E ALTRI DETTAGLI BIGLIETTO */
