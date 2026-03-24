@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS BIGLIETTI;
 DROP TABLE IF EXISTS ORDINE;
 DROP TABLE IF EXISTS DOMANDE;
 DROP TABLE IF EXISTS NEWS;
-DROP TABLE IF EXISTS INCONTRO;
+DROP TABLE IF EXISTS PROGRAMMA;
 DROP TABLE IF EXISTS UTENTE;
 DROP TABLE IF EXISTS FAQ;
 
@@ -17,8 +17,8 @@ CREATE TABLE UTENTE (
                         is_admin BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE INCONTRO (
-                          idIncontro INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE PROGRAMMA (
+                          idProgramma INT AUTO_INCREMENT PRIMARY KEY,
                           data DATETIME NOT NULL,
                           sessione VARCHAR(20),
                           stadio VARCHAR(20) NOT NULL
@@ -53,23 +53,23 @@ CREATE TABLE ORDINE (
 
 CREATE TABLE BIGLIETTI (
                            idBiglietto INT AUTO_INCREMENT PRIMARY KEY,
-                           prezzo DECIMAL(10, 2) NOT NULL,
-                           tribuna VARCHAR(50) NOT NULL,
-                           tipo VARCHAR(50) DEFAULT NULL,
+                           prezzo INT NOT NULL,
+                           tribuna VARCHAR(20),
+                           tipo VARCHAR(20) DEFAULT NULL,
                            numero_ordine INT DEFAULT NULL,
-                           idIncontro INT NOT NULL,
+                           idProgramma INT NOT NULL,
                            FOREIGN KEY (numero_ordine) REFERENCES ORDINE(numero_ordine),
-                           FOREIGN KEY (idIncontro) REFERENCES INCONTRO(idIncontro)
+                           FOREIGN KEY (idProgramma) REFERENCES PROGRAMMA(idProgramma)
 );
 
 CREATE TABLE FAQ (
     idFaq INT AUTO_INCREMENT PRIMARY KEY,
     testo_domanda TEXT NOT NULL,
-    testo_risposta TEXT NOT NULL,
+    testo_risposta TEXT NOT NULL
 );
 
 --INSERT PER LE TABELLE
-INSERT INTO INCONTRO (data, sessione, stadio) VALUES
+INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
 -- Giorno 1 (18)
 ('2026-05-18 11:00:00', 'diurna', 'Giotto Court'),
 ('2026-05-18 19:00:00', 'serale', 'Patavium Arena'),
@@ -96,12 +96,19 @@ INSERT INTO INCONTRO (data, sessione, stadio) VALUES
 
 -- Giorno 7 (24)
 ('2026-05-24 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-24 19:00:00', 'serale', 'Patavium Arena');
+('2026-05-24 19:00:00', 'serale', 'Patavium Arena'),
 
-
+--ground
+('2026-05-18 09:00:00', 'ground', 'Accesso Ground'),
+('2026-05-19 09:00:00', 'ground', 'Accesso Ground'),
+('2026-05-20 09:00:00', 'ground', 'Accesso Ground'),
+('2026-05-21 09:00:00', 'ground', 'Accesso Ground'),
+('2026-05-22 09:00:00', 'ground', 'Accesso Ground'),
+('2026-05-23 09:00:00', 'ground', 'Accesso Ground'),
+('2026-05-24 09:00:00', 'ground', 'Accesso Ground');
 
 -- verranno 560 biglietti totali divisi in 30 per la diurna e 50 per la serale
-INSERT INTO BIGLIETTI (prezzo, tribuna, idIncontro) VALUES
+INSERT INTO BIGLIETTI (prezzo, tribuna, idProgramma) VALUES
 
 -- ================= GIORNATA 1
 -- Incontro 1 (30 Biglietti)
@@ -186,6 +193,32 @@ INSERT INTO BIGLIETTI (prezzo, tribuna, idIncontro) VALUES
 (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14), (170, 'Tribuna Antenore', 14),
 (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14),
 (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14);
+
+INSERT INTO BIGLIETTI (prezzo, tribuna, tipo, idProgramma) VALUES
+-- ID 15 (18 Maggio) - Prezzo: 20€
+(20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15),
+(20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15),
+-- ID 16 (19 Maggio) - Prezzo: 25€
+(25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16),
+(25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16), (25.00, NULL, 'ground', 16),
+-- ID 17 (20 Maggio) - Prezzo: 30€
+(30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17),
+(30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17), (30.00, NULL, 'ground', 17),
+-- ID 18 (21 Maggio) - Prezzo: 35€
+(35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18),
+(35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18), (35.00, NULL, 'ground', 18),
+-- ID 19 (22 Maggio) - Prezzo: 40€
+(40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19),
+(40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19), (40.00, NULL, 'ground', 19),
+-- ID 20 (23 Maggio) - Prezzo: 45€
+(45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20),
+(45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20), (45.00, NULL, 'ground', 20),
+-- ID 21 (24 Maggio) - Prezzo: 50€
+(50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21),
+(50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21);
+
+
+
 
 INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES
 ('A che ora aprono i cancelli del torneo?','I cancelli aprono tutti i giorni alle ore 09:00 del mattino. L''accesso alle tribune è consentito circa 30 minuti prima dell match della giornata.'),
