@@ -773,8 +773,8 @@ main {
 }
 
 .step-header p {
-    font-size: 1.2em;
-    color: var(--arancione);
+    font-size: 1.25em;
+    color: var(--arancione-scuro);
     font-weight: bold;
 }
 
@@ -1507,13 +1507,16 @@ main {
 }
 
 .seat-price {
-    font-size: 1.3em;
-    font-weight: bold;
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: 900;
     color: var(--blu-scuro);
     background-color: var(--arancione-chiaro);
-    padding: 8px 15px;
+    padding: 10px 18px;
+    border: 2px solid var(--blu-scuro);
     border-radius: 20px;
     white-space: nowrap;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* CONTAINER DELL'ACQUISTO FINALE */
