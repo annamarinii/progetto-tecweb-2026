@@ -5,29 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrazione - Patavium Open</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <meta name="description" content="Crea il tuo account Patavium Open per poter acquistare biglietti e accedere al tuo profilo.">
+    <meta name="description" content="Crea il tuo account Patavium Open per acquistare biglietti e accedere al tuo profilo.">
 </head>
 <body>
 
 <header>
     <a href="../index.html" class="logo-link">
-         <img src="../assets/images/logo1.png" alt="Patavium Open"  id="logo-sito">
+        <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
         <h1>Patavium Open</h1>
     </a>
-
     <nav id="menu">
         <ul>
             <li><a href="../index.html" lang="en">Home</a></li>
-            <li><a href="../html/biglietti.html">Biglietti</a></li>
-            <li><a href="../html/news.html" lang="en">News</a></li>
-            <li><a href="../html/domande.html">Domande</a></li>
+            <li><a href="biglietti.html">Biglietti</a></li>
+            <li><a href="news.html" lang="en">News</a></li>
+            <li><a href="domande.html">Domande</a></li>
         </ul>
-        
         <ul id="menu-utente">
-            <li id="currentLink">
-                <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</li>
-            <li><a href="../html/carrello.html">
-                <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
+            <li id="currentLink"><img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</li>
+            <li><a href="carrello.html"><img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
         </ul>
     </nav>
 </header>
@@ -36,67 +32,73 @@
     <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="login.html">Profilo</a> &gt; <a href="registrazione.html" class="breadcrumb-active" aria-current="page">Registrazione</a></p>
 </nav>
 
-<main class="login-page">
-    <div class="login-container" style="max-width: 600px; margin: 40px auto; flex-direction: column;">
-        
-        <section class="register-section" style="width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); background-color: var(--crema); padding: 50px;">
-            <div class="auth-header" style="text-align: center; margin-bottom: 30px;">
-                <h2 style="color: var(--blu-scuro); font-size: 2em; margin-bottom: 10px;">Crea il tuo Account</h2>
-                <p style="color: var(--black); font-size: 1.1em;">Unisciti al Patavium Open ed entra a far parte del nostro club esclusivo.</p>
-            </div>
+<main class="registrazione-main">
+    <div class="registrazione-card">
+        <section class="register-section">
+            <header class="auth-header">
+                <h2>Crea il tuo Account</h2>
+                <p>Unisciti al Patavium Open ed entra a far parte del nostro club esclusivo.</p>
+            </header>
             
-            <form class="auth-form" action="#" method="POST">
+            <form id="form-registrazione" class="auth-form" action="app/registrazione.php" method="POST" novalidate>
                 
-                <div style="display: flex; gap: 20px;">
-                    <div class="form-gruppo" style="flex: 1;">
+                <div class="form-row">
+                    <div class="form-gruppo">
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" placeholder="Es. Mario" required>
+                        <input type="text" id="nome" name="nome" placeholder="Es. Mario" 
+                               pattern="[A-Za-zÀ-ÿ\s]+" title="Inserire solo lettere" required>
+                        <span class="errore-msg" id="err-nome" aria-live="polite"></span>
                     </div>
-                    <div class="form-gruppo" style="flex: 1;">
+                    <div class="form-gruppo">
                         <label for="cognome">Cognome</label>
-                        <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" required>
+                        <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" 
+                               pattern="[A-Za-zÀ-ÿ\s]+" title="Inserire solo lettere" required>
+                        <span class="errore-msg" id="err-cognome" aria-live="polite"></span>
                     </div>
+                </div>
+
+                <div class="form-gruppo">
+                    <label for="username">Username (max 16 caratteri, no spazi)</label>
+                    <input type="text" id="username" name="username" placeholder="Es. TennisFan99" 
+                           pattern="^\S{1,16}$" title="Max 16 caratteri, senza spazi" required>
+                    <span class="errore-msg" id="err-username" aria-live="polite"></span>
                 </div>
 
                 <div class="form-gruppo">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="esempio@email.com" required>
+                    <input type="email" id="email" name="email" placeholder="esempio@email.com" required 
+                           title="Inserire un indirizzo email valido (es. nome@dominio.it)">
+                    <span class="errore-msg" id="err-email" aria-live="polite"></span>
                 </div>
+
                 <div class="form-gruppo">
-                    <label for="pass">Password</label>
-                    <input type="password" id="pass" name="password" placeholder="Inserisci una password sicura" required>
+                    <label for="pass">Password (8-12 caratteri)</label>
+                    <input type="password" id="pass" name="password" 
+                           minlength="8" maxlength="12" placeholder="Inserisci password" required
+                           title="La password deve avere tra 8 e 12 caratteri">
+                    <span class="errore-msg" id="err-pass" aria-live="polite"></span>
                 </div>
+
                 <div class="form-gruppo">
                     <label for="ripeti_pass">Ripeti Password</label>
-                    <input type="password" id="ripeti_pass" name="ripeti_password" placeholder="Conferma la password" required>
+                    <input type="password" id="ripeti_pass" name="ripeti_password" 
+                           minlength="8" maxlength="12" placeholder="Conferma password" required>
+                    <span class="errore-msg" id="err-ripeti_pass" aria-live="polite"></span>
                 </div>
                 
-                <button type="submit" class="btn-auth" style="margin-top: 10px;">Registrati Subito</button>
+                <button type="submit" class="btn-auth">Registrati Subito</button>
             </form>
             
-            <p class="auth-footer" style="text-align: center; margin-top: 25px; font-size: 1.1em;">
-                Hai già un account? <a href="../html/login.html" style="color: var(--arancione-scuro); font-weight: bold; text-decoration: underline;">Torna al Login</a>
-            </p>
+            <footer class="auth-footer">
+                <p>Hai già un account? <a href="login.html">Torna al Login</a></p>
+            </footer>
         </section>
-
     </div>
 </main>
 
 <footer class="footer-sito">
-    <hr aria-hidden="true">
-    <div class="footer-contenuto">
-        <div class="footer-logo">
-             <img src="../assets/images/logo1.png" alt="Patavium Open"  width="120">
-        </div>
-        <nav class="footer-nav" aria-label="Informazioni legali">
-            <ul>
-                <li><a href="../html/termini.html">Termini e condizioni</a></li>
-                <li><a href="../html/privacy.html">Informativa sulla privacy</a></li>
-            </ul>
-        </nav>
-    </div>
-    <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
-</footer>
+    </footer>
 
+<script src="../javascript/validazione-reg.js"></script>
 </body>
 </html>

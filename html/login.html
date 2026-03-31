@@ -16,15 +16,15 @@
     <nav id="menu">
         <ul>
             <li><a href="../index.html" lang="en">Home</a></li>
-            <li><a href="../html/biglietti.html">Biglietti</a></li>
-            <li><a href="../html/news.html" lang="en">News</a></li>
-            <li><a href="../html/domande.html">Domande</a></li>
+            <li><a href="biglietti.html">Biglietti</a></li>
+            <li><a href="news.html" lang="en">News</a></li>
+            <li><a href="domande.html">Domande</a></li>
         </ul>
         
         <ul id="menu-utente">
             <li id="currentLink">
                 <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</li>
-            <li><a href="../html/carrello.html">
+            <li><a href="carrello.html">
                 <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
         </ul>
     </nav>
@@ -39,11 +39,11 @@
             
             <section class="login-section" aria-labelledby="titolo-login">
                 <h2 id="titolo-login">Sei già cliente? Login</h2>
-                <p class="login-sub">Accedi con la tua email per gestire i tuoi biglietti e continuare gli acquisti in modo rapido.</p>
+                <p class="login-sub">Accedi con la tua email o il tuo username per gestire i tuoi biglietti e continuare gli acquisti in modo rapido.</p>
                 <form action="app/login.php" method="post" class="auth-form">
                     <div class="form-gruppo">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email" placeholder="Inserisci l'e-mail" required autocomplete="email">
+                        <label for="identificativo">Username o E-mail</label>
+                        <input type="text" id="identificativo" name="identificativo" placeholder="Inserisci username o e-mail" required autocomplete="username">
                     </div>
                     <div class="form-gruppo">
                         <label for="pass">Password</label>

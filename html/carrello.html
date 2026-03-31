@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -17,14 +17,14 @@
         <ul>
             <li><a href="../index.html" lang="en">Home</a></li>
             <li id="currentLink">Biglietti</li>
-            <li><a href="../html/news.html" lang="en">News</a></li>
-            <li><a href="../html/domande.html">Domande</a></li>
+            <li><a href="news.html" lang="en">News</a></li>
+            <li><a href="domande.html">Domande</a></li>
         </ul>
         
         <ul id="menu-utente">
-            <li><a href="../html/login.html">
+            <li><a href="login.html">
                 <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</a></li>
-            <li><a href="../html/carrello.html">
+            <li><a href="carrello.html">
                 <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
         </ul>
     </nav>
@@ -33,43 +33,34 @@
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
         <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span>Carrello</span></p>
     </nav>
-<h1>CARRELLO</h1>
-
-    <main>
-        <section aria-label="Elenco biglietti nel carrello">
-            
-            <article>
-                <p>Mercoledì 6 maggio Sessione Diurna Â· Settore Blu</p>
-                
-                <p>Quantità: 2</p>
-
-                <p>â‚¬ 48.00</p>
-
-                <button type="button" aria-label="Rimuovi biglietto Mercoledì 6 maggio diurna">
-                    Elimina
-                </button>
-            </article>
-
-            <hr aria-hidden="true">
-
-            <article>
-                <p>Mercoledì 6 maggio Sessione Serale Â· Settore Giallo</p>
-                
-                <p>Quantità: 2</p>
-
-                <p>â‚¬ 45.00</p>
-
-                <button type="button" aria-label="Rimuovi biglietto Mercoledì 6 maggio serale">
-                    Elimina
-                </button>
-            </article>
-
+    <main id="main-carrello">
+        <section class="intro-sezione" aria-labelledby="titolo-carrello">
+            <h1 id="titolo-carrello">Il tuo Carrello</h1>
+            <div class="divider" aria-hidden="true"></div>
         </section>
 
-        <section aria-label="Riepilogo ordine">
-            <p><strong>Totale: â‚¬ 186.00</strong></p>
-            <button type="button">Procedi al pagamento</button>
-        </section>
+        <div class="carrello-layout">
+            <section aria-label="Elenco biglietti nel carrello" id="cart-items-container">
+                <!-- Mostrato di default, nascosto via JS se ci sono item -->
+                <div id="cart-empty-msg" class="cart-empty">
+                    <p>Il tuo carrello è attualmente vuoto.</p>
+                    <a href="biglietti.html" class="btn-shopping">Vai ai Biglietti</a>
+                </div>
+            </section>
+
+            <aside class="cart-summary" aria-label="Riepilogo ordine">
+                <h2>Riepilogo Ordine</h2>
+                <div class="summary-row">
+                    <span>Subtotale</span>
+                    <span id="cart-subtotale">€ 0.00</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <strong>Totale</strong>
+                    <strong id="cart-totale">€ 0.00</strong>
+                </div>
+                <button type="button" class="btn-checkout" id="btn-checkout">Procedi al pagamento</button>
+            </aside>
+        </div>
     </main>
 <footer class="footer-sito">
     <hr aria-hidden="true">
@@ -91,5 +82,7 @@
 
     <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
 </footer>
+<script src="../javascript/script.js"></script>
+<script src="../javascript/carrello.js"></script>
 </body>
 </html>
