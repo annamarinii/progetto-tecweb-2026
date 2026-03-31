@@ -1110,7 +1110,7 @@ main {
 
 .form-contatti button[type="submit"] {
     width: 100%;
-    background-color: var(--arancione);
+    background-color: var(--arancione-scuro);
     color: var(--white);
     padding: 18px;
     font-size: 1.3em;
@@ -1695,7 +1695,7 @@ main {
 
 .btn-auth {
     display: inline-block;
-    background-color: var(--arancione);
+    background-color:#E17414;
     color: var(--white);
     padding: 16px;
     font-size: 1.25em;
