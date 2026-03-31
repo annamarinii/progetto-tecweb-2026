@@ -942,14 +942,15 @@ main {
     margin: 0 auto;
     padding: 20px 30px 60px;
     background-color: var(--azzurro);
+    
     /* Lo sfondo della pagina resta azzurro chiaro */
 }
 
 .faq-item {
-    background-color: var(--blu-scuro);
+    background-color: var(--azzurro);
     /* Sfondo blu come le news */
     border: 2px solid transparent;
-    border-bottom: 5px solid var(--arancione);
+    border-bottom: 5px solid var(--blu-scuro);
     /* Bordo arancione sportivo */
     border-radius: 12px;
     margin-bottom: 20px;
@@ -962,16 +963,16 @@ main {
 .faq-item:hover,
 .faq-item:focus-within {
     transform: translateY(-5px);
-    border-color: var(--arancione);
+    border-color: var(--arancione-scuro);
 }
 
 .faq-item summary {
     padding: 20px 25px;
     font-size: 1.25em;
     font-weight: bold;
-    color: var(--white);
+    color: var(--blu-scuro);
     /* Scritta bianca per massimo contrasto */
-    background-color: var(--blu-scuro);
+    background-color: var(--azzurro);
     cursor: pointer;
     list-style-position: inside;
     transition: color 0.3s ease;
@@ -980,7 +981,7 @@ main {
 /* Quando passi sopra alla domanda, diventa arancione */
 .faq-item summary:hover,
 .faq-item summary:focus-visible {
-    color: var(--arancione);
+    color: var(--arancione-scuro);
     outline: none;
 }
 
@@ -988,24 +989,25 @@ main {
     padding: 20px 25px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     /* Una riga sottile per separare */
-    background-color: var(--blu-scuro);
+    background-color: var(--azzurro);
 }
 
 .faq-content p {
     font-size: 1.15em;
-    color: var(--azzurro);
+    color: var(--blu-scuro);
+    font-weight: bold;
     /* Testo azzurrino come richiesto */
     line-height: 1.7;
 }
 
 /* Colora il triangolino (marker) del summary */
 .faq-item summary::marker {
-    color: var(--arancione);
+    color: var(--arancione-scuro);
 }
 
 /* Cambia colore al testo della domanda quando è aperta */
 .faq-item[open] summary {
-    color: var(--arancione);
+    color: var(--arancione-scuro);
 }
 
 /* =========================================
