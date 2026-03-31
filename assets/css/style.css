@@ -757,7 +757,7 @@ main {
 
 .step-badge {
     display: inline-block;
-    background-color: var(--arancione);
+    background-color: var(--arancione-scuro);
     color: var(--white);
     font-size: 0.85em;
     font-weight: bold;
@@ -830,7 +830,7 @@ main {
 .day-name {
     font-size: 1em;
     font-weight: bold;
-    color: var(--arancione);
+    color: var(--arancione-scuro);
     text-transform: uppercase;
     margin-bottom: 5px;
 }
@@ -873,13 +873,13 @@ main {
 
 /* Default grigio */
 .new-session {
-    background-color: #4CAF50;
+    background-color: #0a6d0d;
     color: white;
 }
 
 /* Verde */
 .most-popular {
-    background-color: var(--arancione);
+    background-color: var(--arancione-scuro);
     color: white;
 }
 
@@ -1187,12 +1187,19 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
+    color:#e0e0e0;
+}
+
+.step img {
+    transition: filter 0.3s ease;
 }
 
 .step.active {
-    opacity: 1;
+    color:#f59e0b;
+}
+
+.step.active img {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(86%) saturate(1472%) hue-rotate(3deg) brightness(70%) contrast(92%);
 }
 
 .step-icon {
@@ -1215,7 +1222,6 @@ main {
 .step-label {
     font-size: 0.9em;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 .step-line {
@@ -1227,7 +1233,7 @@ main {
 
 .btn-select-date {
     display: inline-block;
-    background-color: var(--arancione);
+    background-color: var(--arancione-scuro);
     color: var(--white);
     padding: 10px 20px;
     font-weight: bold;
