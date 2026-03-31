@@ -9,12 +9,13 @@ DROP TABLE IF EXISTS FAQ;
 
 -- tabelle primarie
 CREATE TABLE UTENTE (
-                        id_utente INT AUTO_INCREMENT PRIMARY KEY,
+                        idUtente INT AUTO_INCREMENT PRIMARY KEY,
                         username VARCHAR(50) NOT NULL UNIQUE,
+                        email VARCHAR(50) NOT NULL UNIQUE,
                         password VARCHAR(255) NOT NULL,
                         nome VARCHAR(50) NOT NULL,
                         cognome VARCHAR(50) NOT NULL,
-                        is_admin BOOLEAN DEFAULT FALSE
+                        isAdmin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE PROGRAMMA (
@@ -26,29 +27,29 @@ CREATE TABLE PROGRAMMA (
 
 -- tabelle secondarie
 CREATE TABLE NEWS (
-                      id_news INT AUTO_INCREMENT PRIMARY KEY,
+                      idNews INT AUTO_INCREMENT PRIMARY KEY,
                       titolo VARCHAR(255) NOT NULL,
                       testo TEXT NOT NULL,
                       data_pubblicazione DATETIME DEFAULT CURRENT_TIMESTAMP,
-                      id_autore INT NOT NULL,
-                      FOREIGN KEY (id_autore) REFERENCES UTENTE(id_utente)
+                      idAutore INT NOT NULL,
+                      FOREIGN KEY (idAutore) REFERENCES UTENTE(idUtente)
 );
 
 CREATE TABLE DOMANDE (
-                         id_Domanda INT AUTO_INCREMENT PRIMARY KEY,
+                         idDomanda INT AUTO_INCREMENT PRIMARY KEY,
                          testo_domanda TEXT NOT NULL,
                          testo_risposta TEXT,
                          letta BOOLEAN DEFAULT FALSE,
-                         id_utente INT NOT NULL,
-                         FOREIGN KEY (id_utente) REFERENCES UTENTE(id_utente)
+                         idUtente INT NOT NULL,
+                         FOREIGN KEY (idUtente) REFERENCES UTENTE(idUtente)
 );
 
 CREATE TABLE ORDINE (
                         numero_ordine INT AUTO_INCREMENT PRIMARY KEY,
                         totale INT NOT NULL,
                         data_acquisto DATETIME DEFAULT CURRENT_TIMESTAMP,
-                        id_utente INT NOT NULL,
-                        FOREIGN KEY (id_utente) REFERENCES UTENTE(id_utente)
+                        idUtente INT NOT NULL,
+                        FOREIGN KEY (idUtente) REFERENCES UTENTE(idUtente)
 );
 
 CREATE TABLE BIGLIETTI (
