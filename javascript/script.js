@@ -93,6 +93,13 @@ function selectTribune(element) {
     
     element.classList.add('selected');
     statoAcquisto.tribuna = element.querySelector('h3').textContent;
+    
+    // Estrai il prezzo per salvarlo
+    const priceSpan = element.querySelector('.seat-price');
+    if (priceSpan) {
+        let priceText = priceSpan.textContent.replace('€', '').replace(',', '.').trim();
+        statoAcquisto.prezzoSingolo = parseFloat(priceText);
+    }
 }
 
 /**
@@ -122,31 +129,51 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (acquistaBtn) {
         acquistaBtn.addEventListener('click', (e) => {
-            // Capiamo in quale pagina siamo valutando quale contenitore esiste
-            const isSingleSession = document.getElementById('session-selection') !== null;
-            const isGroundPass = document.getElementById('ground-pass-selection') !== null;
+            // Capiamo in quale pagina siamo valutando gli IDs
+            const isSingleSession = document.getElementById('titolo-single') !== null;
+            const isAbbonamento = document.getElementById('titolo-abbonamento') !== null;
+            const isGroundPass = (!isSingleSession && !isAbbonamento);
+
+            let carrello = JSON.parse(localStorage.getItem('carrelloItems')) || [];
 
             if (isSingleSession) {
-                // Validazione per Single Session: serve Data + Sessione + Tribuna
+                // Validazione per Single Session
                 if (!statoAcquisto.data || !statoAcquisto.sessione || !statoAcquisto.tribuna) {
                     e.preventDefault(); 
                     alert("Per favore, completa la selezione: scegli una Data, una Sessione e un Posto.");
-                } else {
-                    statoAcquisto.tipo = "Single Session";
-                    localStorage.setItem('bigliettoInCorso', JSON.stringify(statoAcquisto));
+                    return;
                 }
+                statoAcquisto.tipo = "Single Session";
+                carrello.push({ ...statoAcquisto, id: Date.now() });
+
+            } else if (isAbbonamento) {
+                // Validazione per Abbonamento
+                if (!statoAcquisto.tribuna) {
+                    e.preventDefault();
+                    alert("Per favore, seleziona una Tribuna per il tuo Abbonamento.");
+                    return;
+                }
+                statoAcquisto.tipo = "Abbonamento";
+                statoAcquisto.data = "Intero Torneo (18-24 Maggio)";
+                statoAcquisto.sessione = "Tutte le sessioni";
+                carrello.push({ ...statoAcquisto, id: Date.now() });
+
             } else if (isGroundPass) {
-                // Validazione per Ground Pass: serve SOLO la Data
+                // Validazione per Ground Pass
                 if (!statoAcquisto.data) {
                     e.preventDefault();
                     alert("Per favore, seleziona una Data per il tuo Ground Pass.");
-                } else {
-                    statoAcquisto.tipo = "Ground Pass";
-                    statoAcquisto.sessione = "Intera Giornata"; // Valori di default
-                    statoAcquisto.tribuna = "Ingresso Generale"; 
-                    localStorage.setItem('bigliettoInCorso', JSON.stringify(statoAcquisto));
+                    return;
                 }
+                statoAcquisto.tipo = "Ground Pass";
+                statoAcquisto.sessione = "Intera Giornata"; 
+                statoAcquisto.tribuna = "Ingresso Generale"; 
+                statoAcquisto.prezzoSingolo = 25.00; // Prezzo di default
+                carrello.push({ ...statoAcquisto, id: Date.now() });
             }
+
+            localStorage.setItem('carrelloItems', JSON.stringify(carrello));
         });
     }
 });
+

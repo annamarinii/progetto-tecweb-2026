@@ -10,11 +10,11 @@ DROP TABLE IF EXISTS FAQ;
 -- tabelle primarie
 CREATE TABLE UTENTE (
                         idUtente INT AUTO_INCREMENT PRIMARY KEY,
-                        username VARCHAR(50) NOT NULL UNIQUE,
-                        email VARCHAR(50) NOT NULL UNIQUE,
+                        username VARCHAR(30) NOT NULL UNIQUE,
+                        email VARCHAR(30) NOT NULL UNIQUE,
                         password VARCHAR(255) NOT NULL,
-                        nome VARCHAR(50) NOT NULL,
-                        cognome VARCHAR(50) NOT NULL,
+                        nome VARCHAR(30) NOT NULL,
+                        cognome VARCHAR(30) NOT NULL,
                         isAdmin BOOLEAN DEFAULT FALSE
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE PROGRAMMA (
 -- tabelle secondarie
 CREATE TABLE NEWS (
                       idNews INT AUTO_INCREMENT PRIMARY KEY,
-                      titolo VARCHAR(255) NOT NULL,
+                      titolo VARCHAR(100) NOT NULL,
                       testo TEXT NOT NULL,
                       data_pubblicazione DATETIME DEFAULT CURRENT_TIMESTAMP,
                       idAutore INT NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE FAQ (
     testo_risposta TEXT NOT NULL
 );
 
---INSERT PER LE TABELLE
+-- INSERT PER LE TABELLE
 INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
 -- Giorno 1 (18)
 ('2026-05-18 11:00:00', 'diurna', 'Giotto Court'),
@@ -99,7 +99,7 @@ INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
 ('2026-05-24 11:00:00', 'diurna', 'Giotto Court'),
 ('2026-05-24 19:00:00', 'serale', 'Patavium Arena'),
 
---ground
+-- ground
 ('2026-05-18 09:00:00', 'ground', 'Accesso Ground'),
 ('2026-05-19 09:00:00', 'ground', 'Accesso Ground'),
 ('2026-05-20 09:00:00', 'ground', 'Accesso Ground'),
