@@ -41,9 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Applica i controlli a ogni input
     inputs.forEach(input => {
-        // Rimosso il controllo 'input' in tempo reale per non dar fastidio mentre l'utente scrive.
-        
-        // Controlla quando l'utente clicca fuori dal campo
         input.addEventListener('blur', () => validaCampo(input));
     });
 
