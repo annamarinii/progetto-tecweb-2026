@@ -35,17 +35,17 @@ function selectDate(dayName, dayNumber, event) {
     if (sessionSection) {
         // --- LOGICA PAGINA SINGLE SESSION ---
         sessionSection.classList.remove('d-none');
-        
+
         // Aggiorna Sticky Bar
         const stepSession = document.getElementById('step-session');
         if (stepSession) stepSession.classList.add('active');
-        
+
         const stickyBtn = document.getElementById('sticky-btn');
         if (stickyBtn) {
             stickyBtn.textContent = 'SELEZIONA SESSIONE';
             stickyBtn.href = '#session-selection';
         }
-        
+
         sessionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     } else if (groundSection) {
@@ -59,8 +59,8 @@ function selectDate(dayName, dayNumber, event) {
  * STEP 2: Selezione della Sessione (Usato SOLO in Single Session)
  */
 function showSeatSelection(event) {
-    event.preventDefault(); 
-    
+    event.preventDefault();
+
     const sessionCard = event.currentTarget.closest('.session-card');
     if (sessionCard) {
         statoAcquisto.sessione = sessionCard.querySelector('h3').textContent;
@@ -69,11 +69,11 @@ function showSeatSelection(event) {
     const seatSection = document.getElementById('seat-selection');
     if (seatSection) {
         seatSection.classList.remove('d-none');
-        
+
         // Aggiorna Sticky Bar
         const stepSeat = document.getElementById('step-seat');
         if (stepSeat) stepSeat.classList.add('active');
-        
+
         const stickyBtn = document.getElementById('sticky-btn');
         if (stickyBtn) {
             stickyBtn.textContent = 'SELEZIONA POSTO';
@@ -90,10 +90,10 @@ function showSeatSelection(event) {
 function selectTribune(element) {
     const allSeats = document.querySelectorAll('.seat-category');
     allSeats.forEach(seat => seat.classList.remove('selected'));
-    
+
     element.classList.add('selected');
     statoAcquisto.tribuna = element.querySelector('h3').textContent;
-    
+
     // Estrai il prezzo per salvarlo
     const priceSpan = element.querySelector('.seat-price');
     if (priceSpan) {
@@ -126,9 +126,14 @@ function changeQty(amount) {
  */
 document.addEventListener('DOMContentLoaded', () => {
     const acquistaBtn = document.getElementById('final-buy-btn');
-    
+
     if (acquistaBtn) {
         acquistaBtn.addEventListener('click', (e) => {
+            if (acquistaBtn.classList.contains('added-to-cart')) {
+                e.preventDefault();
+                return;
+            }
+
             // Capiamo in quale pagina siamo valutando gli IDs
             const isSingleSession = document.getElementById('titolo-single') !== null;
             const isAbbonamento = document.getElementById('titolo-abbonamento') !== null;
@@ -139,12 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isSingleSession) {
                 // Validazione per Single Session
                 if (!statoAcquisto.data || !statoAcquisto.sessione || !statoAcquisto.tribuna) {
-                    e.preventDefault(); 
+                    e.preventDefault();
                     alert("Per favore, completa la selezione: scegli una Data, una Sessione e un Posto.");
                     return;
                 }
                 statoAcquisto.tipo = "Single Session";
-                carrello.push({ ...statoAcquisto, id: Date.now() });
 
             } else if (isAbbonamento) {
                 // Validazione per Abbonamento
@@ -156,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 statoAcquisto.tipo = "Abbonamento";
                 statoAcquisto.data = "Intero Torneo (18-24 Maggio)";
                 statoAcquisto.sessione = "Tutte le sessioni";
-                carrello.push({ ...statoAcquisto, id: Date.now() });
 
             } else if (isGroundPass) {
                 // Validazione per Ground Pass
@@ -166,13 +169,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 statoAcquisto.tipo = "Ground Pass";
-                statoAcquisto.sessione = "Intera Giornata"; 
-                statoAcquisto.tribuna = "Ingresso Generale"; 
+                statoAcquisto.sessione = "Intera Giornata";
+                statoAcquisto.tribuna = "Ingresso Generale";
                 statoAcquisto.prezzoSingolo = 25.00; // Prezzo di default
+            }
+
+            let existingItemIndex = carrello.findIndex(item => 
+                item.tipo === statoAcquisto.tipo && 
+                item.data === statoAcquisto.data && 
+                item.sessione === statoAcquisto.sessione && 
+                item.tribuna === statoAcquisto.tribuna
+            );
+
+            if (existingItemIndex > -1) {
+                carrello[existingItemIndex].quantita += statoAcquisto.quantita;
+            } else {
                 carrello.push({ ...statoAcquisto, id: Date.now() });
             }
 
             localStorage.setItem('carrelloItems', JSON.stringify(carrello));
+
+            // Animazione e feedback visivo prima del redirect
+            e.preventDefault();
+            acquistaBtn.classList.add('added-to-cart');
+            acquistaBtn.textContent = 'AGGIUNTO AL CARRELLO ✓';
         });
     }
 });

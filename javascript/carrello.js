@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCart() {
         // Leggi i dati dal localStorage
         let carrello = JSON.parse(localStorage.getItem('carrelloItems')) || [];
-        
+
         // Pulisci i vecchi item (mantiene l'empty message, lo nascondiamo se serve)
         const oldCards = cartContainer.querySelectorAll('.cart-item-card');
         oldCards.forEach(card => card.remove());
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const prezzoUnitario = item.prezzoSingolo || 0;
             const quantita = item.quantita || 1;
             const prezzoTotaleRiga = prezzoUnitario * quantita;
-            
+
             totale += prezzoTotaleRiga;
 
             const card = document.createElement('article');
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </button>
                 </div>
             `;
-            
+
             cartContainer.appendChild(card);
         });
 
@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Modalità globale per la funzione onclick nell'HTML generato
-    window.rimuoviDalCarrello = function(idToRemove) {
+    window.rimuoviDalCarrello = function (idToRemove) {
         let carrello = JSON.parse(localStorage.getItem('carrelloItems')) || [];
         carrello = carrello.filter(item => item.id !== idToRemove);
         localStorage.setItem('carrelloItems', JSON.stringify(carrello));
-        
+
         // Ri-renderizza
         renderCart();
     };
