@@ -4,134 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Personale Utente | Patavium Open</title>
-     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
     <header>
-        <h1>Area Personale - Patavium Open</h1>
+        <a href="../index.html" class="logo-link">
+            <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
+            <h1>Patavium Open</h1>
+        </a>
+
+        <nav id="menu">
+            <ul>
+                <li><a href="../index.html" lang="en">Home</a></li>
+                <li><a href="biglietti.html">Biglietti</a></li>
+                <li><a href="news.html" lang="en">News</a></li>
+                <li><a href="domande.html">Domande</a></li>
+            </ul>
+            
+            <ul id="menu-utente">
+                <li id="currentLink">
+                    <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo
+                </li>
+                <li>
+                    <a href="carrello.html">
+                        <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
-    <div id="user-layout">
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="areautente.html" class="breadcrumb-active" aria-current="page">Profilo</a></p>
+    </nav>
 
-        <aside id="sidebar-menu">
-            <nav aria-label="Menu principale area utente">
-                <details open>
-                    <summary><h2>Il mio Account</h2></summary>
-                    <ul style="list-style: none; padding-left: 15px;">
-                        <li>
-                            <button type="button" aria-controls="profilo" aria-expanded="true">
-                                Dati Personali
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" aria-controls="miei-biglietti" aria-expanded="false">
-                                Storico Ordini
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" aria-controls="centro-notifiche" aria-expanded="false">
-                                Notifiche e Comunicazioni
-                            </button>
-                        </li>
-                    </ul>
-                </details>
-            </nav>
-        </aside>
+    
 
-        <hr aria-hidden="true"> <main id="user-content">
-            
-            <section id="profilo" aria-labelledby="titolo-profilo">
-                <h2 id="titolo-profilo">Dati Personali</h2>
-                <form>
-                    <div>
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" value="Mario" readonly>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="cognome">Cognome:</label>
-                        <input type="text" id="cognome" name="cognome" value="Rossi" readonly>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="email">Indirizzo Email:</label>
-                        <input type="email" id="email" name="email" value="mario.rossi@email.it" readonly>
-                    </div>
-                    <br>
-                    <button type="button" aria-label="Modifica i tuoi dati personali">Modifica Profilo</button>
-                </form>
-            </section>
+    <main class="user-page-main">
+        <div class="user-page-header">
+            <h1>Area Personale</h1>
+            <div class="divider"></div>
+        </div>
+        <div class="user-layout">
 
-            <hr aria-hidden="true">
+            <aside class="sidebar-user">
+                <nav aria-label="Menu principale area utente">
+                    <details open class="menu-details">
+                        <summary><h2>Il mio Account</h2></summary>
+                        <ul class="menu-list-user">
+                            <li><a href="#profilo" class="tab-link active" data-target="profilo">Dati Personali</a></li>
+                            <li><a href="#miei-biglietti" class="tab-link" data-target="miei-biglietti">I miei biglietti</a></li>
+                            <li><a href="#centro-notifiche" class="tab-link" data-target="centro-notifiche">Notifiche</a></li>
+                        </ul>
+                    </details>
+                </nav>
+            </aside>
 
-            <section id="miei-biglietti" aria-labelledby="titolo-biglietti">
-                <h2 id="titolo-biglietti">Storico ordini</h2>
+            <div class="content-area-user">
                 
-                <ul style="list-style: none; padding: 0;">
-                    <li>
-                        <article aria-labelledby="ordine-001">
-                            <h3 id="ordine-001">Ordine n. #PO-2024-001</h3>
-                            <dl>
-                                <dt>Data Evento:</dt>
-                                <dd><time datetime="2024-06-12">12 Giugno 2024</time></dd>
-                                
-                                <dt>Sessione:</dt>
-                                <dd>Diurna</dd>
-                                
-                                <dt>Tribuna / Settore:</dt>
-                                <dd>Tribuna Ovest</dd>
-                                
-                                <dt>Prezzo:</dt>
-                                <dd>45,00â‚¬</dd>
-                            </dl>
-                        </article>
-                    </li>
+                <section id="profilo" aria-labelledby="titolo-profilo" class="content-card tab-content active">
+                    <h2 id="titolo-profilo">I Tuoi Dati</h2>
+                    <form class="profile-form">
+                        <div class="form-gruppo">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome" value="[nome_utente]" readonly>
+                        </div>
+                        <div class="form-gruppo">
+                            <label for="cognome">Cognome:</label>
+                            <input type="text" id="cognome" name="cognome" value="[cognome_utente]" readonly>
+                        </div>
+                        <div class="form-gruppo">
+                            <label for="email">Indirizzo Email:</label>
+                            <input type="email" id="email" name="email" value="[email_utente]" readonly>
+                        </div>
+                        <div class="form-gruppo">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" value="[nome_utente]" readonly>
+                        </div>
+                        <button type="button" class="btn-auth">Modifica Profilo</button>
+                    </form>
+                </section>
 
-                    <li>
-                        <article aria-labelledby="ordine-089">
-                            <h3 id="ordine-089">Ordine n. #PO-2024-089</h3>
-                            <dl>
-                                <dt>Data Evento:</dt>
-                                <dd><time datetime="2024-06-15">15 Giugno 2024</time></dd>
-                                
-                                <dt>Sessione:</dt>
-                                <dd>Serale</dd>
-                                
-                                <dt>Tribuna / Settore:</dt>
-                                <dd>Tribuna VIP</dd>
-                                
-                                <dt>Prezzo:</dt>
-                                <dd>120,00â‚¬</dd>
-                            </dl>
-                        </article>
-                    </li>
-                </ul>
-            </section>
-
-            <hr aria-hidden="true">
-
-            <section id="centro-notifiche" aria-labelledby="titolo-notifiche">
-                <h2 id="titolo-notifiche">Comunicazioni dal Team Patavium</h2>
-                
-                <div role="region" aria-live="polite">
-                    <ul style="list-style: none; padding: 0;">
-                        <li>
-                            <article>
-                                <h3>Domanda sulla Tribuna Ovest</h3>
-                                <p><strong>La tua domanda:</strong> "C'è ombra in Tribuna Ovest durante la sessione diurna?"</p>
-                                
-                                <blockquote>
-                                    <p><strong>Risposta dell'organizzatore:</strong> Ciao Mario! La Tribuna Ovest è coperta, quindi avrai ombra per tutta la durata della sessione diurna. Ti aspettiamo al Patavium Open!</p>
-                                    <footer>â€” Inviata il <time datetime="2024-05-12">12 Maggio 2024</time></footer>
-                                </blockquote>
-                            </article>
-                        </li>
+                <section id="miei-biglietti" aria-labelledby="titolo-biglietti" class="content-card tab-content">
+                    <h2 id="titolo-biglietti">I miei biglietti</h2>
+                    <ul class="orders-list-user">
+                        [lista_ordini]
                     </ul>
-                </div>
-            </section>
+                </section>
 
-        </main>
+                <section id="centro-notifiche" aria-labelledby="titolo-notifiche" class="content-card tab-content">
+                    <h2 id="titolo-notifiche">Comunicazioni dal Team</h2>
+                    <div role="region" aria-live="polite">
+                        <ul class="notifications-list-user">
+                            [lista_notifiche]
+                        </ul>
+                    </div>
+                </section>
 
-    </div> </body>
+            </div>
+        </div> 
+    </main>
+
+    <script src="../javascript/areautente.js"></script>
+    
+</body>
 </html>
