@@ -171,6 +171,7 @@ header a:not(.btn-login):not(.btn-register):hover {
     padding: 10px 30px;
     /* <-- Modificato: rimessi i 30px fissi! */
     font-size: 0.9em;
+    position: relative;
 }
 
 #breadcrumb span {
@@ -2306,7 +2307,7 @@ input.invalid {
 
 .btn-auth:hover,
 .btn-auth:focus-visible {
-    background-color: var(--black);
+    background-color: var(--blu-scuro);
     color: var(--white);
     transform: translateY(-2px);
     outline: none;
@@ -2717,4 +2718,213 @@ input.invalid {
         justify-content: space-between;
         align-items: center;
     }
+}
+
+/* =========================================
+   PANNELLO AMMINISTRATORE
+========================================= */
+
+/* Box che contiene il form per aggiungere una nuova news */
+.admin-form-container {
+    background-color: #f9fbfd;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #dcdcdc;
+    margin-bottom: 50px;
+}
+
+.admin-form-container h3 {
+    color: var(--blu-scuro);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Titolo della sezione "News Pubblicate" */
+.sub-section-title {
+    color: var(--blu-scuro);
+    font-size: 1.5em;
+    border-bottom: 2px solid var(--arancione);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+/* Box per rispondere alle domande degli utenti */
+.admin-reply-form {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-top: 20px;
+}
+
+/* Allarga il gruppo del form al 100%. 
+  Utile per i titoli lunghi delle news e per le aree di testo.
+*/
+.form-gruppo.full-width {
+    max-width: 100%;
+}
+
+/* Stile per le Textarea (Caselle di testo grandi) */
+.form-gruppo textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-family: inherit;
+    background-color: #f9f9fc;
+    color: var(--black);
+    transition: all 0.3s ease;
+    resize: vertical; /* Permette all'utente di allungare la casella solo verso il basso */
+}
+
+.form-gruppo textarea:focus {
+    outline: none;
+    border-color: var(--arancione);
+    background-color: var(--white);
+    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15);
+}
+
+/* Testi e descrizioni */
+.section-description {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.user-message {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.news-date {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+/* Spaziatura nel form di modifica delle news per separarlo dal tasto "Elimina" */
+.news-edit-form {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+/* Tasto rosso di pericolo per le azioni distruttive */
+.btn-danger {
+    background-color: #d93025;
+}
+
+.btn-danger:hover,
+.btn-danger:focus-visible {
+    background-color: #b0271e;
+}
+
+/* =========================================
+   FIX: TESTO CHECKBOX E BOTTONE ELIMINA
+========================================= */
+
+/* 1. Rende il testo della checkbox leggibile (nero invece che crema) */
+.content-card .form-checkbox label {
+    color: var(--black); 
+    font-weight: bold;
+}
+
+/* 2. Rende la card "relativa" per poterci ancorare il bottone a destra */
+.data-card-user {
+    position: relative;
+}
+
+/* 3. Posiziona il form di eliminazione esattamente in basso a destra */
+.form-elimina {
+    position: absolute;
+    bottom: 30px; /* Stessa misura del padding della card */
+    right: 30px;
+}
+
+/* 4. Nuovo stile per il bottone Elimina (Senza rosso, stile "Outline" blu scuro) */
+.btn-outline-dark {
+    background-color: transparent;
+    color: var(--blu-scuro);
+    border: 2px solid var(--blu-scuro);
+}
+
+/* Effetto quando passi col mouse sul bottone elimina */
+.btn-outline-dark:hover,
+.btn-outline-dark:focus-visible {
+    background-color: var(--blu-scuro);
+    color: var(--white);
+}
+
+/* 1. Stile per la riga "Da:" */
+.message-sender {
+    font-size: 1.1em;
+    color: #666; /* Grigio elegante */
+    margin-bottom: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* Il "Badge" colorato per il nome utente */
+.sender-badge {
+    color: var(--blu-scuro);
+    
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-left: 8px;
+    letter-spacing: 0.5px;
+}
+
+/* 2. Stile per il riquadro del messaggio ("Fumetto") */
+.user-message {
+    font-size: 1.15em;
+    color: var(--black);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    background-color: var(--white); /* Sfondo bianco per farlo risaltare */
+    padding: 15px 20px;
+    border-left: 4px solid var(--blu-scuro); /* Linea blu a sinistra stile citazione */
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Fa risaltare la parola "Messaggio:" mandando a capo il testo vero e proprio */
+.message-label {
+    color: var(--blu-scuro);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    display: block; /* Manda il testo successivo a capo */
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.btn-logout-small {
+    position: absolute;
+    right: 30px; /* Distanza dal bordo destro */
+    top: 50%; /* Lo spinge a metà altezza */
+    transform: translateY(-50%); /* Lo centra perfettamente in verticale */
+    
+    background-color: transparent;
+    color: var(--arancione-scuro);
+    border: 2px solid var(--arancione-scuro);
+    padding: 4px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-logout-small:hover,
+.btn-logout-small:focus-visible {
+    background-color: var(--arancione-scuro);
+    color: var(--white) !important;
+    outline: none;
 }
