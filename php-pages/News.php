@@ -1,4 +1,5 @@
 <?php
+require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/NewsManager.php';
 
 $lista_news_db = NewsManager::getNews();
@@ -18,7 +19,7 @@ if (count($lista_news_db) > 0) {
 
         $html_news_dinamico .= '<article class="news-card">'; 
         $html_news_dinamico .= '    <div class="card-image">';
-        $html_news_dinamico .= '        <img src="../' . $percorso_img . '" alt="">';
+$html_news_dinamico .= '<img src="../' . $percorso_img . '" alt="' . $titolo . '">';
         $html_news_dinamico .= '    </div>';
         $html_news_dinamico .= '    <div class="card-content">';
         $html_news_dinamico .= '        <time datetime="' . $data_iso . '">' . $data_leggibile . '</time>';
@@ -32,14 +33,9 @@ if (count($lista_news_db) > 0) {
     $html_news_dinamico = '<p class="no-news">Al momento non sono presenti notizie ufficiali. Torna a trovarci presto!</p>';
 }
 
-$template_percorso = '../html/news.html';
+$pagina_html = file_get_contents('../html/news.html');
 
-if (file_exists($template_percorso)) {
-    $pagina_html = file_get_contents($template_percorso);
+$pagina_html = str_replace('[lista_news]', $html_news_dinamico, $pagina_html);
+$pagina_html = str_replace('[link_profilo]', $destinazione_profilo, $pagina_html);
 
-    $pagina_finita = str_replace('[lista_news]', $html_news_dinamico, $pagina_html);
-    echo $pagina_finita;
-} else {
-    die("Errore critico: Impossibile trovare il template news.html in " . $template_percorso);
-}
-?>
+echo $pagina_html;
