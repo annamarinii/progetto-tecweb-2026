@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['isAdmin'] = $utente['isAdmin'];
 
         //dove lo porto se fa accesso?? modificare
-        header("Location: index.php");
+        header("Location: ../index.html");
         exit();
     } else {
         // errore se le credenziali non sono valide
@@ -35,6 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $pagina_html = file_get_contents('../html/login.html');
-$pagina_finita = str_replace('[messaggio_esito]', $messaggio_esito, $pagina_html);
+$pagina_html = str_replace('[messaggio_esito]', $messaggio_esito, $pagina_html);
 
-echo $pagina_finita;
+echo $pagina_html;
