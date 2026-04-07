@@ -31,6 +31,7 @@ CREATE TABLE NEWS (
                       titolo VARCHAR(100) NOT NULL,
                       testo TEXT NOT NULL,
                       data_pubblicazione DATETIME DEFAULT CURRENT_TIMESTAMP,
+                      immagine VARCHAR(255) DEFAULT 'assets/images/default-news.jpg',
                       idAutore INT NOT NULL,
                       FOREIGN KEY (idAutore) REFERENCES UTENTE(idUtente)
 );
@@ -69,44 +70,51 @@ CREATE TABLE FAQ (
     testo_risposta TEXT NOT NULL
 );
 
+
 -- INSERT PER LE TABELLE
+
+INSERT INTO UTENTE (username, email, password, nome, cognome, isAdmin) 
+VALUES 
+('admin', 'admin@pataviumopen.it', 'hash_password_sicura_1', 'Anna', 'Marini', 1),
+('user', 'user@pataviumopen.it', 'hash_password_sicura_2', 'Mario', 'Rossi', 0);
+
 INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
 -- Giorno 1 (18)
-('2026-05-18 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-18 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-18 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-18 19:00:00', 'serale', 'Patavium Arena'),
 
 -- Giorno 2 (19)
-('2026-05-19 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-19 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-19 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-19 19:00:00', 'serale', 'Patavium Arena'),
 
 -- Giorno 3 (20)
-('2026-05-20 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-20 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-20 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-20 19:00:00', 'serale', 'Patavium Arena'),
 
 -- Giorno 4 (21)
-('2026-05-21 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-21 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-21 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-21 19:00:00', 'serale', 'Patavium Arena'),
 
 -- Giorno 5 (22)
-('2026-05-22 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-22 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-22 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-22 19:00:00', 'serale', 'Patavium Arena'),
 
 -- Giorno 6 (23)
-('2026-05-23 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-23 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-23 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-23 19:00:00', 'serale', 'Patavium Arena'),
 
 -- Giorno 7 (24)
-('2026-05-24 11:00:00', 'diurna', 'Giotto Court'),
-('2026-05-24 19:00:00', 'serale', 'Patavium Arena'),
+('2027-05-24 11:00:00', 'diurna', 'Giotto Court'),
+('2027-05-24 19:00:00', 'serale', 'Patavium Arena'),
 
 -- ground
-('2026-05-18 09:00:00', 'ground', 'Accesso Ground'),
-('2026-05-19 09:00:00', 'ground', 'Accesso Ground'),
-('2026-05-20 09:00:00', 'ground', 'Accesso Ground'),
-('2026-05-21 09:00:00', 'ground', 'Accesso Ground'),
-('2026-05-22 09:00:00', 'ground', 'Accesso Ground'),
-('2026-05-23 09:00:00', 'ground', 'Accesso Ground'),
-('2026-05-24 09:00:00', 'ground', 'Accesso Ground');
+('2027-05-18 09:00:00', 'ground', 'Accesso Ground'),
+('2027-05-19 09:00:00', 'ground', 'Accesso Ground'),
+('2027-05-20 09:00:00', 'ground', 'Accesso Ground'),
+('2027-05-21 09:00:00', 'ground', 'Accesso Ground'),
+('2027-05-22 09:00:00', 'ground', 'Accesso Ground'),
+('2027-05-23 09:00:00', 'ground', 'Accesso Ground'),
+('2027-05-24 09:00:00', 'ground', 'Accesso Ground');
 
 -- verranno 560 biglietti totali divisi in 30 per la diurna e 50 per la serale
 INSERT INTO BIGLIETTI (prezzo, tribuna, idProgramma) VALUES
@@ -218,9 +226,6 @@ INSERT INTO BIGLIETTI (prezzo, tribuna, tipo, idProgramma) VALUES
 (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21),
 (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21);
 
-
-
-
 INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES
 ('A che ora aprono i cancelli del torneo?','I cancelli aprono tutti i giorni alle ore 09:00 del mattino. L''accesso alle tribune è consentito circa 30 minuti prima dell match della giornata.'),
 ('Il biglietto che acquisto è nominativo?', 'No, i biglietti NON sono nominativi. E'' indicato il nome dell''acquirente, ma possono essere ceduti ad altri.'),
@@ -229,3 +234,8 @@ INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES
 ('Dove posso parcheggiare la macchina?', 'È disponibile un ampio parcheggio nell''area Ovest distante pochi minuti a piedi dall''ingresso principale. Il parcheggio è incluso per chi è in possesso dell''Abbonamento stagionale, mentre per gli altri biglietti è a tariffa giornaliera.'),
 ('I minori devono essere accompagnati da un adulto?', 'Il minore entro i 14 anni deve necessariamente essere accompagnato da un adulto per accedere ai campi; sia il minore sia l''adulto dovranno essere muniti di regolare titolo di ingresso.'),
 ('Posso entrare anche a sessione iniziata?', 'Sì, è possibile accedere in qualsiasi momento, compatibilmente ai tempi di gioco.');
+
+INSERT INTO NEWS (titolo, testo, immagine, idAutore) 
+VALUES
+('Svelato il montepremi record', 'Il comitato direttivo ha ufficializzato un clamoroso incremento del 30% del prize money rispetto alla passata stagione, posizionando il torneo tra i più ricchi e prestigiosi della categoria ATP 250. La finale promette già scintille e un assegno da record storico per il vincitore del singolare maschile e femminile.', 'assets/images/trofeo_patavium.jpg', 1);
+('Lorenzo Milanese si trasferisce a Los Angeles', 'Il comitato direttivo ha ufficializzato un clamoroso incremento del 30% del prize money rispetto alla passata stagione, posizionando il torneo tra i più ricchi e prestigiosi della categoria ATP 250. La finale promette già scintille e un assegno da record storico per il vincitore del singolare maschile e femminile.', 'assets/images/lorenzo_milanese.jpg', 1);
