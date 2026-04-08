@@ -1,13 +1,8 @@
 <?php
 
-session_start(); //avvio la sessione
+require_once '../php-dbManager/init_session.php';
 require_once "../php-dbManager/AccountManager.php";
 
-// se è già loggato
-if (isset($_SESSION['idUtente'])) {
-    header("Location: ../html/areautente.html");
-    exit();
-}
 
 $messaggio_esito = "";
 
@@ -25,8 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nome'] = $utente['nome'];
         $_SESSION['isAdmin'] = $utente['isAdmin'];
 
-        //dove lo porto se fa accesso?? modificare
-        header("Location: ../index.html");
+        //dove lo porto se fa accesso?? MODIFICARE
+        //header("Location: ../index.html");
+        header("Location: ../php-pages/Faq.php");
+
         exit();
     } else {
         // errore se le credenziali non sono valide
@@ -36,5 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $pagina_html = file_get_contents('../html/login.html');
 $pagina_html = str_replace('[messaggio_esito]', $messaggio_esito, $pagina_html);
+
 
 echo $pagina_html;

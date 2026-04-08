@@ -1,4 +1,5 @@
 <?php
+
 require_once "../php-dbManager/AccountManager.php";
 $messaggio_esito = "";
 

@@ -12,8 +12,16 @@ if (session_status() === PHP_SESSION_NONE) {
 $destinazione_profilo = "../php-pages/login.php";
 
 // se la sessione riconosce un utente, aggiorno la destinazione
-if (isset($_SESSION['id_utente'])) {
-    //$destinazione_profilo = "../php-pages/areautente.php";
-    $destinazione_profilo = "../html/areautente.html";
+if (isset($_SESSION['idUtente'])) {
+
+    //controllo il ruolo
+    if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
+        // è admin
+        //$destinazione_profilo = "../php-pages/areaadmin.php";
+        $destinazione_profilo = "../html/areadmin.html";
+    } else {
+        // è user
+        $destinazione_profilo = "../php-pages/areautente.php";
+    }
 }
 

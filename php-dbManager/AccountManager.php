@@ -82,4 +82,26 @@ class AccountManager
         $conn->close();
         return false;
     }
+    public static function getUtenteById($idUtente)
+    {
+        $conn = DBConnection::getConnessione();
+
+        $sql = "SELECT * FROM UTENTE WHERE idUtente = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idUtente); // i sta per numero intero
+        $stmt->execute();
+
+        $risultato = $stmt->get_result();
+        $utente = null;
+
+        if ($risultato && $risultato->num_rows > 0) {
+            $utente = $risultato->fetch_assoc();
+        }
+
+        $stmt->close();
+        $conn->close();
+
+        return $utente; //ci ritorna l'array con le informazioni dell'utente
+    }
 }
