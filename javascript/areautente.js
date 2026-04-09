@@ -24,21 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Se il bottone è in modalità "Modifica"
             if (this.textContent === 'Modifica Profilo') {
                 
-                // 1. Rendi i campi editabili (tranne l'email se vuoi che sia fissa)
                 inputs.forEach(input => {
                     input.removeAttribute('readonly');
                 });
 
-                // 2. Cambia aspetto al bottone
                 this.textContent = 'Salva Modifiche';
                 this.classList.add('btn-save'); 
                 
-                // 3. Porta il focus sul primo campo
                 inputs[0].focus();
 
             } else {
-                // Se il bottone è in modalità "Salva"
-                // Trasformiamo il bottone in 'submit' per inviare il form al PHP
                 this.type = 'submit';
                 form.submit();
             }

@@ -33,6 +33,7 @@ CREATE TABLE NEWS (
                       data_pubblicazione DATETIME DEFAULT CURRENT_TIMESTAMP,
                       immagine VARCHAR(255) DEFAULT 'assets/images/default-news.jpg',
                       idAutore INT NOT NULL,
+                      inEvidenza BOOLEAN DEFAULT FALSE,
                       FOREIGN KEY (idAutore) REFERENCES UTENTE(idUtente)
 );
 
@@ -40,7 +41,9 @@ CREATE TABLE DOMANDE (
                          idDomanda INT AUTO_INCREMENT PRIMARY KEY,
                          testo_domanda TEXT NOT NULL,
                          testo_risposta TEXT,
-                         letta BOOLEAN DEFAULT FALSE,
+                         lettura_admin BOOLEAN DEFAULT FALSE,
+                         lettura_user BOOLEAN DEFAULT FALSE,
+                         data_invio DATETIME DEFAULT CURRENT_TIMESTAMP
                          idUtente INT NOT NULL,
                          FOREIGN KEY (idUtente) REFERENCES UTENTE(idUtente)
 );

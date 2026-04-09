@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -92,15 +92,122 @@
                 <section id="miei-biglietti" aria-labelledby="titolo-biglietti" class="content-card tab-content">
                     <h2 id="titolo-biglietti">I miei biglietti</h2>
                     <ul class="orders-list-user">
-                        [lista_ordini]
-                    </ul>
+                        <!-- Biglietto Abbonamento -->
+                        <li class="ticket-card">
+                            <div class="ticket-info">
+                                <span class="ticket-badge abbonamento">Abbonamento 7 Giorni</span>
+                                <h3 class="ticket-title">Patavium Open All-Access</h3>
+                                <div class="ticket-details">
+                                    <div class="t-detail">
+                                        <span>Data</span>
+                                        <strong>18 - 25 Maggio 2024</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Luogo</span>
+                                        <strong>Stadio Centrale</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Settore</span>
+                                        <strong>Tribuna Est, Fila 4</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Intestatario</span>
+                                        <strong>[nome_utente] [cognome_utente]</strong>
+                                    </div>
+                                </div>
+                            </div>
+                           <div class="ticket-qr" aria-hidden="true">
+                            </div>
+                        </li>
+
+                        <!-- Biglietto Single Session -->
+                        <li class="ticket-card">
+                            <div class="ticket-info">
+                                <span class="ticket-badge">Single Session</span>
+                                <h3 class="ticket-title">Semifinali Maschili</h3>
+                                <div class="ticket-details">
+                                    <div class="t-detail">
+                                        <span>Data</span>
+                                        <strong>24 Maggio 2024</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Luogo</span>
+                                        <strong>Stadio Centrale</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Orario Ingresso</span>
+                                        <strong>18:30</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Posto</span>
+                                        <strong>Assegnato (Vedi QR)</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Biglietto Ground Pass -->
+                        <li class="ticket-card">
+                            <div class="ticket-info">
+                                <span class="ticket-badge vip">Ground Pass</span>
+                                <h3 class="ticket-title">Accesso Villaggio Open</h3>
+                                <div class="ticket-details">
+                                    <div class="t-detail">
+                                        <span>Data</span>
+                                        <strong>20 Maggio 2024</strong>
+                                    </div>
+                                    <div class="t-detail">
+                                        <span>Aree Incluse</span>
+                                        <strong>Campi Secondari & Fan Zone</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>                    </ul>
                 </section>
 
                 <section id="centro-notifiche" aria-labelledby="titolo-notifiche" class="content-card tab-content">
                     <h2 id="titolo-notifiche">Comunicazioni dal Team</h2>
                     <div role="region" aria-live="polite">
-                        <ul class="notifications-list-user">
-                            [lista_notifiche]
+                        <ul class="gmail-list">
+                            <!-- Esempio Risposta Ricevuta NON LETTA -->
+                            <li class="mail-row unread">
+                                <div class="mail-row-header">
+                                    <div class="read-dot" aria-hidden="true"></div>
+                                    <div class="mail-sender">Team Patavium Open</div>
+                                    <div class="mail-subject">Re: Rimborso biglietti pioggia...</div>
+                                    <div class="mail-date">10 Mag</div>
+                                </div>
+                                <div class="mail-content" style="display: none;">
+                                    <div class="mail-body">
+                                        <p><strong>La tua domanda:</strong> "Cosa succede se piove durante la sessione serale?"</p>
+                                        <hr>
+                                        <p><strong>Risposta del Team:</strong> Ciao [nome_utente]!<br><br>Ti confermiamo che in caso di pioggia per più di un'ora ininterrotta, il sistema emetterà automaticamente un voucher compensativo utilizzabile per l'edizione dell'anno successivo. Riceverai un'email con il codice sconto.<br><br>Grazie e buon tennis!</p>
+                                    </div>
+                                    <div class="form-actions-row">
+                                        <button type="button" class="btn-auth btn-close-mail">Chiudi messaggio</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Esempio Risposta Ricevuta LETTA -->
+                            <li class="mail-row read">
+                                <div class="mail-row-header">
+                                    <div class="read-dot" aria-hidden="true"></div>
+                                    <div class="mail-sender">Assistenza Clienti</div>
+                                    <div class="mail-subject">Parcheggio disabili Stadio Centrale</div>
+                                    <div class="mail-date">28 Apr</div>
+                                </div>
+                                <div class="mail-content" style="display: none;">
+                                    <div class="mail-body">
+                                        <p><strong>La tua domanda:</strong> "Ci sono parcheggi dedicati vicino al cancello 3?"</p>
+                                        <hr>
+                                        <p><strong>Risposta del Team:</strong> Certamente. Potrai accedere al Parcheggio Sud P3 esibendo il tagliando apposito. Non è necessaria la prenotazione in anticipo.</p>
+                                    </div>
+                                    <div class="form-actions-row">
+                                        <button type="button" class="btn-auth btn-close-mail">Chiudi messaggio</button>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </section>
@@ -110,6 +217,6 @@
     </main>
 
     <script src="../javascript/areautente.js"></script>
-    
+    <script src="../javascript/gestione_risposte_utente.js"></script>
 </body>
 </html>

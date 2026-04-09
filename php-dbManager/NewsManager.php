@@ -7,7 +7,7 @@ class NewsManager
     public static function getNews()
     {
         $conn = DBConnection::getConnessione();
-        $sql = "SELECT N.titolo, N.testo, N.data_pubblicazione, N.immagine, U.nome, U.cognome 
+        $sql = "SELECT N.idNews, N.titolo, N.testo, N.data_pubblicazione, N.immagine, U.nome, U.cognome 
                 FROM NEWS N 
                 JOIN UTENTE U ON N.idAutore = U.idUtente 
                 ORDER BY N.data_pubblicazione DESC";
