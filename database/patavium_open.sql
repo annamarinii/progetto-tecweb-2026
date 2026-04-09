@@ -43,7 +43,7 @@ CREATE TABLE DOMANDE (
                          testo_risposta TEXT,
                          lettura_admin BOOLEAN DEFAULT FALSE,
                          lettura_user BOOLEAN DEFAULT FALSE,
-                         data_invio DATETIME DEFAULT CURRENT_TIMESTAMP
+                         data_invio DATETIME DEFAULT CURRENT_TIMESTAMP,
                          idUtente INT NOT NULL,
                          FOREIGN KEY (idUtente) REFERENCES UTENTE(idUtente)
 );
