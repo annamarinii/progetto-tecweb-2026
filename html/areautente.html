@@ -36,19 +36,15 @@
     </header>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="areautente.html" class="breadcrumb-active" aria-current="page">Profilo</a></p>
-    
-        <a href="../php-pages/Logout.php" class="btn-logout-small" aria-label="Esci dal tuo account" span lang="en">Log Out</a>
-
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span class="breadcrumb-active" aria-current="page">Profilo</span></p>
+        <a href="../php-pages/Logout.php" class="btn-logout-small" aria-label="Esci dal tuo account" lang="en">Log Out</a>
     </nav>
-
-    
-
     <main class="user-page-main">
         <div class="user-page-header">
             <h1>Area Personale</h1>
             <div class="divider"></div>
         </div>
+        
         <div class="user-layout">
 
             <aside class="sidebar-user">
@@ -86,122 +82,61 @@
                             <input type="text" id="username" name="username" value="[username_utente]" readonly>
                         </div>
                         <button type="button" id="btn-modifica" class="btn-auth">Modifica Profilo</button>
+                        <button type="submit" id="btn-salva" class="btn-auth" style="display:none;">Salva Modifiche</button>
                     </form>
                 </section>
 
                 <section id="miei-biglietti" aria-labelledby="titolo-biglietti" class="content-card tab-content">
                     <h2 id="titolo-biglietti">I miei biglietti</h2>
                     <ul class="orders-list-user">
-                        <!-- Biglietto Abbonamento -->
                         <li class="ticket-card">
                             <div class="ticket-info">
-                                <span class="ticket-badge abbonamento">Abbonamento 7 Giorni</span>
-                                <h3 class="ticket-title">Patavium Open All-Access</h3>
+                                <span class="ticket-badge [classe_tipo]">[tipo_biglietto]</span>
+                                <h3 class="ticket-title">Patavium Open 2026</h3>
                                 <div class="ticket-details">
                                     <div class="t-detail">
-                                        <span>Data</span>
-                                        <strong>18 - 25 Maggio 2024</strong>
+                                        <span>Data e Sessione</span>
+                                        <strong>[data_programma] - [sessione]</strong>
                                     </div>
                                     <div class="t-detail">
-                                        <span>Luogo</span>
-                                        <strong>Stadio Centrale</strong>
+                                        <span>Luogo / Stadio</span>
+                                        <strong>[stadio]</strong>
                                     </div>
                                     <div class="t-detail">
-                                        <span>Settore</span>
-                                        <strong>Tribuna Est, Fila 4</strong>
+                                        <span>Settore / Tribuna</span>
+                                        <strong>[tribuna]</strong>
                                     </div>
                                     <div class="t-detail">
-                                        <span>Intestatario</span>
-                                        <strong>[nome_utente] [cognome_utente]</strong>
+                                        <span>Ordine N°</span>
+                                        <strong>[numero_ordine]</strong>
                                     </div>
                                 </div>
                             </div>
-                           <div class="ticket-qr" aria-hidden="true">
+                            <div class="ticket-qr">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=PO2026-TKT-[idBiglietto]" alt="QR Code Accesso">
+                                <span class="qr-code-id">TKT-[idBiglietto]</span>
+                                <a href="../php-pages/download_qr.php?id=[idBiglietto]" class="btn-download-ticket" aria-label="Scarica biglietto [idBiglietto]">Scarica Ticket</a>
                             </div>
                         </li>
-
-                        <!-- Biglietto Single Session -->
-                        <li class="ticket-card">
-                            <div class="ticket-info">
-                                <span class="ticket-badge">Single Session</span>
-                                <h3 class="ticket-title">Semifinali Maschili</h3>
-                                <div class="ticket-details">
-                                    <div class="t-detail">
-                                        <span>Data</span>
-                                        <strong>24 Maggio 2024</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Luogo</span>
-                                        <strong>Stadio Centrale</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Orario Ingresso</span>
-                                        <strong>18:30</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Posto</span>
-                                        <strong>Assegnato (Vedi QR)</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <!-- Biglietto Ground Pass -->
-                        <li class="ticket-card">
-                            <div class="ticket-info">
-                                <span class="ticket-badge vip">Ground Pass</span>
-                                <h3 class="ticket-title">Accesso Villaggio Open</h3>
-                                <div class="ticket-details">
-                                    <div class="t-detail">
-                                        <span>Data</span>
-                                        <strong>20 Maggio 2024</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Aree Incluse</span>
-                                        <strong>Campi Secondari & Fan Zone</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>                    </ul>
+                    </ul>
                 </section>
 
                 <section id="centro-notifiche" aria-labelledby="titolo-notifiche" class="content-card tab-content">
                     <h2 id="titolo-notifiche">Comunicazioni dal Team</h2>
                     <div role="region" aria-live="polite">
                         <ul class="gmail-list">
-                            <!-- Esempio Risposta Ricevuta NON LETTA -->
-                            <li class="mail-row unread">
+                            <li class="mail-row [stato_lettura_css]">
                                 <div class="mail-row-header">
                                     <div class="read-dot" aria-hidden="true"></div>
-                                    <div class="mail-sender">Team Patavium Open</div>
-                                    <div class="mail-subject">Re: Rimborso biglietti pioggia...</div>
-                                    <div class="mail-date">10 Mag</div>
+                                    <div class="mail-sender">Supporto Patavium Open</div>
+                                    <div class="mail-subject">Risposta alla tua domanda del [data_invio]</div>
+                                    <div class="mail-date">[data_formattata]</div>
                                 </div>
                                 <div class="mail-content" style="display: none;">
                                     <div class="mail-body">
-                                        <p><strong>La tua domanda:</strong> "Cosa succede se piove durante la sessione serale?"</p>
+                                        <p><strong>La tua domanda:</strong> "[testo_domanda]"</p>
                                         <hr>
-                                        <p><strong>Risposta del Team:</strong> Ciao [nome_utente]!<br><br>Ti confermiamo che in caso di pioggia per più di un'ora ininterrotta, il sistema emetterà automaticamente un voucher compensativo utilizzabile per l'edizione dell'anno successivo. Riceverai un'email con il codice sconto.<br><br>Grazie e buon tennis!</p>
-                                    </div>
-                                    <div class="form-actions-row">
-                                        <button type="button" class="btn-auth btn-close-mail">Chiudi messaggio</button>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <!-- Esempio Risposta Ricevuta LETTA -->
-                            <li class="mail-row read">
-                                <div class="mail-row-header">
-                                    <div class="read-dot" aria-hidden="true"></div>
-                                    <div class="mail-sender">Assistenza Clienti</div>
-                                    <div class="mail-subject">Parcheggio disabili Stadio Centrale</div>
-                                    <div class="mail-date">28 Apr</div>
-                                </div>
-                                <div class="mail-content" style="display: none;">
-                                    <div class="mail-body">
-                                        <p><strong>La tua domanda:</strong> "Ci sono parcheggi dedicati vicino al cancello 3?"</p>
-                                        <hr>
-                                        <p><strong>Risposta del Team:</strong> Certamente. Potrai accedere al Parcheggio Sud P3 esibendo il tagliando apposito. Non è necessaria la prenotazione in anticipo.</p>
+                                        <p><strong>Risposta del Team:</strong><br>[testo_risposta]</p>
                                     </div>
                                     <div class="form-actions-row">
                                         <button type="button" class="btn-auth btn-close-mail">Chiudi messaggio</button>
