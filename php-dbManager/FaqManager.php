@@ -20,4 +20,21 @@ class FaqManager
         $conn->close();
         return $faq_estratte;
     }
+    public static function inserisciDomanda($testo_domanda, $idUtente)
+    {
+        $conn = DBConnection::getConnessione();
+
+        $sql = "INSERT INTO DOMANDE (testo_domanda, idUtente) VALUES (?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        // si una stringa e un intero
+        $stmt->bind_param("si", $testo_domanda, $idUtente);
+
+        $esito = $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        return $esito;
+    }
 }

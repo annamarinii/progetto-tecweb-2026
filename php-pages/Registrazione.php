@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $salvato = AccountManager::registraUtente($username, $email, $password, $nome, $cognome);
 
             if ($salvato) {
-                $messaggio_esito = "<div class='success'>Registrazione completata! <a href='login.php'>Fai il Login</a></div>";
+                $messaggio_esito = "<div class='success'>Registrazione completata! <a href='Login.php'>Fai il Login</a></div>";
             } else {
                 $messaggio_esito = "<div class='error'>Errore tecnico durante il salvataggio. Riprova.</div>";
             }
