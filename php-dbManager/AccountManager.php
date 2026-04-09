@@ -5,7 +5,8 @@ require_once "DBConnection.php";
 class AccountManager
 {
     // registrazione
-    public static function registraUtente($username, $email, $password_in_chiaro, $nome, $cognome) {
+    public static function registraUtente($username, $email, $password_in_chiaro, $nome, $cognome)
+    {
         $conn = DBConnection::getConnessione();
 
         $password_criptata = password_hash($password_in_chiaro, PASSWORD_DEFAULT);
@@ -31,7 +32,8 @@ class AccountManager
         return false;
     }
     // controllo se ci sono duplicati in fase di registrazione
-    public static function check($username, $email) {
+    public static function check($username, $email)
+    {
         $conn = DBConnection::getConnessione();
 
         $sql = "SELECT idUtente FROM UTENTE WHERE username = ? OR email = ?";
@@ -54,7 +56,8 @@ class AccountManager
     }
 
     // login
-    public static function verificaLogin($identificativo, $password_inserita) {
+    public static function verificaLogin($identificativo, $password_inserita)
+    {
         $conn = DBConnection::getConnessione();
 
         // cerco corrispondenze con l'email o con lo username
@@ -104,4 +107,16 @@ class AccountManager
 
         return $utente; //ci ritorna l'array con le informazioni dell'utente
     }
+
+    public static function updateUtente($id, $nome, $cognome, $email, $username)
+    {
+        $conn = DBConnection::getConnessione();
+
+        $query = "UPDATE UTENTE SET nome = ?, cognome = ?, email = ?, username = ? WHERE idUtente = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssssi", $nome, $cognome, $email, $username, $id);
+
+        return $stmt->execute();
+    }
 }
+

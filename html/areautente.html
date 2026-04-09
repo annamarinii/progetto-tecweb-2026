@@ -68,7 +68,7 @@
                 
                 <section id="profilo" aria-labelledby="titolo-profilo" class="content-card tab-content active">
                     <h2 id="titolo-profilo">I Tuoi Dati</h2>
-                    <form class="profile-form">
+                    <form class="profile-form" action="../php-pages/SalvaProfilo.php" method="POST">
                         <div class="form-gruppo">
                             <label for="nome">Nome:</label>
                             <input type="text" id="nome" name="nome" value="[nome_utente]" readonly>
@@ -85,7 +85,7 @@
                             <label for="username">Username:</label>
                             <input type="text" id="username" name="username" value="[username_utente]" readonly>
                         </div>
-                        <button type="button" class="btn-auth">Modifica Profilo</button>
+                        <button type="button" id="btn-modifica" class="btn-auth">Modifica Profilo</button>
                     </form>
                 </section>
 
