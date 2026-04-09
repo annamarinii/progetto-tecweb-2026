@@ -2,8 +2,6 @@
 
 require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/AccountManager.php';
-/** @var string $destinazione_profilo */
-
 
 // controllo se è loggato o meno
 if (!isset($_SESSION['idUtente'])) {
