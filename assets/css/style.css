@@ -2352,6 +2352,23 @@ input.invalid {
    PAGINA CARRELLO
 ========================================= */
 
+/* --- Link dinamico "Vai al carrello" post-acquisto --- */
+#link-vai-carrello {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #2E8B57; /* Verde stile successo */
+    font-size: 1.1rem;
+    transition: color 0.3s ease; /* Piccola animazione fluida per l'hover */
+}
+
+/* Effetto al passaggio del mouse per una UX migliore */
+#link-vai-carrello:hover {
+    color: #1e5c39; /* Un verde un po' più scuro */
+}
+
 #main-carrello {
     background-color: var(--azzurro);
     min-height: 80vh;

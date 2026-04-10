@@ -189,11 +189,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
             localStorage.setItem('carrelloItems', JSON.stringify(carrello));
 
-            // Animazione e feedback visivo prima del redirect
+            // Animazione e feedback visivo del bottone
             e.preventDefault();
             acquistaBtn.classList.add('added-to-cart');
             acquistaBtn.textContent = 'AGGIUNTO AL CARRELLO ✓';
+            acquistaBtn.style.pointerEvents = 'none'; // Disabilita i click temporaneamente
+            acquistaBtn.style.opacity = '0.7';
+            
+            // Genera il link "Vai al carrello" in modo STATICO (appare solo una volta)
+            if (!document.getElementById('link-vai-carrello')) {
+                const linkCarrello = document.createElement('a');
+                linkCarrello.id = 'link-vai-carrello';
+                linkCarrello.href = 'carrello.html'; 
+                linkCarrello.innerHTML = 'Vai al carrello ➔';
+                
+                // Lo inseriamo sotto al bottone
+                acquistaBtn.parentNode.insertBefore(linkCarrello, acquistaBtn.nextSibling);
+            }
+
+            // --- Reset del bottone dopo 3 secondi (3000 millisecondi) ---
+            setTimeout(() => {
+                acquistaBtn.classList.remove('added-to-cart');
+                acquistaBtn.textContent = 'AGGIUNGI AL CARRELLO'; // Torna esattamente come prima
+                acquistaBtn.style.pointerEvents = 'auto'; // Riabilita il click per altre aggiunte
+                acquistaBtn.style.opacity = '1';
+            }, 3000); 
+            // -----------------------------------------------------------
         });
     }
+});
+
+/**
+ * PROTEZIONE GLOBALE FORM ANTI-DOPPIO CLICK
+ * Si applica a Login, Modulo Contatti, Admin e Checkout
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const allForms = document.querySelectorAll('form');
+
+    allForms.forEach(form => {
+        // Escludiamo il form di registrazione perché ha già la sua logica in validazione-reg.js
+        if (form.id === 'form-registrazione') return;
+
+        form.addEventListener('submit', function() {
+            // Cerchiamo il bottone di submit o quelli con le classi che usi tu
+            const submitBtn = form.querySelector('button[type="submit"], .btn-checkout');
+            
+            if (submitBtn) {
+                // Blocca il bottone e dà un feedback visivo
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.cursor = 'wait';
+                
+                // Cambiamo il testo per far capire che sta caricando
+                // Manteniamo le icone originali se ci sono, cambiando solo il testo
+                if (submitBtn.textContent.trim() !== '') {
+                    submitBtn.textContent = "Attendere...";
+                }
+            }
+        });
+    });
 });
 
