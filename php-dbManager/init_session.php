@@ -18,7 +18,7 @@ if (isset($_SESSION['idUtente'])) {
     if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
         // è admin
         //$destinazione_profilo = "../php-pages/areaadmin.php";
-        $destinazione_profilo = "../html/areadmin.html";
+        $destinazione_profilo = "../html/areaadmin.html";
     } else {
         // è user
         $destinazione_profilo = "../php-pages/areautente.php";

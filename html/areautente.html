@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Personale Utente | Patavium Open</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
 
     <header>
@@ -21,7 +23,7 @@
                 <li><a href="news.html" lang="en">News</a></li>
                 <li><a href="../php-pages/Faq.php">Domande</a></li>
             </ul>
-            
+
             <ul id="menu-utente">
                 <li id="currentLink">
                     <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo
@@ -36,35 +38,41 @@
     </header>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span class="breadcrumb-active" aria-current="page">Profilo</span></p>
-        <a href="../php-pages/Logout.php" class="btn-logout-small" aria-label="Esci dal tuo account" lang="en">Log Out</a>
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <span class="breadcrumb-active"
+                aria-current="page">Profilo</span></p>
+        <a href="../php-pages/Logout.php" class="btn-logout-small" aria-label="Esci dal tuo account" lang="en">Log
+            Out</a>
     </nav>
     <main class="user-page-main">
         <div class="user-page-header">
             <h1>Area Personale</h1>
             <div class="divider"></div>
         </div>
-        
+
         <div class="user-layout">
 
             <aside class="sidebar-user">
                 <nav aria-label="Menu principale area utente">
                     <details open class="menu-details">
-                        <summary><h2>Il mio Account</h2></summary>
+                        <summary>
+                            <h2>Il mio Account</h2>
+                        </summary>
                         <ul class="menu-list-user">
                             <li><a href="#profilo" class="tab-link active" data-target="profilo">Dati Personali</a></li>
-                            <li><a href="#miei-biglietti" class="tab-link" data-target="miei-biglietti">I miei biglietti</a></li>
-                            <li><a href="#centro-notifiche" class="tab-link" data-target="centro-notifiche">Notifiche</a></li>
+                            <li><a href="#miei-biglietti" class="tab-link" data-target="miei-biglietti">I miei
+                                    biglietti</a></li>
+                            <li><a href="#centro-notifiche" class="tab-link"
+                                    data-target="centro-notifiche">Notifiche</a></li>
                         </ul>
                     </details>
                 </nav>
             </aside>
 
             <div class="content-area-user">
-                
+
                 <section id="profilo" aria-labelledby="titolo-profilo" class="content-card tab-content active">
                     <h2 id="titolo-profilo">I Tuoi Dati</h2>
-                    <form class="profile-form" action="../php-pages/SalvaProfilo.php" method="POST">
+                    <form class="profile-form" action="../php-pages/AreaUtente.php" method="POST">
                         <div class="form-gruppo">
                             <label for="nome">Nome:</label>
                             <input type="text" id="nome" name="nome" value="[nome_utente]" readonly>
@@ -82,7 +90,8 @@
                             <input type="text" id="username" name="username" value="[username_utente]" readonly>
                         </div>
                         <button type="button" id="btn-modifica" class="btn-auth">Modifica Profilo</button>
-                        <button type="submit" id="btn-salva" class="btn-auth" style="display:none;">Salva Modifiche</button>
+                        <button type="submit" id="btn-salva" class="btn-auth" style="display:none;">Salva
+                            Modifiche</button>
                     </form>
                 </section>
 
@@ -113,9 +122,11 @@
                                 </div>
                             </div>
                             <div class="ticket-qr">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=PO2026-TKT-[idBiglietto]" alt="QR Code Accesso">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=PO2026-TKT-[idBiglietto]"
+                                    alt="QR Code Accesso">
                                 <span class="qr-code-id">TKT-[idBiglietto]</span>
-                                <a href="../php-pages/download_qr.php?id=[idBiglietto]" class="btn-download-ticket" aria-label="Scarica biglietto [idBiglietto]">Scarica Ticket</a>
+                                <a href="../php-pages/download_qr.php?id=[idBiglietto]" class="btn-download-ticket"
+                                    aria-label="Scarica biglietto [idBiglietto]">Scarica Ticket</a>
                             </div>
                         </li>
                     </ul>
@@ -148,10 +159,11 @@
                 </section>
 
             </div>
-        </div> 
+        </div>
     </main>
 
     <script src="../javascript/areautente.js"></script>
     <script src="../javascript/gestione_risposte_utente.js"></script>
 </body>
+
 </html>

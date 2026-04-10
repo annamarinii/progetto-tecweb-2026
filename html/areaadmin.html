@@ -47,6 +47,9 @@
     </nav>
 
     <main class="user-page-main">
+        <div class="message-container">
+            [messaggio_esito]
+        </div>
 
         <div class="user-page-header">
             <h1>Area Amministratore</h1>
@@ -65,7 +68,8 @@
                             <li><a href="#nuove-domande" class="tab-link active" data-target="nuove-domande">Notifiche
                                     Domande</a></li>
                             <li><a href="#gestione-news" class="tab-link" data-target="gestione-news">Gestione News</a>
-                            <li><a href="#gestione-faq" class="tab-link" data-target="gestione-faq">Gestione FAQ</a></li>
+                            <li><a href="#gestione-faq" class="tab-link" data-target="gestione-faq">Gestione FAQ</a>
+                            </li>
                             </li>
                         </ul>
                     </details>
@@ -84,14 +88,18 @@
                                 <div class="mail-row-header">
                                     <div class="read-dot" aria-hidden="true"></div>
                                     <div class="sender">mario_rossi</div>
-                                    <div class="subject">Vorrei sapere se è possibile introdurre cani di piccola taglia in tribuna.</div>
+                                    <div class="subject">Vorrei sapere se è possibile introdurre cani di piccola taglia
+                                        in tribuna.</div>
                                     <div class="date">Oggi, 10:30</div>
                                 </div>
                                 <div class="mail-content" style="display: none;">
-                                    <p class="full-message">"Vorrei sapere se è possibile introdurre cani di piccola taglia in tribuna. Vi ringrazio in anticipo per la disponibilità e attendo un vostro riscontro."</p>
+                                    <p class="full-message">"Vorrei sapere se è possibile introdurre cani di piccola
+                                        taglia in tribuna. Vi ringrazio in anticipo per la disponibilità e attendo un
+                                        vostro riscontro."</p>
                                     <div class="mail-reply-form">
                                         <label for="risposta-1" class="sr-only">Scrivi la tua risposta</label>
-                                        <textarea id="risposta-1" name="risposta" rows="3" required placeholder="Inserisci qui la risposta per l'utente..."></textarea>
+                                        <textarea id="risposta-1" name="risposta" rows="3" required
+                                            placeholder="Inserisci qui la risposta per l'utente..."></textarea>
                                         <button type="button" class="btn-auth btn-send-reply">Invia Risposta</button>
                                     </div>
                                 </div>
@@ -105,10 +113,12 @@
                                     <div class="date">Ieri, 15:45</div>
                                 </div>
                                 <div class="mail-content" style="display: none;">
-                                    <p class="full-message">"Buongiorno, i bambini sotto i 6 anni pagano il biglietto intero oppure ci sono agevolazioni per famiglie numerose?"</p>
+                                    <p class="full-message">"Buongiorno, i bambini sotto i 6 anni pagano il biglietto
+                                        intero oppure ci sono agevolazioni per famiglie numerose?"</p>
                                     <div class="mail-reply-form">
                                         <label for="risposta-2" class="sr-only">Scrivi la tua risposta</label>
-                                        <textarea id="risposta-2" name="risposta" rows="3" required placeholder="Inserisci qui la risposta per l'utente..."></textarea>
+                                        <textarea id="risposta-2" name="risposta" rows="3" required
+                                            placeholder="Inserisci qui la risposta per l'utente..."></textarea>
                                         <button type="button" class="btn-auth btn-send-reply">Invia Risposta</button>
                                     </div>
                                 </div>
@@ -118,19 +128,20 @@
                 </section>
 
                 <section id="gestione-news" aria-labelledby="titolo-news" class="content-card tab-content">
-                    
+
                     <!-- VISTA PRINCIPALE: DASHBOARD -->
                     <div id="news-dashboard">
                         <h2 id="titolo-news">Gestione News del Torneo</h2>
-                        <p class="section-description">Seleziona l'operazione che desideri effettuare nel pannello amministrativo</p>
-                        
+                        <p class="section-description">Seleziona l'operazione che desideri effettuare nel pannello
+                            amministrativo</p>
+
                         <div class="news-action-cards">
                             <button type="button" class="action-card" id="btn-new-news">
                                 <div class="action-icon" aria-hidden="true">➕</div>
                                 <h3>Pubblica una Nuova News</h3>
                                 <p>Scrivi e metti in evidenza un nuovo annuncio</p>
                             </button>
-                            
+
                             <button type="button" class="action-card" id="btn-manage-news">
                                 <div class="action-icon" aria-hidden="true">📰</div>
                                 <h3>News Attualmente Pubblicate</h3>
@@ -139,15 +150,17 @@
                         </div>
                     </div>
 
-                    <!-- VISTA SECONDO LIVELLO: NUOVA NEWS -->
+                    <!-- VISTA SECONDO LIVELLO: NUOVA NEWS --> 
                     <div id="view-nuova-news" style="display: none;">
                         <button type="button" class="btn-back-news">⬅ Torna alla Dashboard</button>
                         <h2 class="view-title">Pubblica una Nuova News</h2>
                         <div class="admin-form-container">
-                            <form action="../php-pages/API_SalvaNews.php" method="post" id="form-nuova-news" enctype="multipart/form-data">
+                            <form action="../php-pages/AreaAdmin.php" method="post" id="form-nuova-news"
+                                enctype="multipart/form-data">
                                 <div class="form-gruppo full-width">
                                     <label for="nuovo-titolo">Titolo:</label>
-                                    <input type="text" id="nuovo-titolo" name="titolo" required placeholder="Es: Risultati Semifinale">
+                                    <input type="text" id="nuovo-titolo" name="titolo" required
+                                        placeholder="Es: Risultati Semifinale">
                                 </div>
                                 <div class="form-gruppo full-width">
                                     <label for="nuovo-immagine">Immagine di Copertina (Carica file PNG o JPG):</label>
@@ -155,7 +168,8 @@
                                 </div>
                                 <div class="form-gruppo full-width">
                                     <label for="nuovo-testo">Testo della News:</label>
-                                    <textarea id="nuovo-testo" name="contenuto" rows="4" required placeholder="Scrivi il contenuto dell'articolo..."></textarea>
+                                    <textarea id="nuovo-testo" name="testo" rows="4" required
+                                        placeholder="Scrivi il contenuto dell'articolo..."></textarea>
                                 </div>
                                 <div class="form-checkbox">
                                     <input type="checkbox" id="nuova-evidenza" name="in_home" value="si">
@@ -169,7 +183,7 @@
                     <div id="view-elenco-news" style="display: none;">
                         <button type="button" class="btn-back-news">⬅ Torna alla Dashboard</button>
                         <h2 class="view-title">Scegli la News da Modificare</h2>
-                        
+
                         <div class="news-miniatures-grid">
                             [lista_news_miniature]
                         </div>
@@ -180,7 +194,8 @@
                         <button type="button" class="btn-back-to-list">⬅ Torna all'Elenco News</button>
                         <h2 class="view-title">Personalizza Editor News</h2>
                         <div class="admin-form-container">
-                            <form action="../php-pages/API_SalvaNews.php" method="post" id="form-modifica-news" enctype="multipart/form-data">
+                            <form action="../php-pages/API_SalvaNews.php" method="post" id="form-modifica-news"
+                                enctype="multipart/form-data">
                                 <input type="hidden" id="edit-id-news" name="id_news" value="">
                                 <div class="form-gruppo full-width">
                                     <label for="edit-titolo">Titolo:</label>
@@ -189,19 +204,22 @@
                                 <div class="form-gruppo full-width">
                                     <label for="edit-immagine">Sostituisci Immagine di Copertina (PNG/JPG):</label>
                                     <input type="file" id="edit-immagine" name="immagine" accept=".jpg, .jpeg, .png">
-                                    <small id="img-corrente-info" style="display:block; margin-top:5px; color:#555;">Immagine attuale: <span id="span-img-corrente"></span></small>
+                                    <small id="img-corrente-info"
+                                        style="display:block; margin-top:5px; color:#555;">Immagine attuale: <span
+                                            id="span-img-corrente"></span></small>
                                 </div>
                                 <div class="form-gruppo full-width">
                                     <label for="edit-testo">Testo della News:</label>
                                     <textarea id="edit-testo" name="contenuto" rows="6" required></textarea>
                                 </div>
                                 <div class="form-checkbox">
-                                    <input type="checkbox" id="edit-evidenza" name="in_home" value="si" checked>
+                                    <input type="checkbox" id="edit-evidenza" name="inEvidenza" value="si" checked>
                                     <label for="edit-evidenza">In evidenza nella Home Page</label>
                                 </div>
                                 <div class="form-actions-row">
                                     <button type="submit" class="btn-auth btn-save-mock">Salva Modifiche</button>
-                                    <button type="button" class="btn-auth btn-outline-dark btn-delete-mock">Elimina News</button>
+                                    <button type="button" class="btn-auth btn-outline-dark btn-delete-mock">Elimina
+                                        News</button>
                                 </div>
                             </form>
                         </div>
@@ -210,53 +228,56 @@
                 </section>
 
                 <section id="gestione-faq" aria-labelledby="titolo-faq" class="content-card tab-content">
-    
-    <div id="faq-dashboard">
-        <h2 id="titolo-faq">Gestione FAQ del Sito</h2>
-        <p class="section-description">Aggiungi, modifica o rimuovi le domande frequenti visualizzate dagli utenti.</p>
-        
-        <div class="news-action-cards">
-            <button type="button" class="action-card" id="btn-new-faq">
-                <div class="action-icon" aria-hidden="true">❓</div>
-                <h3>Aggiungi Nuova FAQ</h3>
-                <p>Inserisci una nuova domanda e risposta per il pubblico</p>
-            </button>
-            
-            <button type="button" class="action-card" id="btn-manage-faq">
-                <div class="action-icon" aria-hidden="true">📋</div>
-                <h3>Elenco FAQ Esistenti</h3>
-                <p>Visualizza e modifica le FAQ già pubblicate</p>
-            </button>
-        </div>
-    </div>
 
-    <div id="view-nuova-faq" style="display: none;">
-        <button type="button" class="btn-back-faq">⬅ Torna alla Dashboard</button>
-        <h2 class="view-title">Pubblica una Nuova FAQ</h2>
-        <div class="admin-form-container">
-            <form action="../php-pages/API_SalvaFaq.php" method="post">
-                <div class="form-gruppo full-width">
-                    <label for="faq-domanda">Domanda:</label>
-                    <input type="text" id="faq-domanda" name="domanda" required placeholder="Es: Quali sono gli orari di apertura?">
-                </div>
-                <div class="form-gruppo full-width">
-                    <label for="faq-risposta">Risposta:</label>
-                    <textarea id="faq-risposta" name="risposta" rows="4" required placeholder="Inserisci la risposta ufficiale..."></textarea>
-                </div>
-                <button type="submit" class="btn-auth">Pubblica FAQ</button>
-            </form>
-        </div>
-    </div>
+                    <div id="faq-dashboard">
+                        <h2 id="titolo-faq">Gestione FAQ del Sito</h2>
+                        <p class="section-description">Aggiungi, modifica o rimuovi le domande frequenti visualizzate
+                            dagli utenti.</p>
 
-    <div id="view-elenco-faq" style="display: none;">
-        <button type="button" class="btn-back-faq">⬅ Torna alla Dashboard</button>
-        <h2 class="view-title">FAQ Attualmente Online</h2>
-        <div class="faq-list-admin">
-            [lista_faq_per_modifica]
-        </div>
-    </div>
+                        <div class="news-action-cards">
+                            <button type="button" class="action-card" id="btn-new-faq">
+                                <div class="action-icon" aria-hidden="true">❓</div>
+                                <h3>Aggiungi Nuova FAQ</h3>
+                                <p>Inserisci una nuova domanda e risposta per il pubblico</p>
+                            </button>
 
-</section>
+                            <button type="button" class="action-card" id="btn-manage-faq">
+                                <div class="action-icon" aria-hidden="true">📋</div>
+                                <h3>Elenco FAQ Esistenti</h3>
+                                <p>Visualizza e modifica le FAQ già pubblicate</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="view-nuova-faq" style="display: none;">
+                        <button type="button" class="btn-back-faq">⬅ Torna alla Dashboard</button>
+                        <h2 class="view-title">Pubblica una Nuova FAQ</h2>
+                        <div class="admin-form-container">
+                            <form action="../php-pages/API_SalvaFaq.php" method="post">
+                                <div class="form-gruppo full-width">
+                                    <label for="faq-domanda">Domanda:</label>
+                                    <input type="text" id="faq-domanda" name="domanda" required
+                                        placeholder="Es: Quali sono gli orari di apertura?">
+                                </div>
+                                <div class="form-gruppo full-width">
+                                    <label for="faq-risposta">Risposta:</label>
+                                    <textarea id="faq-risposta" name="risposta" rows="4" required
+                                        placeholder="Inserisci la risposta ufficiale..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-auth">Pubblica FAQ</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="view-elenco-faq" style="display: none;">
+                        <button type="button" class="btn-back-faq">⬅ Torna alla Dashboard</button>
+                        <h2 class="view-title">FAQ Attualmente Online</h2>
+                        <div class="faq-list-admin">
+                            [lista_faq_per_modifica]
+                        </div>
+                    </div>
+
+                </section>
 
             </div>
         </div>

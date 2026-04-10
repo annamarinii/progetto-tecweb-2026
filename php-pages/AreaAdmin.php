@@ -4,30 +4,74 @@ require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/AccountManager.php';
 require_once '../php-dbManager/NewsManager.php';
 
-// Controllo sicurezza base (utente loggato)
+// 2. CONTROLLO SICUREZZA (Solo admin loggati)
 if (!isset($_SESSION['idUtente'])) {
-    header("Location: login.php");
+    header("Location: Login.php");
     exit();
 }
 
 $id_utente_corrente = $_SESSION['idUtente'];
 $dati_utente = AccountManager::getUtenteById($id_utente_corrente);
 
-// Se per qualche motivo manca l'utente, lo facciamo scloggare
-if (!$dati_utente) {
-    header("Location: Login.php");
+if (!$dati_utente || $dati_utente['isAdmin'] == 0) {
+    header("Location: Login.php"); // Reindirizza se non è admin
     exit();
 }
 
-$nome_pulito = htmlspecialchars($dati_utente['nome'] ?? 'Admin');
-$cognome_pulito = htmlspecialchars($dati_utente['cognome'] ?? '');
-$email_pulita = htmlspecialchars($dati_utente['email'] ?? '');
-$username_pulito = htmlspecialchars($dati_utente['username'] ?? '');
+// ==========================================
+// 3. SEZIONE SCRITTURA (Gestione POST)
+// ==========================================
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-// ===================================
-// GESTIONE DINAMICA DELLE NEWS
-// ===================================
+    $target_dir = "../assets/images/";
 
+    // Recupero dati dal form
+    $idNews = isset($_POST['id_news']) ? $_POST['id_news'] : null;
+    $titolo = isset($_POST['titolo']) ? $_POST['titolo'] : '';
+    $testo = isset($_POST['testo']) ? $_POST['testo'] : '';
+    $inEvidenza = isset($_POST['inEvidenza']) ? 1 : 0;
+    $immagine_path = "";
+
+    // Gestione Caricamento File Immagine
+    if (isset($_FILES['immagine']) && $_FILES['immagine']['error'] === UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES['immagine']['tmp_name'];
+        $file_type = strtolower(pathinfo($_FILES['immagine']['name'], PATHINFO_EXTENSION));
+
+        if (getimagesize($tmp_name) !== false) {
+            $new_filename = "news_" . time() . "." . $file_type;
+            if (move_uploaded_file($tmp_name, $target_dir . $new_filename)) {
+                $immagine_path = "assets/images/" . $new_filename;
+            }
+        }
+    }
+
+    // Esecuzione tramite NewsManager (LOGICA UNIFICATA)
+    if (isset($_POST['elimina']) && $_POST['elimina'] == 'si') {
+        $esito = NewsManager::eliminaNews($idNews);
+    } else if ($idNews && $idNews != "") {
+        $esito = NewsManager::aggiornaNews($idNews, $titolo, $testo, $immagine_path, $inEvidenza);
+    } else {
+        // Nuovo inserimento
+        $img_to_save = ($immagine_path != "") ? $immagine_path : 'assets/images/default-news.jpg';
+        $esito = NewsManager::inserisciNews($titolo, $testo, $img_to_save, $id_utente_corrente, $inEvidenza);
+    }
+
+    // REDIRECT alla pagina stessa per pulire il buffer ed evitare doppi invii
+    $status = $esito ? "success" : "error";
+    header("Location: AreaAdmin.php?status=" . $status);
+    exit();
+}
+
+// ==========================================
+// 4. SEZIONE LETTURA (Preparazione Pagina)
+// ==========================================
+
+// Dati Utente per la testata
+$nome_pulito = htmlspecialchars($dati_utente['nome']);
+$cognome_pulito = htmlspecialchars($dati_utente['cognome']);
+$username_pulito = htmlspecialchars($dati_utente['username']);
+
+// Recupero News per le miniature (Dashboard Admin)
 $newsArray = NewsManager::getNews();
 $html_miniature = '';
 
@@ -36,51 +80,43 @@ if (empty($newsArray)) {
 } else {
     foreach ($newsArray as $news) {
         $id = htmlspecialchars($news['idNews']);
-        $titolo = htmlspecialchars($news['titolo']);
-        $testo_completo = htmlspecialchars($news['testo']); // Lo passiamo di nascosto per Javascript!
-        
-        // Pulizia percorso immagine
-        $immagine = htmlspecialchars($news['immagine']);
-        if (empty($immagine)) {
-            $immagine = '../assets/images/default-news.jpg';
-        } else if (strpos($immagine, '../') !== 0 && strpos($immagine, 'http') !== 0) {
-            // Se nel DB è 'assets/images/foto.jpg', noi siamo in php-pages/, quindi da areadmin serve ../
-            $immagine = '../' . ltrim($immagine, '/');
-        }
+        $titolo_news = htmlspecialchars($news['titolo']);
+        $testo_news = htmlspecialchars($news['testo']);
 
-        // Formattazione data italiana
-        $data_obj = new DateTime($news['data_pubblicazione']);
-        $data_formattata = $data_obj->format('d/m/Y');
-        
+        // Percorso immagine per anteprima admin
+        $immagine = htmlspecialchars($news['immagine']);
+        $percorso_anteprima = (empty($immagine)) ? '../assets/images/default-news.jpg' : '../' . $immagine;
+
         $html_miniature .= '
             <button type="button" class="news-mini-card" data-news-id="' . $id . '">
-                <img src="' . $immagine . '" alt="Copertina news" class="mini-card-img">
+                <img src="' . $percorso_anteprima . '" alt="" class="mini-card-img">
                 <div class="mini-card-info">
-                    <h4>' . $titolo . '</h4>
-                    <span class="mini-date">' . $data_formattata . '</span>
+                    <h4>' . $titolo_news . '</h4>
                 </div>
-                <!-- Div nascosto dal quale JS copierà il vero testo completo della news -->
-                <div class="news-full-text" style="display:none;">' . $testo_completo . '</div>
-            </button>
-        ';
+                <div class="news-full-text" style="display:none;">' . $testo_news . '</div>
+            </button>';
     }
 }
 
-// ===================================
-// RENDER DELLA PAGINA HTML
-// ===================================
+// Gestione Messaggi di Esito
+$messaggio_esito = "";
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'success') {
+        $messaggio_esito = "<div class='success' style='color:green; padding:10px; border:1px solid green; margin-bottom:20px;'>Operazione completata con successo!</div>";
+    } else {
+        $messaggio_esito = "<div class='error' style='color:red; padding:10px; border:1px solid red; margin-bottom:20px;'>Errore durante l'aggiornamento dei dati.</div>";
+    }
+}
 
-$pagina_html = file_get_contents('../html/areadmin.html');
+// Caricamento del Template HTML
+$pagina_html = file_get_contents('../html/areaadmin.html');
 
-// Template testate classiche
+// Sostituzioni finali
 $pagina_html = str_replace('[nome_utente]', $nome_pulito, $pagina_html);
 $pagina_html = str_replace('[cognome_utente]', $cognome_pulito, $pagina_html);
-$pagina_html = str_replace('[email_utente]', $email_pulita, $pagina_html);
 $pagina_html = str_replace('[username_utente]', $username_pulito, $pagina_html);
-
-// Rimpiazzo delle miniature News Dinamiche
 $pagina_html = str_replace('[lista_news_miniature]', $html_miniature, $pagina_html);
-
-// Se hai altri placeholder in futuro si aggiungono qui
+$pagina_html = str_replace('[messaggio_esito]', $messaggio_esito, $pagina_html);
 
 echo $pagina_html;
+?>
