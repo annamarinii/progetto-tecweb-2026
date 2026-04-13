@@ -1,6 +1,8 @@
 <?php
 require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/NewsManager.php';
+/** @var string $destinazione_profilo */
+
 
 // RECUPERO NEWS
 $lista_news_db = NewsManager::getNews();
@@ -34,6 +36,5 @@ if (count($lista_news_db) > 0) {
 
 $pagina_html = file_get_contents('../html/news.html');
 $pagina_html = str_replace('[lista_news]', $html_news_dinamico, $pagina_html);
-$pagina_html = str_replace('[link_profilo]', 'AreaUtente.php', $pagina_html);
-
+$pagina_html = str_replace('[link_profilo]', $destinazione_profilo, $pagina_html);
 echo $pagina_html;

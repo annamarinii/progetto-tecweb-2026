@@ -8,9 +8,7 @@ const statoAcquisto = {
     quantita: 1
 };
 
-/**
- * STEP 1: Selezione della Data (Usato in ENTRAMBE le pagine)
- */
+
 function selectDate(dayName, dayNumber, event) {
     // 1. Evidenzia la data selezionata
     const allDates = document.querySelectorAll('.date-tile');
@@ -18,8 +16,11 @@ function selectDate(dayName, dayNumber, event) {
     event.currentTarget.classList.add('highlight');
 
     // 2. Salva la data nello stato
-    const fullDateString = `${dayName} ${dayNumber} Maggio 2026`;
+    const fullDateString = `${dayName} ${dayNumber} Maggio 2027`;
     statoAcquisto.data = fullDateString;
+
+    window.dataSelezionata = '2027-05-' + dayNumber;
+
 
     // 3. Aggiorna i testi del riepilogo (se esistono nella pagina)
     const dateDisplay = document.getElementById('selected-full-date');
@@ -53,19 +54,39 @@ function selectDate(dayName, dayNumber, event) {
         groundSection.classList.remove('d-none');
         groundSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+
+    // invia dati al php per determinare il prezzo in base a quello che ho selezionato
+    const prezzoDisplay = document.getElementById('prezzo-display');
+
+    if (prezzoDisplay) {
+        let dati = new FormData();
+        dati.append('data_scelta', '2027-05-' + dayNumber);
+
+        fetch('GroundPasses.php', { method: 'POST', body: dati })
+            .then(risposta => risposta.text())
+            .then(prezzo => {
+                // Inietta il prezzo ricevuto dal PHP nell'HTML
+                prezzoDisplay.innerHTML = prezzo;
+            })
+            .catch(errore => console.error("Errore", errore));
+    }
 }
 
+
 /**
- * STEP 2: Selezione della Sessione (Usato SOLO in Single Session)
+ * STEP 2: Selezione della Sessione e Chiamata AJAX
  */
-function showSeatSelection(event) {
+function showSeatSelection(event, tipoSessione) {
     event.preventDefault();
 
+    // 1. Salva la sessione nello stato dell'acquisto
     const sessionCard = event.currentTarget.closest('.session-card');
     if (sessionCard) {
         statoAcquisto.sessione = sessionCard.querySelector('h3').textContent;
     }
 
+    // 2. Mostra la sezione delle tribune
     const seatSection = document.getElementById('seat-selection');
     if (seatSection) {
         seatSection.classList.remove('d-none');
@@ -81,6 +102,37 @@ function showSeatSelection(event) {
         }
 
         seatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 3. LA CHIAMATA AJAX (Taglio della stringa)
+    // Cerco gli span dove andrò a stampare i prezzi
+    const dPremium = document.getElementById('prezzo-premium');
+    const dAntenore = document.getElementById('prezzo-antenore');
+    const dFondo = document.getElementById('prezzo-fondo');
+    const dAnello = document.getElementById('prezzo-anello');
+
+    // Controlliamo di avere tutti i dati necessari prima di chiamare il DB
+    if (dPremium && window.dataSelezionata && tipoSessione) {
+
+        let dati = new FormData();
+        dati.append('data_scelta', window.dataSelezionata);
+        dati.append('sessione_scelta', tipoSessione);
+
+        fetch('SingleSession.php', { method: 'POST', body: dati })
+            .then(risposta => risposta.text()) // Riceviamo la stringa "€ 120,00|€ 85,00|..."
+            .then(testoRicevuto => {
+                // Spezziamo la stringa in un array usando il separatore "|"
+                let prezzi = testoRicevuto.split('|');
+
+                // Se il PHP ha risposto correttamente con 4 pezzi, aggiorniamo il testo
+                if(prezzi.length === 4) {
+                    dPremium.innerHTML = prezzi[0];
+                    dAntenore.innerHTML = prezzi[1];
+                    dFondo.innerHTML = prezzi[2];
+                    dAnello.innerHTML = prezzi[3];
+                }
+            })
+            .catch(errore => console.error("Errore AJAX:", errore));
     }
 }
 
