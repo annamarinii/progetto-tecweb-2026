@@ -95,14 +95,35 @@ class FaqManager
         return $domande;
     }
     public static function aggiornaFaq($idFaq, $domanda, $risposta) {
-    $conn = DBConnection::getConnessione();
-    $sql = "UPDATE FAQ SET testo_domanda = ?, testo_risposta = ? WHERE idFaq = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $domanda, $risposta, $idFaq);
-    $esito = $stmt->execute();
-    $stmt->close();
-    $conn->close();
-    return $esito;
-}
+        $conn = DBConnection::getConnessione();
+        $sql = "UPDATE FAQ SET testo_domanda = ?, testo_risposta = ? WHERE idFaq = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssi", $domanda, $risposta, $idFaq);
+        $esito = $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        return $esito;
+    }
+
+    // Recupera le notifiche (domande con risposta) per l'utente
+    public static function getNotificheUtente($idUtente) {
+        $conn = DBConnection::getConnessione();
+        $sql = "SELECT idDomanda, testo_domanda, testo_risposta, data_invio, lettura_user
+                FROM DOMANDE 
+                WHERE idUtente = ? AND testo_risposta IS NOT NULL AND testo_risposta != ''
+                ORDER BY data_invio DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idUtente);
+        $stmt->execute();
+        $risultato = $stmt->get_result();
+        
+        $notifiche = [];
+        if ($risultato && $risultato->num_rows > 0) {
+            $notifiche = $risultato->fetch_all(MYSQLI_ASSOC);
+        }
+        $stmt->close();
+        $conn->close();
+        return $notifiche;
+    }
 }
 ?>

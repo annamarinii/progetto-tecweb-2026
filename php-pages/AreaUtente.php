@@ -1,6 +1,7 @@
 <?php
 require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/AccountManager.php';
+require_once '../php-dbManager/FaqManager.php';
 
 // 1. CONTROLLO ACCESSO
 if (!isset($_SESSION['idUtente'])) {
@@ -9,6 +10,34 @@ if (!isset($_SESSION['idUtente'])) {
 }
 
 $id_utente_corrente = $_SESSION['idUtente'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // CASO A: Richiesta AJAX per segnare la notifica come letta
+    if (isset($_POST['segna_letta_utente']) && $_POST['segna_letta_utente'] === 'si') {
+        $id_domanda = $_POST['id_domanda'];
+        
+        // Chiamiamo il metodo del manager (dovrai crearlo o adattarlo)
+        // Passiamo anche l'id_utente per sicurezza, così un utente non può segnare come lette domande altrui
+        $successo = AccountManager::segnaRispostaComeLetta($id_domanda, $id_utente_corrente);
+        
+        header('Content-Type: application/json');
+        echo json_encode(['status' => $successo ? 'success' : 'error']);
+        exit();
+    }
+
+    // CASO B: Form standard di aggiornamento profilo (quello che avevi già)
+    $nome     = isset($_POST['nome']) ? $_POST['nome'] : '';
+    $cognome  = isset($_POST['cognome']) ? $_POST['cognome'] : '';
+    $email    = isset($_POST['email']) ? $_POST['email'] : '';
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+
+    $successo = AccountManager::updateUtente($id_utente_corrente, $nome, $cognome, $email, $username);
+
+    $status = $successo ? "success" : "error";
+    header("Location: areautente.php?status=" . $status);
+    exit();
+}
 
 // ==========================================
 // 2. SEZIONE SCRITTURA (Gestione POST)
@@ -57,9 +86,49 @@ if (isset($_GET['status'])) {
     }
 }
 
-// Gestione temporanea per biglietti e notifiche
+// Gestione temporanea per biglietti
 $html_ordini = "<p>Nessun biglietto acquistato al momento.</p>";
-$html_notifiche = "<p>Non ci sono nuove comunicazioni.</p>";
+
+// Gestione notifiche (domande risposte dal team)
+$notifiche = FaqManager::getNotificheUtente($id_utente_corrente);
+$html_notifiche = "";
+
+if (empty($notifiche)) {
+    $html_notifiche = "<p style='padding: 20px;'>Non ci sono nuove comunicazioni.</p>";
+} else {
+    foreach ($notifiche as $n) {
+        $status = $n['lettura_user'] ? 'read' : 'unread';
+        $data_formattata = date("d/m/Y H:i", strtotime($n['data_invio']));
+        $data_breve = date("d/m", strtotime($n['data_invio']));
+        
+        $html_notifiche .= '
+        <li class="mail-row '.$status.'" data-id="'.$n['idDomanda'].'">
+            <div class="mail-row-header">
+                <div class="read-dot" aria-hidden="true"></div>
+                <div class="mail-sender">Supporto Patavium Open</div>
+                <div class="mail-subject">Risposta alla tua domanda del '.$data_breve.'</div>
+                <div class="mail-date">'.$data_formattata.'</div>
+            </div>
+            <div class="mail-content" style="display: none;">
+                <div class="mail-body">
+                    <div class="qa-container">
+                        <div class="user-question-box">
+                            <span class="box-label">La tua domanda:</span>
+                            <p>'.htmlspecialchars($n['testo_domanda']).'</p>
+                        </div>
+                        <div class="admin-answer-box">
+                            <span class="box-label">Risposta del Team:</span>
+                            <p>'.htmlspecialchars($n['testo_risposta']).'</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions-row">
+                    <button type="button" class="btn-auth btn-close-mail">Chiudi messaggio</button>
+                </div>
+            </div>
+        </li>';
+    }
+}
 
 // Caricamento template HTML
 $pagina_html = file_get_contents('../html/areautente.html');

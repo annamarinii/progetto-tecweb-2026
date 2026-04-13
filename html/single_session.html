@@ -24,7 +24,7 @@
             </ul>
 
             <ul id="menu-utente">
-                <li><a href="../html/login.html">
+                <li><a href="[link_profilo]">
                         <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</a></li>
                 <li><a href="../html/carrello.html">
                         <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
@@ -33,7 +33,7 @@
     </header>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="biglietti.html">Biglietti</a> &gt;
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="../html/biglietti.html">Biglietti</a> &gt;
             <span class="breadcrumb-active" aria-current="page" lang="en">Single Session</span>
         </p>
     </nav>
@@ -207,7 +207,7 @@
 
                     <div class="session-footer">
                         <span class="price">€ 45,00</span>
-                        <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event)">SELEZIONA POSTO</a>
+                        <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event, 'diurna')">SELEZIONA POSTO</a>
                     </div>
                 </div>
 
@@ -230,7 +230,7 @@
 
                     <div class="session-footer">
                         <span class="price">€ 60,00</span>
-                        <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event)">SELEZIONA POSTO</a>
+                        <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event, 'serale')">SELEZIONA POSTO</a>
                     </div>
                 </div>
             </div>
@@ -256,7 +256,7 @@
                             <h3><span lang="en">Courtside Premium</span></h3>
                             <p>Prima fila, a bordo campo</p>
                         </div>
-                        <span class="seat-price">€ 120,00</span>
+                        <span class="seat-price" id="prezzo-premium">[prezzo_premium]</span>
                     </div>
 
                     <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
@@ -264,7 +264,7 @@
                             <h3>Tribuna Antenore (Lungo Linea)</h3>
                             <p>Ottima visuale laterale bassa</p>
                         </div>
-                        <span class="seat-price">€ 85,00</span>
+                        <span class="seat-price" id="prezzo-antenore">[prezzo_antenore]</span>
                     </div>
 
                     <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
@@ -272,7 +272,7 @@
                             <h3>Tribuna Fondo Campo</h3>
                             <p>La visuale tattica perfetta</p>
                         </div>
-                        <span class="seat-price">€ 60,00</span>
+                        <span class="seat-price" id="prezzo-fondo">[prezzo_fondo]</span>
                     </div>
 
                     <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
@@ -280,7 +280,7 @@
                             <h3>Anello Superiore</h3>
                             <p>Visione panoramica globale</p>
                         </div>
-                        <span class="seat-price">€ 45,00</span>
+                        <span class="seat-price" id="prezzo-anello">[prezzo_anello]</span>
                     </div>
 
                     <div class="purchase-container">
@@ -329,6 +329,8 @@
         <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
     </footer>
     <script src="../javascript/script.js"></script>
+    <script src="../javascript/ticket.js"></script>
+
 </body>
 
 </html>

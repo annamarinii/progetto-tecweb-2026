@@ -24,7 +24,7 @@
             </ul>
 
             <ul id="menu-utente">
-                <li><a href="../html/login.html">
+                <li><a href="[link_profilo]">
                         <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</a></li>
                 <li><a href="../html/carrello.html">
                         <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a>
@@ -34,7 +34,7 @@
     </header>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="biglietti.html">Biglietti</a> &gt;
+        <p>Ti trovi in: <a href="../index.html" lang="en">Home</a> &gt; <a href="../html/biglietti.html">Biglietti</a> &gt;
             <span class="breadcrumb-active" aria-current="page" lang="en">Ground Passes</span>
         </p>
     </nav>
@@ -192,7 +192,7 @@
                         <p>Accesso completo al villaggio ospitalità e a tutti i campi secondari (1-6).</p>
                         <p class="time-info">Apertura cancelli: ore 09:00</p>
                     </div>
-                    <span class="seat-price">€ 45,00</span>
+                    <span class="seat-price" id="prezzo-display">[prezzo_ground_std]</span>
                 </div>
             </div>
 
@@ -241,6 +241,7 @@
         <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
     </footer>
     <script src="../javascript/script.js"></script>
+    <script src="../javascript/ticket.js"></script>
 </body>
 
 </html>

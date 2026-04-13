@@ -71,6 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCart();
     };
 
-    // Primo render all'avvio
+    // --- NUOVO PEZZO: Blocco anti-doppio click per il Checkout ---
+    if (btnCheckout) {
+        btnCheckout.addEventListener('click', function() {
+            // Se il carrello è vuoto (tasto disabilitato di default), non fare nulla
+            if (this.disabled) return;
+
+            // Blocca il bottone
+            this.disabled = true;
+            this.style.opacity = '0.7';
+            this.style.cursor = 'wait';
+            this.textContent = 'Attendere...';
+            
+        });
+    }
     renderCart();
 });

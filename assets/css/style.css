@@ -2369,6 +2369,23 @@ input.invalid {
    PAGINA CARRELLO
 ========================================= */
 
+/* --- Link dinamico "Vai al carrello" post-acquisto --- */
+#link-vai-carrello {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #2E8B57; /* Verde stile successo */
+    font-size: 1.1rem;
+    transition: color 0.3s ease; /* Piccola animazione fluida per l'hover */
+}
+
+/* Effetto al passaggio del mouse per una UX migliore */
+#link-vai-carrello:hover {
+    color: #1e5c39; /* Un verde un po' più scuro */
+}
+
 #main-carrello {
     background-color: var(--azzurro);
     min-height: 80vh;
@@ -3532,4 +3549,50 @@ input.invalid {
 
 .hidden {
     display: none !important;
+}
+
+/* =========================================
+   STILI PER LE NOTIFICHE (D&R) AREA UTENTE
+========================================= */
+.qa-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 5px;
+}
+
+.box-label {
+    display: block;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--blu-scuro);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.user-question-box {
+    background-color: #f8f9fa;
+    border-left: 4px solid #ced4da;
+    padding: 15px 20px;
+    border-radius: 4px 8px 8px 4px;
+    align-self: flex-start;
+    max-width: 90%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.admin-answer-box {
+    background-color: #f0f7ff;
+    border-left: 4px solid var(--arancione);
+    padding: 15px 20px;
+    border-radius: 4px 8px 8px 4px;
+    align-self: flex-start;
+    max-width: 90%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.user-question-box p, .admin-answer-box p {
+    margin: 0;
+    line-height: 1.5;
+    color: #333;
 }

@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // destinazione per in non loggati
-$destinazione_profilo = "../php-pages/login.php";
+$destinazione_profilo = "../php-pages/Login.php";
 
 // se la sessione riconosce un utente, aggiorno la destinazione
 if (isset($_SESSION['idUtente'])) {
@@ -18,10 +18,10 @@ if (isset($_SESSION['idUtente'])) {
     if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
         // è admin
         //$destinazione_profilo = "../php-pages/areaadmin.php";
-        $destinazione_profilo = "../html/areaadmin.html";
+        $destinazione_profilo = "../php-pages/AreaAdmin.php";
     } else {
         // è user
-        $destinazione_profilo = "../php-pages/areautente.php";
+        $destinazione_profilo = "../php-pages/AreaUtente.php";
     }
 }
 

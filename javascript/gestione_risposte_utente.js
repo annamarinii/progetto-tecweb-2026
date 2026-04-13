@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleziona tutte le righe dei messaggi dell'area utente (come quelle di gmail)
     const mailRows = document.querySelectorAll('.mail-row');
 
     mailRows.forEach(row => {
@@ -7,29 +6,47 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = row.querySelector('.mail-content');
         const closeBtn = row.querySelector('.btn-close-mail');
 
-        // 1. Espansione della riga e cambio stato in "Letto"
-        header.addEventListener('click', () => {
-            const isExpanded = content.style.display === 'block';
+        if (header && !header.dataset.listener) {
+            header.addEventListener('click', () => {
+                const isExpanded = content.style.display === 'block';
 
-            // Animazione fluida simulata con display/hide (CSS gestisce la grafica delle row)
-            if (isExpanded) {
-                content.style.display = 'none';
-            } else {
-                content.style.display = 'block';
-                // Quando l'apre, lo marca come 'letto'
-                // In una versione database, qui scatterà una fetch in background per marcare il record
-                if (row.classList.contains('unread')) {
-                    row.classList.remove('unread');
-                    row.classList.add('read');
+                if (isExpanded) {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+
+                    // Se è unread, lo segniamo come letto nel DB
+                    if (row.classList.contains('unread')) {
+                        const idDomanda = row.dataset.id; // Assicurati che nel HTML ci sia data-id=".."
+                        
+                        if (idDomanda) {
+                            const fd = new FormData();
+                            fd.append('segna_letta_utente', 'si');
+                            fd.append('id_domanda', idDomanda);
+
+                            fetch('../php-pages/areautente.php', {
+                                method: 'POST',
+                                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                                body: fd
+                            })
+                            .then(res => {
+                                if(res.ok) {
+                                    row.classList.remove('unread');
+                                    row.classList.add('read');
+                                }
+                            })
+                            .catch(err => console.error("Errore aggiornamento lettura utente:", err));
+                        }
+                    }
                 }
-            }
-        }); 
+            });
+            header.dataset.listener = "true";
+        }
 
-        content.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
+        if (content) {
+            content.addEventListener('click', (e) => e.stopPropagation());
+        }
 
-        // 2. Tasto chiudi all'interno del pannello
         if (closeBtn) {
             closeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
