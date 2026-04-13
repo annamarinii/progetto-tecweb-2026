@@ -1,63 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Viste all'interno della Gestione FAQ
-    const dashView = document.getElementById('faq-dashboard');
+    const faqDash = document.getElementById('faq-dashboard');
     const newFaqView = document.getElementById('view-nuova-faq');
     const listFaqView = document.getElementById('view-elenco-faq');
-    // Se decidi di fare un editor separato come per le news, aggiungi un ID 'view-modifica-faq'
-    const editFaqView = document.getElementById('view-modifica-faq'); 
+    const faqForm = document.querySelector('#view-nuova-faq form');
 
-    // Bottoni della Dashboard FAQ
-    const btnNewFaq = document.getElementById('btn-new-faq');
-    const btnManageFaq = document.getElementById('btn-manage-faq');
-
-    // Bottoni per tornare indietro
-    const btnsBackToDash = document.querySelectorAll('.btn-back-faq');
-
-    // Funzione ausiliaria per nascondere tutti i pannelli FAQ
     function hideAllFaqViews() {
-        if(dashView) dashView.style.display = 'none';
-        if(newFaqView) newFaqView.style.display = 'none';
-        if(listFaqView) listFaqView.style.display = 'none';
-        if(editFaqView) editFaqView.style.display = 'none';
-    }
-
-    // Navigazione Dashboard FAQ
-    if (btnNewFaq && btnManageFaq) {
-        btnNewFaq.addEventListener('click', () => {
-            hideAllFaqViews();
-            newFaqView.style.display = 'block';
-        });
-
-        btnManageFaq.addEventListener('click', () => {
-            hideAllFaqViews();
-            listFaqView.style.display = 'block';
+        [faqDash, newFaqView, listFaqView].forEach(view => {
+            if (view) view.classList.add('hidden');
         });
     }
 
-    // Tornare alla Dashboard FAQ
-    btnsBackToDash.forEach(btn => {
+    // Forza lo stato iniziale FAQ
+    hideAllFaqViews();
+    faqDash?.classList.remove('hidden');
+
+    document.getElementById('btn-new-faq')?.addEventListener('click', () => {
+        hideAllFaqViews();
+        faqForm?.reset();
+        newFaqView.classList.remove('hidden');
+    });
+
+    document.getElementById('btn-manage-faq')?.addEventListener('click', () => {
+        hideAllFaqViews();
+        listFaqView.classList.remove('hidden');
+    });
+
+    document.querySelectorAll('.btn-back-faq').forEach(btn => {
         btn.addEventListener('click', () => {
             hideAllFaqViews();
-            dashView.style.display = 'block';
+            faqDash.classList.remove('hidden');
         });
     });
 
-    // Gestione eliminazione FAQ (se aggiungi pulsanti elimina nell'elenco)
-    const deleteFaqBtns = document.querySelectorAll('.btn-delete-faq');
-    deleteFaqBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if(confirm("Sei sicuro di voler eliminare questa FAQ?")) {
-                const form = this.closest('form');
-                if(form) {
-                    const actionInput = document.createElement('input');
-                    actionInput.type = 'hidden';
-                    actionInput.name = 'elimina';
-                    actionInput.value = 'si';
-                    form.appendChild(actionInput);
-                    form.submit();
+    // Modifica FAQ tramite card
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-edit-faq-trigger')) {
+            const btn = e.target;
+            document.getElementById('faq-domanda').value = btn.dataset.q;
+            document.getElementById('faq-risposta').value = btn.dataset.a;
+            
+            // Se hai un campo hidden per l'ID
+            const idInput = faqForm.querySelector('input[name="id_faq"]');
+            if(idInput) idInput.value = btn.dataset.id;
+
+            hideAllFaqViews();
+            newFaqView.classList.remove('hidden');
+        }
+    });
+
+    function mostraMessaggioFaq(testo, tipo) {
+        document.querySelectorAll('.ajax-dynamic-msg-faq').forEach(m => m.remove());
+        const contenitore = document.getElementById('gestione-faq');
+        const msg = document.createElement('div');
+        msg.className = 'ajax-dynamic-msg-faq';
+        const colore = tipo === 'success' ? 'green' : 'red';
+        msg.innerHTML = `<div style="color:${colore}; padding:10px; border:1px solid ${colore}; margin-bottom:20px; font-weight:bold; background:white;">${testo}</div>`;
+        contenitore?.prepend(msg);
+        setTimeout(() => {
+            msg.style.opacity = "0";
+            setTimeout(() => msg.remove(), 500);
+        }, 2000);
+    }
+
+    faqForm?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                mostraMessaggioFaq('Operazione completata!', 'success');
+                if (data.html_faq) document.querySelector('.faq-list-admin').innerHTML = data.html_faq;
+                if (faqIdInput.value !== "") {
+                    setTimeout(() => {
+                        hideAllFaqViews();
+                        listFaqView?.classList.remove('hidden');
+                    }, 1000);
+                } else {
+                    this.reset();
                 }
             }
         });
+    });
+
+    document.querySelector('.faq-list-admin')?.addEventListener('submit', function(e) {
+        const targetForm = e.target;
+        if (targetForm.classList.contains('form-delete-faq')) {
+            e.preventDefault();
+            if(!confirm('Eliminare definitivamente?')) return;
+            fetch(targetForm.action, {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: new FormData(targetForm)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    mostraMessaggioFaq('FAQ Eliminata', 'success');
+                    targetForm.closest('.faq-admin-card').remove();
+                }
+            });
+        }
     });
 });

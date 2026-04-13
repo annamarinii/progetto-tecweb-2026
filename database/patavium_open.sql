@@ -242,3 +242,16 @@ INSERT INTO NEWS (titolo, testo, immagine, idAutore)
 VALUES
 ('Svelato il montepremi record', 'Il comitato direttivo ha ufficializzato un clamoroso incremento del 30% del prize money rispetto alla passata stagione, posizionando il torneo tra i più ricchi e prestigiosi della categoria ATP 250. La finale promette già scintille e un assegno da record storico per il vincitore del singolare maschile e femminile.', 'assets/images/trofeo_patavium.jpg', 1);
 ('Lorenzo Milanese si trasferisce a Los Angeles', 'Il comitato direttivo ha ufficializzato un clamoroso incremento del 30% del prize money rispetto alla passata stagione, posizionando il torneo tra i più ricchi e prestigiosi della categoria ATP 250. La finale promette già scintille e un assegno da record storico per il vincitore del singolare maschile e femminile.', 'assets/images/lorenzo_milanese.jpg', 1);
+
+INSERT INTO DOMANDE (testo_domanda, testo_risposta, lettura_admin, lettura_user, idUtente) 
+VALUES 
+('È possibile acquistare i biglietti direttamente ai botteghini dello stadio il giorno del match?', NULL, 0, 0, 2),
+('Quali sono le restrizioni per il parcheggio vicino alla Patavium Arena?', NULL, 1, 0, 2),
+('Avete un servizio di deposito bagagli all''ingresso?', 'Sì, è disponibile un servizio gratuito di deposito per oggetti ingombranti.', 1, 0, 2),
+('I bambini sotto i 6 anni pagano?', 'No, l''ingresso è gratuito per i bambini sotto i 6 anni senza posto assegnato.', 1, 1, 2),
+('Ci sono stazioni di ricarica per auto elettriche nel parcheggio ovest?', NULL, 0, 0, 2),
+('In caso di pioggia i biglietti vengono rimborsati?', 'Il rimborso avviene solo se non vengono giocati almeno 60 minuti di match.', 1, 0, 2),
+('Non riesco a visualizzare il mio biglietto digitale nell''area utente, cosa posso fare?', NULL, 0, 0, 2),
+('Ho smarrito una sciarpa blu in Tribuna Antenore ieri, è stata ritrovata?', NULL, 1, 0, 2),
+('La tribuna Fondo Campo è accessibile con sedia a rotelle?', 'Certamente, la tribuna è dotata di rampa dedicata e posti riservati.', 1, 1, 2),
+('A che ora è prevista la finale del singolare maschile di domenica?', NULL, 0, 0, 2);

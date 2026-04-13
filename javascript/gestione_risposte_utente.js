@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     row.classList.add('read');
                 }
             }
-        });
+        }); 
 
         content.addEventListener('click', (e) => {
             e.stopPropagation();

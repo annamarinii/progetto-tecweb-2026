@@ -1283,6 +1283,23 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* Stile per l'icona dentro la card */
+.action-icon img {
+    width: 50px;           /* Larghezza fissa dell'icona */
+    height: 50px;          /* Altezza fissa dell'icona */
+    object-fit: contain;   /* Mantiene le proporzioni senza tagliare l'immagine */
+    margin-bottom: 10px;   /* Spazio tra l'icona e il titolo h3 */
+    transition: transform 0.3s ease; /* Animazione fluida per l'hover */
+    display: block;        /* Evita spazi vuoti strani sotto l'immagine */
+    margin-left: auto;     /* Centra l'immagine orizzontalmente */
+    margin-right: auto;    /* Centra l'immagine orizzontalmente */
+}
+
+/* Effetto al passaggio del mouse sulla card intera */
+.action-card:hover .action-icon img {
+    transform: scale(1.1); /* L'icona si ingrandisce leggermente */
+}
+
 .benefit-icon-wrapper {
     width: 80px;
     height: 80px;
@@ -3250,6 +3267,128 @@ input.invalid {
     margin-top: 20px;
 }
 
+/* Card delle FAQ */
+.faq-admin-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.faq-admin-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.faq-card-content {
+    flex-grow: 1;
+    padding-right: 20px;
+}
+
+.faq-card-content p {
+    margin: 5px 0;
+}
+
+.faq-card-content .faq-q {
+    font-weight: bold;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+
+.faq-card-content .faq-a {
+    color: #64748b;
+    font-style: italic;
+}
+
+/* Bottoni Azione */
+.faq-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-edit-faq-trigger {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-delete-faq-ajax {
+    background: #fff1f2;
+    color: #e11d48;
+    border: 1px solid #fecdd3;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Container per le sottoviste (Nuova News, Elenco, ecc.) */
+.admin-view-container {
+    display: block; /* Gestito via JS tramite classe .hidden */
+    padding-top: 10px;
+}
+
+/* Footer delle viste per i tasti "Indietro" */
+.admin-view-footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+/* Stile universale per i bottoni "Torna alla Dashboard/Elenco" */
+.btn-back-admin {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back-admin:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+.btn-back-admin .arrow-back {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Testo piccolo informativo per l'immagine corrente */
+.current-img-info {
+    display: block;
+    margin-top: 5px;
+    color: #64748b;
+}
+
+/* Gmail-style list reset */
+.gmail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.btn-edit-faq-trigger:hover { background: #e2e8f0; }
+.btn-delete-faq-ajax:hover { background: #e11d48; color: white; }
+
 /* =========================================
    UI BIGLIETTI UTENTE (TICKET STUB)
 ========================================= */
@@ -3389,4 +3528,8 @@ input.invalid {
     }
     .ticket-info::before { top: auto; bottom: -12px; }
     .ticket-info::after { display: none; }
+}
+
+.hidden {
+    display: none !important;
 }
