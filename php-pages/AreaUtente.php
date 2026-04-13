@@ -39,25 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-// ==========================================
-// 2. SEZIONE SCRITTURA (Gestione POST)
-// ==========================================
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    // Recupero i dati dal form
-    $nome     = isset($_POST['nome']) ? $_POST['nome'] : '';
-    $cognome  = isset($_POST['cognome']) ? $_POST['cognome'] : '';
-    $email    = isset($_POST['email']) ? $_POST['email'] : '';
-    $username = isset($_POST['username']) ? $_POST['username'] : '';
 
-    // Chiamo il metodo dell'AccountManager per aggiornare il DB
-    $successo = AccountManager::updateUtente($id_utente_corrente, $nome, $cognome, $email, $username);
-
-    // Redirect alla pagina stessa con lo status nell'URL
-    $status = $successo ? "success" : "error";
-    header("Location: areautente.php?status=" . $status);
-    exit();
-}
 
 // ==========================================
 // 3. SEZIONE LETTURA (Preparazione Pagina)

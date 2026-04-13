@@ -81,23 +81,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' },
                 body: new FormData(this)
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error("Errore di rete");
+                return res.json();
+            })
             .then(data => {
                 if (data.status === 'success') {
-                    mostraMessaggioNews('Salvato con successo!', 'success');
+                    if (data.upload_msg && data.upload_msg !== "") {
+                        mostraMessaggioNews("News salvata, ma l'immagine non è stata caricata: " + data.upload_msg, 'error');
+                    } else {
+                        mostraMessaggioNews('Salvato con successo!', 'success');
+                    }
                     if (data.html_miniature) {
-                        document.querySelector('.news-miniatures-grid').innerHTML = data.html_miniature;
+                        const grid = document.querySelector('.news-miniatures-grid');
+                        if (grid) grid.innerHTML = data.html_miniature;
                         attaccaEventiMiniature();
                     }
+                    // Riporta la visuale verso l'alto per vedere il messaggio
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
                     if (formId === 'form-nuova-news') {
+                        // Svuota i campi se stavamo inserendo una news nuova (per metterne un'altra)
                         this.reset();
-                    } else {
-                        setTimeout(() => {
-                            hideAllNewsViews();
-                            listNewsView?.classList.remove('hidden');
-                        }, 1000);
                     }
+                } else {
+                    mostraMessaggioNews('Errore durante il salvataggio!', 'error');
                 }
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                mostraMessaggioNews("Errore di connessione al server.", "error");
             });
         });
     }

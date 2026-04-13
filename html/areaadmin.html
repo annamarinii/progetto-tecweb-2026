@@ -200,17 +200,19 @@
                     <div id="view-nuova-faq" class="admin-view-container hidden">
                         <h2 class="view-title">Pubblica una Nuova FAQ</h2>
                         <div class="admin-form-container">
-                            <form action="../php-pages/AreaAdmin.php" method="post">
-                                <div class="form-gruppo full-width">
-                                    <label for="faq-domanda">Domanda:</label>
-                                    <input type="text" id="faq-domanda" name="domanda_faq" required placeholder="Es: Quali sono gli orari di apertura?">
-                                </div>
-                                <div class="form-gruppo full-width">
-                                    <label for="faq-risposta">Risposta:</label>
-                                    <textarea id="faq-risposta" name="risposta_faq" rows="4" required placeholder="Inserisci la risposta ufficiale..."></textarea>
-                                </div>
-                                <button type="submit" class="btn-auth">Pubblica FAQ</button>
-                            </form>
+                            <form action="../php-pages/AreaAdmin.php" method="post" id="form-faq-admin">
+                            <input type="hidden" id="idFaq" name="idFaq" value="">
+                            
+                            <div class="form-gruppo full-width">
+                                <label for="faq-domanda">Domanda:</label>
+                                <input type="text" id="domanda_faq" name="domanda_faq" required placeholder="Es: Orari di apertura?">
+                            </div>
+                            <div class="form-gruppo full-width">
+                                <label for="faq-risposta">Risposta:</label>
+                                <textarea id="risposta_faq" name="risposta_faq" rows="4" required placeholder="Inserisci risposta..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-auth">Salva FAQ</button>
+                        </form>
                         </div>
                         <div class="admin-view-footer">
                             <button type="button" class="btn-back-admin btn-back-faq">

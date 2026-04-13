@@ -32,12 +32,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $inEvidenza = isset($_POST['inEvidenza']) ? 1 : 0;
         $immagine_path = "";
 
-        if (isset($_FILES['immagine']) && $_FILES['immagine']['error'] === UPLOAD_ERR_OK) {
-            $tmp_name = $_FILES['immagine']['tmp_name'];
-            $file_type = strtolower(pathinfo($_FILES['immagine']['name'], PATHINFO_EXTENSION));
-            $new_filename = "news_" . time() . "." . $file_type;
-            if (move_uploaded_file($tmp_name, "../assets/images/" . $new_filename)) {
-                $immagine_path = "assets/images/" . $new_filename;
+        $upload_msg = "";
+        if (isset($_FILES['immagine'])) {
+            if ($_FILES['immagine']['error'] === UPLOAD_ERR_OK) {
+                $tmp_name = $_FILES['immagine']['tmp_name'];
+                $file_type = strtolower(pathinfo($_FILES['immagine']['name'], PATHINFO_EXTENSION));
+                $new_filename = "news_" . time() . "." . $file_type;
+                if (move_uploaded_file($tmp_name, "../assets/images/" . $new_filename)) {
+                    $immagine_path = "assets/images/" . $new_filename;
+                } else {
+                    $upload_msg = "Impossibile spostare il file nel server.";
+                }
+            } else if ($_FILES['immagine']['error'] !== UPLOAD_ERR_NO_FILE) {
+                // Errore reale (file troppo grande, upload parziale, ecc.) e non solo "file non selezionato"
+                $upload_msg = "Errore caricamento file (Codice PHP: " . $_FILES['immagine']['error'] . "). Forse il file è troppo pesante.";
             }
         }
 
@@ -46,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else if ($idNews && $idNews != "") {
             $esito = NewsManager::aggiornaNews($idNews, $titolo, $testo, $immagine_path, $inEvidenza);
         } else {
-            $img_to_save = ($immagine_path != "") ? $immagine_path : 'assets/images/default-news.jpg';
+            $img_to_save = ($immagine_path != "") ? $immagine_path : 'assets/images/logo1.png';
             $esito = NewsManager::inserisciNews($titolo, $testo, $img_to_save, $id_utente_corrente, $inEvidenza);
         }
         $ancora = "#gestione-news";
@@ -55,14 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newsArray = NewsManager::getNews();
             $html_news = "";
             foreach ($newsArray as $news) {
-                $percorso = (empty($news['immagine'])) ? '../assets/images/default-news.jpg' : '../' . $news['immagine'];
+                $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.png' : '../' . $news['immagine'];
                 $html_news .= '<button type="button" class="news-mini-card" data-news-id="'.htmlspecialchars($news['idNews']).'">
                     <img src="'.$percorso.'" alt="" class="mini-card-img">
                     <div class="mini-card-info"><h4>'.htmlspecialchars($news['titolo']).'</h4></div>
                     <div class="news-full-text" style="display:none;">'.htmlspecialchars($news['testo']).'</div>
                 </button>';
             }
-            echo json_encode(['status' => ($esito ? 'success' : 'error'), 'html_miniature' => $html_news]);
+            echo json_encode(['status' => ($esito ? 'success' : 'error'), 'upload_msg' => $upload_msg, 'html_miniature' => $html_news]);
             exit();
         }
     }
@@ -72,7 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['elimina_faq'])) {
             $esito = FaqManager::eliminaFaq($_POST['id_faq_elimina']);
         } else {
-            $idFaq = isset($_POST['id_faq']) ? $_POST['id_faq'] : null;
+            // Uniformato a idFaq (senza underscore)
+            $idFaq = isset($_POST['idFaq']) ? $_POST['idFaq'] : null;
+            
             if ($idFaq && $idFaq != "") {
                 $esito = FaqManager::aggiornaFaq($idFaq, $_POST['domanda_faq'], $_POST['risposta_faq']);
             } else {
@@ -143,7 +153,7 @@ $username_pulito = htmlspecialchars($dati_utente['username']);
 $newsArray = NewsManager::getNews();
 $html_miniature = !empty($newsArray) ? "" : "<p>Nessuna news pubblicata.</p>";
 foreach ($newsArray as $news) {
-    $img = (empty($news['immagine'])) ? '../assets/images/default-news.jpg' : '../' . $news['immagine'];
+    $img = (empty($news['immagine'])) ? '../assets/images/logo1.png' : '../' . $news['immagine'];
     $html_miniature .= '
         <button type="button" class="news-mini-card" data-news-id="'.htmlspecialchars($news['idNews']).'">
             <img src="'.$img.'" alt="" class="mini-card-img">

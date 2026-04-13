@@ -279,8 +279,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const allForms = document.querySelectorAll('form');
 
     allForms.forEach(form => {
-        // Escludiamo il form di registrazione perché ha già la sua logica in validazione-reg.js
-        if (form.id === 'form-registrazione') return;
+        // Escludiamo i form che hanno logiche AJAX proprietarie o validazioni custom
+        const excludedForms = ['form-registrazione', 'form-faq-admin', 'form-nuova-news', 'form-modifica-news'];
+        if (excludedForms.includes(form.id) || form.classList.contains('form-delete-faq')) return;
 
         form.addEventListener('submit', function() {
             // Cerchiamo il bottone di submit o quelli con le classi che usi tu

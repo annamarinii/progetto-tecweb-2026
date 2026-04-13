@@ -1,104 +1,86 @@
 <?php
 require_once "DBConnection.php";
 
-class FaqManager
-{
-    // 1. GESTIONE TABELLA "FAQ" (Contenuti Pubblici del Sito)
-
-     // Recupera tutte le FAQ ufficiali per la pagina pubblica o l'admin
-    public static function getFaq()
-    {
+class FaqManager {
+    // Recupera FAQ ufficiali
+    public static function getFaq() {
         $conn = DBConnection::getConnessione();
-
-        // Seleziono l'ID per permettere l'eliminazione, oltre ai testi
         $sql = "SELECT idFaq, testo_domanda, testo_risposta FROM FAQ";
         $risultato = $conn->query($sql);
-
-        $faq_estratte = [];
-        if ($risultato && $risultato->num_rows > 0) {
-            $faq_estratte = $risultato->fetch_all(MYSQLI_ASSOC);
-        }
-
+        $faq = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
         $conn->close();
-        return $faq_estratte;
+        return $faq;
     }
 
-
-     // Inserisce una nuova coppia Domanda/Risposta ufficiale (Tabella FAQ)
-    public static function inserisciFaqUfficiale($testo_domanda, $testo_risposta)
-    {
+    public static function inserisciFaqUfficiale($domanda, $risposta) {
         $conn = DBConnection::getConnessione();
-
-        $sql = "INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES (?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $testo_domanda, $testo_risposta);
-
+        $stmt = $conn->prepare("INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES (?, ?)");
+        $stmt->bind_param("ss", $domanda, $risposta);
         $esito = $stmt->execute();
-
         $stmt->close();
         $conn->close();
         return $esito;
     }
 
-    // Elimina una FAQ ufficiale tramite il suo ID
-
-    public static function eliminaFaq($idFaq)
-    {
+    public static function aggiornaFaq($idFaq, $domanda, $risposta) {
         $conn = DBConnection::getConnessione();
+        $stmt = $conn->prepare("UPDATE FAQ SET testo_domanda = ?, testo_risposta = ? WHERE idFaq = ?");
+        $stmt->bind_param("ssi", $domanda, $risposta, $idFaq);
+        $esito = $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        return $esito;
+    }
 
-        $sql = "DELETE FROM FAQ WHERE idFaq = ?";
-        $stmt = $conn->prepare($sql);
+    public static function eliminaFaq($idFaq) {
+        $conn = DBConnection::getConnessione();
+        $stmt = $conn->prepare("DELETE FROM FAQ WHERE idFaq = ?");
         $stmt->bind_param("i", $idFaq);
-
         $esito = $stmt->execute();
-
         $stmt->close();
         $conn->close();
         return $esito;
     }
 
-     // Inserisce una domanda inviata da un utente loggato (Tabella DOMANDE)
-    public static function inserisciDomanda($testo_domanda, $idUtente)
-    {
+    // Inserisce una domanda inviata da un utente loggato (Tabella DOMANDE)
+    public static function inserisciDomanda($testo_domanda, $idUtente) {
         $conn = DBConnection::getConnessione();
-
-        $sql = "INSERT INTO DOMANDE (testo_domanda, idUtente) VALUES (?, ?)";
-
-        $stmt = $conn->prepare($sql);
-        // "si" -> stringa (testo_domanda), intero (idUtente)
+        $stmt = $conn->prepare("INSERT INTO DOMANDE (testo_domanda, idUtente) VALUES (?, ?)");
         $stmt->bind_param("si", $testo_domanda, $idUtente);
-
         $esito = $stmt->execute();
-
         $stmt->close();
         $conn->close();
-
         return $esito;
     }
 
-     //Recupera le domande inviate dagli utenti per l'Admin (Tabella DOMANDE)
-    public static function getDomandeUtenti()
-    {
+    // Recupera domande utenti (non ancora risposte)
+    public static function getDomandeUtenti() {
         $conn = DBConnection::getConnessione();
-
-        // Recuperiamo anche lo username dell'utente che ha fatto la domanda
-        $sql = "SELECT D.*, U.username 
-                FROM DOMANDE D 
+        $sql = "SELECT D.*, U.username FROM DOMANDE D 
                 JOIN UTENTE U ON D.idUtente = U.idUtente 
                 WHERE D.testo_risposta IS NULL OR D.testo_risposta = ''
                 ORDER BY D.data_invio DESC";
-        
         $risultato = $conn->query($sql);
         $domande = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
-        
         $conn->close();
         return $domande;
     }
-    public static function aggiornaFaq($idFaq, $domanda, $risposta) {
+
+    public static function rispondiADomanda($idDomanda, $risposta) {
         $conn = DBConnection::getConnessione();
-        $sql = "UPDATE FAQ SET testo_domanda = ?, testo_risposta = ? WHERE idFaq = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $domanda, $risposta, $idFaq);
+        // Impostiamo lettura_admin a 1 e lettura_user a 0 (notifica per l'utente)
+        $stmt = $conn->prepare("UPDATE DOMANDE SET testo_risposta = ?, lettura_admin = 1, lettura_user = 0 WHERE idDomanda = ?");
+        $stmt->bind_param("si", $risposta, $idDomanda);
+        $esito = $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        return $esito;
+    }
+
+    public static function segnaLettaAdmin($idDomanda) {
+        $conn = DBConnection::getConnessione();
+        $stmt = $conn->prepare("UPDATE DOMANDE SET lettura_admin = 1 WHERE idDomanda = ?");
+        $stmt->bind_param("i", $idDomanda);
         $esito = $stmt->execute();
         $stmt->close();
         $conn->close();
@@ -125,26 +107,4 @@ class FaqManager
         $conn->close();
         return $notifiche;
     }
-    public static function rispondiADomanda($idDomanda, $risposta) {
-        $conn = DBConnection::getConnessione();
-        $sql = "UPDATE DOMANDE SET testo_risposta = ?, lettura_admin = 1, lettura_user = 0 WHERE idDomanda = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("si", $risposta, $idDomanda);
-        $esito = $stmt->execute();
-        $stmt->close();
-        $conn->close();
-        return $esito;
-    }
-
-    public static function segnaLettaAdmin($idDomanda) {
-        $conn = DBConnection::getConnessione();
-        $sql = "UPDATE DOMANDE SET lettura_admin = 1 WHERE idDomanda = ?";
-        $stmt = $conn->prepare();
-        $stmt->bind_param("i", $idDomanda);
-        $esito = $stmt->execute();
-        $stmt->close();
-        $conn->close();
-        return $esito;
-    }
 }
-?>

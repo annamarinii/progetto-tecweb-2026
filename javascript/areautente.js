@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- GESTIONE MODIFICA PROFILO
-    const btnModifica = document.querySelector('.btn-auth');
+    const btnModifica = document.getElementById('btn-modifica');
     const inputs = document.querySelectorAll('.profile-form input');
     const form = document.querySelector('.profile-form');
 

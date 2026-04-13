@@ -2,6 +2,9 @@
 
 require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/FaqManager.php';
+/** @var string $destinazione_profilo */
+
+
 $messaggio_esito_form = "";
 
 // 2. GESTIONE DEL FORM (Se l'utente ha cliccato "Invia richiesta")
