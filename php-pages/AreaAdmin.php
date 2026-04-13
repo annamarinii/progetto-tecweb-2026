@@ -1,16 +1,11 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once '../php-dbManager/init_session.php';
 require_once '../php-dbManager/AccountManager.php';
 require_once '../php-dbManager/NewsManager.php';
 require_once '../php-dbManager/FaqManager.php';
 require_once '../php-dbManager/DBConnection.php';
 
-// 1. CONTROLLO SICUREZZA
 if (!isset($_SESSION['idUtente'])) {
     header("Location: Login.php");
     exit();
@@ -24,19 +19,16 @@ if (!$dati_utente || $dati_utente['isAdmin'] == 0) {
     exit();
 }
 
-// ==========================================
-// 2. SEZIONE SCRITTURA (Gestione POST & AJAX)
-// ==========================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $esito = false;
     $ancora = "";
     $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
-    // --- CASO A: GESTIONE NEWS (Inserimento, Modifica, Eliminazione) ---
+    // --- GESTIONE NEWS ---
     if (isset($_POST['titolo']) || (isset($_POST['elimina']) && $_POST['elimina'] == 'si')) { 
-        $idNews = $_POST['id_news'] ?? null;
-        $titolo = $_POST['titolo'] ?? '';
-        $testo = $_POST['testo'] ?? '';
+        $idNews = isset($_POST['id_news']) ? $_POST['id_news'] : null;
+        $titolo = isset($_POST['titolo']) ? $_POST['titolo'] : '';
+        $testo = isset($_POST['testo']) ? $_POST['testo'] : '';
         $inEvidenza = isset($_POST['inEvidenza']) ? 1 : 0;
         $immagine_path = "";
 
@@ -75,17 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // --- CASO B: GESTIONE FAQ (Inserimento, Modifica, Eliminazione) ---
+    // --- GESTIONE FAQ ---
     else if (isset($_POST['domanda_faq']) || isset($_POST['elimina_faq'])) {
         if (isset($_POST['elimina_faq'])) {
             $esito = FaqManager::eliminaFaq($_POST['id_faq_elimina']);
         } else {
-            $idFaq = $_POST['id_faq'] ?? null;
+            $idFaq = isset($_POST['id_faq']) ? $_POST['id_faq'] : null;
             if ($idFaq && $idFaq != "") {
-                // MODIFICA FAQ
                 $esito = FaqManager::aggiornaFaq($idFaq, $_POST['domanda_faq'], $_POST['risposta_faq']);
             } else {
-                // NUOVA FAQ
                 $esito = FaqManager::inserisciFaqUfficiale($_POST['domanda_faq'], $_POST['risposta_faq']);
             }
         }
@@ -119,33 +109,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // --- CASO C: RISPOSTA DOMANDA UTENTE ---
+    // --- RISPOSTA DOMANDA UTENTE (Tramite Manager) ---
     else if (isset($_POST['risposta_utente'])) {
-        $conn = DBConnection::getConnessione();
-        $sql = "UPDATE DOMANDE SET testo_risposta = ?, lettura_admin = 1, lettura_user = 0 WHERE idDomanda = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("si", $_POST['risposta'], $_POST['id_domanda']);
-        $esito = $stmt->execute();
-        $stmt->close();
-        $conn->close();
+        $esito = FaqManager::rispondiADomanda($_POST['id_domanda'], $_POST['risposta']);
         $ancora = "#nuove-domande";
-
         if ($isAjax) {
             echo json_encode(['status' => ($esito ? 'success' : 'error')]);
             exit();
         }
     }
 
-    // --- CASO D: SEGNA DOMANDA COME LETTA (Da Admin) ---
+    // --- SEGNA DOMANDA COME LETTA (Tramite Manager) ---
     else if (isset($_POST['segna_letta_admin'])) {
-        $conn = DBConnection::getConnessione();
-        $sql = "UPDATE DOMANDE SET lettura_admin = 1 WHERE idDomanda = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $_POST['id_domanda']);
-        $esito = $stmt->execute();
-        $stmt->close();
-        $conn->close();
-
+        $esito = FaqManager::segnaLettaAdmin($_POST['id_domanda']);
         if ($isAjax) {
             echo json_encode(['status' => ($esito ? 'success' : 'error')]);
             exit();
@@ -157,14 +133,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // ==========================================
-// 3. SEZIONE LETTURA (Render Pagina)
+// SEZIONE LETTURA (Render Pagina)
 // ==========================================
 
 $nome_pulito = htmlspecialchars($dati_utente['nome']);
 $cognome_pulito = htmlspecialchars($dati_utente['cognome']);
 $username_pulito = htmlspecialchars($dati_utente['username']);
 
-// Preparazione News
 $newsArray = NewsManager::getNews();
 $html_miniature = !empty($newsArray) ? "" : "<p>Nessuna news pubblicata.</p>";
 foreach ($newsArray as $news) {
@@ -177,7 +152,6 @@ foreach ($newsArray as $news) {
         </button>';
 }
 
-// Preparazione FAQ (con card professionali)
 $faqArray = FaqManager::getFaq();
 $html_faq = !empty($faqArray) ? "" : "<p>Nessuna FAQ pubblicata.</p>";
 foreach ($faqArray as $f) {
@@ -203,7 +177,7 @@ foreach ($faqArray as $f) {
 
 // Preparazione Domande Utenti
 $domandeUtenti = FaqManager::getDomandeUtenti();
-$html_domande = !empty($domandeUtenti) ? "" : "<p style='padding:20px;'>Nessuna nuova domanda.</p>";
+$html_domande = !empty($domandeUtenti) ? "" : "<p class='no-data-msg'>Nessuna nuova domanda.</p>";
 foreach ($domandeUtenti as $d) {
     $status = $d['lettura_admin'] ? 'read' : 'unread';
     $html_domande .= '
@@ -214,10 +188,11 @@ foreach ($domandeUtenti as $d) {
                 <div class="subject">'.htmlspecialchars(substr($d['testo_domanda'], 0, 50)).'...</div>
                 <div class="date">'.date("d/m H:i", strtotime($d['data_invio'])).'</div>
             </div>
-            <div class="mail-content" style="display: none;">
+            <div class="mail-content hidden-content">
                 <p class="full-message">"'.htmlspecialchars($d['testo_domanda']).'"</p>';
-    if ($d['testo_risposta']) {
-        $html_domande .= '<p style="color:green; margin-top:10px;"><strong>Risposta data:</strong> '.htmlspecialchars($d['testo_risposta']).'</p>';
+    
+    if (isset($d['testo_risposta']) && $d['testo_risposta'] != "") {
+        $html_domande .= '<p class="reply-given"><strong>Risposta data:</strong> '.htmlspecialchars($d['testo_risposta']).'</p>';
     } else {
         $html_domande .= '
                 <form action="AreaAdmin.php" method="POST" class="mail-reply-form">
@@ -230,11 +205,12 @@ foreach ($domandeUtenti as $d) {
     $html_domande .= '</div></li>';
 }
 
+// Preparazione Messaggio Esito
 $messaggio_esito = "";
 if (isset($_GET['status'])) {
-    $col = ($_GET['status'] == 'success') ? 'green' : 'red';
-    $txt = ($_GET['status'] == 'success') ? 'Operazione completata!' : 'Errore!';
-    $messaggio_esito = "<div class='esito-msg' style='color:$col; padding:10px; border:1px solid $col; margin-bottom:20px; font-weight:bold;'>$txt</div>";
+    $tipo_status = ($_GET['status'] == 'success') ? 'esito-success' : 'esito-error';
+    $testo_status = ($_GET['status'] == 'success') ? 'Operazione completata!' : 'Errore!';
+    $messaggio_esito = "<div class='esito-msg $tipo_status'>$testo_status</div>";
 }
 
 $pagina_html = file_get_contents('../html/AreaAdmin.html');

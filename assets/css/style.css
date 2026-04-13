@@ -1441,7 +1441,7 @@ main {
     background-color: var(--azzurro);
     border-top: 2px solid #eaeaea;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -3549,6 +3549,44 @@ input.invalid {
 
 .hidden {
     display: none !important;
+}
+
+/* Gestione messaggi di errore/successo */
+.esito-msg {
+    padding: 10px;
+    border: 1px solid;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.esito-success {
+    color: green;
+    border-color: green;
+}
+
+.esito-error {
+    color: red;
+    border-color: red;
+}
+
+/* Messaggi di lista vuota */
+.no-data-msg {
+    padding: 20px;
+}
+
+/* Elementi delle risposte */
+.reply-given {
+    color: green;
+    margin-top: 10px;
+}
+
+/* Gestione visibilità */
+.hidden-content {
+    display: none;
+}
+
+.news-full-text {
+    display: none;
 }
 
 /* =========================================
