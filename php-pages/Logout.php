@@ -5,7 +5,7 @@ require_once '../php-dbManager/init_session.php';
 
 if (isset($_SESSION['idUtente'])) {
 
-    // Svuoto la RAM
+
     session_unset();
 
     // distruggo il cookie sul browser dell'utente
@@ -19,6 +19,5 @@ if (isset($_SESSION['idUtente'])) {
     session_destroy();
 }
 
-// 3. Risultato garantito: l'utente torna sempre al login in modo pulito
-header("Location: ../index.html");
+header("Location: ../index.php");
 exit();

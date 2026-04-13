@@ -20,9 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nome'] = $utente['nome'];
         $_SESSION['isAdmin'] = $utente['isAdmin'];
 
-        //dove lo porto se fa accesso?? MODIFICARE
-        //header("Location: ../index.html");
-        header("Location: ../php-pages/Faq.php");
+
+        header("Location: ../index.php");
 
         exit();
     } else {

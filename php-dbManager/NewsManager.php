@@ -54,5 +54,32 @@ class NewsManager {
         $conn->close();
         return $esito;
     }
+
+    public static function getUltimeNews($limite = 3) { //per le notizie di home.html
+        $conn = DBConnection::getConnessione();
+
+        $sql = "SELECT idNews, titolo, testo, data_pubblicazione, immagine 
+                FROM NEWS 
+                ORDER BY data_pubblicazione DESC 
+                LIMIT ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $limite);
+        $stmt->execute();
+
+        $risultato = $stmt->get_result();
+        $news_estratte = [];
+
+        if ($risultato && $risultato->num_rows > 0) {
+            while ($row = $risultato->fetch_assoc()) {
+                $news_estratte[] = $row;
+            }
+        }
+
+        $stmt->close();
+        $conn->close();
+
+        return $news_estratte;
+    }
 }
 ?>

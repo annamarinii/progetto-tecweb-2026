@@ -8,8 +8,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// destinazione per in non loggati
-$destinazione_profilo = "../php-pages/Login.php";
+
+// Se $is_root esiste ed è true, significa che siamo in index.php. Altrimenti siamo nelle pagine interne.
+$prefisso = (isset($is_root) && $is_root === true) ? "php-pages/" : "../php-pages/";
+
+// destinazione per i non loggati usando il prefisso dinamico
+$destinazione_profilo = $prefisso . "Login.php";
 
 // se la sessione riconosce un utente, aggiorno la destinazione
 if (isset($_SESSION['idUtente'])) {
@@ -17,11 +21,10 @@ if (isset($_SESSION['idUtente'])) {
     //controllo il ruolo
     if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
         // è admin
-        //$destinazione_profilo = "../php-pages/areaadmin.php";
-        $destinazione_profilo = "../php-pages/AreaAdmin.php";
+        $destinazione_profilo = $prefisso . "AreaAdmin.php";
     } else {
         // è user
-        $destinazione_profilo = "../php-pages/AreaUtente.php";
+        $destinazione_profilo = $prefisso . "AreaUtente.php";
     }
 }
-
+?>
