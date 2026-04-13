@@ -1441,7 +1441,7 @@ main {
     background-color: var(--azzurro);
     border-top: 2px solid #eaeaea;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
