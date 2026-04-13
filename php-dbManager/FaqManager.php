@@ -125,5 +125,26 @@ class FaqManager
         $conn->close();
         return $notifiche;
     }
+    public static function rispondiADomanda($idDomanda, $risposta) {
+        $conn = DBConnection::getConnessione();
+        $sql = "UPDATE DOMANDE SET testo_risposta = ?, lettura_admin = 1, lettura_user = 0 WHERE idDomanda = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $risposta, $idDomanda);
+        $esito = $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        return $esito;
+    }
+
+    public static function segnaLettaAdmin($idDomanda) {
+        $conn = DBConnection::getConnessione();
+        $sql = "UPDATE DOMANDE SET lettura_admin = 1 WHERE idDomanda = ?";
+        $stmt = $conn->prepare();
+        $stmt->bind_param("i", $idDomanda);
+        $esito = $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        return $esito;
+    }
 }
 ?>
