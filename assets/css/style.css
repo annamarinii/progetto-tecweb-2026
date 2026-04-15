@@ -115,15 +115,15 @@ header a,
     text-decoration: underline; 
     text-underline-offset: 4px; /* Distanzia la riga dal testo */
     text-decoration-thickness: 1.5px; /* Rende la linea un po' più marcata e leggibile */
-    
+    border: 2px solid transparent; /* Crea lo spazio invisibile per evitare che il menu "salti" */
+    border-radius: 99px;
 }
 
 #currentLink,
 header a:not(.btn-login):not(.btn-register):hover {
     color: var(--arancione-chiaro);
-    border: 2px solid var(--arancione-chiaro); /* Spessore, stile e colore del bordo */
-    border-radius: 6px;                        /* Arrotonda leggermente gli angoli per un look più moderno */
-    
+    border: 2px solid var(--arancione-chiaro); 
+    border-radius: 99px; /* <--- IL VALORE ALTO CREA L'OVALE PERFETTO! */
 }
 /* --- FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) --- */
 #menu-utente #currentLink,
