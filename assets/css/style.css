@@ -1056,6 +1056,7 @@ main {
 
 .form-contatti {
     background-color: var(--blu-scuro);
+    color: var(--crema); /* Tutti i testi interni ora saranno crema */
     padding: 40px;
     border-radius: 12px;
     border-bottom: 6px solid var(--arancione);
@@ -1066,15 +1067,6 @@ main {
 .form-gruppo {
     margin-bottom: 25px;
 }
-
-.form-gruppo label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--white);
-    font-size: 1.15em;
-}
-
 
 .form-gruppo textarea {
     width: 100%;
@@ -1763,6 +1755,7 @@ main {
 }
 
 .auth-form {
+    color: var(--blu-scuro);
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -2302,10 +2295,14 @@ input.invalid {
     gap: 8px;
 }
 
+
 .form-gruppo label {
+    display: block;
+    margin-bottom: 8px;
     font-weight: bold;
-    color: var(--black);
     font-size: 1.1em;
+    /* TRUCCO: Il colore viene ereditato dal contenitore */
+    color: inherit; 
 }
 
 .form-gruppo input {

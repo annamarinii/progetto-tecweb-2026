@@ -4,10 +4,6 @@ require '../php-dbManager/init_session.php';
 require_once '../php-dbManager/TicketManager.php';
 /** @var string $destinazione_profilo */
 
-echo "<pre>"; 
-var_dump($dati_biglietto); 
-echo "</pre>";
-
 //si collega al ticket.js
 if (isset($_POST['data_scelta']) && isset($_POST['sessione_scelta'])) {
 

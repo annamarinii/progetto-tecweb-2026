@@ -125,7 +125,7 @@ function showSeatSelection(event, tipoSessione) {
                 let prezzi = testoRicevuto.split('|');
 
                 // Se il PHP ha risposto correttamente con 4 pezzi, aggiorniamo il testo
-                if(prezzi.length === 4) {
+                if (prezzi.length === 4) {
                     dPremium.innerHTML = prezzi[0];
                     dAntenore.innerHTML = prezzi[1];
                     dFondo.innerHTML = prezzi[2];
@@ -226,10 +226,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 statoAcquisto.prezzoSingolo = 25.00; // Prezzo di default
             }
 
-            let existingItemIndex = carrello.findIndex(item => 
-                item.tipo === statoAcquisto.tipo && 
-                item.data === statoAcquisto.data && 
-                item.sessione === statoAcquisto.sessione && 
+            let existingItemIndex = carrello.findIndex(item =>
+                item.tipo === statoAcquisto.tipo &&
+                item.data === statoAcquisto.data &&
+                item.sessione === statoAcquisto.sessione &&
                 item.tribuna === statoAcquisto.tribuna
             );
 
@@ -247,14 +247,14 @@ document.addEventListener('DOMContentLoaded', () => {
             acquistaBtn.textContent = 'AGGIUNTO AL CARRELLO ✓';
             acquistaBtn.style.pointerEvents = 'none'; // Disabilita i click temporaneamente
             acquistaBtn.style.opacity = '0.7';
-            
+
             // Genera il link "Vai al carrello" in modo STATICO (appare solo una volta)
             if (!document.getElementById('link-vai-carrello')) {
                 const linkCarrello = document.createElement('a');
                 linkCarrello.id = 'link-vai-carrello';
-                linkCarrello.href = 'carrello.html'; 
+                linkCarrello.href = 'carrello.html';
                 linkCarrello.innerHTML = 'Vai al carrello ➔';
-                
+
                 // Lo inseriamo sotto al bottone
                 acquistaBtn.parentNode.insertBefore(linkCarrello, acquistaBtn.nextSibling);
             }
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 acquistaBtn.textContent = 'AGGIUNGI AL CARRELLO'; // Torna esattamente come prima
                 acquistaBtn.style.pointerEvents = 'auto'; // Riabilita il click per altre aggiunte
                 acquistaBtn.style.opacity = '1';
-            }, 3000); 
+            }, 3000);
             // -----------------------------------------------------------
         });
     }
@@ -283,16 +283,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const excludedForms = ['form-registrazione', 'form-faq-admin', 'form-nuova-news', 'form-modifica-news'];
         if (excludedForms.includes(form.id) || form.classList.contains('form-delete-faq')) return;
 
-        form.addEventListener('submit', function() {
+        form.addEventListener('submit', function () {
             // Cerchiamo il bottone di submit o quelli con le classi che usi tu
             const submitBtn = form.querySelector('button[type="submit"], .btn-checkout');
-            
+
             if (submitBtn) {
                 // Blocca il bottone e dà un feedback visivo
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = '0.7';
                 submitBtn.style.cursor = 'wait';
-                
+
                 // Cambiamo il testo per far capire che sta caricando
                 // Manteniamo le icone originali se ci sono, cambiando solo il testo
                 if (submitBtn.textContent.trim() !== '') {
