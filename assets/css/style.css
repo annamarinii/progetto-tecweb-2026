@@ -66,6 +66,7 @@ header h1 {
     width: 24px;
     /* Dimensione perfetta e proporzionata. Prova 28px se le vuoi un pelino più grandi */
     height: auto;
+    
     /* Mantiene le proporzioni corrette senza schiacciare l'immagine */
 }
 
@@ -111,13 +112,30 @@ header a,
     color: var(--white);
     padding: 12px;
     display: inline-block;
+    text-decoration: underline; 
+    text-underline-offset: 4px; /* Distanzia la riga dal testo */
+    text-decoration-thickness: 1.5px; /* Rende la linea un po' più marcata e leggibile */
+    
 }
 
 #currentLink,
 header a:not(.btn-login):not(.btn-register):hover {
     color: var(--arancione-chiaro);
+    border: 2px solid var(--arancione-chiaro); /* Spessore, stile e colore del bordo */
+    border-radius: 6px;                        /* Arrotonda leggermente gli angoli per un look più moderno */
+    
 }
-
+/* --- FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) --- */
+#menu-utente #currentLink,
+#menu-utente li#currentLink a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* Colora di arancione i link delle pagine già visitate */
+header a:visited {
+    color: var(--arancione-chiaro);
+}
 /* =========================================
    PULSANTI AUTH (Login / Registrati)
 ========================================= */
@@ -1057,8 +1075,7 @@ main {
     font-size: 1.15em;
 }
 
-.form-gruppo input[type="text"],
-.form-gruppo input[type="tel"],
+
 .form-gruppo textarea {
     width: 100%;
     padding: 15px;
