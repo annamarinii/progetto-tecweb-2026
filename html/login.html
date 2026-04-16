@@ -1,53 +1,60 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
-<header>
-      <a href="../index.php" class="logo-link">
-         <img src="../assets/images/logo1.png" alt="Patavium Open"  id="logo-sito">
-        <h1>Patavium Open</h1>
-    </a>
-    <nav id="menu">
-        <ul>
-            <li><a href="../index.php" lang="en">Home</a></li>
-            <li><a href="../php-pages/Biglietti.php">Biglietti</a></li>
-            <li><a href="../php-pages/News.php" lang="en">News</a></li>
-            <li><a href="../php-pages/Faq.php">Domande</a></li>
-        </ul>
-        
-        <ul id="menu-utente">
-            <li id="currentLink">
-                <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</li>
-            <li><a href="../html/carrello.html">
-                <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
-        </ul>
-    </nav>
-</header>
+    <header>
+        <a href="../index.php" class="logo-link">
+            <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
+            <h1>Patavium Open</h1>
+        </a>
+        <nav id="menu">
+            <ul>
+                <li><a href="../index.php" lang="en">Home</a></li>
+                <li><a href="Biglietti.php">Biglietti</a></li>
+                <li><a href="News.php" lang="en">News</a></li>
+                <li><a href="Faq.php">Domande</a></li>
+            </ul>
+
+            <ul id="menu-utente">
+                <li id="currentLink">
+                    <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo
+                </li>
+                <li><a href="../html/carrello.html">
+                        <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
-        <p>Ti trovi in: <a href="../index.php" lang="en">Home</a> &gt; <a href="login.html" class="breadcrumb-active" aria-current="page">Profilo</a></p>
+        <p>Ti trovi in: <a href="../index.php" lang="en">Home</a> &gt; <a href="login.html" class="breadcrumb-active"
+                aria-current="page">Profilo</a></p>
     </nav>
-    
+
     <main class="login-page">
         <div class="login-container">
-            
+
             <section class="login-section" aria-labelledby="titolo-login">
                 <h2 id="titolo-login">Sei già cliente? Login</h2>
-                <p class="login-sub">Accedi con la tua email o il tuo username per gestire i tuoi biglietti e continuare gli acquisti in modo rapido.</p>
+                <p class="login-sub">Accedi con la tua email o il tuo username per gestire i tuoi biglietti e continuare
+                    gli acquisti in modo rapido.</p>
                 [messaggio_esito]
                 <form action="../php-pages/Login.php" method="POST" class="auth-form">
                     <div class="form-gruppo">
                         <label for="identificativo">Username o E-mail</label>
-                        <input type="text" id="identificativo" name="identificativo" placeholder="Inserisci username o e-mail" required autocomplete="username">
+                        <input type="text" id="identificativo" name="identificativo"
+                            placeholder="Inserisci username o e-mail" required autocomplete="username">
                     </div>
                     <div class="form-gruppo">
                         <label for="pass">Password</label>
-                        <input type="password" id="pass" name="password" placeholder="Inserisci la password" required autocomplete="current-password">
+                        <input type="password" id="pass" name="password" placeholder="Inserisci la password" required
+                            autocomplete="current-password">
                     </div>
                     <button type="submit" class="btn-auth">Login</button>
                 </form>
@@ -57,7 +64,9 @@
 
             <section class="register-section" aria-labelledby="titolo-nuovo">
                 <h2 id="titolo-nuovo">Nuovo cliente? Registrati</h2>
-                <p>Crea subito il tuo profilo gratuito per accedere in esclusiva ai biglietti del <span lang="la">Patavium</span> <span lang="en">Open</span> e prenotare velocemente i tuoi posti migliori sulle tribune.</p>
+                <p>Crea subito il tuo profilo gratuito per accedere in esclusiva ai biglietti del <span
+                        lang="la">Patavium</span> <span lang="en">Open</span> e prenotare velocemente i tuoi posti
+                    migliori sulle tribune.</p>
                 <a href="../php-pages/Registrazione.php" class="btn-auth outline" role="button">Crea Account</a>
             </section>
 
@@ -66,10 +75,10 @@
 
     <footer class="footer-sito">
         <hr aria-hidden="true">
-        
+
         <div class="footer-contenuto">
             <div class="footer-logo">
-                 <img src="../assets/images/logo1.png" alt="Patavium Open"  width="120">
+                <img src="../assets/images/logo1.png" alt="Patavium Open" width="120">
             </div>
 
             <nav class="footer-nav" aria-label="Informazioni legali">
@@ -84,4 +93,5 @@
     </footer>
     <script src="../javascript/script.js"></script>
 </body>
+
 </html>
