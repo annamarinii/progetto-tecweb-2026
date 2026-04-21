@@ -23,13 +23,17 @@ if ($dati) {
     );
 
     // LOGICA DI RAGGRUPPAMENTO E INCREMENTO
+    // LOGICA DI RAGGRUPPAMENTO E INCREMENTO
     $trovato = false;
     foreach ($_SESSION['carrello'] as $indice => $item_esistente) {
-        // Se il biglietto (stesso programma e stessa tribuna) esiste già...
-        if ($item_esistente['idProgramma'] == $nuovo_item['idProgramma'] &&
-            $item_esistente['titolo'] == $nuovo_item['titolo']) {
 
-            // ...incremento la quantità esistente con quella nuova
+        // Controllo incrociato: ID, Titolo, Data e Sessione devono coincidere perfettamente
+        if ($item_esistente['idProgramma'] == $nuovo_item['idProgramma'] &&
+            $item_esistente['titolo'] == $nuovo_item['titolo'] &&
+            $item_esistente['data'] == $nuovo_item['data'] &&
+            $item_esistente['sessione'] == $nuovo_item['sessione']) {
+
+            // Incremento la quantità
             $_SESSION['carrello'][$indice]['quantita'] += $nuovo_item['quantita'];
             $trovato = true;
             break;

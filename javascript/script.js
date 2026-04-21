@@ -176,34 +176,74 @@ function changeQty(amount) {
 /**
  * GESTIONE FINALE: Aggiunta al carrello (AJAX verso PHP)
  */
+/**
+ * GESTIONE FINALE: Aggiunta al carrello (Versione Integrale e Dinamica)
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const acquistaBtn = document.getElementById('final-buy-btn');
 
     if (acquistaBtn) {
         acquistaBtn.addEventListener('click', (e) => {
-            // 1. Blocchiamo subito il comportamento di default del bottone
             e.preventDefault();
 
-            if (acquistaBtn.classList.contains('added-to-cart')) {
-                return;
-            }
+            // Evita doppi invii se l'animazione è in corso
+            if (acquistaBtn.classList.contains('added-to-cart')) return;
 
-            // Capiamo in quale pagina siamo valutando gli IDs
+            // Identificazione della pagina corrente
             const isSingleSession = document.getElementById('titolo-single') !== null;
             const isAbbonamento = document.getElementById('titolo-abbonamento') !== null;
             const isGroundPass = (!isSingleSession && !isAbbonamento);
 
+            /**
+             * FUNZIONE INTERNA 1: Calcola l'ID del programma basandosi sulla data
+             */
+            function calcolaIdProgramma(dataScelta, sessioneScelta, tipo) {
+                if (tipo === "Abbonamento") return null;
+
+                // Estrae il numero del giorno (es. "18" da "18 Maggio 2027")
+                const matchGiorno = dataScelta.match(/\d+/);
+                if (!matchGiorno) return null;
+                const giorno = parseInt(matchGiorno[0]);
+
+                if (tipo === "Ground Pass") {
+                    // 18 Maggio -> ID 15, 19 -> 16, ..., 24 -> 21
+                    return 15 + (giorno - 18);
+                }
+
+                if (tipo === "Single Session") {
+                    // 18 Diurna -> 1, 18 Serale -> 2, 19 Diurna -> 3...
+                    let baseId = (giorno - 18) * 2 + 1;
+                    if (sessioneScelta && sessioneScelta.toLowerCase().includes('serale')) {
+                        baseId += 1;
+                    }
+                    return baseId;
+                }
+                return null;
+            }
+
+            /**
+             * FUNZIONE INTERNA 2: Pulisce il prezzo HTML per il database
+             */
+            function pulisciPrezzo(elemento) {
+                if (!elemento) return 0;
+                let testo = elemento.textContent || "0";
+                // Rimuove €, punti delle migliaia e trasforma virgola in punto decimale
+                return parseFloat(testo.replace('€', '').replace(/\./g, '').replace(',', '.').trim());
+            }
+
+            // --- LOGICA DI ACQUISIZIONE DATI ---
+
             if (isSingleSession) {
-                // Validazione per Single Session
                 if (!statoAcquisto.data || !statoAcquisto.sessione || !statoAcquisto.tribuna) {
-                    alert("Per favore, completa la selezione: scegli una Data, una Sessione e un Posto.");
+                    alert("Per favore, completa la selezione: scegli Data, Sessione e Posto.");
                     return;
                 }
                 statoAcquisto.tipo = "Single Session";
-                statoAcquisto.idProgramma = 1; // Impostiamo a 1 temporaneamente per i test DB
+                const postoScelto = document.querySelector('.seat-category.selected .seat-price');
+                statoAcquisto.prezzoSingolo = pulisciPrezzo(postoScelto);
+                statoAcquisto.idProgramma = calcolaIdProgramma(statoAcquisto.data, statoAcquisto.sessione, "Single Session");
 
             } else if (isAbbonamento) {
-                // Validazione per Abbonamento
                 if (!statoAcquisto.tribuna) {
                     alert("Per favore, seleziona una Tribuna per il tuo Abbonamento.");
                     return;
@@ -211,10 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 statoAcquisto.tipo = "Abbonamento";
                 statoAcquisto.data = "Intero Torneo (18-24 Maggio)";
                 statoAcquisto.sessione = "Tutte le sessioni";
-                statoAcquisto.idProgramma = null; // L'abbonamento abbraccia tutti i programmi
+                const abbScelto = document.querySelector('.seat-category.selected .seat-price');
+                statoAcquisto.prezzoSingolo = pulisciPrezzo(abbScelto);
+                statoAcquisto.idProgramma = null;
 
             } else if (isGroundPass) {
-                // Validazione per Ground Pass
                 if (!statoAcquisto.data) {
                     alert("Per favore, seleziona una Data per il tuo Ground Pass.");
                     return;
@@ -222,11 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 statoAcquisto.tipo = "Ground Pass";
                 statoAcquisto.sessione = "Intera Giornata";
                 statoAcquisto.tribuna = "Ingresso Generale";
-                statoAcquisto.prezzoSingolo = 25.00; // Prezzo di default
-                statoAcquisto.idProgramma = 15; // Un ID ground di esempio
+                const prezzoDisplay = document.getElementById('prezzo-display');
+                statoAcquisto.prezzoSingolo = pulisciPrezzo(prezzoDisplay);
+                statoAcquisto.idProgramma = calcolaIdProgramma(statoAcquisto.data, null, "Ground Pass");
             }
 
-            // 2. Prepariamo il pacchetto di dati da inviare al Server PHP
+            // --- INVIO DATI AL SERVER ---
+
             const pacchettoBiglietto = {
                 tipologia: statoAcquisto.tipo,
                 titolo: statoAcquisto.tribuna,
@@ -237,47 +280,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 idProgramma: statoAcquisto.idProgramma
             };
 
-            // 3. LA MAGIA: Inviamo i dati al PHP in modo invisibile
             fetch('../php-Manager/AggiungiCarrello.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(pacchettoBiglietto)
             })
                 .then(risposta => risposta.json())
                 .then(dati => {
-                    // 4. Se il PHP dice che ha salvato tutto nella Sessione...
                     if (dati.status === 'success') {
-
-                        // Animazione e feedback visivo del bottone
+                        // Feedback visivo: Successo
                         acquistaBtn.classList.add('added-to-cart');
-                        acquistaBtn.textContent = 'AGGIUNTO AL CARRELLO ✓';
-                        acquistaBtn.style.pointerEvents = 'none'; // Disabilita i click temporaneamente
+                        acquistaBtn.textContent = 'AGGIUNTO ✓';
                         acquistaBtn.style.opacity = '0.7';
 
-                        // Genera il link "Vai al carrello" in modo STATICO (appare solo una volta)
+                        // Mostra il link al carrello se non esiste
                         if (!document.getElementById('link-vai-carrello')) {
                             const linkCarrello = document.createElement('a');
                             linkCarrello.id = 'link-vai-carrello';
-                            // ATTENZIONE: Ora puntiamo al file PHP del carrello!
                             linkCarrello.href = '../php-pages/Carrello.php';
                             linkCarrello.innerHTML = 'Vai al carrello ➔';
-
-                            // Lo inseriamo sotto al bottone
+                            linkCarrello.style.display = 'block';
+                            linkCarrello.style.marginTop = '10px';
                             acquistaBtn.parentNode.insertBefore(linkCarrello, acquistaBtn.nextSibling);
                         }
 
-                        // --- Reset del bottone dopo 3 secondi ---
                         setTimeout(() => {
                             acquistaBtn.classList.remove('added-to-cart');
                             acquistaBtn.textContent = 'AGGIUNGI AL CARRELLO';
-                            acquistaBtn.style.pointerEvents = 'auto';
                             acquistaBtn.style.opacity = '1';
                         }, 3000);
-
                     } else {
-                        alert("Errore del server durante l'aggiunta al carrello.");
+                        alert("Errore nel salvataggio del biglietto.");
                     }
                 })
                 .catch(errore => console.error("Errore di connessione AJAX:", errore));
