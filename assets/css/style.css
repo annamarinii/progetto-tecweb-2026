@@ -123,7 +123,7 @@ header a,
 header a:not(.btn-login):not(.btn-register):hover {
     color: var(--arancione-chiaro);
     border: 2px solid var(--arancione-chiaro); 
-    border-radius: 99px; /* <--- IL VALORE ALTO CREA L'OVALE PERFETTO! */
+    border-radius: 99px;
 }
 /* --- FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) --- */
 #menu-utente #currentLink,

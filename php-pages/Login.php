@@ -3,7 +3,6 @@
 require_once '../php-dbManager/init_session.php';
 require_once "../php-dbManager/AccountManager.php";
 
-
 $messaggio_esito = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nome'] = $utente['nome'];
         $_SESSION['isAdmin'] = $utente['isAdmin'];
 
-
-        header("Location: ../index.php");
+        header("Location: profilo.php");
 
         exit();
     } else {
