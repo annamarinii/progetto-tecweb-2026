@@ -1237,45 +1237,32 @@ main {
 }
 
 .benefits-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1000px;
+    display: flex;           
+    justify-content: center;  
+    gap: 20px;                
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 .benefit-card {
-    background-color: var(--white);
-    border: 1px solid #dcdcdc;
+    background-color: #f4f5f7;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 30px;
-    text-align: center;
+    padding: 20px 15px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    flex-direction: column; 
+    align-items: center;    
+    text-align: center;     
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    max-width: 350px;
 }
 
-/* Stile per l'icona dentro la card */
-.action-icon img {
-    width: 50px;           /* Larghezza fissa dell'icona */
-    height: 50px;          /* Altezza fissa dell'icona */
-    object-fit: contain;   /* Mantiene le proporzioni senza tagliare l'immagine */
-    margin-bottom: 10px;   /* Spazio tra l'icona e il titolo h3 */
-    transition: transform 0.3s ease; /* Animazione fluida per l'hover */
-    display: block;        /* Evita spazi vuoti strani sotto l'immagine */
-    margin-left: auto;     /* Centra l'immagine orizzontalmente */
-    margin-right: auto;    /* Centra l'immagine orizzontalmente */
-}
-
-/* Effetto al passaggio del mouse sulla card intera */
-.action-card:hover .action-icon img {
-    transform: scale(1.1); /* L'icona si ingrandisce leggermente */
-}
 
 .benefit-icon-wrapper {
     width: 80px;
     height: 80px;
+    flex-shrink: 0;
     border-radius: 50%;
     margin-bottom: 20px;
     border: 3px solid var(--arancione);
