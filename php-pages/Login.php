@@ -18,9 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $utente['username'];
         $_SESSION['nome'] = $utente['nome'];
         $_SESSION['isAdmin'] = $utente['isAdmin'];
-
-        header("Location: profilo.php");
-
+        $_SESSION['cognome'] = $utente['cognome']; 
+        $_SESSION['email'] = $utente['email'];
+        header("Location: Profilo.php");
         exit();
     } else {
         // errore se le credenziali non sono valide
@@ -33,3 +33,4 @@ $pagina_html = str_replace('[messaggio_esito]', $messaggio_esito, $pagina_html);
 
 
 echo $pagina_html;
+?>
