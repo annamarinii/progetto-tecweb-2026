@@ -145,42 +145,6 @@ header a:visited {
     gap: 15px;
 }
 
-.btn-login {
-    background-color: transparent;
-    color: var(--white) !important;
-    border: 2px solid var(--white);
-    padding: 8px 18px !important;
-    border-radius: 20px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn-login:hover,
-.btn-login:focus-visible {
-    background-color: var(--white);
-    color: var(--blu-scuro) !important;
-}
-
-.btn-register {
-    background-color: var(--arancione);
-    color: var(--white) !important;
-    padding: 10px 20px !important;
-    border-radius: 20px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.btn-register:hover,
-.btn-register:focus-visible {
-    background-color: var(--arancione-scuro);
-}
-
-.cart-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
 
 /* 4. BREADCRUMB */
 #breadcrumb {
@@ -520,7 +484,7 @@ a:focus-visible,
 
 /* 1. Reset dello sfondo: il 'main' deve essere chiaro per la leggibilità */
 main {
-    background-color: var(--azzurro) !important;
+    background-color: var(--azzurro) ;
     min-height: 80vh;
     padding-bottom: 60px;
 }
@@ -529,12 +493,12 @@ main {
 .titoli-notizie {
     text-align: center;
     padding: 60px var(--spazio-laterale) 40px;
-    background-color: var(--azzurro) !important;
+    background-color: var(--azzurro);
 }
 
 .titoli-notizie h1 {
     font-size: 3em;
-    color: var(--blu-scuro) !important;
+    color: var(--blu-scuro) ;
     /* Blu scuro su azzurro = Ottimo contrasto */
     margin-bottom: 15px;
     text-transform: uppercase;
@@ -551,7 +515,7 @@ main {
 
 .titoli-notizie p {
     font-size: 1.25em;
-    color: var(--black) !important;
+    color: var(--black) ;
     /* Forza il nero per ipovedenti */
     max-width: 800px;
     margin: 0 auto;
