@@ -98,37 +98,7 @@
                 <section id="miei-biglietti" aria-labelledby="titolo-biglietti" class="content-card tab-content">
                     <h2 id="titolo-biglietti">I miei biglietti</h2>
                     <ul class="orders-list-user">
-                        <li class="ticket-card">
-                            <div class="ticket-info">
-                                <span class="ticket-badge [classe_tipo]">[tipo_biglietto]</span>
-                                <h3 class="ticket-title">Patavium Open 2026</h3>
-                                <div class="ticket-details">
-                                    <div class="t-detail">
-                                        <span>Data e Sessione</span>
-                                        <strong>[data_programma] - [sessione]</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Luogo / Stadio</span>
-                                        <strong>[stadio]</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Settore / Tribuna</span>
-                                        <strong>[tribuna]</strong>
-                                    </div>
-                                    <div class="t-detail">
-                                        <span>Ordine N°</span>
-                                        <strong>[numero_ordine]</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ticket-qr">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=PO2026-TKT-[idBiglietto]"
-                                    alt="QR Code Accesso">
-                                <span class="qr-code-id">TKT-[idBiglietto]</span>
-                                <a href="../php-pages/download_qr.php?id=[idBiglietto]" class="btn-download-ticket"
-                                    aria-label="Scarica biglietto [idBiglietto]">Scarica Ticket</a>
-                            </div>
-                        </li>
+                        [lista_ordini] 
                     </ul>
                 </section>
 

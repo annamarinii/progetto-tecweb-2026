@@ -108,5 +108,30 @@ class TicketManager {
         return $dati_abbonamenti;
     }
 
+    public static function getBigliettiUtente($idUtente) {
+    $conn = DBConnection::getConnessione();
+    
+    $sql = "SELECT B.idBiglietto, B.tipo, B.tribuna, B.prezzo, 
+                   P.data, P.sessione, O.numero_ordine
+            FROM BIGLIETTI B
+            JOIN ORDINE O ON B.numero_ordine = O.numero_ordine
+            JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+            WHERE O.idUtente = ?
+            ORDER BY O.data_acquisto DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idUtente);
+    $stmt->execute();
+    $risultato = $stmt->get_result();
+    
+    $biglietti = [];
+    while ($row = $risultato->fetch_assoc()) {
+        $biglietti[] = $row;
+    }
+
+    $stmt->close();
+    $conn->close();
+    return $biglietti;
+}
 
 }

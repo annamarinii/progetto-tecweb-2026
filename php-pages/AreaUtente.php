@@ -2,6 +2,7 @@
 require_once '../php-Manager/init_session.php';
 require_once '../php-Manager/AccountManager.php';
 require_once '../php-Manager/FaqManager.php';
+require_once '../php-Manager/TicketManager.php';
 
 // 1. CONTROLLO ACCESSO
 if (!isset($_SESSION['idUtente'])) {
@@ -70,6 +71,47 @@ if (isset($_GET['status'])) {
 
 // Gestione temporanea per biglietti
 $html_ordini = "<p>Nessun biglietto acquistato al momento.</p>";
+
+$biglietti = TicketManager::getBigliettiUtente($id_utente_corrente);
+$html_ordini = "";
+
+if (empty($biglietti)) {
+    $html_ordini = "<p style='padding: 20px;'>Non hai ancora acquistato nessun biglietto.</p>";
+} else {
+    foreach ($biglietti as $b) {
+    // Formattazione dati
+    $data_evento = date("d/m/Y", strtotime($b['data']));
+    $tipo_label = ($b['tipo'] == 'ground') ? 'Ground Pass' : 'Single Session';
+    $badge_class = ($b['tipo'] == 'ground') ? 'badge-ground' : 'badge-session';
+    $stadio = ($b['sessione'] == 'serale') ? 'Patavium Arena' : 'Giotto Court';
+
+    $html_ordini .= '
+    <li class="ticket-card no-qr">
+        <div class="ticket-info">
+            <span class="ticket-badge '.$badge_class.'">'.$tipo_label.'</span>
+            <h3 class="ticket-title">Patavium Open 2026</h3>
+            <div class="ticket-details">
+                <div class="t-detail">
+                    <span>Data e Sessione</span>
+                    <strong>'.$data_evento.' - '.ucfirst($b['sessione']).'</strong>
+                </div>
+                <div class="t-detail">
+                    <span>Luogo / Stadio</span>
+                    <strong>'.$stadio.'</strong>
+                </div>
+                <div class="t-detail">
+                    <span>Settore / Tribuna</span>
+                    <strong>'.htmlspecialchars($b['tribuna']).'</strong>
+                </div>
+                <div class="t-detail">
+                    <span>Ordine N°</span>
+                    <strong>'.$b['numero_ordine'].'</strong>
+                </div>
+            </div>
+        </div>
+    </li>';
+    }
+}
 
 // Gestione notifiche (domande risposte dal team)
 $notifiche = FaqManager::getNotificheUtente($id_utente_corrente);
