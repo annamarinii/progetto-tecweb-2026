@@ -1,4 +1,3 @@
--- Inserimento di 1 biglietto per ogni tribuna in ogni sessione (14 sessioni * 4 tribune = 56 biglietti)
 INSERT INTO BIGLIETTI (prezzo, tribuna, idProgramma)
 SELECT
     CASE
@@ -10,24 +9,36 @@ SELECT
     tribuna,
     idProgramma
 FROM (
+         -- Genera gli ID Programma da 1 a 14
          SELECT 1 as idProgramma UNION SELECT 2 UNION SELECT 3 UNION SELECT 4
          UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8
          UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12
          UNION SELECT 13 UNION SELECT 14
      ) as sessioni
          CROSS JOIN (
+    -- Genera i nomi delle Tribune
     SELECT 'Courtside Premium' as tribuna UNION SELECT 'Tribuna Antenore'
     UNION SELECT 'Tribuna Fondo Campo' UNION SELECT 'Anello Superiore'
-) as tribune;
+) as tribune
+         CROSS JOIN (
+    -- Moltiplicatore: genera 3 righe per ogni combinazione sopra
+    SELECT 1 as copia UNION SELECT 2 UNION SELECT 3
+) as moltiplicatore;
 
 
--- Inserimento di 1 biglietto ground per ogni giornata (7 biglietti)
 INSERT INTO BIGLIETTI (prezzo, tribuna, tipo, idProgramma)
 VALUES
-    (20, NULL, 'ground', 15),
-    (25, NULL, 'ground', 16),
-    (30, NULL, 'ground', 17),
-    (35, NULL, 'ground', 18),
-    (40, NULL, 'ground', 19),
-    (45, NULL, 'ground', 20),
-    (50, NULL, 'ground', 21);
+    -- Giornata 1 (id 15)
+    (20, NULL, 'ground', 15), (20, NULL, 'ground', 15), (20, NULL, 'ground', 15),
+    -- Giornata 2 (id 16)
+    (25, NULL, 'ground', 16), (25, NULL, 'ground', 16), (25, NULL, 'ground', 16),
+    -- Giornata 3 (id 17)
+    (30, NULL, 'ground', 17), (30, NULL, 'ground', 17), (30, NULL, 'ground', 17),
+    -- Giornata 4 (id 18)
+    (35, NULL, 'ground', 18), (35, NULL, 'ground', 18), (35, NULL, 'ground', 18),
+    -- Giornata 5 (id 19)
+    (40, NULL, 'ground', 19), (40, NULL, 'ground', 19), (40, NULL, 'ground', 19),
+    -- Giornata 6 (id 20)
+    (45, NULL, 'ground', 20), (45, NULL, 'ground', 20), (45, NULL, 'ground', 20),
+    -- Giornata 7 (id 21)
+    (50, NULL, 'ground', 21), (50, NULL, 'ground', 21), (50, NULL, 'ground', 21);

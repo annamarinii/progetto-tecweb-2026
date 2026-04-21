@@ -1,6 +1,6 @@
 <?php
 
-require_once "../php-dbManager/AccountManager.php";
+require_once "../php-Manager/AccountManager.php";
 $messaggio_esito = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

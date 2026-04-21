@@ -1,7 +1,7 @@
 <?php
 
-require_once '../php-dbManager/init_session.php';
-require_once "../php-dbManager/AccountManager.php";
+require_once '../php-Manager/init_session.php';
+require_once "../php-Manager/AccountManager.php";
 
 $messaggio_esito = "";
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['isAdmin'] = $utente['isAdmin'];
         $_SESSION['cognome'] = $utente['cognome']; 
         $_SESSION['email'] = $utente['email'];
-        header("Location: Profilo.php");
+        header("Location: ../index.php");
         exit();
     } else {
         // errore se le credenziali non sono valide

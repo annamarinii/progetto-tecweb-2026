@@ -1,7 +1,7 @@
 <?php
 
-require '../php-dbManager/init_session.php';
-require_once '../php-dbManager/TicketManager.php';
+require '../php-Manager/init_session.php';
+require_once '../php-Manager/TicketManager.php';
 
 /** @var string $destinazione_profilo */
 

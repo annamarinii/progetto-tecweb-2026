@@ -1,89 +1,31 @@
+// Questo file ora gestisce solo le AZIONI, non il disegno della pagina
+// Funzione globale per rimuovere un biglietto dal carrello in modo diretto
+window.rimuoviItem = function(indice) {
+    // Rimosso il pop-up di conferma! Partiamo subito con la chiamata al server.
+    fetch('../php-Manager/RimuoviCarrello.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ indice: indice })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                // Se il PHP ha rimosso il biglietto con successo, ricarico la pagina all'istante
+                location.reload();
+            } else {
+                console.error("Il server non è riuscito a rimuovere il biglietto.");
+            }
+        })
+        .catch(errore => console.error("Errore di connessione AJAX:", errore));
+};
+
+// ... qui sotto c'è la tua gestione del btn-checkout che va benissimo ...
+
 document.addEventListener('DOMContentLoaded', () => {
-    const cartContainer = document.getElementById('cart-items-container');
-    const emptyMsg = document.getElementById('cart-empty-msg');
-    const subtotalEl = document.getElementById('cart-subtotale');
-    const totalEl = document.getElementById('cart-totale');
     const btnCheckout = document.getElementById('btn-checkout');
-
-    function renderCart() {
-        // Leggi i dati dal localStorage
-        let carrello = JSON.parse(localStorage.getItem('carrelloItems')) || [];
-
-        // Pulisci i vecchi item (mantiene l'empty message, lo nascondiamo se serve)
-        const oldCards = cartContainer.querySelectorAll('.cart-item-card');
-        oldCards.forEach(card => card.remove());
-
-        if (carrello.length === 0) {
-            emptyMsg.style.display = 'block';
-            subtotalEl.textContent = '€ 0.00';
-            totalEl.textContent = '€ 0.00';
-            btnCheckout.setAttribute('disabled', 'true');
-            return;
-        }
-
-        // Ci sono elementi, nascondi il messaggio vuoto
-        emptyMsg.style.display = 'none';
-        btnCheckout.removeAttribute('disabled');
-
-        let totale = 0;
-
-        // Crea dinamicamente le card per ogni biglietto
-        carrello.forEach(item => {
-            const prezzoUnitario = item.prezzoSingolo || 0;
-            const quantita = item.quantita || 1;
-            const prezzoTotaleRiga = prezzoUnitario * quantita;
-
-            totale += prezzoTotaleRiga;
-
-            const card = document.createElement('article');
-            card.className = 'cart-item-card';
-
-            card.innerHTML = `
-                <div class="cart-item-info">
-                    <h3>${item.tipo} - ${item.tribuna}</h3>
-                    <p><strong>Data:</strong> ${item.data}</p>
-                    <p><strong>Sessione:</strong> ${item.sessione}</p>
-                    <p><strong>Quantità:</strong> ${quantita}</p>
-                </div>
-                <div class="cart-item-actions">
-                    <span class="cart-item-price">€ ${prezzoTotaleRiga.toFixed(2)}</span>
-                    <button type="button" class="btn-remove-item" aria-label="Rimuovi biglietto" onclick="rimuoviDalCarrello(${item.id})">
-                        Elimina
-                    </button>
-                </div>
-            `;
-
-            cartContainer.appendChild(card);
-        });
-
-        // Aggiorna i testi del totale
-        subtotalEl.textContent = `€ ${totale.toFixed(2)}`;
-        totalEl.textContent = `€ ${totale.toFixed(2)}`;
-    }
-
-    // Modalità globale per la funzione onclick nell'HTML generato
-    window.rimuoviDalCarrello = function (idToRemove) {
-        let carrello = JSON.parse(localStorage.getItem('carrelloItems')) || [];
-        carrello = carrello.filter(item => item.id !== idToRemove);
-        localStorage.setItem('carrelloItems', JSON.stringify(carrello));
-
-        // Ri-renderizza
-        renderCart();
-    };
-
-    // --- NUOVO PEZZO: Blocco anti-doppio click per il Checkout ---
     if (btnCheckout) {
         btnCheckout.addEventListener('click', function() {
-            // Se il carrello è vuoto (tasto disabilitato di default), non fare nulla
-            if (this.disabled) return;
-
-            // Blocca il bottone
-            this.disabled = true;
-            this.style.opacity = '0.7';
-            this.style.cursor = 'wait';
-            this.textContent = 'Attendere...';
-            
+            window.location.href = '../php-Manager/Checkout.php';
         });
     }
-    renderCart();
 });

@@ -1,6 +1,6 @@
 <?php
 
-require '../php-dbManager/init_session.php';
+require '../php-Manager/init_session.php';
 /** @var string $destinazione_profilo */
 
 $pagina_html = file_get_contents('../html/biglietti.html');

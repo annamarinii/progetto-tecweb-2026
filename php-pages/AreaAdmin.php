@@ -1,10 +1,10 @@
 <?php
 
-require_once '../php-dbManager/init_session.php';
-require_once '../php-dbManager/AccountManager.php';
-require_once '../php-dbManager/NewsManager.php';
-require_once '../php-dbManager/FaqManager.php';
-require_once '../php-dbManager/DBConnection.php';
+require_once '../php-Manager/init_session.php';
+require_once '../php-Manager/AccountManager.php';
+require_once '../php-Manager/NewsManager.php';
+require_once '../php-Manager/FaqManager.php';
+require_once '../php-Manager/DBConnection.php';
 
 if (!isset($_SESSION['idUtente'])) {
     header("Location: Login.php");

@@ -174,15 +174,17 @@ function changeQty(amount) {
 }
 
 /**
- * GESTIONE FINALE: Aggiunta al carrello (Adattato per ENTRAMBE le pagine)
+ * GESTIONE FINALE: Aggiunta al carrello (AJAX verso PHP)
  */
 document.addEventListener('DOMContentLoaded', () => {
     const acquistaBtn = document.getElementById('final-buy-btn');
 
     if (acquistaBtn) {
         acquistaBtn.addEventListener('click', (e) => {
+            // 1. Blocchiamo subito il comportamento di default del bottone
+            e.preventDefault();
+
             if (acquistaBtn.classList.contains('added-to-cart')) {
-                e.preventDefault();
                 return;
             }
 
@@ -191,32 +193,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const isAbbonamento = document.getElementById('titolo-abbonamento') !== null;
             const isGroundPass = (!isSingleSession && !isAbbonamento);
 
-            let carrello = JSON.parse(localStorage.getItem('carrelloItems')) || [];
-
             if (isSingleSession) {
                 // Validazione per Single Session
                 if (!statoAcquisto.data || !statoAcquisto.sessione || !statoAcquisto.tribuna) {
-                    e.preventDefault();
                     alert("Per favore, completa la selezione: scegli una Data, una Sessione e un Posto.");
                     return;
                 }
                 statoAcquisto.tipo = "Single Session";
+                statoAcquisto.idProgramma = 1; // Impostiamo a 1 temporaneamente per i test DB
 
             } else if (isAbbonamento) {
                 // Validazione per Abbonamento
                 if (!statoAcquisto.tribuna) {
-                    e.preventDefault();
                     alert("Per favore, seleziona una Tribuna per il tuo Abbonamento.");
                     return;
                 }
                 statoAcquisto.tipo = "Abbonamento";
                 statoAcquisto.data = "Intero Torneo (18-24 Maggio)";
                 statoAcquisto.sessione = "Tutte le sessioni";
+                statoAcquisto.idProgramma = null; // L'abbonamento abbraccia tutti i programmi
 
             } else if (isGroundPass) {
                 // Validazione per Ground Pass
                 if (!statoAcquisto.data) {
-                    e.preventDefault();
                     alert("Per favore, seleziona una Data per il tuo Ground Pass.");
                     return;
                 }
@@ -224,49 +223,64 @@ document.addEventListener('DOMContentLoaded', () => {
                 statoAcquisto.sessione = "Intera Giornata";
                 statoAcquisto.tribuna = "Ingresso Generale";
                 statoAcquisto.prezzoSingolo = 25.00; // Prezzo di default
+                statoAcquisto.idProgramma = 15; // Un ID ground di esempio
             }
 
-            let existingItemIndex = carrello.findIndex(item =>
-                item.tipo === statoAcquisto.tipo &&
-                item.data === statoAcquisto.data &&
-                item.sessione === statoAcquisto.sessione &&
-                item.tribuna === statoAcquisto.tribuna
-            );
+            // 2. Prepariamo il pacchetto di dati da inviare al Server PHP
+            const pacchettoBiglietto = {
+                tipologia: statoAcquisto.tipo,
+                titolo: statoAcquisto.tribuna,
+                data: statoAcquisto.data,
+                sessione: statoAcquisto.sessione,
+                prezzo: statoAcquisto.prezzoSingolo,
+                quantita: statoAcquisto.quantita,
+                idProgramma: statoAcquisto.idProgramma
+            };
 
-            if (existingItemIndex > -1) {
-                carrello[existingItemIndex].quantita += statoAcquisto.quantita;
-            } else {
-                carrello.push({ ...statoAcquisto, id: Date.now() });
-            }
+            // 3. LA MAGIA: Inviamo i dati al PHP in modo invisibile
+            fetch('../php-Manager/AggiungiCarrello.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(pacchettoBiglietto)
+            })
+                .then(risposta => risposta.json())
+                .then(dati => {
+                    // 4. Se il PHP dice che ha salvato tutto nella Sessione...
+                    if (dati.status === 'success') {
 
-            localStorage.setItem('carrelloItems', JSON.stringify(carrello));
+                        // Animazione e feedback visivo del bottone
+                        acquistaBtn.classList.add('added-to-cart');
+                        acquistaBtn.textContent = 'AGGIUNTO AL CARRELLO ✓';
+                        acquistaBtn.style.pointerEvents = 'none'; // Disabilita i click temporaneamente
+                        acquistaBtn.style.opacity = '0.7';
 
-            // Animazione e feedback visivo del bottone
-            e.preventDefault();
-            acquistaBtn.classList.add('added-to-cart');
-            acquistaBtn.textContent = 'AGGIUNTO AL CARRELLO ✓';
-            acquistaBtn.style.pointerEvents = 'none'; // Disabilita i click temporaneamente
-            acquistaBtn.style.opacity = '0.7';
+                        // Genera il link "Vai al carrello" in modo STATICO (appare solo una volta)
+                        if (!document.getElementById('link-vai-carrello')) {
+                            const linkCarrello = document.createElement('a');
+                            linkCarrello.id = 'link-vai-carrello';
+                            // ATTENZIONE: Ora puntiamo al file PHP del carrello!
+                            linkCarrello.href = '../php-pages/Carrello.php';
+                            linkCarrello.innerHTML = 'Vai al carrello ➔';
 
-            // Genera il link "Vai al carrello" in modo STATICO (appare solo una volta)
-            if (!document.getElementById('link-vai-carrello')) {
-                const linkCarrello = document.createElement('a');
-                linkCarrello.id = 'link-vai-carrello';
-                linkCarrello.href = 'carrello.html';
-                linkCarrello.innerHTML = 'Vai al carrello ➔';
+                            // Lo inseriamo sotto al bottone
+                            acquistaBtn.parentNode.insertBefore(linkCarrello, acquistaBtn.nextSibling);
+                        }
 
-                // Lo inseriamo sotto al bottone
-                acquistaBtn.parentNode.insertBefore(linkCarrello, acquistaBtn.nextSibling);
-            }
+                        // --- Reset del bottone dopo 3 secondi ---
+                        setTimeout(() => {
+                            acquistaBtn.classList.remove('added-to-cart');
+                            acquistaBtn.textContent = 'AGGIUNGI AL CARRELLO';
+                            acquistaBtn.style.pointerEvents = 'auto';
+                            acquistaBtn.style.opacity = '1';
+                        }, 3000);
 
-            // --- Reset del bottone dopo 3 secondi (3000 millisecondi) ---
-            setTimeout(() => {
-                acquistaBtn.classList.remove('added-to-cart');
-                acquistaBtn.textContent = 'AGGIUNGI AL CARRELLO'; // Torna esattamente come prima
-                acquistaBtn.style.pointerEvents = 'auto'; // Riabilita il click per altre aggiunte
-                acquistaBtn.style.opacity = '1';
-            }, 3000);
-            // -----------------------------------------------------------
+                    } else {
+                        alert("Errore del server durante l'aggiunta al carrello.");
+                    }
+                })
+                .catch(errore => console.error("Errore di connessione AJAX:", errore));
         });
     }
 });

@@ -1,7 +1,7 @@
 <?php
-require_once '../php-dbManager/init_session.php';
-require_once '../php-dbManager/AccountManager.php';
-require_once '../php-dbManager/FaqManager.php';
+require_once '../php-Manager/init_session.php';
+require_once '../php-Manager/AccountManager.php';
+require_once '../php-Manager/FaqManager.php';
 
 // 1. CONTROLLO ACCESSO
 if (!isset($_SESSION['idUtente'])) {

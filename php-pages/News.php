@@ -1,6 +1,6 @@
 <?php
-require_once '../php-dbManager/init_session.php';
-require_once '../php-dbManager/NewsManager.php';
+require_once '../php-Manager/init_session.php';
+require_once '../php-Manager/NewsManager.php';
 /** @var string $destinazione_profilo */
 
 
