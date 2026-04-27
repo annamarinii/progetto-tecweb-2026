@@ -1867,7 +1867,7 @@ main {
 
 /* 1. Il contenitore della card */
 .news-card {
-    background-color: var(--blu-scuro) !important;
+    background-color: var(--blu-scuro) ;
     /* Sfondo Blu Scuro */
     border: 2px solid transparent;
     border-radius: 12px;
@@ -1889,20 +1889,20 @@ main {
 /* 3. Il contenuto testuale */
 .card-content {
     padding: 30px;
-    background-color: var(--blu-scuro) !important;
+    background-color: var(--blu-scuro);
     /* Forza lo sfondo blu anche qui */
 }
 
 /* 4. Titoli e Testi (Tutti chiari) */
 .card-content h2 {
-    color: var(--white) !important;
+    color: var(--white);
     /* Titolo Bianco */
     margin-bottom: 15px;
     font-size: 1.6em;
 }
 
 .card-content p {
-    color: var(--crema) !important;
+    color: var(--white) ;
     /* Testo color crema per non affaticare troppo la vista */
     line-height: 1.7;
     font-size: 1.05em;
@@ -1910,7 +1910,7 @@ main {
 
 /* 5. Data (Arancione per risaltare sul blu) */
 .card-content time {
-    color: var(--arancione) !important;
+    color: var(--arancione) ;
     font-weight: 800;
     text-transform: uppercase;
     display: block;
@@ -1919,7 +1919,7 @@ main {
 
 /* 6. Eventuale link "Leggi di più" */
 .read-more {
-    color: var(--arancione) !important;
+    color: var(--arancione) ;
     border-bottom: 2px solid var(--arancione);
     margin-top: 15px;
 }
@@ -1937,7 +1937,7 @@ main {
 }
 
 .breadcrumb-active {
-    color: var(--arancione-scuro) !important;
+    color: var(--arancione-scuro) ;
     font-weight: bold;
 }
 
@@ -1953,32 +1953,32 @@ main {
 
 .auth-form input {
     width: 100%;
-    padding: 15px 18px !important;
-    border: 2px solid #e0e0e0 !important;
-    border-radius: 8px !important;
-    font-size: 1.05rem !important;
-    font-family: inherit !important;
-    background-color: #f9f9fc !important;
-    color: var(--black) !important;
-    transition: all 0.3s ease !important;
-    box-sizing: border-box !important;
-    margin-bottom: 25px !important;
+    padding: 15px 18px ;
+    border: 2px solid #e0e0e0 ;
+    border-radius: 8px ;
+    font-size: 1.05rem ;
+    font-family: inherit ;
+    background-color: #f9f9fc ;
+    color: var(--black) ;
+    transition: all 0.3s ease ;
+    box-sizing: border-box ;
+    margin-bottom: 25px ;
 }
 
 .auth-form input::placeholder {
-    color: #a0a0a0 !important;
+    color: #a0a0a0 ;
 }
 
 .auth-form input:hover {
-    border-color: #b0b0b0 !important;
+    border-color: #b0b0b0 ;
     background-color: var(--white);
 }
 
 .auth-form input:focus {
-    outline: none !important;
-    border-color: var(--arancione) !important;
+    outline: none ;
+    border-color: var(--arancione) ;
     background-color: var(--white);
-    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15) !important;
+    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15) ;
 }
 
 .auth-form button[type="submit"] {
@@ -2180,7 +2180,7 @@ main {
 }
 
 input.invalid {
-    border: 2px solid #d93025 !important;
+    border: 2px solid #d93025 ;
     background-color: #fff8f8;
 }
 
@@ -2189,7 +2189,7 @@ input.invalid {
 ========================================= */
 
 .registrazione-main {
-    background-color: var(--azzurro) !important;
+    background-color: var(--azzurro) ;
     min-height: 80vh;
     display: flex;
     justify-content: center;
