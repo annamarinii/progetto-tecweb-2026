@@ -44,11 +44,12 @@ VALUES
     (50, NULL, 'ground', 21), (50, NULL, 'ground', 21), (50, NULL, 'ground', 21);
 
 
--- Ordini per l'Utente 1 (Anna)
-INSERT INTO ORDINE (totale, data_acquisto, idUtente) VALUES (50,  '2026-04-10 10:30:00', 1); -- Ordine #1
-INSERT INTO ORDINE (totale, data_acquisto, idUtente) VALUES (120, '2026-04-12 15:45:00', 1); -- Ordine #2
-INSERT INTO ORDINE (totale, data_acquisto, idUtente) VALUES (80,  '2026-04-15 09:00:00', 1); -- Ordine #3
 
--- Ordini per l'Utente 2 (Marco)
-INSERT INTO ORDINE (totale, data_acquisto, idUtente) VALUES (25,  '2026-04-11 11:20:00', 2); -- Ordine #4
-INSERT INTO ORDINE (totale, data_acquisto, idUtente) VALUES (240, '2026-04-14 18:10:00', 2); -- Ordine #5
+
+-- query per resettare tutti gli ordini (dato che i biglietti max sono 3 per tipo)
+UPDATE BIGLIETTI
+SET
+    numero_ordine = NULL,
+    tipo = CASE WHEN tipo = 'abbonamento' THEN NULL ELSE tipo END;
+
+DELETE FROM ORDINE;
