@@ -180,6 +180,68 @@ function changeQty(amount) {
  * GESTIONE FINALE: Aggiunta al carrello (Versione Integrale e Dinamica)
  */
 document.addEventListener('DOMContentLoaded', () => {
+    const calendarContainer = document.getElementById('calendarContainer');
+
+    if (calendarContainer) {
+        // Usiamo l'Event Delegation: un unico listener per tutto il contenitore
+        calendarContainer.addEventListener('click', (event) => {
+            const tile = event.target.closest('.date-tile');
+            
+            if (tile) {
+                const dayName = tile.dataset.day;
+                const dayNumber = tile.dataset.number;
+                selectDate(dayName, dayNumber, { currentTarget: tile });
+            }
+        });
+    }
+
+    // --- 2. GESTIONE SELEZIONE SESSIONE ---
+    const sessionButtons = document.querySelectorAll('.session-card .buy-btn');
+
+    sessionButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const tipo = this.getAttribute('data-session'); 
+            
+            // 3. Debug: controlla nella console del browser (F12) se questo appare
+            console.log("Hai cliccato sulla sessione:", tipo);
+
+            if (tipo) {
+                // 4. Eseguiamo la funzione originale
+                showSeatSelection(event, tipo);
+            } else {
+                console.error("Errore: attributo data-session mancante nel link!");
+            }
+        });
+    });
+
+    // --- 3. GESTIONE SELEZIONE TRIBUNA ---
+    const seatCategories = document.querySelectorAll('.seat-category');
+    seatCategories.forEach(category => {
+        category.addEventListener('click', (e) => {
+            selectTribune(e.currentTarget);
+        });
+        // Gestione accessibilità tastiera
+        category.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') selectTribune(e.currentTarget);
+        });
+    });
+
+    // --- 4. GESTIONE QUANTITÀ ---
+    const btnMinus = document.querySelector('.qty-btn.minus');
+    const btnPlus = document.querySelector('.qty-btn.plus');
+
+if (btnMinus && btnPlus) {
+    // Listener per il tasto meno
+    btnMinus.addEventListener('click', () => {
+        changeQty(-1);
+    });
+
+    // Listener per il tasto più
+    btnPlus.addEventListener('click', () => {
+        changeQty(1);
+    });
+}
+
     const acquistaBtn = document.getElementById('final-buy-btn');
 
     if (acquistaBtn) {
@@ -317,6 +379,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
 
 /**
  * PROTEZIONE GLOBALE FORM ANTI-DOPPIO CLICK

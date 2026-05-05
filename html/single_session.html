@@ -117,66 +117,79 @@
                 <p><time datetime="2026-05-15">18</time> - <time datetime="2026-05-22">24 Maggio 2026</time></p>
             </div>
 
-            <div class="calendar-wrapper">
+            <div class="calendar-wrapper" id="calendarContainer">
 
-                <div class="date-tile" role="button" tabindex="0" aria-label="Lunedì 18 Maggio, Opening Day"
-                    onclick="selectDate('Lunedì', '18', event)">
-                    <p class="day-name"><abbr title="Venerdì">Lun</abbr></p>
+                <!-- Lunedì -->
+                <div class="date-tile" role="button" tabindex="0" 
+                    aria-label="Lunedì 18 Maggio, Opening Day"
+                    data-day="Lunedì" data-number="18">
+                    <p class="day-name"><abbr title="Lunedì">Lun</abbr></p>
                     <p class="day-number">18</p>
                     <div class="tag new-session"><span lang="en">OPENING DAY</span></div>
                     <p class="matches-info">Qualificazioni ATP, 1° Turno WTA</p>
                 </div>
 
-                <div class="date-tile" role="button" tabindex="0" aria-label="Martedì 19 Maggio, Best Value"
-                    onclick="selectDate('Martedì', '19', event)">
+                <!-- Martedì -->
+                <div class="date-tile" role="button" tabindex="0" 
+                    aria-label="Martedì 19 Maggio, Best Value"
+                    data-day="Martedì" data-number="19">
                     <p class="day-name"><abbr title="Martedì">Mar</abbr></p>
                     <p class="day-number">19</p>
                     <div class="tag"><span lang="en">BEST VALUE</span></div>
                     <p class="matches-info">1° Turno ATP, 2° Turno WTA</p>
                 </div>
 
-                <div class="date-tile" role="button" tabindex="0" aria-label="Mercoledì 20 Maggio, Best Value"
-                    onclick="selectDate('Mercoledì', '20', event)">
+                <!-- Mercoledì -->
+                <div class="date-tile" role="button" tabindex="0" 
+                    aria-label="Mercoledì 20 Maggio, Best Value"
+                    data-day="Mercoledì" data-number="20">
                     <p class="day-name"><abbr title="Mercoledì">Mer</abbr></p>
                     <p class="day-number">20</p>
                     <div class="tag"><span lang="en">BEST VALUE</span></div>
                     <p class="matches-info">2° Turno ATP, 3° Turno WTA</p>
                 </div>
 
-                <div class="date-tile" role="button" tabindex="0" aria-label="Giovedì 21 Maggio, Most Popular"
-                    onclick="selectDate('Giovedì', '21', event)">
+                <!-- Giovedì -->
+                <div class="date-tile" role="button" tabindex="0" 
+                    aria-label="Giovedì 21 Maggio, Most Popular"
+                    data-day="Giovedì" data-number="21">
                     <p class="day-name"><abbr title="Giovedì">Gio</abbr></p>
                     <p class="day-number">21</p>
                     <div class="tag most-popular"><span lang="en">SELLING FAST</span></div>
                     <p class="matches-info">3° Turno ATP, 4° Turno WTA</p>
                 </div>
 
-                <div class="date-tile" role="button" tabindex="0" aria-label="Venerdì 22 Maggio, Top Matches"
-                    onclick="selectDate('Venerdì', '22', event)">
+                <!-- Venerdì -->
+                <div class="date-tile" role="button" tabindex="0" 
+                    aria-label="Venerdì 22 Maggio, Top Matches"
+                    data-day="Venerdì" data-number="22">
                     <p class="day-name"><abbr title="Venerdì">Ven</abbr></p>
                     <p class="day-number">22</p>
                     <div class="tag"><span lang="en">SELLING FAST</span></div>
                     <p class="matches-info">Quarti di finale ATP e WTA</p>
                 </div>
 
-                <div class="date-tile" role="button" tabindex="0" aria-label="Sabato 23 Maggio, Semi-Finals"
-                    onclick="selectDate('Sabato', '23', event)">
+                <!-- Sabato -->
+                <div class="date-tile" role="button" tabindex="0" 
+                    aria-label="Sabato 23 Maggio, Semi-Finals"
+                    data-day="Sabato" data-number="23">
                     <p class="day-name"><abbr title="Sabato">Sab</abbr></p>
                     <p class="day-number">23</p>
                     <div class="tag"><span lang="en">SELLING FAST</span></div>
                     <p class="matches-info">Semifinali ATP e WTA</p>
                 </div>
 
+                <!-- Domenica -->
                 <div class="date-tile highlight" role="button" tabindex="0"
                     aria-label="Domenica 24 Maggio, Finali Femminile e Doppio"
-                    onclick="selectDate('Domenica', '24', event)">
+                    data-day="Domenica" data-number="24">
                     <p class="day-name"><abbr title="Domenica">Dom</abbr></p>
                     <p class="day-number">24</p>
                     <div class="tag finals"><span lang="en">SELLING FAST</span></div>
                     <p class="matches-info">Finale ATP e WTA</p>
                 </div>
+
             </div>
-        </section>
 
         <section id="session-selection" class="section-container d-none">
 
@@ -204,7 +217,7 @@
                     </div>
 
                     <div class="session-footer">
-                        <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event, 'diurna')">SELEZIONA POSTO</a>
+                        <a href="#seat-selection" class="buy-btn" data-session="diurna">SELEZIONA POSTO</a>
                     </div>
                 </div>
 
@@ -224,7 +237,7 @@
                     </div>
 
                     <div class="session-footer">
-                        <a href="#seat-selection" class="buy-btn" onclick="showSeatSelection(event, 'serale')">SELEZIONA POSTO</a>
+                        <a href="#seat-selection" class="buy-btn" data-session="serale">SELEZIONA POSTO</a>
                     </div>
                 </div>
             </div>
@@ -245,7 +258,7 @@
 
                 <div class="seat-options">
 
-                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                    <div class="seat-category" role="button" tabindex="0">
                         <div class="seat-info">
                             <h3><span lang="en">Courtside Premium</span></h3>
                             <p>Prima fila, a bordo campo</p>
@@ -253,7 +266,7 @@
                         <span class="seat-price" id="prezzo-premium">[prezzo_premium]</span>
                     </div>
 
-                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                    <div class="seat-category" role="button" tabindex="0">
                         <div class="seat-info">
                             <h3>Tribuna Antenore (Lungo Linea)</h3>
                             <p>Ottima visuale laterale bassa</p>
@@ -261,7 +274,7 @@
                         <span class="seat-price" id="prezzo-antenore">[prezzo_antenore]</span>
                     </div>
 
-                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                    <div class="seat-category" role="button" tabindex="0">
                         <div class="seat-info">
                             <h3>Tribuna Fondo Campo</h3>
                             <p>La visuale tattica perfetta</p>
@@ -269,7 +282,7 @@
                         <span class="seat-price" id="prezzo-fondo">[prezzo_fondo]</span>
                     </div>
 
-                    <div class="seat-category" role="button" tabindex="0" onclick="selectTribune(this)">
+                    <div class="seat-category" role="button" tabindex="0">
                         <div class="seat-info">
                             <h3>Anello Superiore</h3>
                             <p>Visione panoramica globale</p>
@@ -283,11 +296,11 @@
                         <div class="purchase-controls">
                             <div class="quantity-selector" role="group" aria-labelledby="qty-label">
                                 <button type="button" class="qty-btn minus" aria-label="Diminuisci quantità"
-                                    onclick="changeQty(-1)">-</button>
+                                    >-</button>
                                 <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly
                                     aria-labelledby="qty-label">
                                 <button type="button" class="qty-btn plus" aria-label="Aumenta quantità"
-                                    onclick="changeQty(1)">+</button>
+                                    >+</button>
                             </div>
                         </div>
 
