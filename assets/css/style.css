@@ -3599,3 +3599,170 @@ input.invalid {
     line-height: 1.5;
     color: #333;
 }
+
+/* =========================================
+   PAGINE DI ERRORE (404, 500, ecc.)
+========================================= */
+
+/* Contenitore principale dell'errore */
+.error-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 70vh; /* Fa in modo che il footer non salga troppo su schermi grandi */
+    padding: 60px var(--spazio-laterale);
+    background-color: var(--azzurro);
+}
+
+/* Titolo H1 (Invisibile esteticamente per far risaltare il numero, 
+   ma letto dagli screen reader e visibile se non c'è CSS) */
+#error-title {
+    font-size: 1.2rem;
+    color: var(--arancione-scuro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.error-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Il numero gigante (404, 500) */
+.error-visual {
+    /* La funzione clamp rende il testo fluido: 
+       minimo 6rem, ottimale 15vw, massimo 12rem su desktop giganti */
+    font-size: clamp(6rem, 15vw, 12rem);
+    font-weight: 900;
+    color: var(--blu-scuro);
+    line-height: 1;
+    margin: 0;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05); /* Leggero effetto profondità */
+}
+
+/* Sottotitolo (es. "Palla fuori campo!") */
+.error-content h2 {
+    font-size: 2.5rem;
+    color: var(--black);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Testo descrittivo dell'errore */
+.error-content p:not(.error-visual) {
+    font-size: 1.25rem;
+    color: var(--black);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 650px;
+}
+
+/* Riquadro delle azioni (il bottone per tornare alla home) */
+.error-section .action-box {
+    background-color: var(--white);
+    padding: 35px 40px;
+    border-radius: 12px;
+    border: 2px solid var(--arancione);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.error-section .action-box p {
+    font-size: 1.15rem;
+    color: var(--blu-scuro);
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* =========================================
+   ACCESSIBILITÀ: SKIP LINK TASTIERA
+========================================= */
+/* Nasconde visivamente il link "Vai al contenuto principale", 
+   ma lo rende visibile non appena l'utente preme il tasto TAB */
+.sr-only-focusable {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    background-color: var(--arancione-scuro);
+    color: var(--white);
+    display: block;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    z-index: 9999;
+    text-decoration: none;
+    outline: 4px solid var(--blu-scuro);
+}
+
+.btn-ritorno {
+    display: inline-block;
+    background-color: var(--arancione-scuro);
+    color: var(--white);
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-ritorno:hover,
+.btn-ritorno:focus-visible {
+    background-color: var(--blu-scuro);
+    color: var(--azzurro);
+    outline: none; /* Gestito dal focus-visible generale, se lo hai */
+}
+
+/* =========================================
+   IMMAGINE PALLINA TRISTE (PAGINE ERRORE)
+========================================= */
+
+#pallina_triste {
+    width: 100%;
+    max-width: 100px; /* Su PC non diventerà più larga di così */
+    height: auto;
+    display: block;
+    margin: 20px auto 30px auto; /* Centrata con un po' di spazio sotto e sopra */
+    border-radius: 16px; /* Arrotonda gli angoli (utile se l'immagine non ha lo sfondo trasparente) */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Una bella ombra morbida */
+    
+    /* Animazione che la fa galleggiare lentamente */
+    animation: floatSadness 4s ease-in-out infinite;
+}
+
+/* La magia dell'animazione */
+@keyframes floatSadness {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px); /* Si solleva di 12 pixel */
+    }
+    100% {
+        transform: translateY(0); /* Torna giù */
+    }
+}

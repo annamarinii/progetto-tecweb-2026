@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Errore 403 - Accesso Negato</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="../index.php" class="logo-link">
+            <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
+            <span>Patavium Open</span>
+        </a>
+
+        <nav id="menu" aria-label="Navigazione principale">
+            <ul>
+                <li><a href="../index.php" lang="en">Home</a></li>
+                <li><a href="Biglietti.php">Biglietti</a></li>
+                <li><a href="News.php" lang="en">News</a></li>
+                <li><a href="Faq.php">Domande</a></li>
+            </ul>
+
+            <ul id="menu-utente" aria-label="Menu utente">
+                <li><a href="[link_profilo]">
+                        <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</a></li>
+                <li><a href="Carrello.php">
+                        <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav id="breadcrumb" aria-label="Percorso di navigazione (Breadcrumb)">
+        <p>Ti trovi in: <span class="breadcrumb-active" aria-current="page">Errore 403</span></p>
+    </nav>
+
+    <main id="main-content">
+        <section class="error-section" aria-labelledby="error-title">
+            <h1 id="error-title">Errore 403: Accesso Negato</h1>
+            
+            <div class="error-content">
+                <p class="error-visual" aria-hidden="true">403</p>
+                <h2>Area riservata ai giocatori!</h2>
+                <img src="../assets/images/sad.png" id="pallina_triste">
+
+                <div class="divider" aria-hidden="true"></div>
+                
+                <p>
+                    Non hai i permessi necessari per accedere a questa sezione del sito. Potresti dover effettuare il login o disporre di credenziali di amministratore.
+                </p>
+                
+                <div class="action-box">
+                    <p>Puoi ripartire dalla pagina principale:</p>
+                    
+                    <a href="../index.php" class="btn-ritorno">Torna alla <span lang="en">Home</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-sito">
+        <hr aria-hidden="true">
+
+        <div class="footer-contenuto">
+            <div class="footer-logo">
+                <img src="../assets/images/logo1.png" alt="Patavium Open" width="120">
+            </div>
+
+            <nav class="footer-nav" aria-label="Informazioni legali e documenti">
+                <ul>
+                    <li><a href="../html/termini.html">Termini e condizioni</a></li>
+                    <li><a href="../html/privacy.html">Informativa sulla privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <p class="footer-copyright">&copy; 2026 Patavium Open. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+
+</html>
