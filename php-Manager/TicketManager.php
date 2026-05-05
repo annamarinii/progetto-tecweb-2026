@@ -2,7 +2,8 @@
 
 require_once "DBConnection.php";
 
-class TicketManager {
+class TicketManager
+{
     public static function getInfoGroundPass($data_cercata) //data una data precisa ci restituisce quanti groundpass sono disponibili quel giorno e a quale prezzo
     {
         $conn = DBConnection::getConnessione();
@@ -53,7 +54,7 @@ class TicketManager {
         $info_sessione = [];
 
         if ($risultato && $risultato->num_rows > 0) {
-            while($row = $risultato->fetch_assoc()) {
+            while ($row = $risultato->fetch_assoc()) {
                 $info_sessione[$row['tribuna']] = [
                     'prezzo' => $row['prezzo'],
                     'quantita_disponibile' => $row['quantita_disponibile']
@@ -96,7 +97,7 @@ class TicketManager {
         $dati_abbonamenti = [];
 
         if ($risultato && $risultato->num_rows > 0) {
-            while($row = $risultato->fetch_assoc()) {
+            while ($row = $risultato->fetch_assoc()) {
                 $dati_abbonamenti[$row['tribuna']] = [
                     'disponibili' => $row['abbonamenti_disponibili'],
                     'prezzo_base' => $row['prezzo_totale_base']
@@ -108,10 +109,11 @@ class TicketManager {
         return $dati_abbonamenti;
     }
 
-    public static function getBigliettiUtente($idUtente) {
-    $conn = DBConnection::getConnessione();
-    
-    $sql = "SELECT B.idBiglietto, B.tipo, B.tribuna, B.prezzo, 
+    public static function getBigliettiUtente($idUtente)
+    {
+        $conn = DBConnection::getConnessione();
+
+        $sql = "SELECT B.idBiglietto, B.tipo, B.tribuna, B.prezzo, 
                    P.data, P.sessione, O.numero_ordine
             FROM BIGLIETTI B
             JOIN ORDINE O ON B.numero_ordine = O.numero_ordine
@@ -119,19 +121,19 @@ class TicketManager {
             WHERE O.idUtente = ?
             ORDER BY O.data_acquisto DESC";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $idUtente);
-    $stmt->execute();
-    $risultato = $stmt->get_result();
-    
-    $biglietti = [];
-    while ($row = $risultato->fetch_assoc()) {
-        $biglietti[] = $row;
-    }
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idUtente);
+        $stmt->execute();
+        $risultato = $stmt->get_result();
 
-    $stmt->close();
-    $conn->close();
-    return $biglietti;
-}
+        $biglietti = [];
+        while ($row = $risultato->fetch_assoc()) {
+            $biglietti[] = $row;
+        }
+
+        $stmt->close();
+        $conn->close();
+        return $biglietti;
+    }
 
 }
