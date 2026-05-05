@@ -127,8 +127,22 @@ class TicketManager
         $risultato = $stmt->get_result();
 
         $biglietti = [];
+        $abbonamenti_visti = [];
         while ($row = $risultato->fetch_assoc()) {
-            $biglietti[] = $row;
+            if ($row['tipo'] == 'abbonamento') {
+                $key = $row['numero_ordine'] . '_' . $row['tribuna'];
+                if (!isset($abbonamenti_visti[$key])) {
+                    $abbonamenti_visti[$key] = 0;
+                }
+                $abbonamenti_visti[$key]++;
+                
+                // Aggiunge un blocco abbonamento ogni 14 biglietti (poiché un abbonamento ha 14 sessioni)
+                if ($abbonamenti_visti[$key] % 14 == 1) {
+                    $biglietti[] = $row;
+                }
+            } else {
+                $biglietti[] = $row;
+            }
         }
 
         $stmt->close();

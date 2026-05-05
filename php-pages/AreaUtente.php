@@ -80,20 +80,29 @@ if (empty($biglietti)) {
 } else {
     foreach ($biglietti as $b) {
         // Formattazione dati
-        $data_evento = date("d/m/Y", strtotime($b['data']));
-        $tipo_label = ($b['tipo'] == 'ground') ? 'Ground Pass' : 'Single Session';
-        $badge_class = ($b['tipo'] == 'ground') ? 'badge-ground' : 'badge-session';
-        $stadio = ($b['sessione'] == 'serale') ? 'Patavium Arena' : 'Giotto Court';
+        if ($b['tipo'] == 'abbonamento') {
+            $tipo_label = 'Abbonamento';
+            $badge_class = 'badge-session';
+            $data_evento = '18/05/2027 - 24/05/2027';
+            $sessione_testo = 'Tutte le sessioni';
+            $stadio = 'Tutti i campi';
+        } else {
+            $data_evento = date("d/m/Y", strtotime($b['data']));
+            $tipo_label = ($b['tipo'] == 'ground') ? 'Ground Pass' : 'Single Session';
+            $badge_class = ($b['tipo'] == 'ground') ? 'badge-ground' : 'badge-session';
+            $sessione_testo = ucfirst($b['sessione']);
+            $stadio = ($b['sessione'] == 'serale') ? 'Patavium Arena' : 'Giotto Court';
+        }
 
         $html_ordini .= '
     <li class="ticket-card no-qr">
         <div class="ticket-info">
             <span class="ticket-badge ' . $badge_class . '">' . $tipo_label . '</span>
-            <h3 class="ticket-title">Patavium Open 2026</h3>
+            <h3 class="ticket-title">Patavium Open 2027</h3>
             <div class="ticket-details">
                 <div class="t-detail">
                     <span>Data e Sessione</span>
-                    <strong>' . $data_evento . ' - ' . ucfirst($b['sessione']) . '</strong>
+                    <strong>' . $data_evento . ' - ' . $sessione_testo . '</strong>
                 </div>
                 <div class="t-detail">
                     <span>Luogo / Stadio</span>
