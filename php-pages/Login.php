@@ -5,6 +5,13 @@ require_once "../php-Manager/AccountManager.php";
 
 $messaggio_esito = "";
 
+if (isset($_GET['error']) && $_GET['error'] == 'devi_loggarti') {
+    $messaggio_esito = "
+    <div class='form-message message-error login-error'>
+        <strong>Attenzione:</strong> Devi effettuare il login per poter completare l'acquisto.
+    </div>";
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // prendo il campo "identificativo" può essere email o username
@@ -23,8 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../index.php");
         exit();
     } else {
-        // errore se le credenziali non sono valide
-        $messaggio_esito = "<div class='error' style='color: #d9534f; background: #f2dede; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center;'><strong>Errore:</strong> Credenziali non valide. Controlla e riprova.</div>";
+        $messaggio_esito = "
+        <div class='form-message message-error login-error'>
+            <strong>Accesso negato:</strong> Le credenziali inserite non sono corrette.
+        </div>";
     }
 }
 

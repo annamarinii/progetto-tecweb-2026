@@ -63,9 +63,9 @@ $username_pulito = htmlspecialchars($dati_utente['username']);
 $messaggio_esito = "";
 if (isset($_GET['status'])) {
     if ($_GET['status'] == 'success') {
-        $messaggio_esito = "<div class='success' style='color:green; margin-bottom:15px;'>Profilo aggiornato correttamente!</div>";
+        $messaggio_esito = "<div class='success-msg'>Profilo aggiornato correttamente!</div>";
     } else {
-        $messaggio_esito = "<div class='error' style='color:red; margin-bottom:15px;'>Errore durante l'aggiornamento del profilo.</div>";
+        $messaggio_esito = "<div class='error-msg'>Errore durante l'aggiornamento del profilo.</div>";
     }
 }
 
@@ -76,7 +76,7 @@ $biglietti = TicketManager::getBigliettiUtente($id_utente_corrente);
 $html_ordini = "";
 
 if (empty($biglietti)) {
-    $html_ordini = "<p style='padding: 20px;'>Non hai ancora acquistato nessun biglietto.</p>";
+    $html_ordini = "<p class='empty-list-msg'>Non hai ancora acquistato nessun biglietto.</p>";
 } else {
     foreach ($biglietti as $b) {
         // Formattazione dati
@@ -116,6 +116,11 @@ if (empty($biglietti)) {
                     <span>Ordine N°</span>
                     <strong>' . $b['numero_ordine'] . '</strong>
                 </div>
+                ' . (isset($b['quantita']) && $b['quantita'] > 1 ? '
+                <div class="t-detail">
+                    <span>Quantità</span>
+                    <strong>' . $b['quantita'] . '</strong>
+                </div>' : '') . '
             </div>
         </div>
     </li>';
@@ -127,7 +132,7 @@ $notifiche = FaqManager::getNotificheUtente($id_utente_corrente);
 $html_notifiche = "";
 
 if (empty($notifiche)) {
-    $html_notifiche = "<p style='padding: 20px;'>Non ci sono nuove comunicazioni.</p>";
+    $html_notifiche = "<p class='empty-list-msg'>Non ci sono nuove comunicazioni.</p>";
 } else {
     foreach ($notifiche as $n) {
         $status = $n['lettura_user'] ? 'read' : 'unread';
@@ -142,7 +147,7 @@ if (empty($notifiche)) {
                 <div class="mail-subject">Risposta alla tua domanda del ' . $data_breve . '</div>
                 <div class="mail-date">' . $data_formattata . '</div>
             </div>
-            <div class="mail-content" style="display: none;">
+            <div class="mail-content">
                 <div class="mail-body">
                     <div class="qa-container">
                         <div class="user-question-box">

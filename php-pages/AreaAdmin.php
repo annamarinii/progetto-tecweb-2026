@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $html_news .= '<button type="button" class="news-mini-card" data-news-id="'.htmlspecialchars($news['idNews']).'">
                     <img src="'.$percorso.'" alt="" class="mini-card-img">
                     <div class="mini-card-info"><h4>'.htmlspecialchars($news['titolo']).'</h4></div>
-                    <div class="news-full-text" style="display:none;">'.htmlspecialchars($news['testo']).'</div>
+                    <div class="news-full-text">'.htmlspecialchars($news['testo']).'</div>
                 </button>';
             }
             echo json_encode(['status' => ($esito ? 'success' : 'error'), 'upload_msg' => $upload_msg, 'html_miniature' => $html_news]);
@@ -158,7 +158,7 @@ foreach ($newsArray as $news) {
         <button type="button" class="news-mini-card" data-news-id="'.htmlspecialchars($news['idNews']).'">
             <img src="'.$img.'" alt="" class="mini-card-img">
             <div class="mini-card-info"><h4>'.htmlspecialchars($news['titolo']).'</h4></div>
-            <div class="news-full-text" style="display:none;">'.htmlspecialchars($news['testo']).'</div>
+            <div class="news-full-text">'.htmlspecialchars($news['testo']).'</div>
         </button>';
 }
 

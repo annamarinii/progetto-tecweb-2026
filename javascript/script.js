@@ -8,7 +8,6 @@ const statoAcquisto = {
     quantita: 1
 };
 
-
 function selectDate(dayName, dayNumber, event) {
     // 1. Evidenzia la data selezionata
     const allDates = document.querySelectorAll('.date-tile');
@@ -18,9 +17,7 @@ function selectDate(dayName, dayNumber, event) {
     // 2. Salva la data nello stato
     const fullDateString = `${dayName} ${dayNumber} Maggio 2027`;
     statoAcquisto.data = fullDateString;
-
     window.dataSelezionata = '2027-05-' + dayNumber;
-
 
     // 3. Aggiorna i testi del riepilogo (se esistono nella pagina)
     const dateDisplay = document.getElementById('selected-full-date');
@@ -55,28 +52,30 @@ function selectDate(dayName, dayNumber, event) {
         groundSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-
     // invia dati al php per determinare il prezzo in base a quello che ho selezionato
-    const prezzoDisplay = document.getElementById('prezzo-display');
+    const prezzoDisplay = document.getElementById('prezzo-ground');
 
     if (prezzoDisplay) {
         let dati = new FormData();
         dati.append('data_scelta', '2027-05-' + dayNumber);
 
         fetch('GroundPasses.php', { method: 'POST', body: dati })
-            .then(risposta => risposta.text())
-            .then(prezzo => {
-                // Inietta il prezzo ricevuto dal PHP nell'HTML
-                prezzoDisplay.innerHTML = prezzo;
+            .then(risposta => risposta.json()) 
+            .then(data => {
+                if (data.prezzo && data.quantita_disponibile > 0) {
+                    prezzoDisplay.textContent = "€ " + parseFloat(data.prezzo).toLocaleString('it-IT', { minimumFractionDigits: 2 });
+                    prezzoDisplay.dataset.rawPrice = data.prezzo;
+                } else {
+                    prezzoDisplay.textContent = "Esaurito";
+                    prezzoDisplay.classList.add('status-sold-out');
+                }
             })
-            .catch(errore => console.error("Errore", errore));
+            .catch(errore => console.error("Errore AJAX:", errore));
     }
 }
 
 
-/**
- * STEP 2: Selezione della Sessione e Chiamata AJAX
- */
+// STEP 2: Selezione della Sessione e Chiamata AJAX
 function showSeatSelection(event, tipoSessione) {
     event.preventDefault();
 
@@ -100,63 +99,67 @@ function showSeatSelection(event, tipoSessione) {
             stickyBtn.textContent = 'SELEZIONA POSTO';
             stickyBtn.href = '#seat-selection';
         }
-
         seatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // 3. LA CHIAMATA AJAX (Taglio della stringa)
-    // Cerco gli span dove andrò a stampare i prezzi
     const dPremium = document.getElementById('prezzo-premium');
     const dAntenore = document.getElementById('prezzo-antenore');
     const dFondo = document.getElementById('prezzo-fondo');
     const dAnello = document.getElementById('prezzo-anello');
 
-    // Controlliamo di avere tutti i dati necessari prima di chiamare il DB
     if (dPremium && window.dataSelezionata && tipoSessione) {
-
         let dati = new FormData();
         dati.append('data_scelta', window.dataSelezionata);
         dati.append('sessione_scelta', tipoSessione);
 
         fetch('SingleSession.php', { method: 'POST', body: dati })
-            .then(risposta => risposta.text()) // Riceviamo la stringa "€ 120,00|€ 85,00|..."
-            .then(testoRicevuto => {
-                // Spezziamo la stringa in un array usando il separatore "|"
-                let prezzi = testoRicevuto.split('|');
+            .then(risposta => risposta.json()) 
+            .then(data => {
+                // Nella tua funzione formatta (dentro il fetch)
+                const formatta = (info, elemento) => {
+                    const seatCategory = elemento.closest('.seat-category');
+                    if (info && info.quantita_disponibile > 0) {
+                        // 1. Quello che vede l'utente (formattato)
+                        elemento.textContent = "€ " + parseFloat(info.prezzo).toLocaleString('it-IT', {minimumFractionDigits: 2});
+                        
+                        // 2. Quello che legge il codice (dato puro)
+                        elemento.dataset.rawPrice = info.prezzo; // Salva es: 120.50
+                        elemento.classList.remove('status-sold-out');
+                        if (seatCategory) seatCategory.classList.remove('disabled-seat');
+                    } else {
+                        elemento.textContent = "Esaurito";
+                        elemento.dataset.rawPrice = "0";
+                        elemento.classList.add('status-sold-out');
+                        if (seatCategory) seatCategory.classList.add('disabled-seat');
+                    }
+                };
 
-                // Se il PHP ha risposto correttamente con 4 pezzi, aggiorniamo il testo
-                if (prezzi.length === 4) {
-                    dPremium.innerHTML = prezzi[0];
-                    dAntenore.innerHTML = prezzi[1];
-                    dFondo.innerHTML = prezzi[2];
-                    dAnello.innerHTML = prezzi[3];
-                }
+                // Mapping dei dati ricevuti dal JSON del PHP
+                formatta(data.premium, dPremium);
+                formatta(data.antenore, dAntenore);
+                formatta(data.fondo, dFondo);
+                formatta(data.anello, dAnello);
             })
             .catch(errore => console.error("Errore AJAX:", errore));
     }
 }
 
-/**
- * STEP 3: Selezione della Tribuna (Usato SOLO in Single Session)
- */
+// STEP 3: Selezione della Tribuna (Usato SOLO in Single Session)
 function selectTribune(element) {
+    if (element.classList.contains('disabled-seat')) return;
+
     const allSeats = document.querySelectorAll('.seat-category');
     allSeats.forEach(seat => seat.classList.remove('selected'));
 
     element.classList.add('selected');
     statoAcquisto.tribuna = element.querySelector('h3').textContent;
 
-    // Estrai il prezzo per salvarlo
+    // Recuperiamo il prezzo usando il nuovo metodo pulito
     const priceSpan = element.querySelector('.seat-price');
-    if (priceSpan) {
-        let priceText = priceSpan.textContent.replace('€', '').replace(',', '.').trim();
-        statoAcquisto.prezzoSingolo = parseFloat(priceText);
-    }
+    statoAcquisto.prezzoSingolo = pulisciPrezzo(priceSpan); 
 }
 
-/**
- * Gestione Quantità (+ e -) (Usato in ENTRAMBE le pagine)
- */
+// Gestione Quantità (+ e -) (Usato in ENTRAMBE le pagine)
 function changeQty(amount) {
     const qtyInput = document.getElementById('ticket-qty');
     if (!qtyInput) return; // Se l'input non esiste, blocca la funzione
@@ -173,12 +176,7 @@ function changeQty(amount) {
     statoAcquisto.quantita = newValue;
 }
 
-/**
- * GESTIONE FINALE: Aggiunta al carrello (AJAX verso PHP)
- */
-/**
- * GESTIONE FINALE: Aggiunta al carrello (Versione Integrale e Dinamica)
- */
+// GESTIONE FINALE: Aggiunta al carrello (AJAX verso PHP)
 document.addEventListener('DOMContentLoaded', () => {
     const calendarContainer = document.getElementById('calendarContainer');
 
@@ -195,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. GESTIONE SELEZIONE SESSIONE ---
+    // 2. GESTIONE SELEZIONE SESSIONE
     const sessionButtons = document.querySelectorAll('.session-card .buy-btn');
 
     sessionButtons.forEach(button => {
@@ -214,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. GESTIONE SELEZIONE TRIBUNA ---
+    // 3. GESTIONE SELEZIONE TRIBUNA
     const seatCategories = document.querySelectorAll('.seat-category');
     seatCategories.forEach(category => {
         category.addEventListener('click', (e) => {
@@ -226,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 4. GESTIONE QUANTITÀ ---
+    // 4. GESTIONE QUANTITÀ
     const btnMinus = document.querySelector('.qty-btn.minus');
     const btnPlus = document.querySelector('.qty-btn.plus');
 
@@ -256,9 +254,7 @@ if (btnMinus && btnPlus) {
             const isAbbonamento = document.getElementById('titolo-abbonamento') !== null;
             const isGroundPass = (!isSingleSession && !isAbbonamento);
 
-            /**
-             * FUNZIONE INTERNA 1: Calcola l'ID del programma basandosi sulla data
-             */
+            // FUNZIONE INTERNA 1: Calcola l'ID del programma basandosi sulla data
             function calcolaIdProgramma(dataScelta, sessioneScelta, tipo) {
                 if (tipo === "Abbonamento") return null;
 
@@ -283,18 +279,16 @@ if (btnMinus && btnPlus) {
                 return null;
             }
 
-            /**
-             * FUNZIONE INTERNA 2: Pulisce il prezzo HTML per il database
-             */
+            // FUNZIONE INTERNA 2: Pulisce il prezzo HTML per il database
             function pulisciPrezzo(elemento) {
-                if (!elemento) return 0;
-                let testo = elemento.textContent || "0";
-                // Rimuove €, punti delle migliaia e trasforma virgola in punto decimale
-                return parseFloat(testo.replace('€', '').replace(/\./g, '').replace(',', '.').trim());
+                if (!elemento || !elemento.dataset.rawPrice) {
+                    console.warn("Elemento o prezzo non trovato");
+                    return 0;
+                }
+                return parseFloat(elemento.dataset.rawPrice);
             }
 
-            // --- LOGICA DI ACQUISIZIONE DATI ---
-
+            // LOGICA DI ACQUISIZIONE DATI
             if (isSingleSession) {
                 if (!statoAcquisto.data || !statoAcquisto.sessione || !statoAcquisto.tribuna) {
                     alert("Per favore, completa la selezione: scegli Data, Sessione e Posto.");
@@ -325,13 +319,12 @@ if (btnMinus && btnPlus) {
                 statoAcquisto.tipo = "Ground Pass";
                 statoAcquisto.sessione = "Intera Giornata";
                 statoAcquisto.tribuna = "Ingresso Generale";
-                const prezzoDisplay = document.getElementById('prezzo-display');
+                const prezzoDisplay = document.getElementById('prezzo-ground');
                 statoAcquisto.prezzoSingolo = pulisciPrezzo(prezzoDisplay);
                 statoAcquisto.idProgramma = calcolaIdProgramma(statoAcquisto.data, null, "Ground Pass");
             }
 
-            // --- INVIO DATI AL SERVER ---
-
+            // INVIO DATI AL SERVER
             const pacchettoBiglietto = {
                 tipologia: statoAcquisto.tipo,
                 titolo: statoAcquisto.tribuna,
@@ -382,10 +375,8 @@ if (btnMinus && btnPlus) {
 
 
 
-/**
- * PROTEZIONE GLOBALE FORM ANTI-DOPPIO CLICK
- * Si applica a Login, Modulo Contatti, Admin e Checkout
- */
+// PROTEZIONE GLOBALE FORM ANTI-DOPPIO CLICK
+// Si applica a Login, Modulo Contatti, Admin e Checkout
 document.addEventListener('DOMContentLoaded', () => {
     const allForms = document.querySelectorAll('form');
 

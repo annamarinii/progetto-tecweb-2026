@@ -9,11 +9,17 @@ require_once '../php-Manager/TicketManager.php';
 if (isset($_POST['data_scelta'])) {
     $info = TicketManager::getInfoGroundPass($_POST['data_scelta']);
 
-
+    header('Content-Type: application/json');
     if ($info && $info['quantita_disponibile'] > 0) {
-        echo "€ " . number_format($info['prezzo'], 2, ',', '.');
+        echo json_encode([
+            'prezzo' => $info['prezzo'],
+            'quantita_disponibile' => $info['quantita_disponibile']
+        ]);
     } else {
-        echo "Esaurito";
+        echo json_encode([
+            'prezzo' => 0,
+            'quantita_disponibile' => 0
+        ]);
     }
     exit();
 }

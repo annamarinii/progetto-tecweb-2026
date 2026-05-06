@@ -1,30 +1,81 @@
-// Questo file ora gestisce solo le AZIONI, non il disegno della pagina
-// Funzione globale per rimuovere un biglietto dal carrello in modo diretto
+/**
+ * Gestione dinamica del Carrello - Patavium Open
+ */
+
 window.rimuoviItem = function(indice) {
-    // Rimosso il pop-up di conferma! Partiamo subito con la chiamata al server.
+    // Selezioniamo la card tramite l'attributo data-index (coerenza con il PHP)
+    const cardDaRimuovere = document.querySelector(`article[data-index="${indice}"]`);
+
+    // Feedback immediato: usiamo le classi CSS invece di modificare lo stile inline
+    if (cardDaRimuovere) {
+        cardDaRimuovere.classList.add('removing-item'); 
+    }
+
     fetch('../php-Manager/RimuoviCarrello.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ indice: indice })
     })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success') {
-                // Se il PHP ha rimosso il biglietto con successo, ricarico la pagina all'istante
-                location.reload();
+    .then(res => {
+        if (!res.ok) throw new Error("Errore di rete");
+        return res.json();
+    })
+    .then(data => {
+        if(data.status === 'success') {
+            // Se il carrello è vuoto, il server universitario deve servire il messaggio "vuoto"
+            if (data.carrelloVuoto) {
+                location.reload(); 
             } else {
-                console.error("Il server non è riuscito a rimuovere il biglietto.");
+                if (cardDaRimuovere) {
+                    // Animazione di uscita
+                    cardDaRimuovere.classList.add('fade-out-right');
+                    
+                    setTimeout(() => {
+                        cardDaRimuovere.remove();
+                        // Aggiorniamo il totale ricevuto dal PHP
+                        aggiornaTotaleCarrello(data.nuovoTotale);
+                    }, 300);
+                }
             }
-        })
-        .catch(errore => console.error("Errore di connessione AJAX:", errore));
+        } else {
+            // Ripristino in caso di errore logico del server
+            if (cardDaRimuovere) cardDaRimuovere.classList.remove('removing-item');
+            alert("Errore: " + (data.message || "Impossibile rimuovere l'articolo."));
+        }
+    })
+    .catch(err => {
+        console.error("Errore AJAX:", err);
+        if (cardDaRimuovere) cardDaRimuovere.classList.remove('removing-item');
+    });
 };
 
-// ... qui sotto c'è la tua gestione del btn-checkout che va benissimo ...
+/**
+ * Aggiorna il totale nel DOM con formattazione locale it-IT
+ */
+function aggiornaTotaleCarrello(nuovoTotale) {
+    const totaleElement = document.getElementById('totale-prezzo');
+    const subTotaleElement = document.getElementById('cart-subtotale');
+    
+    const totaleFormattato = "€ " + parseFloat(nuovoTotale).toLocaleString('it-IT', {
+        minimumFractionDigits: 2
+    });
+
+    if (totaleElement) totaleElement.textContent = totaleFormattato;
+    if (subTotaleElement) subTotaleElement.textContent = totaleFormattato;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const btnCheckout = document.getElementById('btn-checkout');
     if (btnCheckout) {
-        btnCheckout.addEventListener('click', function() {
+        btnCheckout.addEventListener('click', function(e) {
+            // Invece di andare su Checkout.php, facciamo una chiamata AJAX
+            // o gestiamo l'acquisto qui se hai un file che se ne occupa
+            this.textContent = "Elaborazione...";
+            this.classList.add('btn-loading');
+            this.disabled = true;
+
+            // Se vuoi restare sulla stessa pagina, devi avere un file PHP 
+            // che riceve questa richiesta, ad esempio lo stesso carrello.php
             window.location.href = '../php-Manager/Checkout.php';
         });
     }

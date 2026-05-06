@@ -7,28 +7,35 @@ require_once '../php-Manager/FaqManager.php';
 
 $messaggio_esito_form = "";
 
-// 2. GESTIONE DEL FORM (Se l'utente ha cliccato "Invia richiesta")
+// --- GESTIONE DEL FORM ---
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // CONTROLLO SICUREZZA: È loggato?
     if (!isset($_SESSION['idUtente'])) {
-        // NON è loggato: Prepara il messaggio di errore (stile rosso)
-        $messaggio_esito_form = "<div class='error' style='color: #d9534f; background: #f2dede; padding: 15px; border-radius: 5px; margin-bottom: 20px;'><strong>Attenzione:</strong> Devi effettuare l'accesso per poter inviare una richiesta all'assistenza. <a href='Login.php' style='color: #a94442; text-decoration: underline;'>Clicca qui per accedere</a>.</div>";
+        // NON è loggato: Classe 'message-error'
+        $messaggio_esito_form = "
+        <div class='form-message message-error'>
+            <strong>Attenzione:</strong> Devi effettuare l'accesso per inviare una richiesta. 
+            <a href='Login.php'>Clicca qui per accedere</a>.
+        </div>";
     } else {
-        // È loggato: Procedo con il salvataggio
         $testo_messaggio = trim($_POST['messaggio']);
         $id_utente_corrente = $_SESSION['idUtente'];
 
         if (!empty($testo_messaggio)) {
-            // Chiamo il model
             $salvataggio_ok = FaqManager::inserisciDomanda($testo_messaggio, $id_utente_corrente);
 
             if ($salvataggio_ok) {
-                // Successo (stile verde)
-                $messaggio_esito_form = "<div class='success' style='color: #3c763d; background: #dff0d8; padding: 15px; border-radius: 5px; margin-bottom: 20px;'><strong>Ottimo!</strong> La tua richiesta è stata inviata con successo. Riceverai presto una risposta dal nostro team nella tua Area Personale.</div>";
+                // Successo: Classe 'message-success'
+                $messaggio_esito_form = "
+                <div class='form-message message-success'>
+                    <strong>Ottimo! </strong> La tua richiesta è stata inviata. Riceverai risposta nella tua Area Personale.
+                </div>";
             } else {
-                // Errore database
-                $messaggio_esito_form = "<div class='error' style='color: #d9534f; background: #f2dede; padding: 15px; border-radius: 5px; margin-bottom: 20px;'><strong>Errore:</strong> Problema tecnico durante l'invio. Riprova più tardi.</div>";
+                // Errore database: Classe 'message-error'
+                $messaggio_esito_form = "
+                <div class='form-message message-error'>
+                    <strong>Errore:</strong> Problema tecnico durante l'invio. Riprova più tardi.
+                </div>";
             }
         }
     }

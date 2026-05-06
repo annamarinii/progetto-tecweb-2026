@@ -5,7 +5,7 @@ require_once 'CarrelloManager.php';
 
 // Sicurezza: solo gli utenti loggati possono acquistare
 if (!isset($_SESSION['idUtente'])) {
-    header("Location: Login.php?error=devi_loggarti");
+    header("Location: ../php-pages/Login.php?error=devi_loggarti");
     exit();
 }
 

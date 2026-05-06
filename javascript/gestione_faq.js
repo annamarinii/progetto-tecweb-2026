@@ -1,91 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Riferimenti alle viste (sezioni)
-    const faqDash = document.getElementById('faq-dashboard');
-    const newFaqView = document.getElementById('view-nuova-faq');
-    const listFaqView = document.getElementById('view-elenco-faq');
+    // Riferimenti alle sezioni
+    const views = {
+        dash: document.getElementById('faq-dashboard'),
+        form: document.getElementById('view-nuova-faq'),
+        list: document.getElementById('view-elenco-faq')
+    };
 
-    // Riferimenti agli elementi del FORM
+    // Riferimenti FORM
     const faqForm = document.getElementById('form-faq-admin');
-    const faqIdInput = document.getElementById('idFaq'); // UNIFORMATO A NOME DB
+    const faqIdInput = document.getElementById('idFaq');
     const domandaInput = document.getElementById('domanda_faq');
     const rispostaInput = document.getElementById('risposta_faq');
 
-    // Funzione per nascondere tutte le sottoviste della sezione FAQ
-    function hideAllFaqViews() {
-        [faqDash, newFaqView, listFaqView].forEach(view => {
-            if (view) view.classList.add('hidden');
-        });
+    // Funzione di navigazione pulita
+    function switchView(target) {
+        Object.values(views).forEach(v => v?.classList.add('hidden'));
+        views[target]?.classList.remove('hidden');
     }
 
-    // --- NAVIGAZIONE DASHBOARD ---
+    // --- GESTIONE NAVIGAZIONE ---
 
-    // Bottone "Aggiungi Nuova FAQ"
     document.getElementById('btn-new-faq')?.addEventListener('click', () => {
-        hideAllFaqViews();
-        faqForm?.reset(); // Pulisce i campi
-        if (faqIdInput) faqIdInput.value = ""; // Fondamentale: resetta l'ID per nuova inserzione
-        newFaqView?.classList.remove('hidden');
+        faqForm?.reset();
+        if (faqIdInput) faqIdInput.value = ""; // Modalità inserimento
+        switchView('form');
     });
 
-    // Bottone "Elenco FAQ"
-    document.getElementById('btn-manage-faq')?.addEventListener('click', () => {
-        hideAllFaqViews();
-        listFaqView?.classList.remove('hidden');
-    });
+    document.getElementById('btn-manage-faq')?.addEventListener('click', () => switchView('list'));
 
-    // Bottoni "Indietro"
     document.querySelectorAll('.btn-back-faq').forEach(btn => {
-        btn.addEventListener('click', () => {
-            hideAllFaqViews();
-            faqDash?.classList.remove('hidden');
-        });
+        btn.addEventListener('click', () => switchView('dash'));
     });
 
-    // --- GESTIONE MODIFICA (Delegata al click sulle card) ---
+    // --- GESTIONE MODIFICA ---
     document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-edit-faq-trigger')) {
-            const btn = e.target;
-            
-            // Popoliamo i campi con i dati salvati nei dataset HTML
+        const btn = e.target.closest('.btn-edit-faq-trigger');
+        if (btn) {
+            // Popolamento dati dai dataset (Pura SoC)
             if (domandaInput) domandaInput.value = btn.dataset.q;
             if (rispostaInput) rispostaInput.value = btn.dataset.a;
-            if (faqIdInput) faqIdInput.value = btn.dataset.id; // Scrive l'idFaq del DB
+            if (faqIdInput) faqIdInput.value = btn.dataset.id;
 
-            hideAllFaqViews();
-            newFaqView?.classList.remove('hidden');
+            switchView('form');
         }
     });
 
-    // --- FEEDBACK UTENTE (Messaggi AJAX) ---
+    // --- FEEDBACK AJAX ---
     function mostraMessaggioFaq(testo, tipo) {
-        // Rimuove messaggi precedenti
         document.querySelectorAll('.ajax-dynamic-msg-faq').forEach(m => m.remove());
         
         const contenitore = document.getElementById('gestione-faq');
         const msg = document.createElement('div');
         
-        // Usa le classi CSS esterne (esito-msg, esito-success, esito-error)
-        msg.className = `ajax-dynamic-msg-faq esito-msg ${tipo === 'success' ? 'esito-success' : 'esito-error'}`;
+        // Usiamo le classi semantiche del torneo
+        msg.className = `ajax-dynamic-msg-faq msg-${tipo}`;
         msg.textContent = testo; 
 
         contenitore?.prepend(msg);
 
-        // Auto-rimozione dopo 3 secondi
+        // Auto-rimozione tramite transizione CSS
         setTimeout(() => {
-            msg.style.opacity = "0";
-            msg.style.transition = "opacity 0.5s";
+            msg.classList.add('fade-out');
             setTimeout(() => msg.remove(), 500);
         }, 3000);
     }
 
-    // --- INVIO FORM AJAX ---
+    // --- INVIO AJAX ---
     faqForm?.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Rimossa scritta Attendere... come richiesto
-
         const formData = new FormData(this);
-        const currentId = faqIdInput ? faqIdInput.value : "";
+        const currentId = faqIdInput?.value;
 
         fetch(this.action, {
             method: 'POST',
@@ -98,38 +83,33 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             if (data.status === 'success') {
-                mostraMessaggioFaq('Operazione completata con successo!', 'success');
+                mostraMessaggioFaq('Operazione completata!', 'success');
                 
-                // Aggiorna l'elenco FAQ senza ricaricare la pagina
                 if (data.html_faq) {
                     const lista = document.querySelector('.faq-list-admin');
                     if (lista) lista.innerHTML = data.html_faq;
                 }
 
-                // Scorre la vista verso l'alto per far notare il messaggio
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                // Logica post-salvataggio
                 if (!currentId || currentId === "") {
-                    // Se era una nuova FAQ, svuota i campi per poterne scrivere subito un'altra
                     this.reset();
-                    if (faqIdInput) faqIdInput.value = "";
                 }
             } else {
-                mostraMessaggioFaq('Errore durante il salvataggio dei dati.', 'error');
+                mostraMessaggioFaq('Errore nel salvataggio.', 'error');
             }
         })
         .catch(err => {
-            console.error('Fetch error:', err);
-            mostraMessaggioFaq('Errore di connessione al server.', 'error');
+            console.error('Error:', err);
+            mostraMessaggioFaq('Errore di connessione.', 'error');
         });
     });
 
-    // --- ELIMINAZIONE FAQ DA ELENCO (Evita ricaricamento pagina) ---
+    // --- ELIMINAZIONE AJAX ---
     document.querySelector('.faq-list-admin')?.addEventListener('submit', function(e) {
         const targetForm = e.target;
         if (targetForm.classList.contains('form-delete-faq')) {
-            e.preventDefault(); // Evita il ricaricamento nativo della pagina
+            e.preventDefault();
             if (!confirm('Eliminare definitivamente questa FAQ?')) return;
             
             fetch(targetForm.action, {
@@ -137,23 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' },
                 body: new FormData(targetForm)
             })
-            .then(res => {
-                if (!res.ok) throw new Error('Errore di rete');
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
                     mostraMessaggioFaq('FAQ Eliminata', 'success');
-                    targetForm.closest('.faq-admin-card').remove();
+                    targetForm.closest('.faq-admin-card').classList.add('fade-out');
+                    setTimeout(() => targetForm.closest('.faq-admin-card').remove(), 400);
                 } else {
-                    mostraMessaggioFaq('Errore durante l\'eliminazione.', 'error');
+                    mostraMessaggioFaq('Errore eliminazione.', 'error');
                 }
             })
-            .catch(err => {
-                console.error('Fetch error:', err);
-                mostraMessaggioFaq('Errore di connessione al server.', 'error');
-            });
+            .catch(() => mostraMessaggioFaq('Errore di connessione.', 'error'));
         }
     });
-
 });

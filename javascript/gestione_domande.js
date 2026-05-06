@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Funzione per attaccare la logica dell'accordion e pre-animazione ai blocchi domande
     function attaccaEventiDomande() {
         const mailRows = document.querySelectorAll('.mail-row');
 
@@ -8,12 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const header = row.querySelector('.mail-row-header');
             const content = row.querySelector('.mail-content');
             
-            // Attacca solo se non è già attaccato per evitare duplicati
             if (!header.dataset.listener) {
                 header.addEventListener('click', () => {
-                    const isExpanded = content.style.display === 'block';
-                    content.style.display = isExpanded ? 'none' : 'block';
-
+                    const isOpen = row.classList.toggle('open');
+                    
                     if (row.classList.contains('unread')) {
                         row.classList.remove('unread');
                         row.classList.add('read');
@@ -27,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 method: 'POST',
                                 headers: { 'X-Requested-With': 'XMLHttpRequest' },
                                 body: fd
-                            }).catch(err => console.error("Errore aggiornamento stato lettura:", err));
+                            }).catch(err => console.error("Errore aggiornamento lettura:", err));
                         }
                     }
                 });
@@ -35,14 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!content.dataset.listener) {
-                content.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
+                content.addEventListener('click', (e) => e.stopPropagation());
                 content.dataset.listener = "true";
             }
         });
 
-        // Binding dei SUBMIT dei form interni per le risposte (AJAX Real)
         const replyForms = document.querySelectorAll('.mail-reply-form');
         replyForms.forEach(form => {
             if(!form.dataset.ajaxBound) {
@@ -50,12 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.preventDefault();
                     
                     const btn = this.querySelector('.btn-send-reply');
-                    const rigaCorrente = this.closest('.mail-row'); // Individua la riga della domanda
+                    const rigaCorrente = this.closest('.mail-row');
 
                     if(btn) {
-                        btn.textContent = 'Invio in corso...';
-                        btn.style.opacity = '0.7';
-                        btn.style.pointerEvents = 'none';
+                        btn.textContent = 'Invio...';
+                        btn.classList.add('btn-loading'); // Usiamo una classe CSS
                     }
 
                     const formData = new FormData(this);
@@ -69,36 +62,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (data.status === 'success') {
                             mostraMessaggioDomande('Risposta inviata con successo!', 'success');
                             
-                            // --- MODIFICA QUI: Rimuovi visivamente la riga della domanda ---
                             if(rigaCorrente) {
-                                rigaCorrente.style.transition = "opacity 0.4s ease";
-                                rigaCorrente.style.opacity = "0";
+                                rigaCorrente.classList.add('fade-out'); // Animazione via CSS
                                 setTimeout(() => {
                                     rigaCorrente.remove();
-                                    // Se la lista è vuota, aggiungi un messaggio di cortesia
                                     const lista = document.querySelector('.gmail-list');
                                     if (lista && lista.querySelectorAll('.mail-row').length === 0) {
-                                        lista.innerHTML = '<p style="padding:20px;">Tutte le domande hanno ricevuto risposta.</p>';
+                                        lista.innerHTML = '<p class="empty-msg">Tutte le domande hanno ricevuto risposta.</p>';
                                     }
                                 }, 400);
                             }
-
-                            // Aggiorniamo comunque la lista se il server manda HTML (opzionale se rimuovi già a mano)
-                            if(data.html_domande) {
-                                const grid = document.querySelector('.gmail-list');
-                                if(grid) {
-                                    grid.innerHTML = data.html_domande;
-                                    attaccaEventiDomande(); 
-                                }
-                            }
                         } else {
                             mostraMessaggioDomande('Errore durante l\'invio.', 'error');
-                            if(btn) { btn.textContent = 'Invia Risposta'; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+                            if(btn) { btn.textContent = 'Invia Risposta'; btn.classList.remove('btn-loading'); }
                         }
                     })
                     .catch(err => {
                         console.error(err);
-                        mostraMessaggioDomande('Errore di comunicazione col server.', 'error');
+                        mostraMessaggioDomande('Errore di comunicazione.', 'error');
                     });
                 });
                 form.dataset.ajaxBound = "true";
@@ -112,25 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!contenitoreAttivo) return;
 
         const msg = document.createElement('div');
-        msg.className = 'ajax-dynamic-msg-domande';
-        const colore = tipo === 'success' ? 'green' : 'red';
-        msg.innerHTML = `<div style="color:${colore}; padding:10px; border:1px solid ${colore}; margin-bottom:20px; font-weight:bold; background: white;">${testo}</div>`;
+        // Usiamo classi semantiche per lo stile
+        msg.className = `ajax-dynamic-msg-domande msg-${tipo}`;
+        msg.textContent = testo;
         
         const h2 = contenitoreAttivo.querySelector('h2');
-        if(h2) {
-            h2.insertAdjacentElement('afterend', msg);
-        } else {
-            contenitoreAttivo.prepend(msg);
-        }
+        if(h2) h2.insertAdjacentElement('afterend', msg);
+        else contenitoreAttivo.prepend(msg);
 
         msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         setTimeout(() => {
-            msg.style.transition = "opacity 0.5s ease";
-            msg.style.opacity = "0";
-            setTimeout(() => { msg.remove(); }, 500);
+            msg.classList.add('fade-out');
+            setTimeout(() => msg.remove(), 500);
         }, 3000);
     }
 
-    // Inizializzazione al caricamento
     attaccaEventiDomande();
 });

@@ -9,17 +9,18 @@ require_once '../php-Manager/TicketManager.php';
 $dati_abbonamenti = TicketManager::getInfoAbbonamenti();
 
 // 2. Funzione intelligente che calcola lo sconto
-function formattaPrezzoAbbonamento($tribuna, $dati_abbonamenti)
+function calcolaPrezzoScontato($tribuna, $dati_abbonamenti)
 {
-    // Controllo se esiste la tribuna e se ci sono abbonamenti disponibili (> 0)
     if (isset($dati_abbonamenti[$tribuna]) && $dati_abbonamenti[$tribuna]['disponibili'] > 0) {
-
-        // Prendo la somma delle 14 sessioni (es. 1000€)
         $prezzo_pieno = $dati_abbonamenti[$tribuna]['prezzo_base'];
+        return $prezzo_pieno * 0.80;
+    }
+    return 0;
+}
 
-        // APPLICO LO SCONTO DEL 20% (Moltiplico per 0.80)
-        $prezzo_scontato = $prezzo_pieno * 0.80;
-
+function formattaPrezzoAbbonamento($prezzo_scontato)
+{
+    if ($prezzo_scontato > 0) {
         return "€ " . number_format($prezzo_scontato, 2, ',', '.');
     }
     return "Esaurito";
@@ -29,10 +30,20 @@ function formattaPrezzoAbbonamento($tribuna, $dati_abbonamenti)
 $pagina_html = file_get_contents('../html/abbonamento.html');
 $pagina_html = str_replace('[link_profilo]', $destinazione_profilo, $pagina_html);
 
+$prezzo_premium = calcolaPrezzoScontato('Courtside Premium', $dati_abbonamenti);
+$prezzo_antenore = calcolaPrezzoScontato('Tribuna Antenore', $dati_abbonamenti);
+$prezzo_fondo = calcolaPrezzoScontato('Tribuna Fondo Campo', $dati_abbonamenti);
+$prezzo_anello = calcolaPrezzoScontato('Anello Superiore', $dati_abbonamenti);
+
+$pagina_html = str_replace('[raw_premium]', $prezzo_premium, $pagina_html);
+$pagina_html = str_replace('[raw_antenore]', $prezzo_antenore, $pagina_html);
+$pagina_html = str_replace('[raw_fondo]', $prezzo_fondo, $pagina_html);
+$pagina_html = str_replace('[raw_anello]', $prezzo_anello, $pagina_html);
+
 // Inietto i prezzi (già scontati) al posto dei segnaposti
-$pagina_html = str_replace('[prezzo_premium]', formattaPrezzoAbbonamento('Courtside Premium', $dati_abbonamenti), $pagina_html);
-$pagina_html = str_replace('[prezzo_antenore]', formattaPrezzoAbbonamento('Tribuna Antenore', $dati_abbonamenti), $pagina_html);
-$pagina_html = str_replace('[prezzo_fondo]', formattaPrezzoAbbonamento('Tribuna Fondo Campo', $dati_abbonamenti), $pagina_html);
-$pagina_html = str_replace('[prezzo_anello]', formattaPrezzoAbbonamento('Anello Superiore', $dati_abbonamenti), $pagina_html);
+$pagina_html = str_replace('[prezzo_premium]', formattaPrezzoAbbonamento($prezzo_premium), $pagina_html);
+$pagina_html = str_replace('[prezzo_antenore]', formattaPrezzoAbbonamento($prezzo_antenore), $pagina_html);
+$pagina_html = str_replace('[prezzo_fondo]', formattaPrezzoAbbonamento($prezzo_fondo), $pagina_html);
+$pagina_html = str_replace('[prezzo_anello]', formattaPrezzoAbbonamento($prezzo_anello), $pagina_html);
 
 echo $pagina_html;

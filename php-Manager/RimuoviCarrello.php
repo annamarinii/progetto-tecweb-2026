@@ -18,7 +18,18 @@ if (isset($dati['indice'])) {
         // 2. Ricompatto le chiavi dell'array per evitare "buchi" di numerazione
         $_SESSION['carrello'] = array_values($_SESSION['carrello']);
 
-        echo json_encode(array('status' => 'success'));
+        // 3. Preparo i dati di risposta
+        $carrelloVuoto = empty($_SESSION['carrello']);
+        
+        // Calcolo il nuovo totale (assumendo che il prezzo sia nel campo 'prezzo_totale' del biglietto)
+        $nuovoTotale = 0;
+        if (!$carrelloVuoto) {
+            foreach ($_SESSION['carrello'] as $b) {
+                $nuovoTotale += floatval($b['prezzo']) * intval($b['quantita']);
+            }
+        }
+
+        echo json_encode(array('status' => 'success', 'carrelloVuoto' => $carrelloVuoto, 'nuovoTotale' => $nuovoTotale));
     } else {
         echo json_encode(array('status' => 'error', 'message' => 'Biglietto non trovato'));
     }

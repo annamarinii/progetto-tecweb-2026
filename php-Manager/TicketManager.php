@@ -126,28 +126,45 @@ class TicketManager
         $stmt->execute();
         $risultato = $stmt->get_result();
 
-        $biglietti = [];
-        $abbonamenti_visti = [];
+        $biglietti_raggruppati = [];
         while ($row = $risultato->fetch_assoc()) {
-            if ($row['tipo'] == 'abbonamento') {
-                $key = $row['numero_ordine'] . '_' . $row['tribuna'];
-                if (!isset($abbonamenti_visti[$key])) {
-                    $abbonamenti_visti[$key] = 0;
+            // Chiave unica per raggruppare i biglietti comprati insieme
+            // Usiamo data e sessione come discriminanti aggiuntivi (per single session e ground pass)
+            $tipo = $row['tipo'];
+            $numero_ordine = $row['numero_ordine'];
+            $tribuna = $row['tribuna'];
+            
+            if ($tipo == 'abbonamento') {
+                $key = "{$numero_ordine}_abb_{$tribuna}";
+                if (!isset($biglietti_raggruppati[$key])) {
+                    $row['quantita'] = 0;
+                    $row['conteggio_parziale'] = 0;
+                    $biglietti_raggruppati[$key] = $row;
                 }
-                $abbonamenti_visti[$key]++;
-                
-                // Aggiunge un blocco abbonamento ogni 14 biglietti (poiché un abbonamento ha 14 sessioni)
-                if ($abbonamenti_visti[$key] % 14 == 1) {
-                    $biglietti[] = $row;
+                $biglietti_raggruppati[$key]['conteggio_parziale']++;
+                // Un abbonamento è composto da 14 biglietti. 
+                // Quindi ogni 14 biglietti trovati, la quantità reale di abbonamenti sale di 1.
+                if ($biglietti_raggruppati[$key]['conteggio_parziale'] % 14 == 1) {
+                    $biglietti_raggruppati[$key]['quantita']++;
                 }
             } else {
-                $biglietti[] = $row;
+                $data = $row['data'];
+                $sessione = $row['sessione'];
+                $key = "{$numero_ordine}_{$tipo}_{$tribuna}_{$data}_{$sessione}";
+                
+                if (!isset($biglietti_raggruppati[$key])) {
+                    $row['quantita'] = 0;
+                    $biglietti_raggruppati[$key] = $row;
+                }
+                $biglietti_raggruppati[$key]['quantita']++;
             }
         }
 
         $stmt->close();
         $conn->close();
-        return $biglietti;
+        
+        // Convertiamo l'array associativo in un array indicizzato
+        return array_values($biglietti_raggruppati);
     }
 
 }
