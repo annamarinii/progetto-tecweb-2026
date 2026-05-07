@@ -2467,6 +2467,19 @@ main {
     /* Un verde un po' più scuro */
 }
 
+.checkout-disabled-msg {
+    background-color: var(--crema);
+    color: var(--blu-scuro);
+    padding: 15px;
+    border: 2px solid var(--blu-scuro);
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 0.95em;
+    box-shadow: 2px 2px 0px var(--blu-scuro);
+}
+
 #main-carrello {
     background-color: var(--azzurro);
     min-height: 80vh;

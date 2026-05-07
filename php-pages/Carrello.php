@@ -6,9 +6,14 @@ require '../php-Manager/init_session.php';
 $carrello = isset($_SESSION['carrello']) ? $_SESSION['carrello'] : [];
 $totale = 0;
 $html_lista = '';
+$html_pulsante_acquisto = '';
 
+// 1. GESTIONE LISTA PRODOTTI E CALCOLO TOTALE
 if (empty($carrello)) {
     $html_lista = '<div class="cart-empty"><p>Il carrello è vuoto.</p></div>';
+    
+    // Messaggio che sostituisce il pulsante se il carrello è vuoto
+    $html_pulsante_acquisto = '<p class="checkout-disabled-msg">Il carrello è vuoto. Aggiungi dei biglietti per poter acquistare.</p>';
 } else {
     foreach ($carrello as $index => $item) {
         $subtotale = $item['prezzo'] * $item['quantita'];
@@ -27,17 +32,22 @@ if (empty($carrello)) {
                 </div>
             </article>";
     }
-}   
 
-// --- GESTIONE DEL BANNER DI SUCCESSO ---
+    // Pulsante attivo se il carrello contiene elementi
+    $html_pulsante_acquisto = '
+        <form action="../php-Manager/Checkout.php" method="POST">
+            <button type="submit" class="btn-checkout">Completa Acquisto</button>
+        </form>';
+}
+
+// 2. GESTIONE DEL BANNER DI SUCCESSO (dopo acquisto)
 $html_banner = ""; 
-
 if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['ordine'])) {
     $numero_ordine = htmlspecialchars($_GET['ordine']);
 
     $html_banner = "
     <div class='order-status-banner success-banner'>
-        <div class='banner-icon'>🎉</div>
+
         <div class='banner-content'>
             <h2>Pagamento Riuscito!</h2>
             <p>Grazie per il tuo acquisto. Il tuo ordine è il: <strong>#{$numero_ordine}</strong></p>
@@ -47,10 +57,13 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['ordine'])) 
     ";
 }
 
+// 3. CARICAMENTO TEMPLATE E SOSTITUZIONE SEGNAPOSTO
 $pagina = file_get_contents('../html/carrello.html');
+
 $pagina = str_replace('[link_profilo]', $destinazione_profilo, $pagina);
 $pagina = str_replace('[banner_esito]', $html_banner, $pagina);
 $pagina = str_replace('[lista_carrello]', $html_lista, $pagina);
 $pagina = str_replace('[totale_carrello]', "€ " . number_format($totale, 2, ',', '.'), $pagina);
+$pagina = str_replace('[pulsante_acquisto]', $html_pulsante_acquisto, $pagina);
 
 echo $pagina;

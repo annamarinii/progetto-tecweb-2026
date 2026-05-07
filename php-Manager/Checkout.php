@@ -22,8 +22,6 @@ $idOrdine = CarrelloManager::creaOrdine($_SESSION['idUtente'], $totale);
 
 // 3. Associamo i biglietti (SENZA IL CICLO FOR!)
 foreach($carrello as $item) {
-    // Ora basta chiamarlo una volta sola. Il manager leggerà $item['quantita']
-    // e aggiornerà il numero esatto di righe nel database in un solo respiro.
     CarrelloManager::associaBiglietto($idOrdine, $item);
 }
 
