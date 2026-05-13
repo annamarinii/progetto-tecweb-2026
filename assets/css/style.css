@@ -4176,3 +4176,8 @@ main {
     max-width: 1000px;
     height: auto;
 }
+
+/*non eliminare questo serve per il css della stampa*/
+.testo-solo-stampa{
+    display: none;
+}

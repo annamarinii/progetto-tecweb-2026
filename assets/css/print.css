@@ -65,17 +65,14 @@ html body #breadcrumb p {
 #menu, #menu-utente, .sidebar-user, #sticky-bar, 
 .footer-nav, .action-box, .purchase-controls, .btn-auth, .buy-btn, 
 .btn-ritorno, .btn-biglietti, .btn-logout-small, .divider, 
-.error-visual, #pallina_triste, form, button, input, textarea {
+.error-visual, #pallina_triste, form, button, input, textarea, .step-badge, .step-header h2, 
+.session-footer, .purchase-container, #selected-full-date{
     display: none;
 }
 
 /* LAYOUT DELLE CARD (News, Biglietti, Campioni, Vantaggi)  */
-html body .rettangolo-notizia,
-html body .ticket-card,
-html body .card-campione,
-html body .benefit-card,
-html body .session-card,
-html body .seat-category {
+html body .rettangolo-notizia, html body .ticket-card, html body .card-campione,
+html body .benefit-card, html body .session-card, html body .seat-category {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -108,10 +105,10 @@ html body .icone-menu {
 /* Immagini descrittive (Mappe degli stadi, Legende) */
 html body .stadium-map img,
 html body .map-img {
-    width: 300px;
+    width: 400px;
     height: auto;
     display: block;
-    margin: 1rem 0;
+    margin: 1rem auto;;
 }
 
 html body img {
@@ -121,7 +118,7 @@ html body img {
 }
 
 /* ACCESSIBILITÀ LINK */
-html body main a[href]::after {
+html body main a[href]:not([href^="#"])::after {
     content: " (" attr(href) ")";
     font-size: 0.8em;
 }
@@ -130,6 +127,131 @@ html body .rettangolo-notizia::after,
 html body .ticket-card::after,
 html body .card-campione::after {
     display: none;
+}
+
+/* ==========================================================================
+   STILE PER LE FAQ IN STAMPA 
+   ========================================================================== */
+
+/* Evitiamo che una domanda e la sua risposta si spezzino su due pagine diverse */
+html body main section.faq-wrapper details.faq-item {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+/* Stile della domanda */
+html body main section.faq-wrapper details.faq-item summary {
+    font-weight: bold;
+    font-size: 1.1em;
+    list-style: none; /* Rimuove il triangolino standard */
+    margin-bottom: 0.5rem;
+}
+
+/* Rimuove il triangolino specifico di Chrome/Edge/Safari */
+html body main section.faq-wrapper details.faq-item summary::-webkit-details-marker,
+html body main section.faq-wrapper details.faq-item summary::marker {
+    display: none;
+    color: transparent;
+}
+
+html body main section#contattaci .testo-solo-stampa {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.1em;
+    color: #000;
+}
+
+/*chiedere se mettiamo l'email o no, in tal caso togliere l'email anche da privacy.html*/
+html body main section#contattaci .testo-solo-stampa #email {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   3. IMPAGINAZIONE DELLE DATE (Compatta per la stampa)
+   ========================================================================== */
+
+html body main .calendar-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Spazio fisso e preciso tra le tessere */
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+}
+
+html body main .date-tile {
+    width: 23%; /* Esattamente 4 card per riga (23% * 4 = 92% + gap) */
+    min-width: 110px; /* Evita che diventino illeggibili se il foglio è stretto */
+    box-sizing: border-box; /* Calcola il padding dentro la larghezza */
+    border: 1px solid #ccc;
+    padding: 0.5rem; /* Padding ridotto per recuperare spazio verticale */
+    border-radius: 6px;
+    background-color: #fff;
+    text-align: center;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    color: #000;
+}
+
+/* Riduciamo tutti i margini interni ai testi delle date per compattare */
+html body main .date-tile p {
+    margin: 0.1rem 0; 
+    line-height: 1.2;
+}
+
+html body main .date-tile .day-name {
+    font-size: 0.85em;
+    text-transform: uppercase;
+}
+
+html body main .date-tile .day-number {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Rimpiccioliamo le etichette (Opening Day, Best Value) */
+html body main .date-tile .tag {
+    display: inline-block;
+    font-size: 0.65em;
+    font-weight: bold;
+    border: 1px solid #666;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    margin: 0.3rem 0;
+}
+
+html body main .date-tile .matches-info {
+    font-size: 0.8em;
+}
+
+html body main .seat-category {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Trucco magico: spinge i testi a sinistra e il prezzo tutto a destra */
+    align-items: center; /* Allinea perfettamente al centro verticale */
+}
+
+/* Assicuriamoci che i testi non invadano lo spazio del prezzo */
+html body main .seat-info {
+    max-width: 70%;
+}
+
+/* ==========================================================================
+   LAYOUT DOPPIO PREZZO (Diurna/Serale)
+   ========================================================================== */
+
+html body main .seat-price {
+    display: block;
+    font-size: 0.9em; /* Leggermente più piccolo perché ci sono più info */
+    font-weight: bold;
+    text-align: right;
+    white-space: pre-line; /* Fondamentale: permette al JavaScript di andare a capo con \n */
+    line-height: 1.4;
+    color: #000;
+    min-width: 120px;
 }
 
 /* FOOTER */

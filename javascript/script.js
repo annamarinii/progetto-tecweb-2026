@@ -405,3 +405,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/* Apre tutte le tendine FAQ appena si preme "Stampa" (Ctrl+P) */
+window.addEventListener('beforeprint', function() {
+    const dettagliFaq = document.querySelectorAll('details.faq-item');
+    dettagliFaq.forEach(function(dettaglio) {
+        /* Aggiunge l'attributo che sblocca il contenuto per il browser */
+        dettaglio.setAttribute('open', 'open');
+    });
+});
+
+/* Le richiude quando la finestra di stampa viene chiusa o annullata */
+window.addEventListener('afterprint', function() {
+    const dettagliFaq = document.querySelectorAll('details.faq-item');
+    dettagliFaq.forEach(function(dettaglio) {
+        dettaglio.removeAttribute('open');
+    });
+});
+
+/* ==========================================================================
+   GESTIONE RANGE PREZZI IN STAMPA 
+   ========================================================================== */
+
+const rangePrezziTorneo = {
+    'prezzo-premium': 'da € 155,00 a € 220,00',
+    'prezzo-antenore': 'da € 85,00 a € 150,00',
+    'prezzo-fondo':    'da € 55,00 a € 120,00',
+    'prezzo-anello':   'da € 35,00 a € 100,00'
+};
+
+window.addEventListener('beforeprint', function() {
+    const elementiPrezzo = document.querySelectorAll('[id^="prezzo-"]');
+    
+    elementiPrezzo.forEach(function(el) {
+        // Interveniamo se il testo è quello di default (vuoto, trattini o segnaposto PHP)
+        if (el.innerText.trim() === "" || el.innerText.includes('---') || el.innerText.includes('[')) {
+            
+            el.setAttribute('data-temp-value', el.innerText);
+            const range = rangePrezziTorneo[el.id];
+            
+            if (range) {
+                el.innerText = range;
+                el.setAttribute('aria-label', `Prezzi per questo settore: ${range}`);
+            }
+        }
+    });
+});
+
+window.addEventListener('afterprint', function() {
+    const elementiPrezzo = document.querySelectorAll('[id^="prezzo-"]');
+    elementiPrezzo.forEach(function(el) {
+        if (el.hasAttribute('data-temp-value')) {
+            el.innerText = el.getAttribute('data-temp-value');
+            el.removeAttribute('data-temp-value');
+            el.removeAttribute('aria-label');
+        }
+    });
+});

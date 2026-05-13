@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biglietti-Single Session</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css" media="screen">
+    <link rel="stylesheet" href="../assets/css/print.css" media="print">
 </head>
 
 <body>
@@ -114,6 +115,7 @@
             <div class="step-header">
                 <span class="step-badge"><span lang="en">STEP</span> 1</span>
                 <h2>Seleziona la data</h2>
+                <h3 class="testo-solo-stampa">Date del torneo</h3>
                 <p><time datetime="2027-05-15">18</time> - <time datetime="2027-05-22">24 Maggio 2027</time></p>
             </div>
 
@@ -196,6 +198,7 @@
             <div class="step-header">
                 <span class="step-badge"><span lang="en">STEP</span> 2</span>
                 <h2>Seleziona sessione</h2>
+                <h3 class="testo-solo-stampa">Sessioni del torneo</h3> 
                 <h3 id="selected-full-date" class="date-display">Seleziona una data sopra</h3>
             </div>
 
@@ -213,7 +216,7 @@
                     </div>
 
                     <div class="session-details">
-                        <p>La sessione diurna ha sede nel Giotto<span lang="en">Court</span></p>
+                        <p>La sessione diurna ha sede nel Giotto <span lang="en">Court</span></p>
                     </div>
 
                     <div class="session-footer">
@@ -247,6 +250,11 @@
             <div class="step-header">
                 <span class="step-badge"><span lang="en">STEP</span> 3</span>
                 <h2>Seleziona la Tribuna</h2>
+                <div class="testo-solo-stampa">
+                    <h3>Categorie di Posto</h3> 
+                    <p>I prezzi dei posti variano in base al giorno e alla sessione</p>
+                </div>
+
                 <p>Scegli il tuo punto di vista perfetto per il <span lang="en">match</span>.</p>
             </div>
 
