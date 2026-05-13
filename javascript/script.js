@@ -423,24 +423,28 @@ window.addEventListener('afterprint', function() {
 });
 
 /* ==========================================================================
-   GESTIONE RANGE PREZZI IN STAMPA 
+   GESTIONE RANGE PREZZI IN STAMPA (Universale per Single Session e Ground)
    ========================================================================== */
 
 const rangePrezziTorneo = {
-    'prezzo-premium': 'da € 155,00 a € 220,00',
-    'prezzo-antenore': 'da € 85,00 a € 150,00',
-    'prezzo-fondo':    'da € 55,00 a € 120,00',
-    'prezzo-anello':   'da € 35,00 a € 100,00'
+    // Prezzi per Single Session
+    'prezzo-premium': 'da € 120,00 a € 250,00',
+    'prezzo-antenore': 'da € 80,00 a € 160,00',
+    'prezzo-fondo':    'da € 55,00 a € 110,00',
+    'prezzo-anello':   'da € 30,00 a € 65,00',
+    
+    // Prezzo per Ground Pass
+    'prezzo-ground':   'da € 20,00 a € 50,00'
 };
 
 window.addEventListener('beforeprint', function() {
+    // Cerchiamo tutti gli elementi che hanno un ID che inizia con "prezzo-"
     const elementiPrezzo = document.querySelectorAll('[id^="prezzo-"]');
     
     elementiPrezzo.forEach(function(el) {
-        // Interveniamo se il testo è quello di default (vuoto, trattini o segnaposto PHP)
         if (el.innerText.trim() === "" || el.innerText.includes('---') || el.innerText.includes('[')) {
-            
             el.setAttribute('data-temp-value', el.innerText);
+            
             const range = rangePrezziTorneo[el.id];
             
             if (range) {
