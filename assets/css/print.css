@@ -1,4 +1,3 @@
-/* RESET E TIPOGRAFIA */
 html body {
     background-color: #fff;
     color: #000;
@@ -28,15 +27,14 @@ html body #logo-sito {
     display: block;
     width: 120px;
     height: auto;
-    margin: 0 auto 0.5rem auto; /* I due "auto" spingono il logo al centro */
+    margin: 0 auto 0.5rem auto;
 }
 
 /* Breadcumbs */
-
 html body #breadcrumb {
     display: block;
     font-size: 0.85em;
-    color: #000; /* Nero pieno per la massima leggibilità */
+    color: #000; 
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #eee;
@@ -129,11 +127,7 @@ html body .card-campione::after {
     display: none;
 }
 
-/* ==========================================================================
-   STILE PER LE FAQ IN STAMPA 
-   ========================================================================== */
-
-/* Evitiamo che una domanda e la sua risposta si spezzino su due pagine diverse */
+/* Faq */
 html body main section.faq-wrapper details.faq-item {
     page-break-inside: avoid;
     break-inside: avoid;
@@ -142,11 +136,10 @@ html body main section.faq-wrapper details.faq-item {
     padding-bottom: 1rem;
 }
 
-/* Stile della domanda */
 html body main section.faq-wrapper details.faq-item summary {
     font-weight: bold;
     font-size: 1.1em;
-    list-style: none; /* Rimuove il triangolino standard */
+    list-style: none;
     margin-bottom: 0.5rem;
 }
 
@@ -170,9 +163,7 @@ html body main section#contattaci .testo-solo-stampa #email {
     text-decoration: underline;
 }
 
-/* ==========================================================================
-   3. IMPAGINAZIONE DELLE DATE 
-   ========================================================================== */
+/* Date*/
 
 html body main .calendar-wrapper {
     display: flex;
@@ -249,14 +240,13 @@ html body main .seat-price {
 
 html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card {
     display: block;
-    border: 1.5pt solid #000; /* Bordo nero netto per la stampa */
+    border: 1.5pt solid #000;
     padding: 15pt;
     margin-bottom: 15pt;
-    page-break-inside: avoid; /* Fondamentale per non spezzare il rettangolo */
+    page-break-inside: avoid;
     background-color: transparent;
 }
 
-/* Allineamento e stile del titolo dentro il rettangolo */
 html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card h3 {
     margin-top: 0;
     font-size: 14pt;
@@ -265,7 +255,6 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
     margin-bottom: 10pt;
 }
 
-/* Gestione dei testi e del prezzo */
 html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-info p {
     margin: 5pt 0;
     font-size: 11pt;
@@ -279,7 +268,7 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
     margin-top: 10pt;
 }
 
-/* 3. RIEPILOGO ORDINE */
+/* Riepilogo ordine*/
 html body .cart-summary {
     width: 100%;
     border-top: 2px solid #000;
@@ -307,12 +296,10 @@ html body main.user-page-main div.user-layout div.content-area-user {
     padding: 0;
 }
 
-/* 2. Assicuriamoci che il form sia visibile */
 html body main.user-page-main div.user-layout div.content-area-user section#profilo form.profile-form {
     display: block;
 }
 
-/* 4. Trasformiamo gli input in testo normale (Fix per i campi mancanti) */
 html body main.user-page-main div.user-layout div.content-area-user section#profilo form.profile-form div.form-gruppo input {
     display: inline-block; 
     width: 100%; 
@@ -327,7 +314,7 @@ html body main.user-page-main div.user-layout div.content-area-user section#prof
     box-shadow: none;
     outline: none;
 }
-/* 5. Impaginazione a "Scheda" */
+
 html body main.user-page-main div.user-layout div.content-area-user section#profilo form.profile-form div.form-gruppo {
     display: flex;
     flex-direction: row;
@@ -344,46 +331,38 @@ html body main.user-page-main div.user-layout div.content-area-user section#prof
     margin-bottom: 0;
 }
 
-/* ==========================================================================
-   STILE DOMANDE E NOTIFICHE (GMAIL-LIST) - NO IMPORTANT
-   ========================================================================== */
+/* Domande e notifiche area admin*/
 
-/* 1. Forza la visualizzazione delle sezioni che contengono le liste */
 html body main.user-page-main .user-layout .content-area-user section#nuove-domande,
 html body main.user-page-main .user-layout .content-area-user section#centro-notifiche {
     display: block;
 }
 
-/* 2. Rimuove i pallini della lista e i margini predefiniti */
 html body main.user-page-main .user-layout .content-area-user ul.gmail-list {
     list-style-type: none;
     padding: 0;
     margin: 20pt 0;
 }
 
-/* 3. Crea il rettangolo intorno a ogni singola domanda/notifica */
 html body main.user-page-main .user-layout .content-area-user ul.gmail-list li {
     display: block;
-    border: 1.5pt solid #000; /* Bordo nero netto */
+    border: 1.5pt solid #000;
     padding: 15pt;
     margin-bottom: 15pt;
-    page-break-inside: avoid; /* Impedisce che una domanda venga spezzata tra due pagine */
+    page-break-inside: avoid; 
     background-color: transparent;
     position: relative;
 }
 
-/* 4. Formattazione del testo interno */
-/* Titolo o Oggetto della domanda */
 html body main.user-page-main .user-layout .content-area-user ul.gmail-list li strong,
 html body main.user-page-main .user-layout .content-area-user ul.gmail-list li h3 {
     display: block;
     font-size: 13pt;
     margin-bottom: 8pt;
-    border-bottom: 0.5pt solid #eee; /* Riga sottile divisoria interna */
+    border-bottom: 0.5pt solid #eee;
     padding-bottom: 3pt;
 }
 
-/* Testo della domanda/messaggio */
 html body main.user-page-main .user-layout .content-area-user ul.gmail-list li p {
     font-size: 11pt;
     line-height: 1.4;
@@ -391,7 +370,7 @@ html body main.user-page-main .user-layout .content-area-user ul.gmail-list li p
     color: #000;
 }
 
-/* FOOTER */
+/* Footer */
 html body .footer-sito {
     border-top: 1px solid #000;
     margin-top: 2rem;
