@@ -1,0 +1,141 @@
+/* RESET E TIPOGRAFIA */
+html body {
+    background-color: #fff;
+    color: #000;
+    font-size: 80%;
+    line-height: 1.5;
+}
+
+html body h1 { font-size: 2em; }
+html body h2 { font-size: 1.5em; }
+
+html body header {
+    text-align: center; /* Centra i testi e gli elementi inline */
+    border-bottom: 2px solid #000;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+html body *, html body main * {
+    color: #000;
+    background-color: transparent;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+/* Logo */
+html body #logo-sito {
+    display: block;
+    width: 120px;
+    height: auto;
+    margin: 0 auto 0.5rem auto; /* I due "auto" spingono il logo al centro */
+}
+
+/* Breadcumbs */
+
+html body #breadcrumb {
+    display: block;
+    font-size: 0.85em;
+    color: #000; /* Nero pieno per la massima leggibilità */
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+html body #breadcrumb a {
+    text-decoration: underline;
+    color: #000;
+}
+
+html body #breadcrumb .breadcrumb-active,
+html body #breadcrumb [aria-current="page"] {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+html body #breadcrumb a::after {
+    display: none;
+}
+
+html body #breadcrumb p {
+    margin: 0;
+}
+
+/* ELEMENTI NASCOSTI */
+#menu, #menu-utente, .sidebar-user, #sticky-bar, 
+.footer-nav, .action-box, .purchase-controls, .btn-auth, .buy-btn, 
+.btn-ritorno, .btn-biglietti, .btn-logout-small, .divider, 
+.error-visual, #pallina_triste, form, button, input, textarea {
+    display: none;
+}
+
+/* LAYOUT DELLE CARD (News, Biglietti, Campioni, Vantaggi)  */
+html body .rettangolo-notizia,
+html body .ticket-card,
+html body .card-campione,
+html body .benefit-card,
+html body .session-card,
+html body .seat-category {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Foto grandi (News, Biglietti, Campioni) */
+html body .home-news-img-wrapper,
+html body .card-header,
+html body .card-campione img {
+    flex-shrink: 0;
+    width: 120px;
+    height: auto;
+}
+
+/* Icone piccole (Vantaggi/Benefit e Sessioni) */
+html body .benefit-icon-wrapper,
+html body .session-icon,
+html body .icone-menu {
+    flex-shrink: 0;
+    width: 40px;
+    height: auto;
+}
+
+/* Immagini descrittive (Mappe degli stadi, Legende) */
+html body .stadium-map img,
+html body .map-img {
+    width: 300px;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+}
+
+html body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* ACCESSIBILITÀ LINK */
+html body main a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+}
+
+html body .rettangolo-notizia::after,
+html body .ticket-card::after,
+html body .card-campione::after {
+    display: none;
+}
+
+/* FOOTER */
+html body .footer-sito {
+    border-top: 1px solid #000;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+}
