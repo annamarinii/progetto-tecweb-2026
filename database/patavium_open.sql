@@ -74,12 +74,12 @@ CREATE TABLE FAQ (
 );
 
 
--- INSERT PER LE TABELLE
+-- INSERT PER LE TABELLE (inserimento user user, admin admin)
 
-INSERT INTO UTENTE (username, email, password, nome, cognome, isAdmin) 
+INSERT INTO UTENTE (username, email, password, nome, cognome, isAdmin)
 VALUES 
-('admin', 'admin@pataviumopen.it', 'hash_password_sicura_1', 'Anna', 'Marini', 1),
-('user', 'user@pataviumopen.it', 'hash_password_sicura_2', 'Mario', 'Rossi', 0);
+('admin', 'admin@pataviumopen.it', '$2y$10$hJs.Dy1/uAcVxtJDMjwE0OqvxWaiwysPVoOaTOs7eqFPNM4ObP8sW', 'admin', 'admin', 1),
+('user', 'user@pataviumopen.it', '$2y$10$3c2HqNP45kB2OHZUPl3Zh.giWOM/hT0JFAriYHZPNIk7pw7zMYgeG', 'user', 'user', 0);
 
 INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
 -- Giorno 1 (18)
