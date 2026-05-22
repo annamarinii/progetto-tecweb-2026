@@ -1,7 +1,7 @@
 <?php
 
 require '../php-Manager/init_session.php';
-/** @var string $destinazione_profilo */
+require_once '../php-Manager/Tool.php';
 
 $carrello = isset($_SESSION['carrello']) ? $_SESSION['carrello'] : [];
 $totale = 0;
@@ -60,7 +60,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['ordine'])) 
 // 3. CARICAMENTO TEMPLATE E SOSTITUZIONE SEGNAPOSTO
 $pagina = file_get_contents('../html/carrello.html');
 
-$pagina = str_replace('[link_profilo]', $destinazione_profilo, $pagina);
+$pagina = str_replace('[Header]', Tool::buildHeader('carrello'), $pagina);
+$pagina = str_replace('[Footer]', Tool::buildFooter('carrello'), $pagina);
+
 $pagina = str_replace('[banner_esito]', $html_banner, $pagina);
 $pagina = str_replace('[lista_carrello]', $html_lista, $pagina);
 $pagina = str_replace('[totale_carrello]', "€ " . number_format($totale, 2, ',', '.'), $pagina);

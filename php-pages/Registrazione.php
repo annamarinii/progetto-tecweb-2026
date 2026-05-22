@@ -1,69 +1,69 @@
 <?php
+require_once '../php-Manager/init_session.php';
+require_once '../php-Manager/AccountManager.php';
+require_once '../php-Manager/Tool.php';
 
-require_once "../php-Manager/AccountManager.php";
+// CONTROLLO SESSIONE
+if (Tool::isLoggedIn()) {
+    header("Location: AreaUtente.php");
+    exit();
+}
 
-// Identifichiamo se la richiesta è di tipo AJAX
-$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 $messaggio_esito = "";
-$status_successo = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Pulizia dei dati
-    $nome     = htmlspecialchars(trim($_POST['nome']));
-    $cognome  = htmlspecialchars(trim($_POST['cognome']));
-    $username = htmlspecialchars(trim($_POST['username']));
-    $email    = htmlspecialchars(trim($_POST['email']));
-    $password = $_POST['pass']; 
-    $ripeti_password = $_POST['ripeti_pass'];
+    $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+
+    // Pulizia dei dati (Inversione di rotta: solo trim in ingresso, XSS gestito in uscita)
+    $nome = trim($_POST['nome'] ?? '');
+    $cognome = trim($_POST['cognome'] ?? '');
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['pass'] ?? '';
+    $ripeti_password = $_POST['ripeti_pass'] ?? '';
 
     // Logica di validazione
-    if ($password !== $ripeti_password) {
-        $messaggio_esito = "Errore: Le password non coincidono.";
-    } elseif (!preg_match("/^[a-zA-ZÀ-ÿ\s']{1,30}$/", $nome) || !preg_match("/^[a-zA-ZÀ-ÿ\s']{1,30}$/", $cognome)) {
-        $messaggio_esito = "Errore: Nome o cognome non validi (max 30 caratteri, solo lettere).";
-    } elseif (!preg_match("/^[a-zA-Z0-9._]{1,16}$/", $username)) {
-        $messaggio_esito = "Errore: Username non valido (max 16 caratteri alfanumerici).";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 100) {
-        $messaggio_esito = "Errore: Indirizzo email non valido.";
+    $status_successo = false;
+
+    if (empty($nome) || empty($cognome) || empty($username) || empty($email) || empty($password) || empty($ripeti_password)) {
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Tutti i campi sono obbligatori.</div>";
+    } elseif ($password !== $ripeti_password) {
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Le password non coincidono.</div>";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Indirizzo email non valido.</div>";
     } elseif (strlen($password) < 8 || strlen($password) > 20) {
-        $messaggio_esito = "Errore: La password deve avere tra 8 e 20 caratteri.";
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> La password deve avere tra 8 e 20 caratteri.</div>";
     } else {
-        $utente_esiste = AccountManager::check($username, $email);
+        $risultato = AccountManager::registraUtente($nome, $cognome, $username, $email, $password);
 
-        if ($utente_esiste) {
-            $messaggio_esito = "Errore: Username o Email già in uso. Scegline altri.";
+        if ($risultato === true) {
+            $status_successo = true;
+            $messaggio_esito = "<div class='form-message message-success' role='alert' aria-live='assertive'><strong>Ottimo!</strong> Registrazione completata. Stai per essere reindirizzato al login...</div>";
+        } elseif ($risultato === 'email_esistente') {
+            $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Esiste già un account con questa e-mail. <a href='Login.php'>Accedi qui</a></div>";
+        } elseif ($risultato === 'username_esistente') {
+            $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Questo username è già in uso.</div>";
         } else {
-            $salvato = AccountManager::registraUtente($username, $email, $password, $nome, $cognome);
-
-            if ($salvato) {
-                $status_successo = true;
-                $messaggio_esito = "Registrazione completata! Ora puoi fare il Login.";
-            } else {
-                $messaggio_esito = "Errore tecnico durante il salvataggio. Riprova.";
-            }
+            $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Si è verificato un errore tecnico. Riprova più tardi.</div>";
         }
     }
 
-    // SE LA RICHIESTA È AJAX: Rispondi solo con i dati, non caricare l'HTML
     if ($isAjax) {
         header('Content-Type: application/json');
         echo json_encode([
-            'status'  => $status_successo ? 'success' : 'error',
+            'status' => $status_successo ? 'success' : 'error',
             'message' => $messaggio_esito
         ]);
-        exit; // Ferma l'esecuzione qui
+        exit;
     }
 }
 
-// SE LA RICHIESTA È NORMALE (o primo caricamento): Carica l'HTML come prima
-$html_messaggio = "";
-if ($messaggio_esito !== "") {
-    $classe = $status_successo ? "message-success" : "message-error";
-    $html_messaggio = "<div class='form-message $classe'>$messaggio_esito " . ($status_successo ? "<a href='Login.php' class='btn-link'>Fai il Login</a>" : "") . "</div>";
-}
-
+// 4. PREPARAZIONE PAGINA
 $pagina_html = file_get_contents('../html/registrazione.html');
-$pagina_finita = str_replace('[messaggio_esito]', $html_messaggio, $pagina_html);
 
-echo $pagina_finita;
+$pagina_html = str_replace('[Header]', Tool::buildHeader('registrazione'), $pagina_html);
+$pagina_html = str_replace('[Footer]', Tool::buildFooter('registrazione'), $pagina_html);
+$pagina_html = str_replace('[MessaggioEsito]', $messaggio_esito, $pagina_html);
+
+echo $pagina_html;

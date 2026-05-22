@@ -2,23 +2,22 @@
 
 require_once '../php-Manager/init_session.php';
 require_once '../php-Manager/FaqManager.php';
-/** @var string $destinazione_profilo */
-
+require_once '../php-Manager/Tool.php';
 
 $messaggio_esito_form = "";
 
 // --- GESTIONE DEL FORM ---
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (!isset($_SESSION['idUtente'])) {
-        // NON è loggato: Classe 'message-error'
+    if (!Tool::isLoggedIn()) {
         $messaggio_esito_form = "
-        <div class='form-message message-error'>
+        <div class='form-message message-error' role='alert' aria-live='assertive'>
             <strong>Attenzione:</strong> Devi effettuare l'accesso per inviare una richiesta. 
             <a href='Login.php'>Clicca qui per accedere</a>.
         </div>";
     } else {
-        $testo_messaggio = trim($_POST['messaggio']);
+        // Dati puliti solo da tag dannosi in ingresso (strip_tags) senza convertire entità HTML
+        $testo_messaggio = trim(strip_tags($_POST['messaggio']));
         $id_utente_corrente = $_SESSION['idUtente'];
 
         if (!empty($testo_messaggio)) {
@@ -27,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($salvataggio_ok) {
                 // Successo: Classe 'message-success'
                 $messaggio_esito_form = "
-                <div class='form-message message-success'>
+                <div class='form-message message-success' role='alert' aria-live='assertive'>
                     <strong>Ottimo! </strong> La tua richiesta è stata inviata. Riceverai risposta nella tua Area Personale.
                 </div>";
             } else {
                 // Errore database: Classe 'message-error'
                 $messaggio_esito_form = "
-                <div class='form-message message-error'>
+                <div class='form-message message-error' role='alert' aria-live='assertive'>
                     <strong>Errore:</strong> Problema tecnico durante l'invio. Riprova più tardi.
                 </div>";
             }
@@ -46,9 +45,8 @@ $html_faq_dinamico = "";
 
 if (count($lista_faq_db) > 0) {
     foreach ($lista_faq_db as $singola_faq) {
-        // funzione per pulì i dati
-        $domanda_sicura = htmlspecialchars($singola_faq['testo_domanda']);
-        $risposta_sicura = htmlspecialchars($singola_faq['testo_risposta']);
+        $domanda_sicura = Tool::pulisciInput($singola_faq['testo_domanda']);
+        $risposta_sicura = Tool::pulisciInput($singola_faq['testo_risposta']);
 
         // costruzione blocco da buttare dentro html
         $html_faq_dinamico .= '<details class="faq-item">';
@@ -64,8 +62,10 @@ if (count($lista_faq_db) > 0) {
 }
 
 $pagina_html = file_get_contents('../html/faq.html');
+$pagina_html = str_replace('[Header]', Tool::buildHeader('faq'), $pagina_html);
+$pagina_html = str_replace('[Footer]', Tool::buildFooter('faq'), $pagina_html);
+
 $pagina_html = str_replace('[lista_faq]', $html_faq_dinamico, $pagina_html);
-$pagina_html = str_replace('[link_profilo]', $destinazione_profilo, $pagina_html); //se è loggato innietto il link alla sua areautente
 $pagina_html = str_replace('[messaggio_esito_form]', $messaggio_esito_form, $pagina_html);
 
 echo $pagina_html;

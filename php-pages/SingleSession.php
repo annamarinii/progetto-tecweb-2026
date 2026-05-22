@@ -1,8 +1,7 @@
 <?php
 require '../php-Manager/init_session.php';
 require_once '../php-Manager/TicketManager.php';
-
-/** @var string $destinazione_profilo */
+require_once '../php-Manager/Tool.php';
 
 // Gestione richiesta dinamica (AJAX)
 if (isset($_POST['data_scelta']) && isset($_POST['sessione_scelta'])) {
@@ -27,8 +26,8 @@ if (isset($_POST['data_scelta']) && isset($_POST['sessione_scelta'])) {
 // Caricamento della pagina statica
 $pagina_html = file_get_contents('../html/single_session.html');
 
-// Iniezione link profilo
-$pagina_html = str_replace('[link_profilo]', $destinazione_profilo, $pagina_html);
+$pagina_html = str_replace('[Header]', Tool::buildHeader('single_session'), $pagina_html);
+$pagina_html = str_replace('[Footer]', Tool::buildFooter('single_session'), $pagina_html);
 
 // Placeholder iniziali: li lasciamo vuoti o con un trattino
 $fill = "---";

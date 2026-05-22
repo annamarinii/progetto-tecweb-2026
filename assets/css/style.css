@@ -2193,21 +2193,24 @@ main {
 
 /* Correzione: aggiunto selettore specifico e virgola mancante */
 #form-registrazione input.invalid {
-    border: 2px solid var(--arancione-scuro); /* Aggiunta virgola qui */
+    border: 2px solid var(--arancione-scuro);
+    /* Aggiunta virgola qui */
     background-color: #fff5f0;
     transition: all 0.3s ease;
     box-shadow: 0 0 0 4px rgba(165, 70, 0, 0.1);
 }
 
-.error-message, .errore-msg {
-    display: none; 
+.error-message,
+.errore-msg {
+    display: none;
     color: var(--arancione-scuro);
     font-size: 0.85rem;
     font-weight: bold;
     margin-top: 5px;
 }
 
-.error-message.visible, .errore-msg.visible {
+.error-message.visible,
+.errore-msg.visible {
     display: block;
     animation: shake 0.4s ease-in-out;
 }
@@ -2279,9 +2282,19 @@ main {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
 }
 
 
@@ -2440,7 +2453,8 @@ main {
 /* Feedback durante la rimozione */
 .removing-item {
     opacity: 0.5;
-    pointer-events: none; /* Impedisce altri click durante l'invio */
+    pointer-events: none;
+    /* Impedisce altri click durante l'invio */
 }
 
 .fade-out-right {
@@ -3060,10 +3074,13 @@ main {
 
 /* Gestione Accordion */
 .mail-content {
-    display: none; /* Nascondi di default */
+    display: none;
+    /* Nascondi di default */
 }
+
 .mail-row.open .mail-content {
-    display: block; /* Mostra solo quando la riga ha la classe open */
+    display: block;
+    /* Mostra solo quando la riga ha la classe open */
 }
 
 /* Animazioni di rimozione */
@@ -3332,7 +3349,7 @@ main {
 }
 
 .action-icon img {
-    width: 60px; 
+    width: 60px;
     height: auto;
 }
 
@@ -4178,6 +4195,58 @@ main {
 }
 
 /*non eliminare questo serve per il css della stampa*/
-.testo-solo-stampa{
+.testo-solo-stampa {
     display: none;
+}
+
+/* ==========================================================
+   ACCESSIBILITA' (SKIP-LINK) E TORNA SU (BACK-TO-TOP)
+   ========================================================== */
+
+/* Skip Link - Nascosto visivamente, appare solo con il tasto Tab (WCAG AA) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background-color: var(--primaryBlue);
+    color: var(--offWhite);
+    padding: 1rem;
+    z-index: 9999;
+    transition: top 0.3s ease;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Pulsante Torna Su */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--arancione);
+    color: var(--offWhite);
+    border: 2px solid var(--arancione-scuro);
+    width: 4rem;
+    /* Cerchio più grande */
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    /* Freccia più grande */
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.back-to-top:hover,
+.back-to-top:focus {
+    background-color: var(--arancione-scuro);
+    color: var(--offWhite);
+    transform: translateY(-5px);
 }

@@ -1,44 +1,24 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xml:lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biglietti-Single Session</title>
-    <link rel="stylesheet" href="../assets/css/style.css" media="screen">
-    <link rel="stylesheet" href="../assets/css/print.css" media="print">
+    <link rel="stylesheet" href="../assets/css/style.css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/print.css" media="print" />
 </head>
 
-<body>
-    <header>
-        <a href="../index.php" class="logo-link">
-            <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
-            <span>Patavium Open</span>
-        </a>
-
-        <nav id="menu">
-            <ul>
-                <li><a href="../index.php" lang="en">Home</a></li>
-                <li id="currentLink">Biglietti</li>
-                <li><a href="News.php" lang="en">News</a></li>
-                <li><a href="Faq.php">Domande</a></li>
-            </ul>
-
-            <ul id="menu-utente">
-                <li><a href="[link_profilo]">
-                        <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</a></li>
-                <li><a href="Carrello.php">
-                        <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
-            </ul>
-        </nav>
-    </header>
+<body id="top">
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
+    [Header]
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
         <p>Ti trovi in: <a href="../index.php" lang="en">Home</a> &gt; <a href="../php-pages/Biglietti.php">Biglietti</a> &gt;
             <span class="breadcrumb-active" aria-current="page" lang="en">Single Session</span>
         </p>
     </nav>
-    <main>
+    <main id="main-content">
         <div id="sticky-bar" class="sticky-bar">
             <div class="sticky-content">
                 <div class="sticky-title"><span lang="en">Single Session</span></div>
@@ -46,19 +26,19 @@
                 <div class="stepper">
                     <div class="step active" id="step-date">
                         <span id="icon-date" class="step-icon"> <img src="../assets/images/calendar.png"
-                                alt="Fase 1: Selezione della data"></span>
+                                alt="Fase 1: Selezione della data" /></span>
                         <span class="step-label">DATA</span>
                     </div>
                     <div class="step-line"></div>
                     <div class="step" id="step-session">
                         <span id="icon-session" class="step-icon"> <img src="../assets/images/tennis.png"
-                                alt="Fase 2: Selezione della sessione"></span>
+                                alt="Fase 2: Selezione della sessione" /></span>
                         <span class="step-label"><span lang="en">SESSION</span></span>
                     </div>
                     <div class="step-line"></div>
                     <div class="step" id="step-seat">
                         <span id="icon-seat" class="step-icon"> <img src="../assets/images/sofa.png"
-                                alt="Fase 3: Selezione della tribuna"></span> <span class="step-label">POSTO</span>
+                                alt="Fase 3: Selezione della tribuna" /></span> <span class="step-label">POSTO</span>
                     </div>
                 </div>
 
@@ -90,7 +70,7 @@
                 <div class="benefit-card">
                     <div class="benefit-icon-wrapper">
                         <img src="../assets/images/sofa.png" class="zoomed-icon"
-                            alt="Spettatori seduti sulle tribune del campo centrale">
+                            alt="Spettatori seduti sulle tribune del campo centrale" />
                     </div>
                     <div class="benefit-text">
                         <h3>Posto riservato</h3>
@@ -101,7 +81,7 @@
                 <div class="benefit-card">
                     <div class="benefit-icon-wrapper">
                         <img src="../assets/images/court.png" class="zoomed-icon"
-                            alt="Tifosi e visitatori passegiano per il villaggio del torneo">
+                            alt="Tifosi e visitatori passegiano per il villaggio del torneo" />
                     </div>
                     <div class="benefit-text">
                         <h3><span lang="en">Campus Experience</span></h3>
@@ -207,7 +187,7 @@
                 <div class="session-card">
                     <div class="session-top">
                         <div class="session-icon">
-                            <img src="../assets/images/sun.png" alt="Icona sole: Sessione Diurna">
+                            <img src="../assets/images/sun.png" alt="Icona sole: Sessione Diurna" />
                         </div>
                         <div class="session-title-group">
                             <h3>Sessione Diurna</h3>
@@ -227,7 +207,7 @@
                 <div class="session-card">
                     <div class="session-top">
                         <div class="session-icon">
-                            <img src="../assets/images/moon.png" alt="Icona luna: Sessione Serale">
+                            <img src="../assets/images/moon.png" alt="Icona luna: Sessione Serale" />
                         </div>
                         <div class="session-title-group">
                             <h3>Sessione Serale</h3>
@@ -261,7 +241,7 @@
             <div class="seat-wrapper">
                 <div class="stadium-map">
                     <img src="../assets/images/legenda_tribune.png" alt="Mappa dell'arena: i posti Courtside Premium sono i più vicini, situati lungo i bordi del campo. La Tribuna Antenore offre una visuale orizzontale completa da un lato lungo, permettendo di seguire lo scambio da destra a sinistra. La Tribuna Fondo Campo copre le porzioni laterali dei lati corti, con una visuale verticale dove i giocatori sono allineati uno davanti all'altro. L'Anello Superiore è il settore più elevato con vista panoramica globale."
-                        class="map-img">
+                        class="map-img" />
                 </div>
 
                 <div class="seat-options">
@@ -305,8 +285,8 @@
                             <div class="quantity-selector" role="group" aria-labelledby="qty-label">
                                 <button type="button" class="qty-btn minus" aria-label="Diminuisci quantità "
                                     >-</button>
-                                <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly
-                                    aria-labelledby="qty-label">
+                                <input type="number" id="ticket-qty" value="1" min="1" max="10" readonly="readonly"
+                                    aria-labelledby="qty-label" />
                                 <button type="button" class="qty-btn plus" aria-label="Aumenta quantità "
                                     >+</button>
                             </div>
@@ -323,28 +303,10 @@
             </div>
         </section>
     </main>
-    <footer class="footer-sito">
-        <hr aria-hidden="true">
-
-        <div class="footer-contenuto">
-
-            <div class="footer-logo">
-                <img src="../assets/images/logo1.png" alt="Patavium Open" width="120">
-            </div>
-
-            <nav class="footer-nav" aria-label="Informazioni legali">
-                <ul>
-                    <li><a href="../html/termini.html">Termini e condizioni</a></li>
-                    <li><a href="../html/privacy.html">Informativa sulla privacy</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <p class="footer-copyright">&copy; 2027 Patavium Open. Tutti i diritti riservati.</p>
-    </footer>
+    [Footer]
     <script src="../javascript/script.js"></script>
 
+    <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
 </body>
 
 </html>

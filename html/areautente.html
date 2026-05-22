@@ -1,50 +1,26 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xml:lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Area Personale Utente | Patavium Open</title>
-    <link rel="stylesheet" href="../assets/css/style.css" media="screen">
-    <link rel="stylesheet" href="../assets/css/print.css" media="print">
+    <link rel="stylesheet" href="../assets/css/style.css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/print.css" media="print" />
 </head>
 
-<body>
+<body id="top">
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
 
-    <header>
-        <a href="../home.html" class="logo-link">
-            <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
-            <span>Patavium Open</span>
-        </a>
-
-        <nav id="menu">
-            <ul>
-                <li><a href="../index.php" lang="en">Home</a></li>
-                <li><a href="Biglietti.php">Biglietti</a></li>
-                <li><a href="News.php" lang="en">News</a></li>
-                <li><a href="Faq.php">Domande</a></li>
-            </ul>
-
-            <ul id="menu-utente">
-                <li id="currentLink">
-                    <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo
-                </li>
-                <li>
-                    <a href="Carrello.php">
-                        <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    [Header]
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
         <p>Ti trovi in: <a href="../home.html" lang="en">Home</a> &gt; <span class="breadcrumb-active"
-                                                                             aria-current="page">Profilo</span></p>
+                aria-current="page">Profilo</span></p>
         <a href="../php-Manager/Logout.php" class="btn-logout-small" aria-label="Esci dal tuo account" lang="en">Log
             Out</a>
     </nav>
-    <main class="user-page-main">
+    <main id="main-content" class="user-page-main">
         <div class="user-page-header">
             <h1>Area Personale</h1>
             <div class="divider"></div>
@@ -76,19 +52,21 @@
                     <form class="profile-form" action="../php-pages/AreaUtente.php" method="POST">
                         <div class="form-gruppo">
                             <label for="nome">Nome:</label>
-                            <input type="text" id="nome" name="nome" value="[nome_utente]" readonly>
+                            <input type="text" id="nome" name="nome" value="[nome_utente]" readonly="readonly" />
                         </div>
                         <div class="form-gruppo">
                             <label for="cognome">Cognome:</label>
-                            <input type="text" id="cognome" name="cognome" value="[cognome_utente]" readonly>
+                            <input type="text" id="cognome" name="cognome" value="[cognome_utente]"
+                                readonly="readonly" />
                         </div>
                         <div class="form-gruppo">
                             <label for="email">Indirizzo Email:</label>
-                            <input type="email" id="email" name="email" value="[email_utente]" readonly>
+                            <input type="email" id="email" name="email" value="[email_utente]" readonly="readonly" />
                         </div>
                         <div class="form-gruppo">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" value="[username_utente]" readonly>
+                            <input type="text" id="username" name="username" value="[username_utente]"
+                                readonly="readonly" />
                         </div>
                         <button type="button" id="btn-modifica" class="btn-auth">Modifica Profilo</button>
                         <button type="submit" id="btn-salva" class="btn-auth d-none">Salva
@@ -98,17 +76,13 @@
 
                 <section id="miei-biglietti" aria-labelledby="titolo-biglietti" class="content-card tab-content">
                     <h2 id="titolo-biglietti">I miei biglietti</h2>
-                    <ul class="orders-list-user">
-                        [lista_ordini] 
-                    </ul>
+                        [lista_ordini]
                 </section>
 
                 <section id="centro-notifiche" aria-labelledby="titolo-notifiche" class="content-card tab-content">
                     <h2 id="titolo-notifiche">Comunicazioni dal Team</h2>
                     <div role="region" aria-live="polite">
-                        <ul class="gmail-list">
                             [lista_notifiche]
-                        </ul>
                     </div>
                 </section>
 
@@ -119,6 +93,7 @@
     <script src="../javascript/areautente.js"></script>
     <script src="../javascript/gestione_risposte_utente.js"></script>
     <script src="../javascript/script.js"></script>
+    <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
 </body>
 
 </html>

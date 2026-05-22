@@ -1,45 +1,24 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xml:lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patavium Open</title>
-    <meta name="keywords" content="Patavium Open, Tennis, Biglietti Tennis, Torneo, Padova, Abbonamenti, Stadio">
+    <meta name="keywords" content="Patavium Open, Tennis, Biglietti Tennis, Torneo, Padova, Abbonamenti, Stadio" />
     <meta name="description"
-        content="Benvenuti alla biglietteria ufficiale del Patavium Open. Scopri il programma del torneo, scegli il tuo settore e acquista i biglietti per le sfide più attese della stagione tennistica.">
-    <link rel="stylesheet" href="assets/css/style.css" media="screen">
-    <link rel="stylesheet" href="assets/css/print.css" media="print">
+        content="Benvenuti alla biglietteria ufficiale del Patavium Open. Scopri il programma del torneo, scegli il tuo settore e acquista i biglietti per le sfide più attese della stagione tennistica." />
+    <link rel="stylesheet" href="assets/css/style.css" media="screen" />
+    <link rel="stylesheet" href="assets/css/print.css" media="print" />
 </head>
 
-<body>
-    <header>
-        <a href="index.php" class="logo-link">
-            <img src="assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
-            <h1>Patavium Open</h1>
-        </a>
-
-        <nav id="menu">
-            <ul>
-                <li id="currentLink" lang="en">Home</li>
-                <li><a href="php-pages/Biglietti.php">Biglietti</a></li>
-                <li><a href="php-pages/News.php" lang="en">News</a></li>
-                <li><a href="php-pages/Faq.php">Domande</a></li>
-            </ul>
-
-            <ul id="menu-utente">
-                <li><a href="[link_profilo]">
-                        <img src="assets/images/user.svg" alt="" class="icone-menu">Profilo</a></li>
-                <li><a href="php-pages/Carrello.php">
-                        <img src="assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+<body id="top">
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
+    [Header]
     <nav id="breadcrumb">
         <p>Ti trovi in: <span lang="en" class="breadcrumb-active" aria-current="page">Home</span></p>
     </nav>
-    <main>
+    <main id="main-content">
         <div class="hero-section">
             <h1>Patavium Open</h1>
             <h2><time datetime="2027-05-18">18</time>-<time datetime="2027-05-24">24 Maggio 2027</time></h2>
@@ -77,7 +56,7 @@
             <div class="griglia-campioni">
 
                 <article class="card-campione">
-                    <img src="assets/images/lorenzo_costa.jpg" alt="Lorenzo Costa">
+                    <img src="assets/images/lorenzo_costa.jpg" alt="Lorenzo Costa" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Maschile 2026</span>
                         <h3>Lorenzo Costa</h3>
@@ -85,7 +64,7 @@
                 </article>
 
                 <article class="card-campione">
-                    <img src="assets/images/sofia_esposito.jpg" alt="Sofia Esposito">
+                    <img src="assets/images/sofia_esposito.jpg" alt="Sofia Esposito" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Femminile 2026</span>
                         <h3>Sofia Esposito</h3>
@@ -93,7 +72,7 @@
                 </article>
 
                 <article class="card-campione">
-                    <img src="assets/images/david_richard.jpg" alt="David Richard">
+                    <img src="assets/images/david_richard.jpg" alt="David Richard" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Maschile 2025</span>
                         <h3>David Richard</h3>
@@ -101,7 +80,7 @@
                 </article>
 
                 <article class="card-campione">
-                    <img src="assets/images/alicia_schneider.jpg" alt="Alicia Schneider">
+                    <img src="assets/images/alicia_schneider.jpg" alt="Alicia Schneider" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Femminile 2025</span>
                         <h3>Alicia Schneider</h3>
@@ -122,62 +101,13 @@
 
             <div class="lista-notizie">
 
-                <a href="php-pages/News.php" class="rettangolo-notizia">
-                    <div class="home-news-img-wrapper">
-                        <img src="[news_1_img]" alt="[news_1_title]" class="home-news-img">
-                    </div>
-                    <div class="home-news-content">
-                        <time datetime="[news_1_date_iso]">[news_1_date]</time>
-                        <h3>[news_1_title]</h3>
-                        <p>[news_1_text]</p>
-                    </div>
-                </a>
-
-                <a href="php-pages/News.php" class="rettangolo-notizia">
-                    <div class="home-news-img-wrapper">
-                        <img src="[news_2_img]" alt="[news_2_title]" class="home-news-img img-top">
-                    </div>
-                    <div class="home-news-content">
-                        <time datetime="[news_2_date_iso]">[news_2_date]</time>
-                        <h3>[news_2_title]</h3>
-                        <p>[news_2_text]</p>
-                    </div>
-                </a>
-
-                <a href="php-pages/News.php" class="rettangolo-notizia">
-                    <div class="home-news-img-wrapper">
-                        <img src="[news_3_img]" alt="[news_3_title]" class="home-news-img img-contain img-left">
-                    </div>
-                    <div class="home-news-content">
-                        <time datetime="[news_3_date_iso]">[news_3_date]</time>
-                        <h3>[news_3_title]</h3>
-                        <p>[news_3_text]</p>
-                    </div>
-                </a>
+                [NewsCards]
 
             </div>
         </section>
     </main>
-    <footer class="footer-sito">
-        <hr aria-hidden="true">
-
-        <div class="footer-contenuto">
-
-            <div class="footer-logo">
-                <img src="assets/images/logo1.png" alt="Patavium Open" width="120">
-            </div>
-
-            <nav class="footer-nav" aria-label="Informazioni legali">
-                <ul>
-                    <li><a href="html/termini.html">Termini e condizioni</a></li>
-                    <li><a href="html/privacy.html">Informativa sulla privacy</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <p class="footer-copyright">&copy; 2027 Patavium Open. Tutti i diritti riservati.</p>
-    </footer>
+    [Footer]
+    <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
 </body>
 
 </html>

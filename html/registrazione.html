@@ -1,40 +1,24 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xml:lang="it" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registrazione - Patavium Open</title>
-    <link rel="stylesheet" href="../assets/css/style.css" media="screen">
-    <link rel="stylesheet" href="../assets/css/print.css" media="print">
-    <meta name="description" content="Crea il tuo account Patavium Open per acquistare biglietti e accedere al tuo profilo.">
+    <link rel="stylesheet" href="../assets/css/style.css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/print.css" media="print" />
+    <meta name="description" content="Crea il tuo account Patavium Open per acquistare biglietti e accedere al tuo profilo." />
 
 </head>
-<body>
+<body id="top">
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
 
-<header>
-    <a href="../index.php" class="logo-link">
-        <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
-        <span>Patavium Open</span>
-    </a>
-    <nav id="menu">
-        <ul>
-            <li><a href="../index.php" lang="en">Home</a></li>
-            <li><a href="Biglietti.php">Biglietti</a></li>
-            <li><a href="News.php" lang="en">News</a></li>
-            <li><a href="Faq.php">Domande</a></li>
-        </ul>
-        <ul id="menu-utente">
-            <li id="currentLink"><img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo</li>
-            <li><a href="Carrello.php"><img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
-        </ul>
-    </nav>
-</header>
+[Header]
 
 <nav id="breadcrumb" aria-label="Ti trovi in:">
-    <p>Ti trovi in: <a href="../index.php" lang="en">Home</a> &gt; <a href="../php-pages/Login.php">Profilo</a> &gt; <a href="../php-pages/Registrazione.php" class="breadcrumb-active" aria-current="page">Registrazione</a></p>
+    <p>Ti trovi in: <a href="../index.php" lang="en">Home</a> &gt; <a href="../php-pages/Login.php">Profilo</a> &gt; <span class="breadcrumb-active" aria-current="page">Registrazione</span></p>
 </nav>
 
-<main class="registrazione-main">
+<main id="main-content" class="registrazione-main">
     <div class="registrazione-card">
         <section class="register-section">
             <header class="auth-header">
@@ -42,19 +26,21 @@
                 <p>Unisciti al Patavium Open ed entra a far parte del nostro club esclusivo.</p>
             </header>
             
+            [MessaggioEsito]
+            
             <form id="form-registrazione" class="auth-form" action="../php-pages/Registrazione.php" method="POST" novalidate>
                 
                 <div class="form-row">
                     <div class="form-gruppo">
                         <label for="nome">Nome</label>
                         <input type="text" id="nome" name="nome" placeholder="Es. Mario" 
-                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required>
+                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" />
                         <span class="errore-msg" id="err-nome" aria-live="polite"></span>
                     </div>
                     <div class="form-gruppo">
                         <label for="cognome">Cognome</label>
                         <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" 
-                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required> 
+                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" /> 
                         <span class="errore-msg" id="err-cognome" aria-live="polite"></span>
                     </div>
                 </div>
@@ -62,47 +48,43 @@
                 <div class="form-gruppo">
                     <label for="username">Username (max 16 caratteri, no spazi)</label>
                     <input type="text" id="username" name="username" placeholder="Es. TennisFan99" 
-                           pattern="^[a-zA-Z0-9._]{1,16}$" maxlength="16" title="Puoi usare solo lettere, numeri, punti e underscore. Max 16 caratteri" required> 
+                           pattern="^[a-zA-Z0-9._]{1,16}$" maxlength="16" title="Puoi usare solo lettere, numeri, punti e underscore. Max 16 caratteri" required="required" /> 
                     <span class="errore-msg" id="err-username" aria-live="polite"></span>
                 </div>
 
                 <div class="form-gruppo">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" maxlength="50" placeholder="esempio@email.com" required 
-                           title="Inserire un indirizzo email valido (es. nome@dominio.it)">
+                    <input type="email" id="email" name="email" maxlength="50" placeholder="esempio@email.com" required="required" 
+                           title="Inserire un indirizzo email valido (es. nome@dominio.it)" />
                     <span class="errore-msg" id="err-email" aria-live="polite"></span>
                 </div>
 
                 <div class="form-gruppo">
                     <label for="pass">Password (8-20 caratteri)</label>
                     <input type="password" id="pass" name="pass"
-                           minlength="8" maxlength="20" placeholder="Inserisci password" required
-                           title="La password deve avere tra 8 e 20 caratteri">
+                           minlength="8" maxlength="20" placeholder="Inserisci password" required="required"
+                           title="La password deve avere tra 8 e 20 caratteri" />
                     <span class="errore-msg" id="err-pass" aria-live="polite"></span>
                 </div>
 
                 <div class="form-gruppo">
                     <label for="ripeti_pass">Ripeti Password</label>
                     <input type="password" id="ripeti_pass" name="ripeti_pass" 
-                           minlength="8" maxlength="20" placeholder="Conferma password" required>
+                           minlength="8" maxlength="20" placeholder="Conferma password" required="required" />
                     <span class="errore-msg" id="err-ripeti_pass" aria-live="polite"></span>
                 </div>
                 
                 <button type="submit" class="btn-auth">Registrati Subito</button>
-                <div id="messaggio-ajax"></div>
 
             </form>
             
-            <footer class="auth-footer">
-                <p>Hai già un account? <a href="../php-pages/Login.php">Torna al Login</a></p>
-            </footer>
         </section>
     </div>
 </main>
 
-<footer class="footer-sito">
-    </footer>
+[Footer]
 
 <script src="../javascript/validazione-reg.js"></script>
+    <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
 </body>
 </html>

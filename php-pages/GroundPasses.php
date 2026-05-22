@@ -2,8 +2,8 @@
 
 require '../php-Manager/init_session.php';
 require_once '../php-Manager/TicketManager.php';
+require_once '../php-Manager/Tool.php';
 
-/** @var string $destinazione_profilo */
 
 //connessione con ticket.js
 if (isset($_POST['data_scelta'])) {
@@ -27,7 +27,8 @@ if (isset($_POST['data_scelta'])) {
 $prezzo_iniziale = "";
 
 $pagina_html = file_get_contents('../html/ground_passes.html');
-$pagina_html = str_replace('[link_profilo]', $destinazione_profilo, $pagina_html);
+$pagina_html = str_replace('[Header]', Tool::buildHeader('ground_passes'), $pagina_html);
+$pagina_html = str_replace('[Footer]', Tool::buildFooter('ground_passes'), $pagina_html);
 $pagina_html = str_replace('[prezzo_ground_std]', $prezzo_iniziale, $pagina_html);
 
 echo $pagina_html;

@@ -1,44 +1,24 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xml:lang="it" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="../assets/css/style.css" media="screen">
-    <link rel="stylesheet" href="../assets/css/print.css" media="print">
+    <link rel="stylesheet" href="../assets/css/style.css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/print.css" media="print" />
 </head>
 
-<body>
-    <header>
-        <a href="../index.php" class="logo-link">
-            <img src="../assets/images/logo1.png" alt="Patavium Open" id="logo-sito">
-            <span>Patavium Open</span>
-        </a>
-        <nav id="menu">
-            <ul>
-                <li><a href="../index.php" lang="en">Home</a></li>
-                <li><a href="Biglietti.php">Biglietti</a></li>
-                <li><a href="News.php" lang="en">News</a></li>
-                <li><a href="Faq.php">Domande</a></li>
-            </ul>
-
-            <ul id="menu-utente">
-                <li id="currentLink">
-                    <img src="../assets/images/user.svg" alt="" class="icone-menu">Profilo
-                </li>
-                <li><a href="Carrello.php">
-                        <img src="../assets/images/shopping-cart.svg" alt="" class="icone-menu">Carrello</a></li>
-            </ul>
-        </nav>
-    </header>
+<body id="top">
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
+    [Header]
 
     <nav id="breadcrumb" aria-label="Percorso di navigazione">
         <p>Ti trovi in: <a href="../index.php" lang="en">Home</a> &gt; <a href="login.html" class="breadcrumb-active"
                 aria-current="page">Profilo</a></p>
     </nav>
 
-    <main class="login-page">
+    <main id="main-content" class="login-page">
         <div class="login-container">
 
             <section class="login-section" aria-labelledby="titolo-login">
@@ -50,12 +30,12 @@
                     <div class="form-gruppo">
                         <label for="identificativo">Username o E-mail</label>
                         <input type="text" id="identificativo" name="identificativo"
-                            placeholder="Inserisci username o e-mail" required autocomplete="username">
+                            placeholder="Inserisci username o e-mail" required="required" autocomplete="username" />
                     </div>
                     <div class="form-gruppo">
                         <label for="pass">Password</label>
-                        <input type="password" id="pass" name="password" placeholder="Inserisci la password" required
-                            autocomplete="current-password">
+                        <input type="password" id="pass" name="password" placeholder="Inserisci la password" required="required"
+                            autocomplete="current-password" />
                     </div>
                     <button type="submit" class="btn-auth">Login</button>
                 </form>
@@ -74,25 +54,9 @@
         </div>
     </main>
 
-    <footer class="footer-sito">
-        <hr aria-hidden="true">
-
-        <div class="footer-contenuto">
-            <div class="footer-logo">
-                <img src="../assets/images/logo1.png" alt="Patavium Open" width="120">
-            </div>
-
-            <nav class="footer-nav" aria-label="Informazioni legali">
-                <ul>
-                    <li><a href="../html/termini.html">Termini e condizioni</a></li>
-                    <li><a href="../html/privacy.html">Informativa sulla privacy</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <p class="footer-copyright">&copy; 2027 Patavium Open. Tutti i diritti riservati.</p>
-    </footer>
+    [Footer]
     <script src="../javascript/script.js"></script>
+    <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
 </body>
 
 </html>
