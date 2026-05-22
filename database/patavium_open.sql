@@ -58,7 +58,7 @@ CREATE TABLE ORDINE (
 
 CREATE TABLE BIGLIETTI (
                            idBiglietto INT AUTO_INCREMENT PRIMARY KEY,
-                           prezzo INT NOT NULL,
+                           prezzo DECIMAL (6,2) NOT NULL,
                            tribuna VARCHAR(20),
                            tipo VARCHAR(20) DEFAULT NULL,
                            numero_ordine INT DEFAULT NULL,
