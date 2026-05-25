@@ -3,22 +3,17 @@
 require_once "DBConnection.php";
 
 class CarrelloManager {
-    public static function creaOrdine($idUtente, $totale) {
-        $conn = DBConnection::getConnessione();
+    public static function creaOrdine($conn, $idUtente, $totale) {
         $sql = "INSERT INTO ORDINE (totale, idUtente) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $totale, $idUtente);
         $stmt->execute();
         $idOrdine = $stmt->insert_id;
         $stmt->close();
-        $conn->close();
         return $idOrdine;
     }
 
-
-    public static function associaBiglietto($idOrdine, $item) {
-        $conn = DBConnection::getConnessione();
-
+    public static function associaBiglietto($conn, $idOrdine, $item) {
         $tipo_carrello = strtolower(trim($item['tipologia']));
         $titolo_pulito = trim($item['titolo']);
         $idProg = (int)$item['idProgramma'];
@@ -48,10 +43,9 @@ class CarrelloManager {
             $stmt->execute();
 
             if ($stmt->affected_rows === 0) {
-                die("<h1>ERRORE DATABASE</h1><p>Non ho trovato nessun biglietto libero per:<br>Tribuna: <b>{$titolo_pulito}</b><br>ID Programma: <b>{$idProg}</b></p>");
+                throw new Exception("Non ho trovato nessun biglietto libero per la Tribuna: {$titolo_pulito}");
             }
             $stmt->close();
         }
-        $conn->close();
     }
 }
