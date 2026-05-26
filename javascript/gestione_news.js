@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.onclick = function() {
                 // Recupero dati dai dataset e dal DOM
                 const newsId = this.getAttribute('data-news-id');
-                const title = this.querySelector('h4').textContent;
+                const title = this.querySelector('.mini-card-titolo')?.textContent ?? '';
                 const testo = this.querySelector('.news-full-text')?.innerHTML;
                 const imgPath = this.querySelector('.mini-card-img')?.getAttribute('src');
                 const imgName = imgPath ? imgPath.split('/').pop() : "Nessuna immagine";
@@ -53,7 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Usiamo le classi definite nel CSS
         msg.className = `ajax-dynamic-msg msg-${tipo}`;
-        msg.textContent = testo; 
+        msg.setAttribute('role', 'status');
+        msg.setAttribute('aria-live', 'polite');
+        msg.textContent = testo;
 
         contenitore?.prepend(msg);
 

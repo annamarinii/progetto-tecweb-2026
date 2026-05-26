@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    const btn = this.querySelector('.btn-send-reply');
+                    const btn = this.querySelector('[type="submit"]');
                     const rigaCorrente = this.closest('.mail-row');
 
                     if(btn) {

@@ -40,11 +40,11 @@ class Tool
         }
         $_SESSION['logged'] = true;
         $_SESSION['idUtente'] = $utente['idUtente'];
-        $_SESSION['username'] = $utente['username']; // Corretto in minuscolo come da DB SQL
-        $_SESSION['nome'] = $utente['nome'];         // Corretto in minuscolo come da DB SQL
-        $_SESSION['cognome'] = $utente['cognome'];   // Corretto in minuscolo come da DB SQL
-        $_SESSION['email'] = $utente['email'];       // Corretto in minuscolo come da DB SQL
-        $_SESSION['isAdmin'] = $utente['isAdmin'];   // Corretto in base alla colonna del DB SQL
+        $_SESSION['username'] = $utente['username']; 
+        $_SESSION['nome'] = $utente['nome'];         
+        $_SESSION['cognome'] = $utente['cognome'];   
+        $_SESSION['email'] = $utente['email'];       
+        $_SESSION['isAdmin'] = $utente['isAdmin']; 
     }
 
     /**

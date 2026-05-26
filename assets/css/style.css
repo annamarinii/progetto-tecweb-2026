@@ -649,86 +649,101 @@ main {
 
 /* Struttura della singola card */
 .ticket-card {
-    background-color: var(--azzurro);
-    border: 1px solid var(--black);
-    border-radius: 12px;
+    background-color: var(--white);
+    border: 1px solid var(--arancione-chiaro);
+    border-radius: 14px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* Impila foto, testo e bottone in verticale */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Effetto sollevamento quando passi col mouse */
-.ticket-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.ticket-card:hover,
+.ticket-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
     border-color: var(--arancione-scuro);
 }
 
-/* Contenitore della foto */
+/* Immagine di intestazione */
 .card-header {
     width: 100%;
-    height: 160px;
+    height: 220px;
+    overflow: hidden;
 }
 
-/* L'immagine vera e propria */
 .card-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Ritaglia la foto per riempire lo spazio senza schiacciarla */
     border-bottom: 4px solid var(--arancione-scuro);
+    transition: transform 0.4s ease;
+    display: block;
 }
 
-/* Contenitore dei testi e del bottone */
+.ticket-card:hover .card-img {
+    transform: scale(1.05);
+}
+
+/* Zona testi */
 .card-body {
-    padding: 20px;
+    padding: 22px 22px 10px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* Fa espandere quest'area per riempire tutto lo spazio disponibile */
     text-align: left;
 }
 
-.card-body h2 {
-    font-size: 1.5em;
+/* Titolo categoria grande e d'impatto */
+.card-category {
+    font-size: 2em;
+    font-weight: bold;
     color: var(--blu-scuro);
-    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+    line-height: 1.1;
 }
 
-.card-body p {
-    font-size: 1em;
+/* Prezzo */
+.ticket-price {
+    font-size: 0.95em;
     color: var(--black);
-    line-height: 1.4;
-    margin-bottom: 20px;
-    flex-grow: 1;
-    /* Il TRUCCO: questo paragrafo spinge il bottone verso il basso! */
+    margin: 0;
 }
 
-/* Il tasto arancione scuro */
-.buy-btn {
-    display: inline-block;
+.ticket-price strong {
+    color: var(--arancione-scuro);
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+/* Zona bottone */
+.card-footer {
+    padding: 16px 22px 22px;
+}
+
+/* Bottone acquisto principale */
+.btn-primary {
+    display: block;
     background-color: var(--arancione-scuro);
     color: var(--white);
-    /* Bianco per fare contrasto forte */
     text-align: center;
-    padding: 15px 20px;
-    font-size: 1.1em;
+    padding: 14px 20px;
+    font-size: 1.05em;
     font-weight: bold;
     border-radius: 8px;
-    transition: all 0.3s ease;
-    margin-top: auto;
-    /* Allinea tutti i bottoni in fondo alla card alla stessa altezza */
+    width: 100%;
+    transition: background-color 0.25s ease, outline-offset 0.15s ease;
 }
 
-.ticket-card .buy-btn:hover,
-.buy-btn:focus-visible {
+.btn-primary:hover,
+.btn-primary:focus-visible {
     background-color: var(--blu-scuro);
-    color: var(--azzurro);
-    /* Aggiunto punto e virgola */
-    outline: none;
-    /* Gestito dal focus-visible se vuoi personalizzarlo */
+    color: var(--white);
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 3px;
 }
 
 /* =========================================
@@ -2842,6 +2857,277 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+/* --- 6b. CARD BIGLIETTI UTENTE (layout orizzontale) --- */
+
+/* Contenitore lista: colonna singola, ogni card prende tutta la larghezza */
+.biglietti-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+/* Card orizzontale */
+.ticket-card-user {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-color: var(--white);
+    border: 1px solid var(--arancione-chiaro);
+    border-left: 5px solid var(--arancione-scuro);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.ticket-card-user:hover,
+.ticket-card-user:focus-within {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+    transform: translateY(-2px);
+}
+
+/* --- Colonna sinistra: badge tipo --- */
+.tcu-type {
+    background-color: var(--blu-scuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 22px;
+    min-width: 130px;
+    flex-shrink: 0;
+}
+
+.tcu-type-label {
+    color: var(--white);
+    font-size: 0.95em;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* --- Colonna centrale: evento e luogo --- */
+.tcu-details {
+    flex: 1;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    border-left: 1px solid var(--arancione-chiaro);
+    border-right: 1px solid var(--arancione-chiaro);
+}
+
+.tcu-evento {
+    font-size: 1.05em;
+    font-weight: bold;
+    color: var(--black);
+    margin: 0;
+}
+
+.tcu-location {
+    font-size: 0.9em;
+    color: var(--black);
+    margin: 0;
+}
+
+.tcu-stadio {
+    font-weight: bold;
+    color: var(--arancione-scuro);
+}
+
+.tcu-tribuna {
+    color: var(--black);
+}
+
+/* --- Colonna destra: numero ordine e quantità --- */
+.tcu-meta {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+    flex-shrink: 0;
+}
+
+.tcu-meta dl {
+    width: 100%;
+    margin: 0;
+}
+
+.tcu-meta-item {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.tcu-meta-item:not(:last-child) {
+    border-bottom: 1px dotted var(--arancione-chiaro);
+    margin-bottom: 5px;
+}
+
+.tcu-meta-item dt {
+    font-size: 0.75em;
+    font-weight: bold;
+    color: var(--blu-scuro);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tcu-meta-item dd {
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--black);
+    margin: 2px 0 0 0;
+}
+
+/* --- Responsive: impilamento verticale su mobile --- */
+@media (max-width: 640px) {
+    .ticket-card-user {
+        flex-direction: column;
+        border-left: 1px solid var(--arancione-chiaro);
+        border-top: 5px solid var(--arancione-scuro);
+    }
+
+    .tcu-type {
+        min-width: unset;
+        padding: 14px 18px;
+        justify-content: flex-start;
+    }
+
+    .tcu-details {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid var(--arancione-chiaro);
+        border-bottom: 1px solid var(--arancione-chiaro);
+        padding: 14px 18px;
+    }
+
+    .tcu-meta {
+        min-width: unset;
+        padding: 14px 18px;
+    }
+
+    .tcu-meta dl {
+        display: flex;
+        gap: 24px;
+    }
+
+    .tcu-meta-item:not(:last-child) {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+}
+
+/* --- 6c. TABELLA ORDINI E NOTIFICHE --- */
+.orders-table-user {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.95em;
+}
+
+.orders-table-user caption {
+    caption-side: top;
+    text-align: left;
+    font-size: 0.85em;
+    color: var(--black);
+    margin-bottom: 10px;
+    font-style: italic;
+    padding-bottom: 6px;
+}
+
+.orders-table-user thead th {
+    background-color: var(--blu-scuro);
+    color: var(--white);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+}
+
+.orders-table-user tbody tr {
+    border-bottom: 1px solid var(--arancione-chiaro);
+    transition: background-color 0.2s ease;
+}
+
+.orders-table-user tbody tr:last-child {
+    border-bottom: none;
+}
+
+.orders-table-user tbody tr:hover {
+    background-color: var(--azzurro);
+}
+
+.orders-table-user tbody td {
+    padding: 12px 16px;
+    color: var(--black);
+    vertical-align: middle;
+}
+
+/* Riga notifica non letta: sfondo caldo + testo in grassetto */
+.orders-table-user .unread-row {
+    background-color: #fff5e6;
+    font-weight: bold;
+}
+
+.orders-table-user .unread-row:hover {
+    background-color: #ffe8c8;
+}
+
+/* Riga già letta: tono attenuato */
+.orders-table-user .read-row td {
+    color: #555;
+}
+
+/* Bottone "Segna Letta" nelle notifiche */
+.btn-close-mail {
+    font-size: 0.85em;
+    padding: 8px 14px;
+    white-space: nowrap;
+}
+
+/* Responsive: stack a card su schermi piccoli */
+@media (max-width: 700px) {
+    .orders-table-user thead {
+        display: none;
+    }
+
+    .orders-table-user tbody tr {
+        display: block;
+        border: 1px solid var(--arancione-chiaro);
+        border-radius: 8px;
+        margin-bottom: 14px;
+        padding: 10px;
+    }
+
+    .orders-table-user tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px 4px;
+        border-bottom: 1px dotted var(--arancione-chiaro);
+        font-size: 0.92em;
+    }
+
+    .orders-table-user tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .orders-table-user tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--blu-scuro);
+        flex-shrink: 0;
+        min-width: 90px;
+    }
 }
 
 /* --- 7. RESPONSIVE MOBILE --- */

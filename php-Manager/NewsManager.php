@@ -12,7 +12,6 @@ class NewsManager {
                 ORDER BY N.data_pubblicazione DESC";
         $risultato = $conn->query($sql);
         $news_estratte = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
-        $conn->close();
         return $news_estratte;
     }
 
@@ -23,7 +22,7 @@ class NewsManager {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssii", $titolo, $testo, $immagine, $idAutore, $inEvidenza);
         $esito = $stmt->execute();
-        $conn->close();
+        $stmt->close();
         return $esito;
     }
 
@@ -40,7 +39,7 @@ class NewsManager {
             $stmt->bind_param("ssii", $titolo, $testo, $inEvidenza, $idNews);
         }
         $esito = $stmt->execute();
-        $conn->close();
+        $stmt->close();
         return $esito;
     }
 
@@ -51,7 +50,7 @@ class NewsManager {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $idNews);
         $esito = $stmt->execute();
-        $conn->close();
+        $stmt->close();
         return $esito;
     }
 
@@ -77,7 +76,6 @@ class NewsManager {
         }
 
         $stmt->close();
-        $conn->close();
 
         return $news_estratte;
     }

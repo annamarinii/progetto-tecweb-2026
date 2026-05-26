@@ -38,6 +38,26 @@ class FaqManager {
         return $esito;
     }
 
+    public static function getDomandaById($idDomanda) {
+        $conn = DBConnection::getConnessione();
+        $stmt = $conn->prepare("SELECT * FROM DOMANDE WHERE idDomanda = ?");
+        $stmt->bind_param("i", $idDomanda);
+        $stmt->execute();
+        $risultato = $stmt->get_result();
+        $domanda = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_assoc() : null;
+        $stmt->close();
+        return $domanda;
+    }
+
+    public static function eliminaDomanda($idDomanda) {
+        $conn = DBConnection::getConnessione();
+        $stmt = $conn->prepare("DELETE FROM DOMANDE WHERE idDomanda = ?");
+        $stmt->bind_param("i", $idDomanda);
+        $esito = $stmt->execute();
+        $stmt->close();
+        return $esito;
+    }
+
     // Inserisce una domanda inviata da un utente loggato (Tabella DOMANDE)
     public static function inserisciDomanda($testo_domanda, $idUtente) {
         $conn = DBConnection::getConnessione();

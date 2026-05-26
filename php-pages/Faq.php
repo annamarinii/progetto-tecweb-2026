@@ -43,25 +43,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $lista_faq_db = FaqManager::getFaq();
 $html_faq_dinamico = "";
 
-if (count($lista_faq_db) > 0) {
-    foreach ($lista_faq_db as $singola_faq) {
-        $domanda_sicura = Tool::pulisciInput($singola_faq['testo_domanda']);
-        $risposta_sicura = Tool::pulisciInput($singola_faq['testo_risposta']);
+$frammento_faq = file_get_contents(__DIR__ . '/../html/faq_item.html');
 
-        // costruzione blocco da buttare dentro html
-        $html_faq_dinamico .= '<details class="faq-item">';
-        $html_faq_dinamico .= '    <summary>' . $domanda_sicura . '</summary>';
-        $html_faq_dinamico .= '    <div class="faq-content">';
-        $html_faq_dinamico .= '        <p>' . $risposta_sicura . '</p>';
-        $html_faq_dinamico .= '    </div>';
-        $html_faq_dinamico .= '</details>';
+if (!empty($lista_faq_db)) {
+    foreach ($lista_faq_db as $singola_faq) {
+        $html_faq_dinamico .= str_replace(
+            ['[FaqID]', '[Domanda]', '[Risposta]'],
+            [
+                (int)$singola_faq['idFaq'],
+                htmlspecialchars($singola_faq['testo_domanda'], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($singola_faq['testo_risposta'], ENT_QUOTES, 'UTF-8')
+            ],
+            $frammento_faq
+        );
     }
 } else {
-    // mostro se il db è vuoto
     $html_faq_dinamico = "<p>Al momento non ci sono domande frequenti disponibili.</p>";
 }
 
-$pagina_html = file_get_contents('../html/faq.html');
+$pagina_html = file_get_contents(__DIR__ . '/../html/faq.html');
 $pagina_html = str_replace('[Header]', Tool::buildHeader('faq'), $pagina_html);
 $pagina_html = str_replace('[Footer]', Tool::buildFooter('faq'), $pagina_html);
 

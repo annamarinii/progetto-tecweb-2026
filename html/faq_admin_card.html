@@ -1,0 +1,21 @@
+<div class="faq-admin-card">
+    <div class="faq-card-content">
+        <p class="faq-q">Q: [Domanda]</p>
+        <p class="faq-a">A: [Risposta]</p>
+    </div>
+    <div class="faq-actions">
+        <button type="button"
+                class="btn-edit btn-edit-faq-trigger"
+                data-id="[FaqID]"
+                data-q="[Domanda]"
+                data-a="[Risposta]"
+                aria-label="Modifica la FAQ: [Domanda]">Modifica</button>
+        <form action="AreaAdmin.php" method="POST" class="form-delete-faq">
+            <input type="hidden" name="elimina_faq" value="si" />
+            <input type="hidden" name="id_faq_elimina" value="[FaqID]" />
+            <button type="submit"
+                    class="btn-delete-faq-ajax delete-confirm"
+                    aria-label="Elimina definitivamente la FAQ: [Domanda]">Elimina</button>
+        </form>
+    </div>
+</div>

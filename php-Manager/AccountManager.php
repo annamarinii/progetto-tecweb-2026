@@ -106,8 +106,9 @@ class AccountManager
         $query = "UPDATE UTENTE SET nome = ?, cognome = ?, email = ?, username = ? WHERE idUtente = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ssssi", $nome, $cognome, $email, $username, $id);
-
-        return $stmt->execute();
+        $esito = $stmt->execute();
+        $stmt->close();
+        return $esito;
     }
     public static function segnaRispostaComeLetta($idDomanda, $idUtente) {
         $conn = DBConnection::getConnessione();

@@ -106,6 +106,36 @@ class TicketManager
         return $dati_abbonamenti;
     }
 
+    public static function getCategorieBiglietti()
+    {
+        $conn = DBConnection::getConnessione();
+
+        $res = $conn->query("SELECT MIN(prezzo) AS prezzo_min FROM BIGLIETTI WHERE tipo IS NULL");
+        $prezzo_single = ($res && $res->num_rows > 0) ? (float)$res->fetch_assoc()['prezzo_min'] : null;
+
+        $res = $conn->query("SELECT MIN(prezzo) AS prezzo_min FROM BIGLIETTI WHERE tipo = 'ground'");
+        $prezzo_ground = ($res && $res->num_rows > 0) ? (float)$res->fetch_assoc()['prezzo_min'] : null;
+
+        // L'abbonamento = somma dei prezzi minimi di ognuna delle 14 sessioni (tipo IS NULL)
+        $res = $conn->query(
+            "SELECT SUM(prezzo_min) AS prezzo_min
+             FROM (
+                 SELECT MIN(B.prezzo) AS prezzo_min
+                 FROM BIGLIETTI B
+                 JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                 WHERE B.tipo IS NULL
+                 GROUP BY P.idProgramma
+             ) AS sessioni"
+        );
+        $prezzo_abb = ($res && $res->num_rows > 0) ? (float)$res->fetch_assoc()['prezzo_min'] : null;
+
+        return [
+            ['tipo' => 'abbonamento', 'prezzo_min' => $prezzo_abb],
+            ['tipo' => 'single',      'prezzo_min' => $prezzo_single],
+            ['tipo' => 'ground',      'prezzo_min' => $prezzo_ground],
+        ];
+    }
+
     public static function getBigliettiUtente($idUtente)
     {
         $conn = DBConnection::getConnessione();
