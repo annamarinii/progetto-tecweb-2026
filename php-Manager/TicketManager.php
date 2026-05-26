@@ -28,7 +28,6 @@ class TicketManager
         }
 
         $stmt->close();
-        $conn->close();
 
         return $info_biglietto;
     }
@@ -63,7 +62,6 @@ class TicketManager
         }
 
         $stmt->close();
-        $conn->close();
 
         return $info_sessione;
     }
@@ -105,7 +103,6 @@ class TicketManager
             }
         }
 
-        $conn->close();
         return $dati_abbonamenti;
     }
 
@@ -161,8 +158,7 @@ class TicketManager
         }
 
         $stmt->close();
-        $conn->close();
-        
+
         // Convertiamo l'array associativo in un array indicizzato
         return array_values($biglietti_raggruppati);
     }

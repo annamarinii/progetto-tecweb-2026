@@ -8,7 +8,6 @@ class FaqManager {
         $sql = "SELECT idFaq, testo_domanda, testo_risposta FROM FAQ";
         $risultato = $conn->query($sql);
         $faq = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
-        $conn->close();
         return $faq;
     }
 
@@ -18,7 +17,6 @@ class FaqManager {
         $stmt->bind_param("ss", $domanda, $risposta);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 
@@ -28,7 +26,6 @@ class FaqManager {
         $stmt->bind_param("ssi", $domanda, $risposta, $idFaq);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 
@@ -38,7 +35,6 @@ class FaqManager {
         $stmt->bind_param("i", $idFaq);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 
@@ -49,7 +45,6 @@ class FaqManager {
         $stmt->bind_param("si", $testo_domanda, $idUtente);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 
@@ -62,7 +57,6 @@ class FaqManager {
                 ORDER BY D.data_invio DESC";
         $risultato = $conn->query($sql);
         $domande = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
-        $conn->close();
         return $domande;
     }
 
@@ -73,7 +67,6 @@ class FaqManager {
         $stmt->bind_param("si", $risposta, $idDomanda);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 
@@ -83,7 +76,6 @@ class FaqManager {
         $stmt->bind_param("i", $idDomanda);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 
@@ -104,7 +96,6 @@ class FaqManager {
             $notifiche = $risultato->fetch_all(MYSQLI_ASSOC);
         }
         $stmt->close();
-        $conn->close();
         return $notifiche;
     }
 }

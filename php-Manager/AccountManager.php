@@ -22,13 +22,9 @@ class AccountManager
             $esito = $stmt->execute();
 
             $stmt->close();
-            $conn->close();
-
             // restituisce true se salvato, false se errore
             return $esito;
         }
-
-        $conn->close();
         return false;
     }
     // controllo se ci sono duplicati in fase di registrazione
@@ -48,10 +44,8 @@ class AccountManager
             $esiste = $risultato->num_rows > 0;
 
             $stmt->close();
-            $conn->close();
             return $esiste;
         }
-        $conn->close();
         return true;
     }
 
@@ -76,13 +70,11 @@ class AccountManager
                     unset($utente['password']);
 
                     $stmt->close();
-                    $conn->close();
                     return $utente;
                 }
             }
             $stmt->close();
         }
-        $conn->close();
         return false;
     }
     public static function getUtenteById($idUtente)
@@ -103,7 +95,6 @@ class AccountManager
         }
 
         $stmt->close();
-        $conn->close();
 
         return $utente; //ci ritorna l'array con le informazioni dell'utente
     }
@@ -125,7 +116,6 @@ class AccountManager
         $stmt->bind_param("ii", $idDomanda, $idUtente);
         $esito = $stmt->execute();
         $stmt->close();
-        $conn->close();
         return $esito;
     }
 }
