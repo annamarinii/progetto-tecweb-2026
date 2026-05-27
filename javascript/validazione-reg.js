@@ -84,9 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (data.status === 'success') {
                         msgDiv.className = 'form-message message-success';
-                        msgDiv.innerHTML = `🎉 ${data.message} <a href="Login.php">Vai al Login</a>`;
+                        msgDiv.innerHTML = `🎉 Registrazione completata! <br><br> <a href="Login.php" class="btn-auth" style="display: inline-block; width: auto; padding: 10px 20px;">Vai al Login</a>`;
                         form.reset();
-                        // Opzionale: riporta il bottone allo stato originale dopo il reset
                         btnSubmit.disabled = false;
                         btnSubmit.textContent = "Registrati Subito";
                     } else {

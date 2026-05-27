@@ -10,16 +10,20 @@ if (Tool::isLoggedIn()) {
 }
 
 $messaggio_esito = "";
+$nome     = '';
+$cognome  = '';
+$username = '';
+$email    = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
     // Pulizia dei dati (Inversione di rotta: solo trim in ingresso, XSS gestito in uscita)
-    $nome = trim($_POST['nome'] ?? '');
-    $cognome = trim($_POST['cognome'] ?? '');
+    $nome     = trim($_POST['nome']     ?? '');
+    $cognome  = trim($_POST['cognome']  ?? '');
     $username = trim($_POST['username'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+    $email    = trim($_POST['email']    ?? '');
     $password = $_POST['pass'] ?? '';
     $ripeti_password = $_POST['ripeti_pass'] ?? '';
 
@@ -28,6 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($nome) || empty($cognome) || empty($username) || empty($email) || empty($password) || empty($ripeti_password)) {
         $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Tutti i campi sono obbligatori.</div>";
+    } elseif (!preg_match('/^[A-Za-zÀ-ÿ\s]+$/', $nome) || !preg_match('/^[A-Za-zÀ-ÿ\s]+$/', $cognome)) {
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Nome e Cognome devono contenere solo lettere.</div>";
+    } elseif (!preg_match('/^[a-zA-Z0-9._]{1,16}$/', $username)) {
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Username non valido (max 16 caratteri, solo lettere, numeri, punti e underscore).</div>";
     } elseif ($password !== $ripeti_password) {
         $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Le password non coincidono.</div>";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -52,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($isAjax) {
         header('Content-Type: application/json');
         echo json_encode([
-            'status' => $status_successo ? 'success' : 'error',
-            'message' => $messaggio_esito
+            'status'  => $status_successo ? 'success' : 'error',
+            'message' => strip_tags($messaggio_esito)
         ]);
         exit;
     }
@@ -62,8 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // 4. PREPARAZIONE PAGINA
 $pagina_html = file_get_contents('../html/registrazione.html');
 
-$pagina_html = str_replace('[Header]', Tool::buildHeader('registrazione'), $pagina_html);
-$pagina_html = str_replace('[Footer]', Tool::buildFooter('registrazione'), $pagina_html);
-$pagina_html = str_replace('[MessaggioEsito]', $messaggio_esito, $pagina_html);
+$pagina_html = str_replace('[Header]',        Tool::buildHeader('registrazione'), $pagina_html);
+$pagina_html = str_replace('[Footer]',        Tool::buildFooter('registrazione'), $pagina_html);
+$pagina_html = str_replace('[MessaggioEsito]', $messaggio_esito,                  $pagina_html);
+$pagina_html = str_replace('[ValoreNome]',     htmlspecialchars($nome,     ENT_QUOTES, 'UTF-8'), $pagina_html);
+$pagina_html = str_replace('[ValoreCognome]',  htmlspecialchars($cognome,  ENT_QUOTES, 'UTF-8'), $pagina_html);
+$pagina_html = str_replace('[ValoreUsername]', htmlspecialchars($username, ENT_QUOTES, 'UTF-8'), $pagina_html);
+$pagina_html = str_replace('[ValoreEmail]',    htmlspecialchars($email,    ENT_QUOTES, 'UTF-8'), $pagina_html);
 
 echo $pagina_html;

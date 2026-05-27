@@ -5,17 +5,16 @@ require_once "DBConnection.php";
 class AccountManager
 {
     // registrazione
-    public static function registraUtente($username, $email, $password_in_chiaro, $nome, $cognome)
+    public static function registraUtente($nome, $cognome, $username, $email, $password)
     {
         $conn = DBConnection::getConnessione();
 
-        $password_criptata = password_hash($password_in_chiaro, PASSWORD_DEFAULT);
+        $password_criptata = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO UTENTE (username, email, password, nome, cognome) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
-            // "sssss" perchè sto passando 5 stringhe
             $stmt->bind_param("sssss", $username, $email, $password_criptata, $nome, $cognome);
 
             // esegue la query

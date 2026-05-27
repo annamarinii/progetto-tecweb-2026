@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $utente = AccountManager::verificaLogin($identificativo, $password);
 
     if ($utente) {
+        session_regenerate_id(true);
         Tool::avviaSessioneUtente($utente);
         header("Location: ../index.php");
         exit();

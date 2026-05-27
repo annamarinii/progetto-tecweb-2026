@@ -33,28 +33,28 @@
                 <div class="form-row">
                     <div class="form-gruppo">
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" placeholder="Es. Mario" 
+                        <input type="text" id="nome" name="nome" placeholder="Es. Mario" value="[ValoreNome]"
                                pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" />
                         <span class="errore-msg" id="err-nome" aria-live="polite"></span>
                     </div>
                     <div class="form-gruppo">
                         <label for="cognome">Cognome</label>
-                        <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" 
-                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" /> 
+                        <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" value="[ValoreCognome]"
+                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" />
                         <span class="errore-msg" id="err-cognome" aria-live="polite"></span>
                     </div>
                 </div>
 
                 <div class="form-gruppo">
                     <label for="username">Username (max 16 caratteri, no spazi)</label>
-                    <input type="text" id="username" name="username" placeholder="Es. TennisFan99" 
-                           pattern="^[a-zA-Z0-9._]{1,16}$" maxlength="16" title="Puoi usare solo lettere, numeri, punti e underscore. Max 16 caratteri" required="required" /> 
+                    <input type="text" id="username" name="username" placeholder="Es. TennisFan99" value="[ValoreUsername]"
+                           pattern="^[a-zA-Z0-9._]{1,16}$" maxlength="16" title="Puoi usare solo lettere, numeri, punti e underscore. Max 16 caratteri" required="required" />
                     <span class="errore-msg" id="err-username" aria-live="polite"></span>
                 </div>
 
                 <div class="form-gruppo">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" maxlength="50" placeholder="esempio@email.com" required="required" 
+                    <input type="email" id="email" name="email" maxlength="50" placeholder="esempio@email.com" value="[ValoreEmail]" required="required"
                            title="Inserire un indirizzo email valido (es. nome@dominio.it)" />
                     <span class="errore-msg" id="err-email" aria-live="polite"></span>
                 </div>
