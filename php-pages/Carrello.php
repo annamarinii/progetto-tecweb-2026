@@ -9,28 +9,36 @@ $html_lista = '';
 $html_pulsante_acquisto = '';
 
 // 1. GESTIONE LISTA PRODOTTI E CALCOLO TOTALE
+// 1. GESTIONE LISTA PRODOTTI E CALCOLO TOTALE
 if (empty($carrello)) {
     $html_lista = '<div class="cart-empty"><p>Il carrello è vuoto.</p></div>';
-    
+
     // Messaggio che sostituisce il pulsante se il carrello è vuoto
     $html_pulsante_acquisto = '<p class="checkout-disabled-msg">Il carrello è vuoto. Aggiungi dei biglietti per poter acquistare.</p>';
 } else {
+    // Carichiamo il template UNA SOLA VOLTA per non appesantire il server
+    $template_cart_item = file_get_contents('../html/item/carrello_item.html');
+
     foreach ($carrello as $index => $item) {
         $subtotale = $item['prezzo'] * $item['quantita'];
         $totale += $subtotale;
 
-        $html_lista .= "
-            <article class='cart-item-card' data-index='{$index}'>
-                <div class='cart-item-info'>
-                    <h3>{$item['tipologia']} - {$item['titolo']}</h3>
-                    <p>Data: {$item['data']} ({$item['sessione']})</p>
-                    <p>Quantità: {$item['quantita']}</p>
-                </div>
-                <div class='cart-item-actions'>
-                    <span class='cart-item-price'>€ " . number_format($subtotale, 2, ',', '.') . "</span>
-                    <button type='button' class='btn-delete' onclick='rimuoviItem($index)'>Elimina</button>
-                </div>
-            </article>";
+        $subtotale_formattato = number_format($subtotale, 2, ',', '.');
+
+        // Facciamo una copia "fresca" del template per questo specifico prodotto
+        $item_html = $template_cart_item;
+
+        // Rimpiazziamo i segnaposti con i valori veri
+        $item_html = str_replace('[Index]', $index, $item_html);
+        $item_html = str_replace('[Tipologia]', $item['tipologia'], $item_html);
+        $item_html = str_replace('[Titolo]', $item['titolo'], $item_html);
+        $item_html = str_replace('[Data]', $item['data'], $item_html);
+        $item_html = str_replace('[Sessione]', $item['sessione'], $item_html);
+        $item_html = str_replace('[Quantita]', $item['quantita'], $item_html);
+        $item_html = str_replace('[Subtotale]', $subtotale_formattato, $item_html);
+
+        // Aggiungiamo il tassello HTML completato alla grande lista
+        $html_lista .= $item_html;
     }
 
     // Pulsante attivo se il carrello contiene elementi
