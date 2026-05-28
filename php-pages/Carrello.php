@@ -17,7 +17,7 @@ if (empty($carrello)) {
     $html_pulsante_acquisto = '<p class="checkout-disabled-msg">Il carrello è vuoto. Aggiungi dei biglietti per poter acquistare.</p>';
 } else {
     // Carichiamo il template UNA SOLA VOLTA per non appesantire il server
-    $template_cart_item = file_get_contents('../html/item/carrello_item.html');
+    $template_cart_item = file_get_contents('../item/carrello_item.html');
 
     foreach ($carrello as $index => $item) {
         $subtotale = $item['prezzo'] * $item['quantita'];

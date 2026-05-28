@@ -9,7 +9,7 @@ $html_news_dinamico = "";
 
 if (count($lista_news_db) > 0) {
     // Carichiamo il template visivo fuori dal ciclo per efficienza
-    $template_news_card = file_get_contents('../html/item/news_item.html');
+    $template_news_card = file_get_contents('../item/news_item.html');
 
     foreach ($lista_news_db as $news) {
         $titolo = Tool::pulisciInput($news['titolo']);
