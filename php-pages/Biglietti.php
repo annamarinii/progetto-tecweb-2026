@@ -3,7 +3,7 @@ require_once '../php-Manager/init_session.php';
 require_once '../php-Manager/Tool.php';
 require_once '../php-Manager/TicketManager.php';
 
-$frammento_card = file_get_contents(__DIR__ . '/../html/biglietto_card.html');
+$frammento_card = file_get_contents(__DIR__ . '/../item/biglietto_card.html');
 $categorie = TicketManager::getCategorieBiglietti();
 
 $html_cards = "";
