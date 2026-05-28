@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $lista_faq_db = FaqManager::getFaq();
 $html_faq_dinamico = "";
 
-$frammento_faq = file_get_contents(__DIR__ . '/../html/faq_item.html');
+$frammento_faq = file_get_contents(__DIR__ . '/../item/faq_item.html');
 
 if (!empty($lista_faq_db)) {
     foreach ($lista_faq_db as $singola_faq) {
