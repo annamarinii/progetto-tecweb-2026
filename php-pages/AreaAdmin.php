@@ -15,10 +15,10 @@ if (!Tool::isLoggedIn() || !Tool::isAdmin()) {
 $id_utente_corrente = $_SESSION['idUtente'];
 $dati_utente = AccountManager::getUtenteById($id_utente_corrente);
 
-$frammento_faq_admin     = file_get_contents(__DIR__ . '/../html/faq_admin_card.html');
-$frammento_domanda       = file_get_contents(__DIR__ . '/../html/domanda_utente_item.html');
-$frammento_form_risposta = file_get_contents(__DIR__ . '/../html/faq_risposta_admin.html');
-$frammento_news_mini     = file_get_contents(__DIR__ . '/../html/news_mini_card.html');
+$frammento_faq_admin     = file_get_contents(__DIR__ . '/../item/faq_admin_card.html');
+$frammento_domanda       = file_get_contents(__DIR__ . '/../item/domanda_utente_item.html');
+$frammento_form_risposta = file_get_contents(__DIR__ . '/../item/faq_risposta_admin.html');
+$frammento_news_mini     = file_get_contents(__DIR__ . '/../item/news_mini_card.html');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $esito = false;

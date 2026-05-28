@@ -57,8 +57,8 @@ if (isset($_GET['status'])) {
     }
 }
 
-$frammento_biglietto = file_get_contents(__DIR__ . '/../html/utente_biglietto_card.html');
-$frammento_notifica  = file_get_contents(__DIR__ . '/../html/utente_notifica_row.html');
+$frammento_biglietto = file_get_contents(__DIR__ . '/../item/utente_biglietto_card.html');
+$frammento_notifica  = file_get_contents(__DIR__ . '/../item/utente_notifica_row.html');
 
 // --- BIGLIETTI ---
 $biglietti   = TicketManager::getBigliettiUtente($id_utente_corrente);
