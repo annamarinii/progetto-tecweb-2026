@@ -47,12 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- MESSAGGI DI FEEDBACK (Puro SoC) ---
     function mostraMessaggioNews(testo, tipo) {
-        document.querySelectorAll('.ajax-dynamic-msg').forEach(m => m.remove());
+        document.querySelectorAll('.ajax-dynamic-msg-faq').forEach(m => m.remove());
         const contenitore = document.getElementById('gestione-news');
         const msg = document.createElement('div');
-        
-        // Usiamo le classi definite nel CSS
-        msg.className = `ajax-dynamic-msg msg-${tipo}`;
+        msg.className = `ajax-dynamic-msg-faq msg-${tipo}`;
         msg.setAttribute('role', 'status');
         msg.setAttribute('aria-live', 'polite');
         msg.textContent = testo;
@@ -82,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.upload_msg) {
                         mostraMessaggioNews("Salvato, ma errore immagine: " + data.upload_msg, 'error');
                     } else {
-                        mostraMessaggioNews('Notizia salvata con successo!', 'success');
+                        mostraMessaggioNews('Operazione completata!', 'success');
                     }
                     
                     if (data.html_miniature) {

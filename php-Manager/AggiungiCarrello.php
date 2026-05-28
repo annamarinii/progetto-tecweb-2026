@@ -22,6 +22,29 @@ if ($dati) {
         'idProgramma' => isset($dati['idProgramma']) ? $dati['idProgramma'] : null
     );
 
+    // VALIDAZIONE QUANTITÀ
+    if ($nuovo_item['quantita'] < 1 || $nuovo_item['quantita'] > 10) {
+        echo json_encode(array('status' => 'error', 'message' => 'Quantità non valida (min 1, max 10).'));
+        exit();
+    }
+
+    // CONTROLLO DISPONIBILITÀ DB PER SINGLE SESSION
+    if ($nuovo_item['tipologia'] === 'Single Session' && $nuovo_item['idProgramma'] && $nuovo_item['titolo']) {
+        require_once 'DBConnection.php';
+        $conn = DBConnection::getConnessione();
+        $sql_check = "SELECT COUNT(idBiglietto) AS disponibili FROM BIGLIETTI WHERE tribuna = ? AND idProgramma = ? AND numero_ordine IS NULL AND tipo IS NULL";
+        $stmt_check = $conn->prepare($sql_check);
+        $stmt_check->bind_param("si", $nuovo_item['titolo'], $nuovo_item['idProgramma']);
+        $stmt_check->execute();
+        $row_check = $stmt_check->get_result()->fetch_assoc();
+        $stmt_check->close();
+        $disponibili = (int)($row_check['disponibili'] ?? 0);
+        if ($nuovo_item['quantita'] > $disponibili) {
+            echo json_encode(array('status' => 'error', 'message' => "Disponibili solo {$disponibili} biglietti per questa tribuna."));
+            exit();
+        }
+    }
+
     // LOGICA DI RAGGRUPPAMENTO E INCREMENTO
     // LOGICA DI RAGGRUPPAMENTO E INCREMENTO
     $trovato = false;

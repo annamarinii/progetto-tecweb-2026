@@ -42,7 +42,7 @@ header {
 }
 
 /* --- REGOLE PER LOGO E TITOLO (Nascondono il bianco!) --- */
-.logo-link {
+.logo-brand {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -157,9 +157,29 @@ header a:visited {
     background-color: var(--azzurro);
     color: var(--black);
     padding: 10px 30px;
-    /* <-- Modificato: rimessi i 30px fissi! */
     font-size: 0.9em;
     position: relative;
+}
+
+#breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+#breadcrumb li {
+    display: inline-flex;
+    align-items: center;
+}
+
+#breadcrumb li:not(:last-child)::after {
+    content: '›';
+    margin-left: 8px;
+    color: var(--arancione-scuro);
+    font-weight: bold;
 }
 
 #breadcrumb span {
@@ -538,7 +558,7 @@ main {
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ccc;
+    border: 1px solid var(--arancione-chiaro);
     /* Bordo definito per chi ha difficoltà visive */
 }
 
@@ -875,26 +895,26 @@ main {
 
 /* Colori specifici per i vari Tag */
 .tag {
-    background-color: #e0e0e0;
+    background-color: var(--azzurro);
     color: var(--black);
 }
 
 /* Default grigio */
 .new-session {
-    background-color: #0a6d0d;
-    color: white;
+    background-color: var(--arancione-scuro);
+    color: var(--white);
 }
 
-/* Verde */
+/* Arancione scuro */
 .most-popular {
     background-color: var(--arancione-scuro);
-    color: white;
+    color: var(--white);
 }
 
 /* Arancione brand */
 .finals {
     background-color: var(--blu-scuro);
-    color: white;
+    color: var(--white);
 }
 
 /* Blu scuro brand */
@@ -915,8 +935,7 @@ main {
 
 /* 8. Variante Highlight (Per le finali, se vuoi farle spiccare un po' di più) */
 .date-tile.highlight {
-    background-color: #fff9f2;
-    /* Sfondo leggermente aranciato */
+    background-color: var(--crema);
     border: 1px solid rgba(225, 116, 20, 0.3);
 }
 
@@ -990,7 +1009,8 @@ main {
 .faq-item summary:hover,
 .faq-item summary:focus-visible {
     color: var(--arancione-scuro);
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .faq-content {
@@ -1079,7 +1099,8 @@ main {
 .form-gruppo input:focus-visible,
 .form-gruppo textarea:focus,
 .form-gruppo textarea:focus-visible {
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
     border-color: var(--arancione);
     background-color: var(--white);
 }
@@ -1189,7 +1210,7 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #e0e0e0;
+    color: var(--azzurro);
 }
 
 .step img {
@@ -1197,7 +1218,7 @@ main {
 }
 
 .step.active {
-    color: #f59e0b;
+    color: var(--arancione-chiaro);
 }
 
 .step.active img {
@@ -1271,8 +1292,8 @@ main {
 }
 
 .benefit-card {
-    background-color: #f4f5f7;
-    border: 1px solid #e0e0e0;
+    background-color: var(--white);
+    border: 1px solid var(--azzurro);
     border-radius: 8px;
     padding: 20px 15px;
     display: flex;
@@ -1425,7 +1446,7 @@ main {
 .session-footer {
     padding: 20px 25px;
     background-color: var(--azzurro);
-    border-top: 2px solid #eaeaea;
+    border-top: 2px solid var(--azzurro);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1487,7 +1508,7 @@ main {
     align-items: center;
     padding: 20px 25px;
     background-color: var(--white);
-    border: 2px solid #eaeaea;
+    border: 2px solid var(--azzurro);
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1499,7 +1520,8 @@ main {
     border-color: var(--arancione);
     box-shadow: 0 6px 15px rgba(225, 116, 20, 0.12);
     transform: translateY(-2px);
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .seat-category.selected {
@@ -1512,7 +1534,7 @@ main {
 .seat-category.disabled-seat {
     pointer-events: none;
     cursor: not-allowed;
-    background-color: #f9f9f9;
+    background-color: var(--white);
 }
 
 .seat-category.selected h3 {
@@ -1521,7 +1543,7 @@ main {
 }
 
 .seat-category.selected p {
-    color: #555;
+    color: var(--black);
     font-weight: 500;
 }
 
@@ -1540,7 +1562,7 @@ main {
 
 .seat-info p {
     font-size: 0.95em;
-    color: #555;
+    color: var(--black);
     margin: 0;
 }
 
@@ -1563,7 +1585,7 @@ main {
     padding: 30px;
     background-color: var(--azzurro);
     border-radius: 12px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--azzurro);
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -1600,13 +1622,36 @@ main {
     background-color: var(--crema);
 }
 
+.qty-btn:focus-visible {
+    outline: 3px solid var(--arancione);
+    outline-offset: 2px;
+}
+
+.qty-btn:disabled,
+.qty-btn[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.avviso-scarsita {
+    color: var(--arancione-scuro);
+    font-weight: bold;
+    padding: 8px 12px;
+    border-left: 3px solid var(--arancione-scuro);
+    background-color: var(--crema);
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 0.95em;
+}
+
 #ticket-qty {
     width: 60px;
     height: 45px;
     text-align: center;
     border: none;
-    border-left: 1px solid #dcdcdc;
-    border-right: 1px solid #dcdcdc;
+    border-left: 1px solid var(--azzurro);
+    border-right: 1px solid var(--azzurro);
     font-size: 1.4em;
     font-weight: bold;
     color: var(--black);
@@ -1719,7 +1764,7 @@ main {
 
 .auth-divider {
     width: 2px;
-    background-color: #e8e8e8;
+    background-color: var(--azzurro);
 }
 
 .login-section h2,
@@ -1749,7 +1794,7 @@ main {
 
 .btn-auth {
     display: inline-block;
-    background-color: #E17414;
+    background-color: var(--arancione);
     color: var(--white);
     padding: 16px;
     font-size: 1.25em;
@@ -1831,7 +1876,8 @@ main {
     transform: translateX(10px);
     border-color: var(--arancione);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .home-news-img-wrapper {
@@ -1989,11 +2035,11 @@ main {
 .auth-form input {
     width: 100%;
     padding: 15px 18px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--azzurro);
     border-radius: 8px;
     font-size: 1.05rem;
     font-family: inherit;
-    background-color: #f9f9fc;
+    background-color: var(--azzurro);
     color: var(--black);
     transition: all 0.3s ease;
     box-sizing: border-box;
@@ -2001,11 +2047,12 @@ main {
 }
 
 .auth-form input::placeholder {
-    color: #a0a0a0;
+    color: var(--black);
+    opacity: 0.45;
 }
 
 .auth-form input:hover {
-    border-color: #b0b0b0;
+    border-color: var(--arancione-chiaro);
     background-color: var(--white);
 }
 
@@ -2086,7 +2133,7 @@ main {
         padding: 20px 15px;
     }
 
-    .logo-link {
+    .logo-brand {
         margin-bottom: 15px;
     }
 
@@ -2209,8 +2256,7 @@ main {
 /* Correzione: aggiunto selettore specifico e virgola mancante */
 #form-registrazione input.invalid {
     border: 2px solid var(--arancione-scuro);
-    /* Aggiunta virgola qui */
-    background-color: #fff5f0;
+    background-color: var(--crema);
     transition: all 0.3s ease;
     box-shadow: 0 0 0 4px rgba(165, 70, 0, 0.1);
 }
@@ -2258,8 +2304,7 @@ main {
     text-align: center;
     margin-bottom: 40px;
     padding: 30px 20px;
-    background: linear-gradient(145deg, var(--blu-scuro), #0a2d8a);
-    /* Gradiente per dare profondità */
+    background-color: var(--blu-scuro);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(7, 36, 111, 0.15);
     position: relative;
@@ -2409,14 +2454,15 @@ main {
     background-color: var(--blu-scuro);
     color: var(--white);
     transform: translateY(-2px);
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .auth-footer {
     text-align: center;
     margin-top: 25px;
     padding-top: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--azzurro);
 }
 
 .auth-footer p {
@@ -2458,11 +2504,9 @@ main {
     text-align: center;
     font-weight: bold;
     text-decoration: underline;
-    color: #2E8B57;
-    /* Verde stile successo */
+    color: var(--blu-scuro);
     font-size: 1.1rem;
     transition: color 0.3s ease;
-    /* Piccola animazione fluida per l'hover */
 }
 
 /* Feedback durante la rimozione */
@@ -2492,8 +2536,7 @@ main {
 
 /* Effetto al passaggio del mouse per una UX migliore */
 #link-vai-carrello:hover {
-    color: #1e5c39;
-    /* Un verde un po' più scuro */
+    color: var(--arancione-scuro);
 }
 
 .checkout-disabled-msg {
@@ -2573,8 +2616,8 @@ main {
 
 .btn-remove-item {
     background-color: transparent;
-    color: #cc0000;
-    border: 2px solid #cc0000;
+    color: var(--arancione-scuro);
+    border: 2px solid var(--arancione-scuro);
     border-radius: 8px;
     padding: 8px 15px;
     font-weight: bold;
@@ -2584,9 +2627,10 @@ main {
 
 .btn-remove-item:hover,
 .btn-remove-item:focus-visible {
-    background-color: #cc0000;
-    color: white;
-    outline: none;
+    background-color: var(--arancione-scuro);
+    color: var(--white);
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .cart-summary {
@@ -2620,7 +2664,7 @@ main {
     font-size: 1.5em;
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 2px solid #ddd;
+    border-top: 2px solid var(--azzurro);
     font-weight: bold;
 }
 
@@ -2646,18 +2690,19 @@ main {
 .btn-checkout:focus-visible:not([disabled]) {
     background-color: var(--blu-scuro);
     transform: translateY(-2px);
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .btn-checkout[disabled] {
-    background-color: #ccc;
+    background-color: var(--azzurro);
     cursor: not-allowed;
     opacity: 0.6;
 }
 
 .cart-empty {
     background-color: var(--white);
-    border: 2px dashed #aaa;
+    border: 2px dashed var(--arancione-chiaro);
     border-radius: 12px;
     padding: 50px 20px;
     text-align: center;
@@ -2831,15 +2876,15 @@ main {
 
 /* Stile per i campi in sola lettura */
 .profile-form input[readonly] {
-    background-color: #f5f5f5 !important;
-    color: #666 !important;
-    border: 2px dashed #ccc !important;
+    background-color: var(--azzurro) !important;
+    color: var(--black) !important;
+    border: 2px dashed var(--azzurro) !important;
     cursor: not-allowed;
 }
 
 .profile-form input[readonly]:hover,
 .profile-form input[readonly]:focus {
-    border-color: #ccc !important;
+    border-color: var(--azzurro) !important;
     box-shadow: none !important;
 }
 
@@ -3073,17 +3118,17 @@ main {
 
 /* Riga notifica non letta: sfondo caldo + testo in grassetto */
 .orders-table-user .unread-row {
-    background-color: #fff5e6;
+    background-color: var(--crema);
     font-weight: bold;
 }
 
 .orders-table-user .unread-row:hover {
-    background-color: #ffe8c8;
+    background-color: var(--arancione-chiaro);
 }
 
 /* Riga già letta: tono attenuato */
 .orders-table-user .read-row td {
-    color: #555;
+    color: var(--black);
 }
 
 /* Bottone "Segna Letta" nelle notifiche */
@@ -3174,10 +3219,10 @@ main {
 
 /* Box che contiene il form per aggiungere una nuova news */
 .admin-form-container {
-    background-color: #f9fbfd;
+    background-color: var(--white);
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--azzurro);
     margin-bottom: 50px;
 }
 
@@ -3201,7 +3246,7 @@ main {
     background-color: var(--white);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--azzurro);
     margin-top: 20px;
 }
 
@@ -3216,11 +3261,11 @@ main {
 .form-gruppo textarea {
     width: 100%;
     padding: 15px 18px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--azzurro);
     border-radius: 8px;
     font-size: 1.05rem;
     font-family: inherit;
-    background-color: #f9f9fc;
+    background-color: var(--azzurro);
     color: var(--black);
     transition: all 0.3s ease;
     resize: vertical;
@@ -3238,7 +3283,7 @@ main {
 .section-description {
     margin-bottom: 30px;
     font-size: 1.1em;
-    color: #555;
+    color: var(--black);
 }
 
 .user-message {
@@ -3250,7 +3295,7 @@ main {
 .news-date {
     font-size: 0.9em;
     font-weight: bold;
-    color: #666;
+    color: var(--black);
     margin-bottom: 15px;
     text-transform: uppercase;
 }
@@ -3258,18 +3303,18 @@ main {
 /* Spaziatura nel form di modifica delle news per separarlo dal tasto "Elimina" */
 .news-edit-form {
     margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--azzurro);
     padding-bottom: 20px;
 }
 
-/* Tasto rosso di pericolo per le azioni distruttive */
+/* Tasto di pericolo per le azioni distruttive */
 .btn-danger {
-    background-color: #d93025;
+    background-color: var(--arancione-scuro);
 }
 
 .btn-danger:hover,
 .btn-danger:focus-visible {
-    background-color: #b0271e;
+    background-color: var(--blu-scuro);
 }
 
 /* =========================================
@@ -3312,8 +3357,7 @@ main {
 /* 1. Stile per la riga "Da:" */
 .message-sender {
     font-size: 1.1em;
-    color: #666;
-    /* Grigio elegante */
+    color: var(--black);
     margin-bottom: 12px;
     font-weight: 600;
     display: flex;
@@ -3428,21 +3472,22 @@ main {
 .btn-logout-small:focus-visible {
     background-color: var(--arancione-scuro);
     color: var(--white) !important;
-    outline: none;
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 .gmail-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #e0e4e8;
+    border: 1px solid var(--azzurro);
     border-radius: 8px;
-    background-color: #fff;
+    background-color: var(--white);
     overflow: hidden;
 }
 
 .mail-row {
-    border-bottom: 1px solid #e0e4e8;
+    border-bottom: 1px solid var(--azzurro);
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
@@ -3458,18 +3503,17 @@ main {
 
 /* Stato Non Letto */
 .mail-row.unread {
-    background-color: #ffffff;
+    background-color: var(--white);
     font-weight: bold;
 }
 
 .mail-row.unread .read-dot {
-    background-color: #1a73e8;
-    /* Blu stile Gmail */
+    background-color: var(--blu-scuro);
 }
 
 /* Stato Letto */
 .mail-row.read {
-    background-color: #f2f5f7;
+    background-color: var(--azzurro);
     font-weight: normal;
 }
 
@@ -3524,16 +3568,15 @@ main {
     width: 100px;
     text-align: right;
     font-size: 0.9em;
-    color: #5f6368;
+    color: var(--black);
     flex-shrink: 0;
 }
 
 /* Area Risposta Espansa */
 .mail-content {
-    background-color: #fafbfc;
-    border-top: 1px dashed #e0e4e8;
+    background-color: var(--white);
+    border-top: 1px dashed var(--azzurro);
     padding: 20px 20px 20px 40px;
-    /* Margine sinistro per allineare */
     display: none;
 }
 
@@ -3541,13 +3584,13 @@ main {
     margin-bottom: 20px;
     font-size: 1.05em;
     line-height: 1.6;
-    color: #202124;
+    color: var(--black);
 }
 
 .mail-reply-form textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #dadce0;
+    border: 1px solid var(--azzurro);
     border-radius: 6px;
     resize: vertical;
     margin-bottom: 15px;
@@ -3557,8 +3600,8 @@ main {
 
 /* Bottone e Loading */
 .btn-send-reply {
-    background-color: #1a73e8;
-    color: white;
+    background-color: var(--blu-scuro);
+    color: var(--white);
     border: none;
     padding: 10px 24px;
     border-radius: 4px;
@@ -3572,11 +3615,11 @@ main {
 }
 
 .btn-send-reply:hover {
-    background-color: #1557b0;
+    background-color: var(--arancione-scuro);
 }
 
 .btn-send-reply.loading {
-    background-color: #8ab4f8;
+    background-color: var(--azzurro);
     cursor: not-allowed;
     color: transparent;
     /* Nasconde il testo */
@@ -3590,7 +3633,7 @@ main {
     height: 20px;
     border: 3px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
-    border-top-color: white;
+    border-top-color: var(--white);
     animation: spin 1s ease-in-out infinite;
 }
 
@@ -3688,7 +3731,7 @@ main {
 
 .news-mini-card {
     background: var(--white);
-    border: 1px solid #ddd;
+    border: 1px solid var(--azzurro);
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
@@ -3723,7 +3766,7 @@ main {
 
 .mini-card-info .mini-date {
     font-size: 0.85em;
-    color: #666;
+    color: var(--black);
     font-weight: bold;
 }
 
@@ -3733,35 +3776,53 @@ main {
     margin-top: 20px;
 }
 
+/* Lista FAQ admin */
+.faq-list-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 /* Card delle FAQ */
 .faq-admin-card {
-    transition: all 0.4s ease;
-    border-left: 4px solid var(--blu-scuro);
+    background: var(--white);
+    border-left: 4px solid var(--arancione);
+    border-radius: 8px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 2px 6px rgba(7, 36, 111, 0.07);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .faq-admin-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(7, 36, 111, 0.13);
 }
 
 .faq-card-content {
     flex-grow: 1;
-    padding-right: 20px;
+    padding-right: 16px;
 }
 
 .faq-card-content p {
-    margin: 5px 0;
+    margin: 4px 0;
 }
 
 .faq-card-content .faq-q {
-    font-weight: bold;
-    color: #1e293b;
-    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--blu-scuro);
+    font-size: 1rem;
+    margin-bottom: 6px;
 }
 
 .faq-card-content .faq-a {
-    color: #64748b;
+    color: var(--blu-scuro);
+    opacity: 0.65;
     font-style: italic;
+    font-size: 0.95rem;
 }
 
 /* Bottoni Azione */
@@ -3769,25 +3830,41 @@ main {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .btn-edit-faq-trigger {
-    background: #f1f5f9;
-    color: #334155;
-    border: 1px solid #cbd5e1;
-    padding: 6px 12px;
+    background: var(--blu-scuro);
+    color: var(--white);
+    border: none;
+    padding: 7px 14px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s;
+}
+
+.btn-edit-faq-trigger:hover,
+.btn-edit-faq-trigger:focus-visible {
+    opacity: 0.82;
 }
 
 .btn-delete-faq-ajax {
-    background: #fff1f2;
-    color: #e11d48;
-    border: 1px solid #fecdd3;
-    padding: 6px 12px;
+    background: transparent;
+    color: var(--arancione-scuro);
+    border: 1px solid var(--arancione-scuro);
+    padding: 7px 14px;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 0.875rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-delete-faq-ajax:hover,
+.btn-delete-faq-ajax:focus-visible {
+    background: var(--arancione-scuro);
+    color: var(--white);
 }
 
 /* Container per le sottoviste (Nuova News, Elenco, ecc.) */
@@ -3801,15 +3878,15 @@ main {
 .admin-view-footer {
     margin-top: 25px;
     padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--azzurro);
     text-align: left;
 }
 
 /* Stile universale per i bottoni "Torna alla Dashboard/Elenco" */
 .btn-back-admin {
-    background: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    color: #334155;
+    background: var(--white);
+    border: 1px solid var(--azzurro);
+    color: var(--black);
     font-weight: 600;
     padding: 8px 18px;
     border-radius: 30px;
@@ -3822,8 +3899,8 @@ main {
 }
 
 .btn-back-admin:hover {
-    background: #e2e8f0;
-    border-color: #94a3b8;
+    background: var(--azzurro);
+    border-color: var(--arancione-chiaro);
 }
 
 .btn-back-admin .arrow-back {
@@ -3835,24 +3912,9 @@ main {
 .current-img-info {
     display: block;
     margin-top: 5px;
-    color: #64748b;
+    color: var(--black);
 }
 
-/* Gmail-style list reset */
-.gmail-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.btn-edit-faq-trigger:hover {
-    background: #e2e8f0;
-}
-
-.btn-delete-faq-ajax:hover {
-    background: #e11d48;
-    color: white;
-}
 
 /* =========================================
    UI BIGLIETTI UTENTE (TICKET STUB)
@@ -3864,7 +3926,7 @@ main {
     overflow: hidden;
     margin-bottom: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--azzurro);
     position: relative;
     transition: transform 0.2s ease;
 }
@@ -3877,7 +3939,7 @@ main {
 .ticket-info {
     flex: 1;
     padding: 25px;
-    border-right: 2px dashed #ccc;
+    border-right: 2px dashed var(--arancione-chiaro);
     position: relative;
 }
 
@@ -3888,8 +3950,7 @@ main {
     position: absolute;
     width: 24px;
     height: 24px;
-    background-color: var(--grigio-chiaro);
-    /* Colore del background contenitore per mimetizzarsi */
+    background-color: var(--azzurro);
     border-radius: 50%;
     right: -13px;
     z-index: 5;
@@ -3923,8 +3984,8 @@ main {
 }
 
 .ticket-badge.vip {
-    background-color: #d4af37;
-    color: black;
+    background-color: var(--arancione);
+    color: var(--black);
 }
 
 .ticket-title {
@@ -3943,7 +4004,7 @@ main {
 .t-detail span {
     display: block;
     font-size: 0.8em;
-    color: #666;
+    color: var(--black);
     text-transform: uppercase;
     margin-bottom: 2px;
 }
@@ -3959,7 +4020,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #fcfcfc;
+    background-color: var(--white);
     min-width: 180px;
 }
 
@@ -3974,7 +4035,7 @@ main {
 .ticket-qr .qr-code-id {
     font-family: monospace;
     font-size: 1em;
-    color: #666;
+    color: var(--black);
     letter-spacing: 2px;
     margin-bottom: 15px;
 }
@@ -4008,7 +4069,7 @@ main {
 
     .ticket-info {
         border-right: none;
-        border-bottom: 2px dashed #ccc;
+        border-bottom: 2px dashed var(--arancione-chiaro);
     }
 
     .ticket-info::before,
@@ -4029,16 +4090,6 @@ main {
 }
 
 
-.msg-success {
-    border-color: var(--arancione);
-    color: var(--blu-scuro);
-    box-shadow: 0 4px 10px rgba(7, 36, 111, 0.1);
-}
-
-.msg-error {
-    border-color: #d9534f;
-    color: #d9534f;
-}
 
 /* Animazioni */
 .fade-out {
@@ -4051,13 +4102,13 @@ main {
 }
 
 .esito-success {
-    color: green;
-    border-color: green;
+    color: var(--blu-scuro);
+    border-color: var(--blu-scuro);
 }
 
 .esito-error {
-    color: red;
-    border-color: red;
+    color: var(--arancione-scuro);
+    border-color: var(--arancione-scuro);
 }
 
 /* Messaggi di lista vuota */
@@ -4067,7 +4118,7 @@ main {
 
 /* Elementi delle risposte */
 .reply-given {
-    color: green;
+    color: var(--blu-scuro);
     margin-top: 10px;
 }
 
@@ -4101,8 +4152,8 @@ main {
 }
 
 .user-question-box {
-    background-color: #f8f9fa;
-    border-left: 4px solid #ced4da;
+    background-color: var(--white);
+    border-left: 4px solid var(--azzurro);
     padding: 15px 20px;
     border-radius: 4px 8px 8px 4px;
     align-self: flex-start;
@@ -4131,7 +4182,7 @@ main {
 }
 
 .admin-answer-box {
-    background-color: #f0f7ff;
+    background-color: var(--azzurro);
     border-left: 4px solid var(--arancione);
     padding: 15px 20px;
     border-radius: 4px 8px 8px 4px;
@@ -4144,7 +4195,7 @@ main {
 .admin-answer-box p {
     margin: 0;
     line-height: 1.5;
-    color: #333;
+    color: var(--black);
 }
 
 /* =========================================
@@ -4283,8 +4334,8 @@ main {
 .btn-ritorno:focus-visible {
     background-color: var(--blu-scuro);
     color: var(--azzurro);
-    outline: none;
-    /* Gestito dal focus-visible generale, se lo hai */
+    outline: 3px solid var(--arancione-scuro);
+    outline-offset: 4px;
 }
 
 /* =========================================
@@ -4452,12 +4503,12 @@ main {
 }
 
 .success-msg {
-    color: green;
+    color: var(--blu-scuro);
     margin-bottom: 15px;
 }
 
 .error-msg {
-    color: red;
+    color: var(--arancione-scuro);
     margin-bottom: 15px;
 }
 
@@ -4494,8 +4545,8 @@ main {
     position: absolute;
     top: -100px;
     left: 0;
-    background-color: var(--primaryBlue);
-    color: var(--offWhite);
+    background-color: var(--blu-scuro);
+    color: var(--white);
     padding: 1rem;
     z-index: 9999;
     transition: top 0.3s ease;
@@ -4513,7 +4564,7 @@ main {
     bottom: 2rem;
     right: 2rem;
     background-color: var(--arancione);
-    color: var(--offWhite);
+    color: var(--white);
     border: 2px solid var(--arancione-scuro);
     width: 4rem;
     /* Cerchio più grande */
@@ -4533,6 +4584,6 @@ main {
 .back-to-top:hover,
 .back-to-top:focus {
     background-color: var(--arancione-scuro);
-    color: var(--offWhite);
+    color: var(--white);
     transform: translateY(-5px);
 }

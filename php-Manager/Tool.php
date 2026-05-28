@@ -100,12 +100,12 @@ class Tool
         $pagesPath = $inRoot ? 'php-pages/' : '';
 
         $headerHtml = '<header>
-        <a href="' . $basePath . 'index.php" class="logo-link">
-            <img src="' . $basePath . 'assets/images/logo1.png" alt="Patavium Open" id="logo-sito" />
+        <span class="logo-brand">
+            <img src="' . $basePath . 'assets/images/logo1.png" alt="" aria-hidden="true" id="logo-sito" />
             <span>Patavium Open</span>
-        </a>
+        </span>
 
-        <nav id="menu" aria-label="Navigazione principale">
+        <nav id="menu" aria-label="Menu principale">
             <ul>';
 
         $menuItems = [

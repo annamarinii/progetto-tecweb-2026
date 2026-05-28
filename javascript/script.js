@@ -60,14 +60,38 @@ function selectDate(dayName, dayNumber, event) {
         dati.append('data_scelta', '2027-05-' + dayNumber);
 
         fetch('GroundPasses.php', { method: 'POST', body: dati })
-            .then(risposta => risposta.json()) 
+            .then(risposta => risposta.json())
             .then(data => {
+                const avviso = document.getElementById('avviso-disponibilita');
                 if (data.prezzo && data.quantita_disponibile > 0) {
                     prezzoDisplay.textContent = "€ " + parseFloat(data.prezzo).toLocaleString('it-IT', { minimumFractionDigits: 2 });
                     prezzoDisplay.dataset.rawPrice = data.prezzo;
+                    prezzoDisplay.dataset.disponibilita = data.quantita_disponibile;
+
+                    if (avviso) {
+                        if (data.quantita_disponibile < 10) {
+                            avviso.textContent = 'Affrettati! Rimangono solo ' + data.quantita_disponibile + ' biglietti disponibili.';
+                            avviso.classList.remove('d-none');
+                        } else {
+                            avviso.textContent = '';
+                            avviso.classList.add('d-none');
+                        }
+                    }
+
+                    const qtyInput = document.getElementById('ticket-qty');
+                    if (qtyInput) {
+                        qtyInput.value = 1;
+                        statoAcquisto.quantita = 1;
+                    }
+                    if (typeof changeQty === 'function') changeQty(0);
                 } else {
                     prezzoDisplay.textContent = "Esaurito";
                     prezzoDisplay.classList.add('status-sold-out');
+                    prezzoDisplay.dataset.disponibilita = "0";
+                    if (avviso) {
+                        avviso.textContent = '';
+                        avviso.classList.add('d-none');
+                    }
                 }
             })
             .catch(errore => console.error("Errore AJAX:", errore));
@@ -119,18 +143,21 @@ function showSeatSelection(event, tipoSessione) {
                 const formatta = (info, elemento) => {
                     const seatCategory = elemento.closest('.seat-category');
                     if (info && info.quantita_disponibile > 0) {
-                        // 1. Quello che vede l'utente (formattato)
                         elemento.textContent = "€ " + parseFloat(info.prezzo).toLocaleString('it-IT', {minimumFractionDigits: 2});
-                        
-                        // 2. Quello che legge il codice (dato puro)
-                        elemento.dataset.rawPrice = info.prezzo; // Salva es: 120.50
+                        elemento.dataset.rawPrice = info.prezzo;
                         elemento.classList.remove('status-sold-out');
-                        if (seatCategory) seatCategory.classList.remove('disabled-seat');
+                        if (seatCategory) {
+                            seatCategory.classList.remove('disabled-seat');
+                            seatCategory.dataset.disponibilita = info.quantita_disponibile;
+                        }
                     } else {
                         elemento.textContent = "Esaurito";
                         elemento.dataset.rawPrice = "0";
                         elemento.classList.add('status-sold-out');
-                        if (seatCategory) seatCategory.classList.add('disabled-seat');
+                        if (seatCategory) {
+                            seatCategory.classList.add('disabled-seat');
+                            seatCategory.dataset.disponibilita = "0";
+                        }
                     }
                 };
 
@@ -144,6 +171,14 @@ function showSeatSelection(event, tipoSessione) {
     }
 }
 
+function pulisciPrezzo(elemento) {
+    if (!elemento || !elemento.dataset.rawPrice) {
+        console.warn("Elemento o prezzo non trovato");
+        return 0;
+    }
+    return parseFloat(elemento.dataset.rawPrice);
+}
+
 // STEP 3: Selezione della Tribuna (Usato SOLO in Single Session)
 function selectTribune(element) {
     if (element.classList.contains('disabled-seat')) return;
@@ -154,26 +189,77 @@ function selectTribune(element) {
     element.classList.add('selected');
     statoAcquisto.tribuna = element.querySelector('h3').textContent;
 
-    // Recuperiamo il prezzo usando il nuovo metodo pulito
     const priceSpan = element.querySelector('.seat-price');
-    statoAcquisto.prezzoSingolo = pulisciPrezzo(priceSpan); 
+    statoAcquisto.prezzoSingolo = pulisciPrezzo(priceSpan);
+
+    const avviso = document.getElementById('avviso-disponibilita');
+    const dispDb = parseInt(element.dataset.disponibilita, 10) || 0;
+
+    if (avviso) {
+        if (dispDb > 0 && dispDb < 10) {
+            avviso.textContent = 'Affrettati! Rimangono solo ' + dispDb + ' biglietti disponibili.';
+            avviso.classList.remove('d-none');
+        } else {
+            avviso.textContent = '';
+            avviso.classList.add('d-none');
+        }
+    }
+
+    const qtyInput = document.getElementById('ticket-qty');
+    if (qtyInput) {
+        qtyInput.value = 1;
+        if (typeof statoAcquisto !== 'undefined') statoAcquisto.quantita = 1;
+    }
+
+    if (typeof changeQty === 'function') {
+        changeQty(0);
+    }
 }
 
 // Gestione Quantità (+ e -) (Usato in ENTRAMBE le pagine)
 function changeQty(amount) {
     const qtyInput = document.getElementById('ticket-qty');
-    if (!qtyInput) return; // Se l'input non esiste, blocca la funzione
+    if (!qtyInput) return;
 
-    let currentValue = parseInt(qtyInput.value, 10);
-    if (isNaN(currentValue)) currentValue = 1;
+    const selectedSeat = document.querySelector('.seat-category.selected');
+    const groundPrice = document.getElementById('prezzo-ground');
 
-    let newValue = currentValue + amount;
+    let dispDb = 0;
+    if (selectedSeat) {
+        dispDb = parseInt(selectedSeat.dataset.disponibilita, 10) || 0;
+    } else if (groundPrice && groundPrice.dataset.disponibilita !== undefined) {
+        dispDb = parseInt(groundPrice.dataset.disponibilita, 10) || 0;
+    } else {
+        return;
+    }
+    const maxConsentito = dispDb > 0 ? Math.min(10, dispDb) : 10;
+
+    let newValue = parseInt(qtyInput.value, 10);
+    if (isNaN(newValue)) newValue = 1;
+    newValue += amount;
 
     if (newValue < 1) newValue = 1;
-    if (newValue > 10) newValue = 10;
+    if (newValue > maxConsentito) newValue = maxConsentito;
 
     qtyInput.value = newValue;
-    statoAcquisto.quantita = newValue;
+    qtyInput.max = maxConsentito;
+    qtyInput.setAttribute('aria-valuemax', maxConsentito);
+
+    if (typeof statoAcquisto !== 'undefined') statoAcquisto.quantita = newValue;
+
+    const btnPlus = document.querySelector('.qty-btn.plus');
+    if (btnPlus) {
+        const atMax = newValue >= maxConsentito;
+        btnPlus.disabled = atMax;
+        btnPlus.setAttribute('aria-disabled', atMax ? 'true' : 'false');
+    }
+
+    const btnMinus = document.querySelector('.qty-btn.minus');
+    if (btnMinus) {
+        const atMin = newValue <= 1;
+        btnMinus.disabled = atMin;
+        btnMinus.setAttribute('aria-disabled', atMin ? 'true' : 'false');
+    }
 }
 
 // GESTIONE FINALE: Aggiunta al carrello (AJAX verso PHP)
@@ -279,15 +365,6 @@ if (btnMinus && btnPlus) {
                 return null;
             }
 
-            // FUNZIONE INTERNA 2: Pulisce il prezzo HTML per il database
-            function pulisciPrezzo(elemento) {
-                if (!elemento || !elemento.dataset.rawPrice) {
-                    console.warn("Elemento o prezzo non trovato");
-                    return 0;
-                }
-                return parseFloat(elemento.dataset.rawPrice);
-            }
-
             // LOGICA DI ACQUISIZIONE DATI
             if (isSingleSession) {
                 if (!statoAcquisto.data || !statoAcquisto.sessione || !statoAcquisto.tribuna) {
@@ -365,7 +442,12 @@ if (btnMinus && btnPlus) {
                             acquistaBtn.style.opacity = '1';
                         }, 3000);
                     } else {
-                        alert("Errore nel salvataggio del biglietto.");
+                        const avviso = document.getElementById('avviso-disponibilita');
+                        const msg = dati.message || 'Impossibile aggiungere il biglietto. Verifica la disponibilità.';
+                        if (avviso) {
+                            avviso.textContent = msg;
+                            avviso.classList.remove('d-none');
+                        }
                     }
                 })
                 .catch(errore => console.error("Errore di connessione AJAX:", errore));
