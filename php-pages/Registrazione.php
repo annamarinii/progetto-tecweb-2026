@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Le password non coincidono.</div>";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Indirizzo email non valido.</div>";
-    } elseif (strlen($password) < 8 || strlen($password) > 20) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> La password deve avere tra 8 e 20 caratteri.</div>";
+    } elseif (!AccountManager::validaPassword($password)) {
+        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> La password deve avere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un carattere speciale.</div>";
     } else {
         $risultato = AccountManager::registraUtente($nome, $cognome, $username, $email, $password);
 

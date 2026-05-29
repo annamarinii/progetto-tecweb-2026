@@ -8,6 +8,7 @@
     --black: #101010;
     --white: #f1f1f1;
     --arancione-scuro: #A54600;
+    --font-main: Arial, sans-serif;
 
     /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
     --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
@@ -1706,6 +1707,17 @@ main {
     display: none !important;
 }
 
+.noscript-warning {
+    background-color: var(--crema);
+    color: var(--arancione-scuro);
+    border-left: 5px solid var(--arancione-scuro);
+    padding: 12px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
 /* =========================================
    PAGINA LOGIN & REGISTRAZIONE SPLIT
 ========================================= */
@@ -2324,6 +2336,7 @@ main {
 }
 
 .auth-header h2 {
+    font-family: var(--font-main);
     color: var(--white);
     font-size: 1.5rem;
     margin-bottom: 15px;
@@ -2479,6 +2492,49 @@ main {
 .auth-footer a:hover,
 .auth-footer a:focus-visible {
     color: var(--blu-scuro);
+}
+
+/* --- CAMPI OBBLIGATORI: indicatore visivo via CSS (WCAG 2.1 AA) --- */
+label.label-richiesta::after {
+    content: " (richiesto)";
+    font-size: 0.8em;
+    color: var(--black);
+    font-weight: normal;
+}
+
+/* --- REQUISITI PASSWORD --- */
+#pass-requisiti {
+    list-style: none;
+    padding: 10px 14px;
+    margin-top: 6px;
+    background-color: var(--azzurro);
+    border-left: 3px solid var(--arancione-chiaro);
+    border-radius: 6px;
+    font-size: 0.875rem;
+}
+
+#pass-requisiti li {
+    padding: 3px 0;
+    color: var(--black);
+}
+
+#pass-requisiti li::before {
+    content: "○  ";
+    color: var(--arancione-scuro);
+}
+
+#pass-requisiti li.soddisfatto {
+    color: var(--blu-scuro);
+    font-weight: bold;
+}
+
+#pass-requisiti li.soddisfatto::before {
+    content: "●  ";
+    color: var(--blu-scuro);
+}
+
+#pass-requisiti li.non-soddisfatto {
+    color: var(--arancione-scuro);
 }
 
 /* Responsività per la registrazione */
@@ -3891,7 +3947,7 @@ main {
     padding: 8px 18px;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
@@ -3904,7 +3960,7 @@ main {
 }
 
 .btn-back-admin .arrow-back {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
 }
 
@@ -4384,7 +4440,7 @@ main {
     padding: 25px;
     border-radius: 12px;
     margin-bottom: 30px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: var(--font-main);
     animation: slideDown 0.5s ease-out;
     border-left: 8px solid var(--arancione);
     /* Richiamo alla terra battuta */

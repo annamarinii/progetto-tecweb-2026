@@ -31,14 +31,15 @@
                 [messaggio_esito]
                 <form action="../php-pages/Login.php" method="POST" class="auth-form">
                     <div class="form-gruppo">
-                        <label for="identificativo">Username o E-mail</label>
+                        <label for="identificativo" class="label-richiesta">Username o E-mail</label>
                         <input type="text" id="identificativo" name="identificativo"
-                            placeholder="Inserisci username o e-mail" required="required" autocomplete="username" />
+                            placeholder="Inserisci username o e-mail"
+                            required="required" aria-required="true" autocomplete="username" />
                     </div>
                     <div class="form-gruppo">
-                        <label for="pass">Password</label>
-                        <input type="password" id="pass" name="password" placeholder="Inserisci la password" required="required"
-                            autocomplete="current-password" />
+                        <label for="pass" class="label-richiesta">Password</label>
+                        <input type="password" id="pass" name="password" placeholder="Inserisci la password"
+                            required="required" aria-required="true" autocomplete="current-password" />
                     </div>
                     <button type="submit" class="btn-auth">Login</button>
                 </form>
