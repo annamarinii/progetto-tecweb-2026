@@ -1,0 +1,22 @@
+<div class="news-admin-row" data-news-id="[NewsID]">
+    <div class="news-admin-row-info">
+        <img src="[Percorso]" alt="" class="news-admin-thumb" loading="lazy" />
+        <p class="news-admin-title">[Titolo]</p>
+    </div>
+    <div class="news-admin-actions">
+        <button type="button"
+                class="btn-edit btn-edit-news-trigger"
+                data-id="[NewsID]"
+                data-img="[ImgName]"
+                data-inevidenza="[InEvidenza]"
+                aria-label="Modifica la news: [Titolo]">Modifica</button>
+        <form action="AreaAdmin.php" method="POST" class="form-delete-news">
+            <input type="hidden" name="id_news" value="[NewsID]" />
+            <input type="hidden" name="elimina" value="si" />
+            <button type="submit"
+                    class="btn-delete-news-ajax"
+                    aria-label="Elimina definitivamente la news: [Titolo]">Elimina</button>
+        </form>
+    </div>
+    <p class="news-admin-testo-hidden" aria-hidden="true">[Testo]</p>
+</div>

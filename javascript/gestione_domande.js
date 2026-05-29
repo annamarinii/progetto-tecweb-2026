@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            mostraMessaggioDomande('Risposta inviata con successo!', 'success');
-                            
+                            mostraMessaggioDomande('<strong>Ottimo!</strong> Risposta inviata con successo.', 'success');
+
                             if(rigaCorrente) {
                                 rigaCorrente.classList.add('fade-out'); // Animazione via CSS
                                 setTimeout(() => {
@@ -73,13 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }, 400);
                             }
                         } else {
-                            mostraMessaggioDomande('Errore durante l\'invio.', 'error');
+                            mostraMessaggioDomande('<strong>Errore:</strong> Problema durante l\'invio. Riprova.', 'error');
                             if(btn) { btn.textContent = 'Invia Risposta'; btn.classList.remove('btn-loading'); }
                         }
                     })
                     .catch(err => {
                         console.error(err);
-                        mostraMessaggioDomande('Errore di comunicazione.', 'error');
+                        mostraMessaggioDomande('<strong>Errore:</strong> Errore di comunicazione con il server.', 'error');
                     });
                 });
                 form.dataset.ajaxBound = "true";
@@ -87,16 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function mostraMessaggioDomande(testo, tipo) {
+    function mostraMessaggioDomande(html, tipo) {
         document.querySelectorAll('.ajax-dynamic-msg-domande').forEach(msg => msg.remove());
         const contenitoreAttivo = document.querySelector('#nuove-domande');
         if (!contenitoreAttivo) return;
 
         const msg = document.createElement('div');
-        // Usiamo classi semantiche per lo stile
-        msg.className = `ajax-dynamic-msg-domande msg-${tipo}`;
-        msg.textContent = testo;
-        
+        msg.className = `form-message message-${tipo} ajax-dynamic-msg-domande`;
+        msg.setAttribute('role', 'alert');
+        msg.setAttribute('aria-live', 'assertive');
+        msg.innerHTML = html;
+
         const h2 = contenitoreAttivo.querySelector('h2');
         if(h2) h2.insertAdjacentElement('afterend', msg);
         else contenitoreAttivo.prepend(msg);
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             msg.classList.add('fade-out');
             setTimeout(() => msg.remove(), 500);
-        }, 3000);
+        }, 4000);
     }
 
     attaccaEventiDomande();

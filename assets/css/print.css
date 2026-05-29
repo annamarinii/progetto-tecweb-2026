@@ -1,6 +1,6 @@
 html body {
-    background-color: #fff;
-    color: #000;
+    background-color: var(--bianco-puro);
+    color: var(--nero-puro);
     font-size: 80%;
     line-height: 1.5;
 }
@@ -10,13 +10,13 @@ html body h2 { font-size: 1.5em; }
 
 html body header {
     text-align: center; /* Centra i testi e gli elementi inline */
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid var(--nero-puro);
     margin-bottom: 2rem;
     padding-bottom: 1rem;
 }
 
 html body *, html body main * {
-    color: #000;
+    color: var(--nero-puro);
     background-color: transparent;
     text-shadow: none;
     box-shadow: none;
@@ -34,15 +34,15 @@ html body #logo-sito {
 html body #breadcrumb {
     display: block;
     font-size: 0.85em;
-    color: #000; 
+    color: var(--nero-puro); 
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--grigio-separatore);
 }
 
 html body #breadcrumb a {
     text-decoration: underline;
-    color: #000;
+    color: var(--nero-puro);
 }
 
 html body #breadcrumb .breadcrumb-active,
@@ -60,7 +60,7 @@ html body #breadcrumb p {
 }
 
 /* ELEMENTI NASCOSTI*/
-#menu, #menu-utente, nav#breadcrumb, .sidebar-user, #sticky-bar, .footer-nav, 
+#menu, #menu-utente, nav#breadcrumb, .sidebar-user, #sticky-bar, .footer-grid,
 button, .btn-auth, .buy-btn, .btn-ritorno, .btn-biglietti, .btn-logout-small, .action-box, 
 .purchase-controls, .purchase-container, form, input, textarea, .divider, .error-visual, 
 #pallina_triste, .step-badge, .step-header h2, .session-footer, #selected-full-date, .auth-footer,
@@ -76,7 +76,7 @@ html body .benefit-card, html body .session-card, html body .seat-category {
     align-items: flex-start;
     gap: 1.5rem;
     padding: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--grigio-bordo);
     margin-bottom: 1rem;
     page-break-inside: avoid;
     break-inside: avoid;
@@ -132,7 +132,7 @@ html body main section.faq-wrapper details.faq-item {
     page-break-inside: avoid;
     break-inside: avoid;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--grigio-bordo);
     padding-bottom: 1rem;
 }
 
@@ -154,7 +154,7 @@ html body main section#contattaci .testo-solo-stampa {
     display: block;
     margin-top: 1rem;
     font-size: 1.1em;
-    color: #000;
+    color: var(--nero-puro);
 }
 
 /*chiedere se mettiamo l'email o no, in tal caso togliere l'email anche da privacy.html*/
@@ -177,14 +177,14 @@ html body main .date-tile {
     width: 23%;
     min-width: 110px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid var(--grigio-bordo);
     padding: 0.5rem; 
     border-radius: 6px;
-    background-color: #fff;
+    background-color: var(--bianco-puro);
     text-align: center;
     page-break-inside: avoid;
     break-inside: avoid;
-    color: #000;
+    color: var(--nero-puro);
 }
 
 html body main .date-tile p {
@@ -206,7 +206,7 @@ html body main .date-tile .tag {
     display: inline-block;
     font-size: 0.65em;
     font-weight: bold;
-    border: 1px solid #666;
+    border: 1px solid var(--grigio-medio);
     padding: 0.1rem 0.3rem;
     border-radius: 3px;
     margin: 0.3rem 0;
@@ -234,13 +234,13 @@ html body main .seat-price {
     text-align: right;
     white-space: pre-line;
     line-height: 1.4;
-    color: #000;
+    color: var(--nero-puro);
     min-width: 120px;
 }
 
 html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card {
     display: block;
-    border: 1.5pt solid #000;
+    border: 1.5pt solid var(--nero-puro);
     padding: 15pt;
     margin-bottom: 15pt;
     page-break-inside: avoid;
@@ -250,7 +250,7 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
 html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card h3 {
     margin-top: 0;
     font-size: 14pt;
-    border-bottom: 0.5pt solid #ccc;
+    border-bottom: 0.5pt solid var(--grigio-bordo);
     padding-bottom: 5pt;
     margin-bottom: 10pt;
 }
@@ -271,7 +271,7 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
 /* Riepilogo ordine*/
 html body .cart-summary {
     width: 100%;
-    border-top: 2px solid #000;
+    border-top: 2px solid var(--nero-puro);
     padding-top: 1rem;
     background: none;
 }
@@ -284,10 +284,10 @@ html body .summary-row {
 
 html body .summary-total {
     font-size: 1.4rem;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--grigio-bordo);
     margin-top: 0.5rem;
     padding-top: 1rem;
-    color: #000;
+    color: var(--nero-puro);
 }
 
 html body main.user-page-main div.user-layout div.content-area-user {
@@ -304,7 +304,7 @@ html body main.user-page-main div.user-layout div.content-area-user section#prof
     display: inline-block; 
     width: 100%; 
     opacity: 1; 
-    color: #000;
+    color: var(--nero-puro);
     border: 0;
     background-color: transparent;
     font-family: inherit;
@@ -320,7 +320,7 @@ html body main.user-page-main div.user-layout div.content-area-user section#prof
     flex-direction: row;
     align-items: center;
     margin-bottom: 12pt;
-    border-bottom: 1pt solid #ccc;
+    border-bottom: 1pt solid var(--grigio-bordo);
     padding-bottom: 5pt;
 }
 
@@ -346,7 +346,7 @@ html body main.user-page-main .user-layout .content-area-user ul.gmail-list {
 
 html body main.user-page-main .user-layout .content-area-user ul.gmail-list li {
     display: block;
-    border: 1.5pt solid #000;
+    border: 1.5pt solid var(--nero-puro);
     padding: 15pt;
     margin-bottom: 15pt;
     page-break-inside: avoid; 
@@ -359,7 +359,7 @@ html body main.user-page-main .user-layout .content-area-user ul.gmail-list li h
     display: block;
     font-size: 13pt;
     margin-bottom: 8pt;
-    border-bottom: 0.5pt solid #eee;
+    border-bottom: 0.5pt solid var(--grigio-separatore);
     padding-bottom: 3pt;
 }
 
@@ -367,12 +367,12 @@ html body main.user-page-main .user-layout .content-area-user ul.gmail-list li p
     font-size: 11pt;
     line-height: 1.4;
     margin: 5pt 0;
-    color: #000;
+    color: var(--nero-puro);
 }
 
 /* Footer */
 html body .footer-sito {
-    border-top: 1px solid #000;
+    border-top: 1px solid var(--nero-puro);
     margin-top: 2rem;
     padding-top: 1rem;
     text-align: center;

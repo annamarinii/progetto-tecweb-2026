@@ -7,23 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
 
+    function attivaSezionePerId(id) {
+        const link = document.querySelector(`.tab-link[data-target="${id}"]`);
+        if (!link) return;
+        tabLinks.forEach(l => l.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        link.classList.add('active');
+        const sezione = document.getElementById(id);
+        if (sezione) sezione.classList.add('active');
+    }
+
     tabLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('data-target');
-
-            // Rimuove la classe active da tutti i link e da tutti i contenuti
-            tabLinks.forEach(l => l.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-
-            // Aggiunge la classe active solo a quello cliccato
-            link.classList.add('active');
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                targetElement.classList.add('active');
-            }
+            attivaSezionePerId(link.getAttribute('data-target'));
         });
     });
+
+    // Attiva la sezione corrispondente all'hash URL dopo redirect POST
+    const hashIniziale = window.location.hash.slice(1);
+    if (hashIniziale) attivaSezionePerId(hashIniziale);
 
     /**
      * --- GESTIONE MODIFICA PROFILO ---

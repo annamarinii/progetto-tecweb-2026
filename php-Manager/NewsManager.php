@@ -6,9 +6,9 @@ class NewsManager {
     // Recupera tutte le news
     public static function getNews() {
         $conn = DBConnection::getConnessione();
-        $sql = "SELECT N.idNews, N.titolo, N.testo, N.data_pubblicazione, N.immagine, U.nome, U.cognome 
-                FROM NEWS N 
-                JOIN UTENTE U ON N.idAutore = U.idUtente 
+        $sql = "SELECT N.idNews, N.titolo, N.testo, N.data_pubblicazione, N.immagine, N.inEvidenza, U.nome, U.cognome
+                FROM NEWS N
+                JOIN UTENTE U ON N.idAutore = U.idUtente
                 ORDER BY N.data_pubblicazione DESC";
         $risultato = $conn->query($sql);
         $news_estratte = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];

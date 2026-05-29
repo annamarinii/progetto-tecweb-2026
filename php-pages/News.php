@@ -24,11 +24,11 @@ if (count($lista_news_db) > 0) {
         $card_html = $template_news_card;
 
         // Iniezione sicura dei dati
-        $card_html = str_replace('[PercorsoImg]', $percorso_img, $card_html);
-        $card_html = str_replace('[Titolo]', $titolo, $card_html);
-        $card_html = str_replace('[DataIso]', $data_iso, $card_html);
-        $card_html = str_replace('[DataLeggibile]', $data_leggibile, $card_html);
-        $card_html = str_replace('[Testo]', $testo, $card_html);
+        $card_html = str_replace(
+            ['[IdNews]', '[PercorsoImg]', '[Titolo]', '[DataIso]', '[DataLeggibile]', '[Testo]'],
+            [(int)$news['idNews'], $percorso_img, $titolo, $data_iso, $data_leggibile, $testo],
+            $card_html
+        );
 
         $html_news_dinamico .= $card_html;
     }

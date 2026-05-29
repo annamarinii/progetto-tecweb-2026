@@ -7,10 +7,7 @@ require_once '../php-Manager/Tool.php';
 $messaggio_esito = "";
 
 if (isset($_GET['error']) && $_GET['error'] == 'devi_loggarti') {
-    $messaggio_esito = "
-    <div class='form-message message-error login-error' role='alert' aria-live='assertive'>
-        <strong>Attenzione:</strong> Devi effettuare il login per poter completare l'acquisto.
-    </div>";
+    $messaggio_esito = Tool::buildMessage('Attenzione:', "Devi effettuare il login per poter completare l'acquisto.", 'error login-error');
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,10 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../index.php");
         exit();
     } else {
-        $messaggio_esito = "
-        <div class='form-message message-error login-error' role='alert' aria-live='assertive'>
-            <strong>Accesso negato:</strong> Le credenziali inserite non sono corrette.
-        </div>";
+        $messaggio_esito = Tool::buildMessage('Accesso negato:', 'Le credenziali inserite non sono corrette.', 'error login-error');
     }
 }
 

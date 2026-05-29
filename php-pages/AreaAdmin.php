@@ -18,7 +18,7 @@ $dati_utente = AccountManager::getUtenteById($id_utente_corrente);
 $frammento_faq_admin     = file_get_contents(__DIR__ . '/../item/faq_admin_card.html');
 $frammento_domanda       = file_get_contents(__DIR__ . '/../item/domanda_utente_item.html');
 $frammento_form_risposta = file_get_contents(__DIR__ . '/../item/faq_risposta_admin.html');
-$frammento_news_mini     = file_get_contents(__DIR__ . '/../item/news_mini_card.html');
+$frammento_news_admin    = file_get_contents(__DIR__ . '/../item/admin_news_row.html');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $esito = false;
@@ -65,15 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $html_news = "";
             foreach ($newsArray as $news) {
                 $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.png' : '../' . htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8');
+                $img_name = (empty($news['immagine'])) ? 'logo1.png' : basename($news['immagine']);
                 $html_news .= str_replace(
-                    ['[NewsID]', '[Percorso]', '[Titolo]', '[Testo]'],
+                    ['[NewsID]', '[Percorso]', '[Titolo]', '[Testo]', '[ImgName]', '[InEvidenza]'],
                     [
                         (int)$news['idNews'],
                         $percorso,
-                        htmlspecialchars($news['titolo'], ENT_QUOTES, 'UTF-8'),
-                        htmlspecialchars($news['testo'],  ENT_QUOTES, 'UTF-8')
+                        htmlspecialchars($news['titolo'],    ENT_QUOTES, 'UTF-8'),
+                        htmlspecialchars($news['testo'],     ENT_QUOTES, 'UTF-8'),
+                        htmlspecialchars($img_name,          ENT_QUOTES, 'UTF-8'),
+                        (int)($news['inEvidenza'] ?? 0)
                     ],
-                    $frammento_news_mini
+                    $frammento_news_admin
                 );
             }
             echo json_encode(['status' => ($esito ? 'success' : 'error'), 'upload_msg' => $upload_msg, 'html_miniature' => $html_news]);
@@ -160,15 +163,18 @@ $newsArray = NewsManager::getNews();
 $html_miniature = !empty($newsArray) ? "" : "<p>Nessuna news pubblicata.</p>";
 foreach ($newsArray as $news) {
     $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.png' : '../' . htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8');
+    $img_name = (empty($news['immagine'])) ? 'logo1.png' : basename($news['immagine']);
     $html_miniature .= str_replace(
-        ['[NewsID]', '[Percorso]', '[Titolo]', '[Testo]'],
+        ['[NewsID]', '[Percorso]', '[Titolo]', '[Testo]', '[ImgName]', '[InEvidenza]'],
         [
             (int)$news['idNews'],
             $percorso,
-            htmlspecialchars($news['titolo'], ENT_QUOTES, 'UTF-8'),
-            htmlspecialchars($news['testo'],  ENT_QUOTES, 'UTF-8')
+            htmlspecialchars($news['titolo'],    ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($news['testo'],     ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($img_name,          ENT_QUOTES, 'UTF-8'),
+            (int)($news['inEvidenza'] ?? 0)
         ],
-        $frammento_news_mini
+        $frammento_news_admin
     );
 }
 
@@ -211,9 +217,11 @@ foreach ($domandeUtenti as $d) {
 // Preparazione Messaggio Esito
 $messaggio_esito = "";
 if (isset($_GET['status'])) {
-    $tipo_status = ($_GET['status'] == 'success') ? 'esito-success' : 'esito-error';
-    $testo_status = ($_GET['status'] == 'success') ? 'Operazione completata!' : 'Errore!';
-    $messaggio_esito = "<div class='esito-msg $tipo_status' role='alert' aria-live='assertive'>$testo_status</div>";
+    if ($_GET['status'] == 'success') {
+        $messaggio_esito = Tool::buildMessage('Ottimo!', 'Operazione completata con successo.', 'success');
+    } else {
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore durante l\'operazione. Riprova.');
+    }
 }
 
 $pagina_html = file_get_contents(__DIR__ . '/../html/areaadmin.html');

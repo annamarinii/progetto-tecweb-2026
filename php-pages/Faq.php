@@ -10,11 +10,7 @@ $messaggio_esito_form = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!Tool::isLoggedIn()) {
-        $messaggio_esito_form = "
-        <div class='form-message message-error' role='alert' aria-live='assertive'>
-            <strong>Attenzione:</strong> Devi effettuare l'accesso per inviare una richiesta. 
-            <a href='Login.php'>Clicca qui per accedere</a>.
-        </div>";
+        $messaggio_esito_form = Tool::buildMessage('Attenzione:', 'Devi effettuare l\'accesso per inviare una richiesta. <a href=\'Login.php\'>Clicca qui per accedere</a>.');
     } else {
         // Dati puliti solo da tag dannosi in ingresso (strip_tags) senza convertire entità HTML
         $testo_messaggio = trim(strip_tags($_POST['messaggio']));
@@ -24,17 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $salvataggio_ok = FaqManager::inserisciDomanda($testo_messaggio, $id_utente_corrente);
 
             if ($salvataggio_ok) {
-                // Successo: Classe 'message-success'
-                $messaggio_esito_form = "
-                <div class='form-message message-success' role='alert' aria-live='assertive'>
-                    <strong>Ottimo! </strong> La tua richiesta è stata inviata. Riceverai risposta nella tua Area Personale.
-                </div>";
+                $messaggio_esito_form = Tool::buildMessage('Ottimo!', 'La tua richiesta è stata inviata. Riceverai risposta nella tua Area Personale.', 'success');
             } else {
-                // Errore database: Classe 'message-error'
-                $messaggio_esito_form = "
-                <div class='form-message message-error' role='alert' aria-live='assertive'>
-                    <strong>Errore:</strong> Problema tecnico durante l'invio. Riprova più tardi.
-                </div>";
+                $messaggio_esito_form = Tool::buildMessage('Errore:', 'Problema tecnico durante l\'invio. Riprova più tardi.');
             }
         }
     }

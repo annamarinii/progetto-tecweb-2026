@@ -51,9 +51,9 @@ $username_pulito = Tool::pulisciInput($dati_utente['username']);
 $messaggio_esito = "";
 if (isset($_GET['status'])) {
     if ($_GET['status'] == 'success') {
-        $messaggio_esito = "<div class='success-msg' role='alert' aria-live='assertive'>Profilo aggiornato correttamente!</div>";
+        $messaggio_esito = Tool::buildMessage('Ottimo!', 'Profilo aggiornato correttamente.', 'success');
     } else {
-        $messaggio_esito = "<div class='error-msg' role='alert' aria-live='assertive'>Errore durante l'aggiornamento del profilo.</div>";
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore durante l\'aggiornamento del profilo.');
     }
 }
 

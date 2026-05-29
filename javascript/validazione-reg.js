@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 msgDiv.id = 'messaggio-ajax';
                 msgDiv.setAttribute('role', 'alert');
                 msgDiv.setAttribute('aria-live', 'assertive');
-                form.parentNode.insertBefore(msgDiv, form);
+                btnSubmit.after(msgDiv);
             }
 
             if (data.status === 'success') {
                 msgDiv.className = 'form-message message-success';
-                msgDiv.innerHTML = 'Registrazione completata! <br><br><a href="../php-pages/Login.php" class="btn-auth">Vai al Login</a>';
+                msgDiv.innerHTML = '<strong>Ottimo!</strong> Registrazione completata. <a href="Login.php">Vai al login</a>';
                 form.reset();
                 aggiornaRequisitiPassword('');
             } else {
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 msgDiv.id = 'messaggio-ajax';
                 msgDiv.setAttribute('role', 'alert');
                 msgDiv.setAttribute('aria-live', 'assertive');
-                form.parentNode.insertBefore(msgDiv, form);
+                btnSubmit.after(msgDiv);
             }
             msgDiv.className = 'form-message message-error';
             msgDiv.textContent = "Errore di connessione al server. Riprova.";
