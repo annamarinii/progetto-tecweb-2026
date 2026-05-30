@@ -69,15 +69,15 @@ if (empty($biglietti)) {
 } else {
     $corpi_cards = '';
     foreach ($biglietti as $b) {
-        $tribuna       = htmlspecialchars($b['tribuna'],       ENT_QUOTES, 'UTF-8');
-        $numero_ordine = htmlspecialchars($b['numero_ordine'], ENT_QUOTES, 'UTF-8');
+        $tribuna       = Tool::pulisciInput($b['tribuna']);
+        $numero_ordine = Tool::pulisciInput($b['numero_ordine']);
 
         if ($b['tipo'] == 'abbonamento') {
             $tipo_label  = 'Abbonamento';
             $data_evento = '18/05/2027 - 24/05/2027 (Tutte)';
             $stadio      = 'Tutti i campi';
         } else {
-            $sessione_sicura = htmlspecialchars(ucfirst($b['sessione']), ENT_QUOTES, 'UTF-8');
+            $sessione_sicura = Tool::pulisciInput(ucfirst($b['sessione']));
             $data_evento     = date("d/m/Y", strtotime($b['data'])) . ' - ' . $sessione_sicura;
             $tipo_label      = ($b['tipo'] == 'ground') ? 'Ground Pass' : 'Single Session';
             $stadio          = ($b['sessione'] == 'serale') ? 'Patavium Arena' : 'Giotto Court';
@@ -106,8 +106,8 @@ if (empty($notifiche)) {
     foreach ($notifiche as $n) {
         $data_formattata = date("d/m/Y H:i", strtotime($n['data_invio']));
         $data_breve      = date("d/m", strtotime($n['data_invio']));
-        $domanda         = htmlspecialchars($n['testo_domanda'],  ENT_QUOTES, 'UTF-8');
-        $risposta        = htmlspecialchars($n['testo_risposta'], ENT_QUOTES, 'UTF-8');
+        $domanda         = Tool::pulisciInput($n['testo_domanda']);
+        $risposta        = Tool::pulisciInput($n['testo_risposta']);
 
         $corpi_notifiche .= str_replace(
             ['[DataBreve]', '[Domanda]', '[Risposta]', '[DataFormattata]'],

@@ -55,12 +55,14 @@ class Tool
      */
     public static function pulisciInput($value): string
     {
-        if (is_string($value)) {
-            $value = trim($value);
-            $value = strip_tags($value);
-            return htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        }
-        return '';
+        $value = $value ?? '';
+
+        $value_testuale = (string) $value;
+
+        $value_testuale = trim($value_testuale);
+        $value_testuale = strip_tags($value_testuale);
+
+        return htmlspecialchars($value_testuale, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 
     /**
