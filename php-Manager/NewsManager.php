@@ -2,7 +2,31 @@
 require_once "DBConnection.php";
 
 class NewsManager {
-    
+
+    // Limiti coerenti con lo schema DB: titolo VARCHAR(100), testo TEXT.
+    const TITOLO_MAX = 100;
+    const TESTO_MIN  = 1;
+
+    /**
+     * Valida i campi testuali di una news. Riutilizzata da inserimento e aggiornamento.
+     * @return bool true se titolo e testo sono presenti e nei limiti.
+     */
+    public static function validaCampiNews(string $titolo, string $testo): bool
+    {
+        $titolo = trim($titolo);
+        $testo  = trim($testo);
+        if ($titolo === '' || $testo === '') {
+            return false;
+        }
+        // Conteggio caratteri robusto anche senza estensione mbstring
+        $len_titolo = function_exists('mb_strlen') ? mb_strlen($titolo, 'UTF-8') : strlen($titolo);
+        $len_testo  = function_exists('mb_strlen') ? mb_strlen($testo, 'UTF-8')  : strlen($testo);
+        if ($len_titolo > self::TITOLO_MAX) {
+            return false;
+        }
+        return $len_testo >= self::TESTO_MIN;
+    }
+
     // Recupera tutte le news
     public static function getNews() {
         $conn = DBConnection::getConnessione();
@@ -17,6 +41,10 @@ class NewsManager {
 
     // Inserisce una nuova news
     public static function inserisciNews($titolo, $testo, $immagine, $idAutore, $inEvidenza) {
+        // Validazione difensiva: niente INSERT se titolo/testo non sono validi
+        if (!self::validaCampiNews((string) $titolo, (string) $testo) || (int) $idAutore <= 0) {
+            return false;
+        }
         $conn = DBConnection::getConnessione();
         $sql = "INSERT INTO NEWS (titolo, testo, immagine, idAutore, inEvidenza) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
@@ -28,6 +56,10 @@ class NewsManager {
 
     // Aggiorna una news esistente
     public static function aggiornaNews($idNews, $titolo, $testo, $immagine, $inEvidenza) {
+        // Validazione difensiva: id valido e campi testuali corretti
+        if ((int) $idNews <= 0 || !self::validaCampiNews((string) $titolo, (string) $testo)) {
+            return false;
+        }
         $conn = DBConnection::getConnessione();
         if ($immagine != "") {
             $sql = "UPDATE NEWS SET titolo=?, testo=?, immagine=?, inEvidenza=? WHERE idNews=?";

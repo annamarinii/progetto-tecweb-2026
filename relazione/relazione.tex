@@ -1,0 +1,168 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{titlesec}
+
+\renewcommand{\contentsname}{Indice}
+
+% Palette colori ultra-limitata (Solo nero e blu scuro come richiesto)
+\definecolor{brandblue}{HTML}{07246F}
+\definecolor{pureblack}{HTML}{000000}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=brandblue,
+    urlcolor=brandblue,
+    citecolor=brandblue
+}
+
+% Configurazione titoli (Solo blu scuro o nero)
+\titleformat{\section}
+  {\color{brandblue}\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+
+\begin{document}
+
+% --- COPERTINA PULITA E RIGOROSA (SOLO NERO E BLU SCURO) ---
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        % Inserimento del logo richiesto tramite file esterno logo.png
+        \includegraphics[width=5cm]{logo.png}
+        
+        \vspace{1.5cm}
+        
+        {\fontfamily{phv}\selectfont
+            {\Large\color{brandblue}\bfseries RELAZIONE DI PROGETTO}\\[0.5cm]
+            {\Huge\bfseries\color{pureblack} Patavium Open}\\[0.6cm]
+            {\large\bfseries Corso di Tecnologie Web}\\[0.2cm]
+            {\large Anno Accademico 2025/2026}\\[0.2cm]
+        }
+    
+        \vspace{1cm}
+    
+        % Sezione Componenti del Gruppo (In nero)
+        {\fontfamily{phv}\selectfont
+            {\large\bfseries\color{brandblue} Componenti del Gruppo}}\\[0.4cm]
+            
+            \renewcommand{\arraystretch}{1.2}
+            \begin{tabular}{l l c}
+                \toprule
+                \textbf{Nominativo} & \textbf{Email Studentesca} & \textbf{Matricola} \\
+                \midrule
+                Marini Anna & \href{mailto:anna.marini.7@studenti.unipd.it}{\texttt{anna.marini.7@studenti.unipd.it}} & 2110986 \\
+                Bellet Eleonora & \href{mailto:eleonora.bellet@studenti.unipd.it}{\texttt{eleonora.bellet@studenti.unipd.it}} & 2111002 \\
+                Belluz Diego & \href{mailto:diego.belluz@studenti.unipd.it}{\texttt{diego.belluz@studenti.unipd.it}} & 2043361 \\
+                Milanese Lorenzo & \href{mailto:lorenzo.milanese.1@studenti.unipd.it}{\texttt{lorenzo.milanese.1@studenti.unipd.it}} & 2117110 \\
+                \bottomrule
+            \end{tabular}
+        
+        \vspace{1cm}
+        
+        % Indirizzo del sito (vuoto)
+        {\fontfamily{phv}\selectfont
+            {\bfseries\color{brandblue} Indirizzo Web del Progetto:}\\[0.2cm]
+            \texttt{http://} \textit{(URL pubblico da inserire in seguito)}
+        }
+        
+        \vspace{1cm}
+        
+        % Credenziali di accesso in un box semplice con bordo nero
+        \noindent
+        \begin{tabular}{|r l p{0.5cm} r l|}
+            \hline
+            \multicolumn{5}{|c|}{} \\
+            \multicolumn{5}{|c|}{\textbf{\color{brandblue} Credenziali di Accesso}} \\
+            \multicolumn{5}{|c|}{} \\
+            \textbf{Amministratore:} & \texttt{admin} & & Password: & \texttt{admin} \\
+            \textbf{Utente:} & \texttt{user} & & Password: & \texttt{user} \\
+            \multicolumn{5}{|c|}{} \\
+            \hline
+        \end{tabular}
+        
+        \vfill
+
+    \end{center}
+\end{titlepage}
+
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{Origine del progetto}
+
+Il progetto \textbf{Patavium Open} nasce dall'esperienza diretta di quattro studenti del corso di Tecnologie Web, accomunati da una passione autentica per il tennis. Nel corso degli ultimi anni, durante la frequentazione di tornei (sia dal vivo che in preparazione di eventuali acquisti di biglietti), ci siamo spesso imbattuti in siti web ufficiali di eventi tennistici che presentavano criticità non trascurabili dal punto di vista dell'usabilità e dell'accessibilità.
+
+In particolare, abbiamo osservato ripetutamente:
+\begin{itemize}
+    \item difficoltà nel reperire informazioni chiare su come e dove acquistare i biglietti;
+    \item strutture dei menù poco intuitive, che nascondevano i prezzi, i tipi di abbonamento e i servizi inclusi;
+    \item assenza di un percorso logico che guidasse l'utente — soprattutto il meno esperto — verso la scelta del biglietto o dell'abbonamento più adatto;
+    \item pagine sovraccariche di elementi grafici e testi promozionali, ma povere di dati strutturati (date, campi di gioco, modalità di accesso).
+\end{itemize}
+
+Questi ostacoli, sebbene apparentemente minori, si traducono in una perdita di tempo reale per l’utente finale: ore spese a cercare conferme, a interpretare menù ambigui o a chiedere supporto su forum esterni. Di conseguenza, abbiamo ritenuto utile mettere le nostre competenze al servizio di un progetto dimostrativo che rispondesse a tali lacune.
+
+\subsection{Patavium Open: un torneo fittizio con uno scopo reale}
+Abbiamo quindi immaginato un torneo di tennis internazionale che si svolgesse idealmente a Padova, battezzandolo \textbf{Patavium Open} (dal nome latino della città, \textit{Patavium}). L'obiettivo non era realizzare il sito di un evento esistente, ma \textbf{progettare e sviluppare un prototipo web che risolvesse in modo concreto i problemi di chiarezza, accessibilità e reperibilità dei contenuti} riscontrati nei siti reali.
+
+Il sito del Patavium Open si propone quindi di:
+\begin{itemize}
+    \item esporre in modo esplicito e gerarchico tutte le informazioni sui biglietti e sugli abbonamenti;
+    \item guidare l'utente nell’acquisto con pochi passaggi ben identificabili;
+    \item garantire l’accesso ai contenuti anche a persone con disabilità o con dispositivi e connessioni limitate;
+    \item separare nettamente contenuto, presentazione e comportamento (HTML, CSS, PHP/JS) come richiesto dalle specifiche del corso.
+\end{itemize}
+
+\subsection{Utenti target}
+L’utenza primaria è costituita da \textbf{appassionati di tennis} di qualsiasi età e competenza tecnologica: dai giovani che seguono il circuito ATP/WTA, ai genitori che accompagnano ragazzi ai tornei, fino agli spettatori occasionali. Tutti questi utenti condividono l’esigenza di:
+\begin{itemize}
+    \item trovare rapidamente le date e il luogo del torneo;
+    \item confrontare le opzioni di biglietteria (giornaliero, settimanale, tribuna centrale, campo secondario, eventuali pacchetti famiglia);
+    \item completare l’acquisto con un flusso controllato (convalida lato client e lato server, salvataggio in database).
+\end{itemize}
+Abbiamo scelto di non includere funzionalità “di facciata” (like, commenti, social network) se non strettamente necessarie, per concentrarci invece sugli aspetti che generano maggiore frustrazione nei siti esistenti: \textbf{chiarezza e controllabilità dell’interazione}.
+
+Nella progettazione abbiamo tenuto conto anche di possibili motori di ricerca (SEO): il sito deve rispondere a query tipiche come \textit{“Patavium Open biglietti”}, \textit{“quando si gioca il torneo di Padova”}, \textit{“prezzi abbonamenti tennis Padova”}. Le azioni intraprese per migliorare il ranking vengono discusse nella sezione dedicata dell’analisi.
+
+\section{Struttura del Sito e Funzionalità}
+
+L'architettura del sito \textit{Patavium Open} è stata concepita per guidare l'utente attraverso un flusso di navigazione lineare e intuitivo, suddividendo le funzionalità in aree logiche ben distinte. Di seguito viene presentata una panoramica delle principali pagine realizzate e delle relative finalità.
+
+\subsection{Area Pubblica e Informativa}
+Questa sezione è accessibile a tutti gli utenti e funge da punto di ingresso al portale:
+\begin{itemize}
+    \item \textbf{Home Page (\texttt{home.html}):} Il fulcro del sito, che offre una panoramica sull'evento, le ultime notizie in evidenza e un accesso rapido alle categorie principali.
+    \item \textbf{Sezione Biglietteria (\texttt{Biglietti.php}, \texttt{SingleSession.php}, \texttt{Abbonamento.php}, \texttt{GroundPasses.php}):} Queste pagine offrono all'utente una distinzione chiara tra le diverse tipologie di accesso al torneo. Permettono di visualizzare i dettagli tecnici e i costi, facilitando una scelta consapevole prima dell'acquisto.
+    \item \textbf{News (\texttt{News.php}):} Dedicata agli aggiornamenti sul torneo, risultati in tempo reale e approfondimenti, per mantenere vivo l'interesse del pubblico.
+    \item \textbf{Supporto e Normativa (\texttt{Faq.php}, \texttt{Termini.php}, \texttt{Privacy.php}):} Spazio dedicato alla trasparenza, dove l'utente può consultare le risposte alle domande frequenti e prendere visione dei termini legali del servizio.
+\end{itemize}
+
+\subsection{Area Riservata agli Utenti}
+Le funzionalità interattive sono protette da autenticazione per garantire la sicurezza delle operazioni:
+\begin{itemize}
+    \item \textbf{Autenticazione (\texttt{Login.php}, \texttt{Registrazione.php}):} Gestiscono il ciclo di vita dell'account, garantendo l'accesso personalizzato ai servizi di prenotazione.
+    \item \textbf{Carrello (\texttt{Carrello.php}):} Il cuore transazionale del sito. Qui l'utente gestisce i biglietti selezionati, visualizza il riepilogo e procede all'acquisto finale.
+    \item \textbf{Area Utente (\texttt{AreaUtente.php}):} Uno spazio personale in cui l'utente può monitorare lo storico dei propri ordini, consultare lo stato dei ticket acquistati e visualizzare eventuali notifiche o aggiornamenti dal sistema.
+\end{itemize}
+
+\subsection{Area Amministrativa}
+\begin{itemize}
+    \item \textbf{Gestione Torneo (\texttt{AreaAdmin.php}):} Riservata al personale autorizzato, questa area permette il controllo granulare dei contenuti. Gli amministratori possono gestire le notizie pubblicate, aggiornare le FAQ e mantenere il database delle informazioni aggiornato, garantendo che il sito rifletta sempre lo stato reale del torneo.
+\end{itemize}
+
+Questa suddivisione modulare non solo facilita la navigazione lato utente, ma semplifica anche la manutenzione del sistema, permettendo aggiornamenti mirati su specifiche aree funzionali senza impattare sull'intera infrastruttura.
+
+
+
+\end{document}

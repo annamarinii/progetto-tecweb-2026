@@ -35,22 +35,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $immagine_path = "";
 
         $upload_msg = "";
+        $estensioni_ok = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
         if (isset($_FILES['immagine'])) {
             if ($_FILES['immagine']['error'] === UPLOAD_ERR_OK) {
                 $tmp_name = $_FILES['immagine']['tmp_name'];
                 $file_type = strtolower(pathinfo($_FILES['immagine']['name'], PATHINFO_EXTENSION));
-                $new_filename = "news_" . time() . "." . $file_type;
-                if (move_uploaded_file($tmp_name, "../assets/images/" . $new_filename)) {
-                    $immagine_path = "assets/images/" . $new_filename;
+
+                // Sicurezza: accetta solo immagini con estensione whitelisted E
+                // contenuto realmente di tipo immagine (evita upload di .php travestiti).
+                $mime_ok = function_exists('getimagesize') ? (bool) @getimagesize($tmp_name) : true;
+
+                if (!in_array($file_type, $estensioni_ok, true) || !$mime_ok) {
+                    $upload_msg = "Formato immagine non valido. Sono ammessi solo JPG, PNG, GIF o WEBP.";
                 } else {
-                    $upload_msg = "Impossibile spostare il file nel server.";
+                    $new_filename = "news_" . time() . "." . $file_type;
+                    if (move_uploaded_file($tmp_name, "../assets/images/" . $new_filename)) {
+                        $immagine_path = "assets/images/" . $new_filename;
+                    } else {
+                        $upload_msg = "Impossibile spostare il file nel server.";
+                    }
                 }
             } else if ($_FILES['immagine']['error'] !== UPLOAD_ERR_NO_FILE) {
                 $upload_msg = "Errore caricamento file (Codice PHP: " . $_FILES['immagine']['error'] . "). Forse il file è troppo pesante.";
             }
         }
 
-        if (isset($_POST['elimina']) && $_POST['elimina'] == 'si') {
+        $isEliminazione = (isset($_POST['elimina']) && $_POST['elimina'] == 'si');
+
+        // Validazione difensiva lato server: per inserimento/modifica titolo e testo
+        // sono obbligatori; un'estensione immagine non valida blocca l'operazione.
+        if (!$isEliminazione && (!NewsManager::validaCampiNews($titolo, $testo) || $upload_msg !== "")) {
+            $msg_errore = $upload_msg !== "" ? $upload_msg : "Titolo e testo della news sono obbligatori.";
+            if ($isAjax) {
+                echo json_encode(['status' => 'error', 'upload_msg' => $msg_errore, 'html_miniature' => '']);
+                exit();
+            }
+            header("Location: AreaAdmin.php?status=error&t=" . time() . "#gestione-news");
+            exit();
+        }
+
+        if ($isEliminazione) {
             $esito = NewsManager::eliminaNews($idNews);
         } else if ($idNews && $idNews != "") {
             $esito = NewsManager::aggiornaNews($idNews, $titolo, $testo, $immagine_path, $inEvidenza);

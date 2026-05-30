@@ -1,6 +1,7 @@
 <?php
 
 require_once "DBConnection.php";
+require_once "Tool.php";
 
 class AccountManager
 {
@@ -10,11 +11,92 @@ class AccountManager
         return (bool) preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password);
     }
 
-    // registrazione
-    public static function registraUtente($nome, $cognome, $username, $email, $password)
+    /**
+     * Verifica se un'email è già registrata. $escludiId permette di ignorare un
+     * utente specifico (utile in update profilo: l'utente può mantenere la propria).
+     */
+    public static function emailEsiste(string $email, ?int $escludiId = null): bool
     {
         $conn = DBConnection::getConnessione();
+        if ($escludiId === null) {
+            $sql = "SELECT idUtente FROM UTENTE WHERE email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $email);
+        } else {
+            $sql = "SELECT idUtente FROM UTENTE WHERE email = ? AND idUtente <> ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("si", $email, $escludiId);
+        }
+        if (!$stmt) {
+            return true; // in dubbio, blocca (fail-safe)
+        }
+        $stmt->execute();
+        $esiste = $stmt->get_result()->num_rows > 0;
+        $stmt->close();
+        return $esiste;
+    }
 
+    /**
+     * Verifica se uno username è già in uso. $escludiId come sopra.
+     */
+    public static function usernameEsiste(string $username, ?int $escludiId = null): bool
+    {
+        $conn = DBConnection::getConnessione();
+        if ($escludiId === null) {
+            $sql = "SELECT idUtente FROM UTENTE WHERE username = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $username);
+        } else {
+            $sql = "SELECT idUtente FROM UTENTE WHERE username = ? AND idUtente <> ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("si", $username, $escludiId);
+        }
+        if (!$stmt) {
+            return true; // fail-safe
+        }
+        $stmt->execute();
+        $esiste = $stmt->get_result()->num_rows > 0;
+        $stmt->close();
+        return $esiste;
+    }
+
+    /**
+     * Registra un nuovo utente.
+     *
+     * Validazione difensiva lato Manager: i dati sono ri-controllati QUI, a
+     * prescindere dal controller chiamante o dalla validazione JS lato client.
+     * Nessuna query di INSERT viene eseguita se un controllo fallisce.
+     *
+     * @return true|string  true se registrato; altrimenti un codice di errore:
+     *   'dati_non_validi', 'email_esistente', 'username_esistente', oppure false su errore tecnico.
+     */
+    public static function registraUtente($nome, $cognome, $username, $email, $password)
+    {
+        $nome     = trim((string) $nome);
+        $cognome  = trim((string) $cognome);
+        $username = trim((string) $username);
+        $email    = trim((string) $email);
+        $password = (string) $password;
+
+        // 1. Validazione logica (blocca prima di toccare il DB).
+        //    validaEmailCompleta controlla formato E lunghezza (colonna VARCHAR(30)).
+        if (!Tool::validaNomeProprio($nome) || !Tool::validaNomeProprio($cognome)
+            || !Tool::validaUsername($username)
+            || !Tool::validaEmailCompleta($email)
+            || !self::validaPassword($password)) {
+            return 'dati_non_validi';
+        }
+
+        // 2. Unicità: email e username non devono già esistere
+        if (self::emailEsiste($email)) {
+            return 'email_esistente';
+        }
+        if (self::usernameEsiste($username)) {
+            return 'username_esistente';
+        }
+
+        // 3. Inserimento
+        $conn = DBConnection::getConnessione();
         $password_criptata = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO UTENTE (username, email, password, nome, cognome) VALUES (?, ?, ?, ?, ?)";
@@ -22,13 +104,9 @@ class AccountManager
 
         if ($stmt) {
             $stmt->bind_param("sssss", $username, $email, $password_criptata, $nome, $cognome);
-
-            // esegue la query
             $esito = $stmt->execute();
-
             $stmt->close();
-            // restituisce true se salvato, false se errore
-            return $esito;
+            return $esito === true ? true : false;
         }
         return false;
     }
@@ -57,6 +135,14 @@ class AccountManager
     // login
     public static function verificaLogin($identificativo, $password_inserita)
     {
+        $identificativo = trim((string) $identificativo);
+        $password_inserita = (string) $password_inserita;
+
+        // Validazione minima: credenziali non vuote (nessuna query con input vuoto)
+        if ($identificativo === '' || $password_inserita === '') {
+            return false;
+        }
+
         $conn = DBConnection::getConnessione();
 
         // cerco corrispondenze con l'email o con lo username
@@ -104,16 +190,47 @@ class AccountManager
         return $utente; //ci ritorna l'array con le informazioni dell'utente
     }
 
+    /**
+     * Aggiorna il profilo utente con validazione difensiva lato Manager.
+     *
+     * @return true|string  true se aggiornato; altrimenti codice di errore:
+     *   'dati_non_validi', 'email_esistente', 'username_esistente', oppure false su errore tecnico.
+     */
     public static function updateUtente($id, $nome, $cognome, $email, $username)
     {
-        $conn = DBConnection::getConnessione();
+        $id       = (int) $id;
+        $nome     = trim((string) $nome);
+        $cognome  = trim((string) $cognome);
+        $email    = trim((string) $email);
+        $username = trim((string) $username);
 
+        // 1. Validazione logica (stesse regole della registrazione, coerenza garantita)
+        if ($id <= 0
+            || !Tool::validaNomeProprio($nome) || !Tool::validaNomeProprio($cognome)
+            || !Tool::validaUsername($username)
+            || !Tool::validaEmailCompleta($email)) {
+            return 'dati_non_validi';
+        }
+
+        // 2. Unicità escludendo l'utente stesso (può tenere la propria email/username)
+        if (self::emailEsiste($email, $id)) {
+            return 'email_esistente';
+        }
+        if (self::usernameEsiste($username, $id)) {
+            return 'username_esistente';
+        }
+
+        // 3. Aggiornamento
+        $conn = DBConnection::getConnessione();
         $query = "UPDATE UTENTE SET nome = ?, cognome = ?, email = ?, username = ? WHERE idUtente = ?";
         $stmt = $conn->prepare($query);
+        if (!$stmt) {
+            return false;
+        }
         $stmt->bind_param("ssssi", $nome, $cognome, $email, $username, $id);
         $esito = $stmt->execute();
         $stmt->close();
-        return $esito;
+        return $esito === true ? true : false;
     }
     public static function segnaRispostaComeLetta($idDomanda, $idUtente) {
         $conn = DBConnection::getConnessione();

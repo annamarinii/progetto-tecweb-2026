@@ -1,29 +1,121 @@
-/* 1. VARIABILI COLORI E SPAZI */
+/* 1. TOKEN SEMANTICI DI COLORE (Design System)
+   I colori non sono mai hardcoded nelle regole: ogni regola usa var(--col-*).
+   Il TEMA CHIARO è definito qui in :root; il TEMA SCURO sovrascrive gli stessi
+   token nel selettore [data-theme="dark"] applicato su <html>.
+   I valori chiari corrispondono ai colori storici del brand (che già evitano
+   bianco/nero puri); i valori scuri rispettano WCAG 2.1 AA.
+   Nessun token usa colori puri (#fff / #000): nemmeno i canali per le ombre. */
 :root {
-    --blu-scuro: #07246F;
-    --crema: #FDF7EB;
-    --arancione: #E17414;
-    --arancione-chiaro: #FFBE85;
-    --azzurro: #F1F3FC;
-    --black: #101010;
-    --white: #f1f1f1;
-    --arancione-scuro: #A54600;
+    /* --- Superfici / sfondi --- */
+    --col-bg: #F1F3FC;
+    /* sfondo principale di pagina e sezioni (ex --azzurro) */
+    --col-bg-subtle: #F1F3FC;
+    /* pannelli incassati su superfici chiare: breadcrumb, faq-content, tag, input */
+    --col-surface: #F1F1F1;
+    /* card e superfici chiare (ex --white usato come sfondo) */
+    --col-surface-alt: #FDF7EB;
+    /* superfici calde (ex --crema usato come sfondo) */
+    --col-surface-brand: #07246F;
+    /* superfici scure brand: header, footer, sidebar, banner (ex --blu-scuro bg) */
+
+    /* --- Testo --- */
+    --col-text: #101010;
+    /* testo del corpo (ex --black) */
+    --col-text-heading: #07246F;
+    /* titoli/testo enfatico su sfondo chiaro + bordi blu (ex --blu-scuro testo/bordo) */
+    --col-text-inverse: #F1F1F1;
+    /* testo chiaro su superfici scure (ex --white usato come testo) */
+    --col-text-inverse-soft: #FDF7EB;
+    /* testo chiaro caldo su scuro: footer, sidebar (ex --crema usato come testo) */
+
+    /* --- Accenti / azioni --- */
+    --col-accent: #E17414;
+    /* arancione brand decorativo: bordi, badge, divisori (ex --arancione) */
+    --col-action: #A54600;
+    /* sfondo dei bottoni/CTA pieni (ex --arancione-scuro usato come sfondo) */
+    --col-on-action: #F1F1F1;
+    /* testo sopra i riempimenti accent/action */
+    --col-link: #A54600;
+    /* arancione come testo/link/bordo-accento (ex --arancione-scuro usato come testo) */
+    --col-accent-soft: #FFBE85;
+    /* accenti chiari su scuro: hover nav, read-more (ex --arancione-chiaro) */
+
+    /* --- Bordi --- */
+    --col-border: #F1F3FC;
+    /* bordo tenue (ex --azzurro / --arancione-chiaro usati come bordo) */
+    --col-border-strong: #101010;
+    /* bordo marcato (ex --black usato come bordo) */
+
+    /* --- Canali RGB per rgba(var(--X), alpha) senza hardcoding --- */
+    --col-accent-rgb: 225, 116, 20;
+    /* (ex --arancione-rgb) */
+    --col-action-rgb: 165, 70, 0;
+    /* (ex --arancione-scuro-rgb) */
+    --col-surface-brand-rgb: 7, 36, 111;
+    /* (ex --blu-scuro-rgb) */
+    --col-shadow-rgb: 13, 17, 23;
+    /* ombre, overlay hero, text-shadow: near-black (non nero puro) */
+    --col-on-dark-rgb: 240, 244, 250;
+    /* velature chiare su superfici scure: near-white (non bianco puro) */
+
+    /* --- Tipografia e layout --- */
     --font-main: Arial, sans-serif;
+    /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
+    --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
 
-    /* Canali RGB dei colori brand: permettono rgba(var(--X-rgb), alpha) senza hardcoding */
-    --arancione-rgb: 225, 116, 20;
-    --arancione-scuro-rgb: 165, 70, 0;
-    --blu-scuro-rgb: 7, 36, 111;
-
-    /* Colori neutri per stampa e separatori */
+    /* --- Neutri SOLO per la stampa (print.css): non seguono il tema --- */
     --nero-puro: #000000;
     --bianco-puro: #ffffff;
     --grigio-bordo: #cccccc;
     --grigio-separatore: #eeeeee;
     --grigio-medio: #666666;
+}
 
-    /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
-    --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
+/* 1b. TEMA SCURO — palette "Midnight Slate".
+   Scala neutra slate (niente blu navy di sfondo): superfici da #0F172A a #1E293B,
+   testo bianco-ghiaccio, arancione vibrante per le CTA. I bottoni con fill usano
+   testo SCURO (--col-on-action) per superare WCAG AA sull'arancione brillante.
+   Contrasti verificati WCAG 2.1 AA (testo normale >= 4.5:1, testo grande/UI >= 3:1). */
+[data-theme="dark"] {
+    /* Superfici (slate, dal più profondo al più elevato) */
+    --col-bg: #0F172A;
+    --col-bg-subtle: #172033;
+    --col-surface: #1E293B;
+    --col-surface-alt: #29374C;
+    --col-surface-brand: #1E293B;
+    /* unificato con surface: niente più scontro nero/blu */
+
+    /* Testo */
+    --col-text: #F8FAFC;
+    /* bianco ghiaccio: su --col-bg ~17:1, su --col-surface ~14:1 */
+    --col-text-heading: #C7D2FE;
+    /* slate-indigo armonico: su --col-surface ~9.7:1 */
+    --col-text-inverse: #F8FAFC;
+    /* su --col-surface-brand ~14:1 */
+    --col-text-inverse-soft: #E2E8F0;
+    /* slate-200: su superfici scure ~12:1 */
+
+    /* Accenti / azioni (arancione vibrante) */
+    --col-accent: #FB923C;
+    /* decorativo: bordi, badge */
+    --col-action: #F97316;
+    /* fill CTA: con --col-on-action scuro ~6.4:1 */
+    --col-on-action: #0F172A;
+    /* testo SCURO sui bottoni: blinda l'AA sull'arancione brillante */
+    --col-link: #FB923C;
+    /* link/testo arancione: su --col-bg ~7.9:1 */
+    --col-accent-soft: #FDBA74;
+    /* accenti chiari su scuro (nav hover, read-more): su --col-bg ~10:1 */
+
+    /* Bordi (grigi freddi slate) */
+    --col-border: #334155;
+    --col-border-strong: #475569;
+
+    /* Canali RGB */
+    --col-accent-rgb: 251, 146, 60;
+    --col-action-rgb: 249, 115, 22;
+    --col-surface-brand-rgb: 30, 41, 59;
+    /* shadow/on-dark restano invariati: ombre near-black e velature near-white anche al buio */
 }
 
 /* 2. IMPOSTAZIONI DI BASE */
@@ -35,8 +127,19 @@
 }
 
 body {
-    color: var(--black);
-    /* Testo base scuro, ma non nero puro */
+    color: var(--col-text);
+    background-color: var(--col-bg);
+    /* Sfondo base agganciato al tema: evita aree chiare residue in dark mode */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Comunica al browser lo schema corrente (scrollbar, form nativi, ecc.) */
+:root { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
+
+/* Rispetta chi ha chiesto meno animazioni: niente transizione di tema */
+@media (prefers-reduced-motion: reduce) {
+    body { transition: none; }
 }
 
 a {
@@ -46,8 +149,8 @@ a {
 
 /* 3. HEADER E NAVIGAZIONE */
 header {
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     display: flex;
     align-items: center;
     padding: 15px 30px;
@@ -59,7 +162,7 @@ header {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: var(--white);
+    color: var(--col-text-inverse);
 
 }
 
@@ -121,8 +224,8 @@ header li {
 }
 
 header a,
-#currentLink {
-    color: var(--white);
+.current-link {
+    color: var(--col-text-inverse);
     padding: 12px;
     display: inline-block;
     text-decoration: underline;
@@ -135,16 +238,16 @@ header a,
     border-radius: 99px;
 }
 
-#currentLink,
+.current-link,
 header a:not(.btn-login):not(.btn-register):hover {
-    color: var(--arancione-chiaro);
-    border: 2px solid var(--arancione-chiaro);
+    color: var(--col-accent-soft);
+    border: 2px solid var(--col-accent-soft);
     border-radius: 99px;
 }
 
 /* --- FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) --- */
-#menu-utente #currentLink,
-#menu-utente li#currentLink a {
+#menu-utente .current-link,
+#menu-utente li.current-link a {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -152,7 +255,7 @@ header a:not(.btn-login):not(.btn-register):hover {
 
 /* Colora di arancione i link delle pagine già visitate */
 header a:visited {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
 }
 
 /* =========================================
@@ -167,8 +270,8 @@ header a:visited {
 
 /* 4. BREADCRUMB */
 #breadcrumb {
-    background-color: var(--azzurro);
-    color: var(--black);
+    background-color: var(--col-bg);
+    color: var(--col-text);
     padding: 10px 30px;
     font-size: 0.9em;
     position: relative;
@@ -191,12 +294,12 @@ header a:visited {
 #breadcrumb li:not(:last-child)::after {
     content: '›';
     margin-left: 8px;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
 }
 
 #breadcrumb span {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
 }
 
@@ -211,10 +314,10 @@ header a:visited {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--col-text-inverse);
     text-align: center;
     padding: 0 var(--spazio-laterale);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(var(--col-shadow-rgb), 0.5);
     background-blend-mode: multiply;
 }
 
@@ -222,7 +325,7 @@ header a:visited {
     font-size: 5em;
     letter-spacing: 0.04em;
     margin-bottom: 14px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 6px rgba(var(--col-shadow-rgb), 0.5);
 }
 
 .hero-section h2 {
@@ -234,8 +337,8 @@ header a:visited {
 }
 
 .btn-biglietti {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 15px 40px;
     font-size: 1.2em;
     font-weight: bold;
@@ -244,13 +347,13 @@ header a:visited {
 }
 
 .btn-biglietti:hover {
-    background-color: var(--blu-scuro);
-    color: var(--azzurro)
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse)
 }
 
 /* 6. CORPO PRINCIPALE (MAIN) */
 main {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     padding-bottom: 40px;
 }
 
@@ -259,7 +362,7 @@ main {
 ========================================= */
 .sezione-benvenuto {
     padding: 80px var(--spazio-laterale);
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     display: grid;
     grid-template-columns: 5fr 7fr;
     grid-template-rows: auto auto;
@@ -269,7 +372,7 @@ main {
 
 .sezione-benvenuto h2 {
     font-size: 2em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 16px;
     line-height: 1.2;
     grid-column: 2;
@@ -279,7 +382,7 @@ main {
 
 .sezione-benvenuto p {
     font-size: 1.1em;
-    color: var(--black);
+    color: var(--col-text);
     line-height: 1.8;
     grid-column: 2;
     grid-row: 2;
@@ -289,10 +392,10 @@ main {
 
 /* 7. FOOTER */
 .footer-sito {
-    background-color: var(--blu-scuro);
-    color: var(--crema);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse-soft);
     padding: 55px var(--spazio-laterale) 0;
-    border-top: 5px solid var(--arancione);
+    border-top: 5px solid var(--col-accent);
 }
 
 /* Griglia delle colonne */
@@ -317,19 +420,19 @@ main {
 .footer-tagline {
     font-size: 0.95em;
     line-height: 1.7;
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     max-width: 320px;
 }
 
 /* Titoli di colonna */
 .footer-titolo {
     font-size: 1.05em;
-    color: var(--white);
+    color: var(--col-text-inverse);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-bottom: 18px;
     padding-bottom: 10px;
-    border-bottom: 2px solid var(--arancione);
+    border-bottom: 2px solid var(--col-accent);
     display: inline-block;
 }
 
@@ -344,7 +447,7 @@ main {
 }
 
 .footer-col ul a {
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     font-size: 0.95em;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -354,7 +457,7 @@ main {
 
 .footer-col ul a:hover,
 .footer-col ul a:focus-visible {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     padding-left: 6px;
 }
 
@@ -363,7 +466,7 @@ main {
     font-style: normal;
     line-height: 1.7;
     font-size: 0.95em;
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
 }
 
 .footer-contatti p {
@@ -371,7 +474,7 @@ main {
 }
 
 .footer-contatti a {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: color 0.25s ease;
@@ -379,25 +482,25 @@ main {
 
 .footer-contatti a:hover,
 .footer-contatti a:focus-visible {
-    color: var(--white);
+    color: var(--col-text-inverse);
 }
 
 /* Barra inferiore con copyright */
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: 1px solid rgba(var(--col-on-dark-rgb), 0.18);
     padding: 22px 0;
     text-align: center;
 }
 
 .footer-copyright {
     font-size: 0.88em;
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     margin: 0;
 }
 
 /* Focus visibile su tutti i link del footer (accessibilità tastiera) */
 .footer-sito a:focus-visible {
-    outline: 3px solid var(--arancione-chiaro);
+    outline: 3px solid var(--col-accent-soft);
     outline-offset: 3px;
     border-radius: 2px;
 }
@@ -431,7 +534,7 @@ main {
 .sezione-campioni {
     padding: 70px var(--spazio-laterale);
     text-align: center;
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
 }
 
 .titoli-campioni {
@@ -440,13 +543,13 @@ main {
 
 .titoli-campioni h2 {
     font-size: 2.5em;
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     margin-bottom: 5px;
 }
 
 .titoli-campioni p {
     font-size: 1.1em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: bold;
 }
 
@@ -461,20 +564,20 @@ main {
 
 /* Stile della singola Card */
 .card-campione {
-    background-color: var(--crema);
+    background-color: var(--col-surface-alt);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 20px rgba(var(--col-shadow-rgb), 0.25);
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-bottom: 5px solid var(--arancione);
+    border-bottom: 5px solid var(--col-accent);
 }
 
 /* Piccolo effetto quando passi sopra col mouse */
 .card-campione:hover {
     transform: translateY(-5px);
     /* La card si solleva leggermente */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 15px rgba(var(--col-shadow-rgb), 0.15);
     /* L'ombra diventa più intensa */
 }
 
@@ -495,7 +598,7 @@ main {
 .info-campione .categoria {
     display: block;
     font-size: 0.75em;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     text-transform: uppercase;
     margin-bottom: 5px;
     letter-spacing: 0.5px;
@@ -504,7 +607,7 @@ main {
 
 .info-campione h3 {
     font-size: 1.2em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin: 0;
 }
 
@@ -512,7 +615,7 @@ main {
    SEZIONE NOTIZIE 
 ========================================= */
 .sezione-notizie {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     /* Sfondo chiaro per far risaltare il blu */
     padding: 50px var(--spazio-laterale);
 }
@@ -524,13 +627,13 @@ main {
 
 .titoli-notizie h2 {
     font-size: 2.5em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 5px;
 }
 
 .titoli-notizie p {
     font-size: 1.1em;
-    color: var(--arancione);
+    color: var(--col-accent);
     font-weight: bold;
 }
 
@@ -544,28 +647,28 @@ main {
 /* Stile del singolo Rettangolo */
 .rettangolo-notizia {
     display: block;
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     /* Stesso colore delle card dei campioni! */
     padding: 25px 30px;
     border-radius: 8px;
-    border-bottom: 5px solid var(--arancione);
+    border-bottom: 5px solid var(--col-accent);
     /* Bordo identico ai campioni */
     text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.1);
 }
 
 .rettangolo-notizia:hover {
     transform: translateY(-5px);
     /* Si solleva verso l'alto esattamente come le foto */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 15px rgba(var(--col-shadow-rgb), 0.2);
 }
 
 /* Testi dentro il rettangolo */
 .rettangolo-notizia time {
     display: block;
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     /* La data spicca in arancione */
     font-size: 0.85em;
     font-weight: bold;
@@ -574,14 +677,14 @@ main {
 }
 
 .rettangolo-notizia h3 {
-    color: var(--azzurro);
+    color: var(--col-text-inverse);
     /* Titolo chiaro per leggersi bene sul blu */
     font-size: 1.6em;
     margin-bottom: 10px;
 }
 
 .rettangolo-notizia p {
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     /* Testo un po' più tenue */
     font-size: 1em;
     line-height: 1.5;
@@ -590,7 +693,7 @@ main {
 
 a:focus-visible,
 .btn-biglietti:focus-visible {
-    outline: 3px solid var(--arancione);
+    outline: 3px solid var(--col-accent);
     outline-offset: 4px;
     box-shadow: none;
 }
@@ -604,7 +707,7 @@ a:focus-visible,
 
 /* 1. Reset dello sfondo: il 'main' deve essere chiaro per la leggibilità */
 main {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     min-height: 80vh;
     padding-bottom: 60px;
 }
@@ -613,12 +716,12 @@ main {
 .titoli-notizie {
     text-align: center;
     padding: 60px var(--spazio-laterale) 40px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 }
 
 .titoli-notizie h1 {
     font-size: 3em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     /* Blu scuro su azzurro = Ottimo contrasto */
     margin-bottom: 15px;
     text-transform: uppercase;
@@ -628,14 +731,14 @@ main {
 .divider {
     width: 80px;
     height: 6px;
-    background-color: var(--arancione);
+    background-color: var(--col-accent);
     margin: 15px auto;
     border-radius: 3px;
 }
 
 .titoli-notizie p {
     font-size: 1.25em;
-    color: var(--black);
+    color: var(--col-text);
     /* Forza il nero per ipovedenti */
     max-width: 800px;
     margin: 0 auto;
@@ -646,13 +749,13 @@ main {
 
 /* 4. La Card: struttura solida e leggibile */
 .news-card {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--arancione-chiaro);
+    box-shadow: 0 4px 15px rgba(var(--col-shadow-rgb), 0.1);
+    border: 1px solid var(--col-accent-soft);
     /* Bordo definito per chi ha difficoltà visive */
 }
 
@@ -660,26 +763,26 @@ main {
     width: 100%;
     height: 240px;
     object-fit: cover;
-    border-bottom: 5px solid var(--arancione);
+    border-bottom: 5px solid var(--col-accent);
 }
 
 .card-content {
     padding: 30px;
-    background-color: var(--white);
+    background-color: var(--col-surface);
 }
 
 .card-content time {
     display: block;
     font-weight: 800;
     /* Extra bold per far risaltare l'arancione */
-    color: var(--arancione);
+    color: var(--col-accent);
     margin-bottom: 12px;
     font-size: 0.95em;
     text-transform: uppercase;
 }
 
 .card-content h2 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 15px;
     font-size: 1.6em;
     line-height: 1.2;
@@ -687,7 +790,7 @@ main {
 
 /* Testo della notizia: Cruciale per l'accessibilità */
 .card-content p {
-    color: var(--black);
+    color: var(--col-text);
     /* Nero quasi puro per il massimo contrasto */
     line-height: 1.8;
     /* Interlinea ampia per dislessia e ipovisione */
@@ -702,12 +805,12 @@ main {
 .intro-sezione {
     text-align: center;
     padding: 55px var(--spazio-laterale) 45px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 }
 
 .intro-sezione h1 {
     font-size: 2.5em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -716,14 +819,14 @@ main {
 .intro-sezione .divider {
     width: 80px;
     height: 6px;
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
     margin: 0 auto 25px;
     border-radius: 3px;
 }
 
 .intro-sezione p {
     font-size: 1.1em;
-    color: var(--black);
+    color: var(--col-text);
     /* Alto contrasto per accessibilità */
     max-width: 850px;
     margin: 0 auto;
@@ -734,7 +837,7 @@ main {
 /* Evidenziazione parole chiave per un tocco premium */
 .highlight-text {
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .text-underline {
@@ -748,7 +851,7 @@ main {
 /* Centra il contenitore principale e dà respiro */
 #hero-tickets {
     padding: 20px var(--spazio-laterale) 50px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     /* Aiuta a far staccare le card bianche */
     text-align: center;
 }
@@ -763,21 +866,21 @@ main {
 
 /* Struttura della singola card */
 .ticket-card {
-    background-color: var(--white);
-    border: 1px solid var(--arancione-chiaro);
+    background-color: var(--col-surface);
+    border: 1px solid var(--col-accent-soft);
     border-radius: 14px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(var(--col-shadow-rgb), 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .ticket-card:hover,
 .ticket-card:focus-within {
     transform: translateY(-6px);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
-    border-color: var(--arancione-scuro);
+    box-shadow: 0 14px 32px rgba(var(--col-shadow-rgb), 0.14);
+    border-color: var(--col-link);
 }
 
 /* Immagine di intestazione */
@@ -791,7 +894,7 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-bottom: 4px solid var(--arancione-scuro);
+    border-bottom: 4px solid var(--col-link);
     transition: transform 0.4s ease;
     display: block;
 }
@@ -813,7 +916,7 @@ main {
 .card-category {
     font-size: 2em;
     font-weight: bold;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin: 0 0 14px;
@@ -823,12 +926,12 @@ main {
 /* Prezzo */
 .ticket-price {
     font-size: 0.95em;
-    color: var(--black);
+    color: var(--col-text);
     margin: 0;
 }
 
 .ticket-price strong {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-size: 1.15em;
     font-weight: bold;
 }
@@ -841,8 +944,8 @@ main {
 /* Bottone acquisto principale */
 .btn-primary {
     display: block;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     text-align: center;
     padding: 14px 20px;
     font-size: 1.05em;
@@ -854,9 +957,9 @@ main {
 
 .btn-primary:hover,
 .btn-primary:focus-visible {
-    background-color: var(--blu-scuro);
-    color: var(--white);
-    outline: 3px solid var(--arancione-scuro);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    outline: 3px solid var(--col-link);
     outline-offset: 3px;
 }
 
@@ -867,7 +970,7 @@ main {
 /* 1. Contenitore Principale della Sezione */
 .section-container {
     padding: 60px var(--spazio-laterale);
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 
 }
 
@@ -879,8 +982,8 @@ main {
 
 .step-badge {
     display: inline-block;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     font-size: 0.85em;
     font-weight: bold;
     padding: 5px 12px;
@@ -890,13 +993,13 @@ main {
 
 .step-header h2 {
     font-size: 2.5em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 5px;
 }
 
 .step-header p {
     font-size: 1.25em;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
 }
 
@@ -912,8 +1015,8 @@ main {
 
 /* 4. La "Mattonella" della Data (Date Tile) */
 .date-tile {
-    background-color: var(--azzurro);
-    border: 1px solid var(--black);
+    background-color: var(--col-bg);
+    border: 1px solid var(--col-border-strong);
     /*border: 2px solid transparent; /* Bordo invisibile per non farla "saltare" all'hover */
     border-radius: 12px;
     padding: 20px 15px;
@@ -926,24 +1029,24 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 /* Effetto al passaggio del mouse o quando si naviga con la tastiera (tab) */
 .date-tile:hover,
 .date-tile:focus-visible {
     transform: translateY(-5px);
-    border-color: var(--arancione);
+    border-color: var(--col-accent);
     /* Il bordo si illumina di arancione */
-    box-shadow: 0 8px 15px rgba(var(--arancione-rgb), 0.2);
+    box-shadow: 0 8px 15px rgba(var(--col-accent-rgb), 0.2);
     /* Ombra arancione leggera */
 }
 
 /* Classe per la data selezionata (aggiunta dal tuo JS) */
 .date-tile.selected {
-    background-color: var(--blu-scuro);
-    border-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    border-color: var(--col-text-heading);
+    color: var(--col-text-inverse);
     transform: translateY(-5px);
     /* Resta sollevata per indicare la selezione */
 }
@@ -952,27 +1055,27 @@ main {
 .day-name {
     font-size: 1em;
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     text-transform: uppercase;
     margin-bottom: 5px;
 }
 
 /* Se la mattonella è selezionata, l'arancione rischia di stonare sul blu scuro, quindi lo facciamo crema */
 .date-tile.selected .day-name {
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
 }
 
 .day-number {
     font-size: 3em;
     font-weight: 900;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     line-height: 1;
     margin-bottom: 15px;
 }
 
 /* Se la mattonella è selezionata, il numero diventa bianco */
 .date-tile.selected .day-number {
-    color: var(--white);
+    color: var(--col-text-inverse);
 }
 
 /* 6. I Tag (Es: "Opening Day", "Best Value") */
@@ -989,26 +1092,26 @@ main {
 
 /* Colori specifici per i vari Tag */
 .tag {
-    background-color: var(--azzurro);
-    color: var(--black);
+    background-color: var(--col-bg);
+    color: var(--col-text);
 }
 
 /* Default grigio */
 .new-session {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
 }
 
 /* Arancione scuro */
 .most-popular {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
 }
 
 /* Arancione brand */
 .finals {
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
 }
 
 /* Blu scuro brand */
@@ -1016,7 +1119,7 @@ main {
 /* 7. Info sui Match (Testo piccolo in basso) */
 .matches-info {
     font-size: 0.85em;
-    color: var(--black);
+    color: var(--col-text);
     line-height: 1.3;
     margin-top: auto;
     /* Spinge il testo in fondo alla card se questa si allunga */
@@ -1024,17 +1127,17 @@ main {
 
 /* Selezionato: testo bianco */
 .date-tile.selected .matches-info {
-    color: var(--white);
+    color: var(--col-text-inverse);
 }
 
 /* 8. Variante Highlight (Per le finali, se vuoi farle spiccare un po' di più) */
 .date-tile.highlight {
-    background-color: var(--crema);
-    border: 1px solid rgba(var(--arancione-rgb), 0.3);
+    background-color: var(--col-surface-alt);
+    border: 1px solid rgba(var(--col-accent-rgb), 0.3);
 }
 
 .date-tile.highlight.selected {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     /* Torna blu se selezionata */
 }
 
@@ -1062,32 +1165,32 @@ main {
     max-width: 860px;
     margin: 0 auto;
     padding: 10px var(--spazio-laterale) 60px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 }
 
 .faq-item {
-    background-color: var(--white);
-    border: 1px solid var(--azzurro);
-    border-left: 4px solid var(--arancione);
+    background-color: var(--col-surface);
+    border: 1px solid var(--col-border);
+    border-left: 4px solid var(--col-accent);
     border-radius: 8px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 2px 8px rgba(var(--col-shadow-rgb), 0.07);
     overflow: hidden;
     transition: box-shadow 0.2s ease, border-left-color 0.2s ease;
 }
 
 .faq-item:hover,
 .faq-item:focus-within {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    border-left-color: var(--arancione-scuro);
+    box-shadow: 0 4px 16px rgba(var(--col-shadow-rgb), 0.12);
+    border-left-color: var(--col-link);
 }
 
 .faq-item summary {
     padding: 18px 20px 18px 22px;
     font-size: 1.1em;
     font-weight: 600;
-    color: var(--blu-scuro);
-    background-color: var(--white);
+    color: var(--col-text-heading);
+    background-color: var(--col-surface);
     cursor: pointer;
     list-style: none;
     display: flex;
@@ -1105,7 +1208,7 @@ main {
     font-size: 1.5em;
     font-weight: 300;
     line-height: 1;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     flex-shrink: 0;
     transition: transform 0.25s ease;
 }
@@ -1116,34 +1219,34 @@ main {
 
 .faq-item summary:hover,
 .faq-item summary:focus-visible {
-    color: var(--arancione-scuro);
-    background-color: var(--azzurro);
-    outline: 3px solid var(--arancione-scuro);
+    color: var(--col-link);
+    background-color: var(--col-bg);
+    outline: 3px solid var(--col-link);
     outline-offset: 2px;
 }
 
 .faq-item[open] summary {
-    color: var(--arancione-scuro);
-    background-color: var(--azzurro);
-    border-bottom: 1px solid var(--arancione-chiaro);
+    color: var(--col-link);
+    background-color: var(--col-bg);
+    border-bottom: 1px solid var(--col-accent-soft);
 }
 
 .faq-content {
     padding: 18px 22px 22px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     border-top: none;
 }
 
 .faq-content p {
     font-size: 1.05em;
-    color: var(--black);
+    color: var(--col-text);
     font-weight: normal;
     line-height: 1.75;
 }
 
 /* Quando è aperta, border-left diventa arancione-scuro */
 .faq-item[open] {
-    border-left-color: var(--arancione-scuro);
+    border-left-color: var(--col-link);
 }
 
 /* =========================================
@@ -1159,32 +1262,32 @@ main {
 
 .contatti-sezione h2 {
     font-size: 2em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .contatti-sezione > p:first-of-type {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-size: 1em;
     margin-bottom: 28px;
 }
 
 .contatti-sezione p {
     font-size: 1.2em;
-    color: var(--black);
+    color: var(--col-text);
     margin-bottom: 20px;
 }
 
 .form-contatti {
-    background-color: var(--blu-scuro);
-    color: var(--crema);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse-soft);
     /* Tutti i testi interni ora saranno crema */
     padding: 40px;
     border-radius: 12px;
-    border-bottom: 6px solid var(--arancione);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-bottom: 6px solid var(--col-accent);
+    box-shadow: 0 8px 20px rgba(var(--col-shadow-rgb), 0.15);
     text-align: left;
 }
 
@@ -1198,25 +1301,25 @@ main {
     border: 3px solid transparent;
     border-radius: 6px;
     font-size: 1.1em;
-    background-color: var(--azzurro);
-    color: var(--black);
+    background-color: var(--col-bg);
+    color: var(--col-text);
     transition: all 0.3s ease;
 }
 
 .form-gruppo input:-webkit-autofill,
 .form-gruppo textarea:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px var(--azzurro) inset;
-    -webkit-text-fill-color: var(--black);
+    -webkit-box-shadow: 0 0 0 30px var(--col-bg-subtle) inset;
+    -webkit-text-fill-color: var(--col-text);
 }
 
 .form-gruppo input:focus,
 .form-gruppo input:focus-visible,
 .form-gruppo textarea:focus,
 .form-gruppo textarea:focus-visible {
-    outline: 3px solid var(--arancione-scuro);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
-    border-color: var(--arancione);
-    background-color: var(--white);
+    border-color: var(--col-accent);
+    background-color: var(--col-surface);
 }
 
 .form-checkbox {
@@ -1229,26 +1332,26 @@ main {
 .form-checkbox input[type="checkbox"] {
     width: 22px;
     height: 22px;
-    accent-color: var(--arancione);
+    accent-color: var(--col-accent);
     cursor: pointer;
 }
 
 .form-checkbox label {
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     font-size: 1.1em;
     margin: 0;
     cursor: pointer;
 }
 
 .form-checkbox a {
-    color: var(--arancione);
+    color: var(--col-accent);
     text-decoration: underline;
 }
 
 .form-contatti button[type="submit"] {
     width: 100%;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 18px;
     font-size: 1.3em;
     font-weight: bold;
@@ -1259,13 +1362,13 @@ main {
 }
 
 .form-contatti button[type="submit"]:hover {
-    background-color: var(--arancione);
+    background-color: var(--col-accent);
     transform: translateY(-1px);
 }
 
 .form-contatti button[type="submit"]:focus-visible {
-    background-color: var(--arancione);
-    outline: 3px solid var(--arancione-chiaro);
+    background-color: var(--col-accent);
+    outline: 3px solid var(--col-accent-soft);
     outline-offset: 3px;
 }
 
@@ -1293,11 +1396,11 @@ main {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     padding: 15px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-bottom: 4px solid var(--arancione);
+    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.2);
+    border-bottom: 4px solid var(--col-accent);
 }
 
 .sticky-content {
@@ -1314,7 +1417,7 @@ main {
 .sticky-title {
     font-size: 1.5em;
     font-weight: bold;
-    color: var(--arancione);
+    color: var(--col-accent);
     text-transform: uppercase;
 }
 
@@ -1328,7 +1431,7 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--azzurro);
+    color: var(--col-text-inverse);
 }
 
 .step img {
@@ -1336,7 +1439,7 @@ main {
 }
 
 .step.active {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
 }
 
 .step.active img {
@@ -1346,7 +1449,7 @@ main {
 .step-icon {
     width: 30px;
     height: 30px;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -1368,14 +1471,14 @@ main {
 .step-line {
     width: 30px;
     height: 2px;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     opacity: 0.3;
 }
 
 .btn-select-date {
     display: inline-block;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 10px 20px;
     font-weight: bold;
     border-radius: 6px;
@@ -1384,20 +1487,20 @@ main {
 
 .btn-select-date:hover,
 .btn-select-date:focus-visible {
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
 }
 
 /* 3. BENEFITS SECTION */
 .benefits-section {
     padding: 40px var(--spazio-laterale);
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     text-align: center;
 }
 
 .benefits-section h2,
 .benefits-section h3 {
     font-size: 2em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 30px;
 }
 
@@ -1410,15 +1513,15 @@ main {
 }
 
 .benefit-card {
-    background-color: var(--white);
-    border: 1px solid var(--azzurro);
+    background-color: var(--col-surface);
+    border: 1px solid var(--col-border);
     border-radius: 8px;
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 6px rgba(var(--col-shadow-rgb), 0.02);
     width: 100%;
     max-width: 350px;
 }
@@ -1430,12 +1533,12 @@ main {
     flex-shrink: 0;
     border-radius: 50%;
     margin-bottom: 20px;
-    border: 3px solid var(--arancione);
+    border: 3px solid var(--col-accent);
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--white);
+    background-color: var(--col-surface);
 }
 
 .zoomed-icon {
@@ -1448,12 +1551,12 @@ main {
 .benefit-text h4,
 .benefit-text h3 {
     font-size: 1.4em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 12px;
 }
 
 .benefit-text p {
-    color: var(--black);
+    color: var(--col-text);
     font-size: 1.05em;
     line-height: 1.6;
 }
@@ -1468,23 +1571,23 @@ main {
 }
 
 .session-card {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border: 2px solid transparent;
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(var(--col-shadow-rgb), 0.08);
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .session-card:hover {
     transform: translateY(-5px);
-    border-color: var(--arancione);
+    border-color: var(--col-accent);
 }
 
 .session-card:focus-within {
-    border-color: var(--blu-scuro);
+    border-color: var(--col-text-heading);
 }
 
 .session-top {
@@ -1492,15 +1595,15 @@ main {
     align-items: center;
     gap: 15px;
     padding: 20px 25px;
-    background-color: var(--blu-scuro);
-    color: var(--white);
-    border-bottom: 4px solid var(--arancione);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    border-bottom: 4px solid var(--col-accent);
 }
 
 .session-icon {
     width: 50px;
     height: 50px;
-    background-color: var(--arancione);
+    background-color: var(--col-accent);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -1518,13 +1621,13 @@ main {
     font-size: 1.4em;
     font-weight: 700;
     margin-bottom: 5px;
-    color: var(--white);
+    color: var(--col-text-inverse);
     font-family: inherit;
 }
 
 .session-time {
     font-size: 0.95em;
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     font-weight: 500;
     font-family: inherit;
     margin: 0;
@@ -1540,31 +1643,31 @@ main {
 
 .session-details p {
     font-size: 1.05em;
-    color: var(--black);
+    color: var(--col-text);
     line-height: 1.5;
     margin: 0;
     font-family: inherit;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     padding: 12px 18px;
     border-radius: 8px;
-    border-left: 5px solid var(--arancione);
+    border-left: 5px solid var(--col-accent);
     font-weight: 500;
 }
 
 .match-highlight {
     font-size: 1.1em;
-    border-left-color: var(--blu-scuro) !important;
+    border-left-color: var(--col-text-heading) !important;
 }
 
 .match-highlight strong {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: 800;
 }
 
 .session-footer {
     padding: 20px 25px;
-    background-color: var(--azzurro);
-    border-top: 2px solid var(--azzurro);
+    background-color: var(--col-bg);
+    border-top: 2px solid var(--col-border);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1573,12 +1676,12 @@ main {
 .session-footer .price {
     font-size: 1.3em;
     font-weight: bold;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
 }
 
 .buy-btn {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 12px 20px;
     font-weight: bold;
     border-radius: 6px;
@@ -1587,7 +1690,7 @@ main {
 
 .buy-btn:hover,
 .buy-btn:focus-visible {
-    background-color: var(--arancione);
+    background-color: var(--col-accent);
 }
 
 /* 5. SELEZIONE POSTO E ALTRI DETTAGLI BIGLIETTO */
@@ -1625,62 +1728,62 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 20px 25px;
-    background-color: var(--white);
-    border: 2px solid var(--azzurro);
+    background-color: var(--col-surface);
+    border: 2px solid var(--col-border);
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 5px rgba(var(--col-shadow-rgb), 0.02);
 }
 
 .seat-category:hover,
 .seat-category:focus-visible {
-    border-color: var(--arancione);
-    box-shadow: 0 6px 15px rgba(var(--arancione-rgb), 0.12);
+    border-color: var(--col-accent);
+    box-shadow: 0 6px 15px rgba(var(--col-accent-rgb), 0.12);
     transform: translateY(-2px);
-    outline: 3px solid var(--arancione-scuro);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
 .seat-category.selected {
-    border-color: var(--arancione);
-    background-color: var(--white);
-    box-shadow: 0 8px 25px rgba(var(--arancione-rgb), 0.25);
+    border-color: var(--col-accent);
+    background-color: var(--col-surface);
+    box-shadow: 0 8px 25px rgba(var(--col-accent-rgb), 0.25);
     transform: translateY(-4px);
 }
 
 .seat-category.disabled-seat {
     pointer-events: none;
     cursor: not-allowed;
-    background-color: var(--white);
+    background-color: var(--col-surface);
 }
 
 .seat-category.selected h3 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: 800;
 }
 
 .seat-category.selected p {
-    color: var(--black);
+    color: var(--col-text);
     font-weight: 500;
 }
 
 .seat-category.selected .seat-price {
-    background-color: var(--white);
-    color: var(--blu-scuro);
-    border-color: var(--arancione);
+    background-color: var(--col-surface);
+    color: var(--col-text-heading);
+    border-color: var(--col-accent);
 }
 
 .seat-info h3 {
     font-size: 1.25em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 5px;
     font-weight: 700;
 }
 
 .seat-info p {
     font-size: 0.95em;
-    color: var(--black);
+    color: var(--col-text);
     margin: 0;
 }
 
@@ -1688,10 +1791,10 @@ main {
     display: inline-block;
     font-size: 1.4em;
     font-weight: 800;
-    color: var(--blu-scuro);
-    background-color: var(--white);
+    color: var(--col-text-heading);
+    background-color: var(--col-surface);
     padding: 8px 16px;
-    border: 2px solid var(--arancione);
+    border: 2px solid var(--col-accent);
     border-radius: 8px;
     white-space: nowrap;
     transition: all 0.3s ease;
@@ -1701,13 +1804,13 @@ main {
 .purchase-container {
     margin-top: 20px;
     padding: 30px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     border-radius: 12px;
-    border: 1px solid var(--azzurro);
+    border: 1px solid var(--col-border);
     display: flex;
     flex-direction: column;
     gap: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 .purchase-controls {
@@ -1718,10 +1821,10 @@ main {
 .quantity-selector {
     display: flex;
     align-items: center;
-    border: 2px solid var(--blu-scuro);
+    border: 2px solid var(--col-text-heading);
     border-radius: 30px;
     overflow: hidden;
-    background-color: var(--white);
+    background-color: var(--col-surface);
 }
 
 .qty-btn {
@@ -1731,17 +1834,17 @@ main {
     height: 45px;
     font-size: 1.6em;
     font-weight: bold;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
 .qty-btn:hover {
-    background-color: var(--crema);
+    background-color: var(--col-surface-alt);
 }
 
 .qty-btn:focus-visible {
-    outline: 3px solid var(--arancione);
+    outline: 3px solid var(--col-accent);
     outline-offset: 2px;
 }
 
@@ -1753,11 +1856,11 @@ main {
 }
 
 .avviso-scarsita {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
     padding: 8px 12px;
-    border-left: 3px solid var(--arancione-scuro);
-    background-color: var(--crema);
+    border-left: 3px solid var(--col-link);
+    background-color: var(--col-surface-alt);
     border-radius: 4px;
     margin-bottom: 4px;
     font-size: 0.95em;
@@ -1768,11 +1871,11 @@ main {
     height: 45px;
     text-align: center;
     border: none;
-    border-left: 1px solid var(--azzurro);
-    border-right: 1px solid var(--azzurro);
+    border-left: 1px solid var(--col-border);
+    border-right: 1px solid var(--col-border);
     font-size: 1.4em;
     font-weight: bold;
-    color: var(--black);
+    color: var(--col-text);
     -moz-appearance: textfield;
     appearance: textfield;
 }
@@ -1799,10 +1902,10 @@ main {
 
 .action-box .buy-button.added-to-cart {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    background-color: var(--blu-scuro);
-    color: var(--white);
-    border: 2px solid var(--arancione);
+    box-shadow: 0 8px 20px rgba(var(--col-shadow-rgb), 0.2);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    border: 2px solid var(--col-accent);
     font-family: inherit;
     font-style: normal;
     font-weight: 800;
@@ -1825,9 +1928,9 @@ main {
 }
 
 .noscript-warning {
-    background-color: var(--crema);
-    color: var(--arancione-scuro);
-    border-left: 5px solid var(--arancione-scuro);
+    background-color: var(--col-surface-alt);
+    color: var(--col-link);
+    border-left: 5px solid var(--col-link);
     padding: 12px 20px;
     font-weight: bold;
     font-size: 1rem;
@@ -1839,7 +1942,7 @@ main {
    PAGINA LOGIN & REGISTRAZIONE SPLIT
 ========================================= */
 .login-page {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     padding: 60px var(--spazio-laterale);
     min-height: 80vh;
     display: flex;
@@ -1849,7 +1952,7 @@ main {
 
 .img-contain {
     object-fit: contain !important;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     padding: 10px;
 }
 
@@ -1859,9 +1962,9 @@ main {
 
 .login-container {
     display: flex;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 30px rgba(var(--col-shadow-rgb), 0.12);
     overflow: hidden;
     max-width: 1100px;
     width: 100%;
@@ -1877,45 +1980,45 @@ main {
 }
 
 .login-section {
-    background-color: var(--white);
+    background-color: var(--col-surface);
 }
 
 .register-section {
-    background-color: var(--crema);
+    background-color: var(--col-surface-alt);
     text-align: center;
 }
 
 .login-sub {
     font-size: 1.05em;
-    color: var(--black);
+    color: var(--col-text);
     margin-bottom: 30px;
 }
 
 .auth-divider {
     width: 2px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 }
 
 .login-section h2,
 .register-section h2 {
     font-size: 2.2em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 15px;
 }
 
 .register-section h2 {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .register-section p {
     font-size: 1.15em;
-    color: var(--black);
+    color: var(--col-text);
     line-height: 1.6;
     margin-bottom: 35px;
 }
 
 .auth-form {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -1923,8 +2026,8 @@ main {
 
 .btn-auth {
     display: inline-block;
-    background-color: var(--arancione);
-    color: var(--white);
+    background-color: var(--col-accent);
+    color: var(--col-on-action);
     padding: 16px;
     font-size: 1.25em;
     font-weight: bold;
@@ -1938,19 +2041,19 @@ main {
 
 .btn-auth:hover,
 .btn-auth:focus-visible {
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
 }
 
 .btn-auth.outline {
     background-color: transparent;
-    color: var(--arancione-scuro);
-    border: 3px solid var(--arancione-scuro);
+    color: var(--col-link);
+    border: 3px solid var(--col-link);
 }
 
 .btn-auth.outline:hover,
 .btn-auth.outline:focus-visible {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
 }
 
 /* =========================================
@@ -1968,13 +2071,13 @@ main {
 .titoli-notizie h1,
 .titoli-notizie h2 {
     font-size: 2.2em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 10px;
 }
 
 .titoli-notizie p {
     font-size: 1.1em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: bold;
 }
 
@@ -1987,14 +2090,14 @@ main {
 }
 
 .rettangolo-notizia {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     display: flex;
     flex-direction: row;
     align-items: stretch;
     border-radius: 12px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(var(--col-shadow-rgb), 0.08);
     overflow: hidden;
     border: 2px solid transparent;
     transition: all 0.3s ease;
@@ -2003,9 +2106,9 @@ main {
 .rettangolo-notizia:hover,
 .rettangolo-notizia:focus-visible {
     transform: translateX(10px);
-    border-color: var(--arancione);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    outline: 3px solid var(--arancione-scuro);
+    border-color: var(--col-accent);
+    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.15);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
@@ -2013,7 +2116,7 @@ main {
     width: 250px;
     flex-shrink: 0;
     overflow: hidden;
-    border-right: 4px solid var(--arancione);
+    border-right: 4px solid var(--col-accent);
 }
 
 .home-news-img {
@@ -2038,7 +2141,7 @@ main {
 .home-news-content time {
     font-size: 0.85em;
     font-weight: bold;
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     margin-bottom: 8px;
     display: block;
     text-transform: uppercase;
@@ -2046,14 +2149,14 @@ main {
 
 .home-news-content h3 {
     font-size: 1.3em;
-    color: var(--white);
+    color: var(--col-text-inverse);
     margin-bottom: 8px;
     line-height: 1.3;
 }
 
 .home-news-content p {
     font-size: 1em;
-    color: var(--white);
+    color: var(--col-text-inverse);
     line-height: 1.5;
 }
 
@@ -2073,22 +2176,22 @@ main {
 
 /* Card news pagina: layout orizzontale, immagine sinistra */
 .news-card {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     border: 2px solid transparent;
-    border-left: 5px solid var(--arancione);
+    border-left: 5px solid var(--col-accent);
     border-radius: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 3px 12px rgba(var(--col-shadow-rgb), 0.14);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .news-card:hover,
 .news-card:focus-within {
     transform: translateY(-3px);
-    border-color: var(--arancione-chiaro);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-color: var(--col-accent-soft);
+    box-shadow: 0 8px 24px rgba(var(--col-shadow-rgb), 0.2);
 }
 
 /* Immagine: colonna sinistra fissa */
@@ -2113,7 +2216,7 @@ main {
 /* Contenuto: colonna destra */
 .card-content {
     padding: 22px 28px;
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -2124,7 +2227,7 @@ main {
 /* Titoli */
 .card-content h2,
 .card-content h3 {
-    color: var(--white);
+    color: var(--col-text-inverse);
     margin-bottom: 0;
     font-size: 1.2em;
     line-height: 1.35;
@@ -2132,7 +2235,7 @@ main {
 
 /* Testo articolo completo — buona leggibilità */
 .card-content p {
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     line-height: 1.75;
     font-size: 0.97em;
 }
@@ -2149,32 +2252,32 @@ main {
     }
 }
 
-/* 5. Data — var(--arancione-chiaro) garantisce contrasto 8:1 su var(--blu-scuro) (WCAG AA) */
+/* 5. Data — var(--col-accent-soft) garantisce contrasto 8:1 su var(--col-text-heading) (WCAG AA) */
 .card-content time {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     font-weight: 800;
     text-transform: uppercase;
     display: block;
     margin-bottom: 10px;
 }
 
-/* 6. Link "Leggi di più" — var(--arancione-chiaro) = 8:1 su sfondo blu scuro (WCAG AA) */
+/* 6. Link "Leggi di più" — var(--col-accent-soft) = 8:1 su sfondo blu scuro (WCAG AA) */
 .read-more {
-    color: var(--arancione-chiaro);
-    border-bottom: 2px solid var(--arancione-chiaro);
+    color: var(--col-accent-soft);
+    border-bottom: 2px solid var(--col-accent-soft);
     margin-top: 15px;
     display: inline-block;
 }
 
 .read-more:hover {
-    color: var(--crema);
-    border-bottom-color: var(--crema);
+    color: var(--col-text-inverse-soft);
+    border-bottom-color: var(--col-surface-alt);
 }
 
 .read-more:focus,
 .read-more:focus-visible {
-    color: var(--crema);
-    outline: 3px solid var(--arancione-chiaro);
+    color: var(--col-text-inverse-soft);
+    outline: 3px solid var(--col-accent-soft);
     outline-offset: 4px;
     border-bottom-color: transparent;
 }
@@ -2187,11 +2290,11 @@ main {
 
 #breadcrumb a:hover,
 #breadcrumb a:focus-visible {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .breadcrumb-active {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
 }
 
@@ -2202,38 +2305,38 @@ main {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
 }
 
 .auth-form input {
     width: 100%;
     padding: 15px 18px;
-    border: 2px solid var(--azzurro);
+    border: 2px solid var(--col-border);
     border-radius: 8px;
     font-size: 1.05rem;
     font-family: inherit;
-    background-color: var(--azzurro);
-    color: var(--black);
+    background-color: var(--col-bg);
+    color: var(--col-text);
     transition: all 0.3s ease;
     box-sizing: border-box;
     margin-bottom: 25px;
 }
 
 .auth-form input::placeholder {
-    color: var(--black);
+    color: var(--col-text);
     opacity: 0.45;
 }
 
 .auth-form input:hover {
-    border-color: var(--arancione-chiaro);
-    background-color: var(--white);
+    border-color: var(--col-accent-soft);
+    background-color: var(--col-surface);
 }
 
 .auth-form input:focus {
     outline: none;
-    border-color: var(--arancione);
-    background-color: var(--white);
-    box-shadow: 0 4px 15px rgba(var(--arancione-scuro-rgb), 0.15);
+    border-color: var(--col-accent);
+    background-color: var(--col-surface);
+    box-shadow: 0 4px 15px rgba(var(--col-action-rgb), 0.15);
 }
 
 .auth-form button[type="submit"] {
@@ -2241,8 +2344,8 @@ main {
     padding: 15px;
     border: none;
     border-radius: 8px;
-    background-color: var(--arancione);
-    color: var(--white);
+    background-color: var(--col-accent);
+    color: var(--col-on-action);
     font-size: 1.1em;
     font-weight: bold;
     cursor: pointer;
@@ -2250,7 +2353,7 @@ main {
 }
 
 .auth-form button[type="submit"]:hover {
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
     transform: translateY(-2px);
 }
 
@@ -2258,7 +2361,7 @@ main {
     font-style: italic;
     margin: 0;
     padding: 0 0 0 28px;
-    border-left: 4px solid var(--arancione);
+    border-left: 4px solid var(--col-accent);
     text-align: left;
     grid-column: 1;
     grid-row: 1 / 3;
@@ -2268,14 +2371,14 @@ main {
 .citazione-tennis p {
     font-size: 1.25em;
     line-height: 1.65;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 14px;
 }
 
 .citazione-tennis cite {
     font-size: 0.85em;
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     display: block;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -2369,7 +2472,7 @@ main {
     }
 
     .calendar-wrapper::-webkit-scrollbar-thumb {
-        background-color: var(--arancione);
+        background-color: var(--col-accent);
         /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
     }
@@ -2387,7 +2490,7 @@ main {
         /* Diamo un'altezza fissa per non farla diventare troppo alta */
         border-right: none;
         /* Togliamo il bordo arancione laterale... */
-        border-bottom: 4px solid var(--arancione);
+        border-bottom: 4px solid var(--col-accent);
         /* ...e lo spostiamo sotto la foto! */
     }
 
@@ -2416,16 +2519,16 @@ main {
 
 /* Correzione: aggiunto selettore specifico e virgola mancante */
 #form-registrazione input.invalid {
-    border: 2px solid var(--arancione-scuro);
-    background-color: var(--crema);
+    border: 2px solid var(--col-link);
+    background-color: var(--col-surface-alt);
     transition: all 0.3s ease;
-    box-shadow: 0 0 0 4px rgba(var(--arancione-scuro-rgb), 0.1);
+    box-shadow: 0 0 0 4px rgba(var(--col-action-rgb), 0.1);
 }
 
 .error-message,
 .errore-msg {
     display: none;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-size: 0.85rem;
     font-weight: bold;
     margin-top: 5px;
@@ -2443,7 +2546,7 @@ main {
 ========================================= */
 
 .registrazione-main {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     min-height: 80vh;
     display: flex;
     justify-content: center;
@@ -2452,11 +2555,11 @@ main {
 }
 
 .registrazione-card {
-    background-color: var(--crema);
+    background-color: var(--col-surface-alt);
     width: 100%;
     max-width: 600px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(var(--col-shadow-rgb), 0.4);
     overflow: hidden;
 }
 
@@ -2465,9 +2568,9 @@ main {
     text-align: center;
     margin-bottom: 40px;
     padding: 30px 20px;
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(var(--blu-scuro-rgb), 0.15);
+    box-shadow: 0 10px 30px rgba(var(--col-surface-brand-rgb), 0.15);
     position: relative;
     overflow: hidden;
 }
@@ -2480,25 +2583,25 @@ main {
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background-color: var(--arancione);
+    background-color: var(--col-accent);
     border-radius: 20px 20px 0 0;
 }
 
 .auth-header h2 {
     font-family: var(--font-main);
-    color: var(--white);
+    color: var(--col-text-inverse);
     font-size: 1.5rem;
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 800;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 1px rgba(var(--col-shadow-rgb), 0.1);
 }
 
 
 
 #form-registrazione .btn-loading {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     cursor: wait;
     opacity: 0.8;
 }
@@ -2521,7 +2624,7 @@ main {
 
 
 .auth-header p {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     /* Colore più morbido per il sottotitolo */
     font-size: 1.25rem;
     line-height: 1.4;
@@ -2558,16 +2661,16 @@ main {
     justify-content: center;
     /* Centriamo il testo per il form di login */
     text-align: center;
-    border: 2px solid var(--arancione);
+    border: 2px solid var(--col-accent);
     /* Più enfasi sull'errore di login */
-    background-color: var(--azzurro);
-    color: var(--blu-scuro);
-    box-shadow: 0 4px 10px rgba(var(--arancione-rgb), 0.1);
+    background-color: var(--col-bg);
+    color: var(--col-text-heading);
+    box-shadow: 0 4px 10px rgba(var(--col-accent-rgb), 0.1);
     /* Ombra leggera arancione */
 }
 
 .login-error strong {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     margin-right: 10px;
 }
 
@@ -2582,25 +2685,25 @@ main {
 
 .form-gruppo input {
     padding: 14px 15px;
-    border: 2px solid var(--black);
+    border: 2px solid var(--col-border-strong);
     border-radius: 8px;
     font-size: 1.05em;
-    color: var(--black);
+    color: var(--col-text);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: var(--white);
+    background-color: var(--col-surface);
 }
 
 .form-gruppo input:focus {
-    border-color: var(--arancione-scuro);
-    box-shadow: 0 0 0 4px rgba(var(--arancione-scuro-rgb), 0.2);
+    border-color: var(--col-link);
+    box-shadow: 0 0 0 4px rgba(var(--col-action-rgb), 0.2);
     outline: none;
 }
 
 /* L'input field con l'aggiunta di bordo rosso è definito in input.invalid */
 
 .btn-auth {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 15px;
     font-size: 1.2em;
     font-weight: bold;
@@ -2613,10 +2716,10 @@ main {
 
 .btn-auth:hover,
 .btn-auth:focus-visible {
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     transform: translateY(-2px);
-    outline: 3px solid var(--arancione-scuro);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
@@ -2624,30 +2727,30 @@ main {
     text-align: center;
     margin-top: 25px;
     padding-top: 20px;
-    border-top: 1px solid var(--azzurro);
+    border-top: 1px solid var(--col-border);
 }
 
 .auth-footer p {
-    color: var(--black);
+    color: var(--col-text);
     font-size: 1.05em;
 }
 
 .auth-footer a {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
     text-decoration: underline;
 }
 
 .auth-footer a:hover,
 .auth-footer a:focus-visible {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
 }
 
 /* --- CAMPI OBBLIGATORI: indicatore visivo via CSS (WCAG 2.1 AA) --- */
 label.label-richiesta::after {
     content: " (richiesto)";
     font-size: 0.8em;
-    color: var(--black);
+    color: var(--col-text);
     font-weight: normal;
 }
 
@@ -2656,34 +2759,34 @@ label.label-richiesta::after {
     list-style: none;
     padding: 10px 14px;
     margin-top: 6px;
-    background-color: var(--azzurro);
-    border-left: 3px solid var(--arancione-chiaro);
+    background-color: var(--col-bg);
+    border-left: 3px solid var(--col-accent-soft);
     border-radius: 6px;
     font-size: 0.875rem;
 }
 
 #pass-requisiti li {
     padding: 3px 0;
-    color: var(--black);
+    color: var(--col-text);
 }
 
 #pass-requisiti li::before {
     content: "○  ";
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 #pass-requisiti li.soddisfatto {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: bold;
 }
 
 #pass-requisiti li.soddisfatto::before {
     content: "●  ";
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
 }
 
 #pass-requisiti li.non-soddisfatto {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 /* Responsività per la registrazione */
@@ -2709,7 +2812,7 @@ label.label-richiesta::after {
     text-align: center;
     font-weight: bold;
     text-decoration: underline;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1.1rem;
     transition: color 0.3s ease;
 }
@@ -2729,7 +2832,7 @@ label.label-richiesta::after {
 
 /* Effetto sul totale aggiornato */
 .text-highlight-update {
-    color: var(--arancione) !important;
+    color: var(--col-accent) !important;
     transform: scale(1.05);
     transition: all 0.2s;
 }
@@ -2741,24 +2844,24 @@ label.label-richiesta::after {
 
 /* Effetto al passaggio del mouse per una UX migliore */
 #link-vai-carrello:hover {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .checkout-disabled-msg {
-    background-color: var(--crema);
-    color: var(--blu-scuro);
+    background-color: var(--col-surface-alt);
+    color: var(--col-text-heading);
     padding: 15px;
-    border: 2px solid var(--blu-scuro);
+    border: 2px solid var(--col-text-heading);
     border-radius: 8px;
     text-align: center;
     margin-top: 15px;
     font-weight: bold;
     font-size: 0.95em;
-    box-shadow: 2px 2px 0px var(--blu-scuro);
+    box-shadow: 2px 2px 0px var(--col-text-heading);
 }
 
 #main-carrello {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     min-height: 80vh;
     padding-bottom: 60px;
 }
@@ -2779,15 +2882,15 @@ label.label-richiesta::after {
 }
 
 .cart-item-card {
-    background-color: var(--white);
-    border: 2px solid var(--black);
+    background-color: var(--col-surface);
+    border: 2px solid var(--col-border-strong);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 .cart-item-info {
@@ -2795,13 +2898,13 @@ label.label-richiesta::after {
 }
 
 .cart-item-info h3 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1.3em;
     margin-bottom: 5px;
 }
 
 .cart-item-info p {
-    color: var(--black);
+    color: var(--col-text);
     margin: 3px 0;
     font-size: 1.05em;
 }
@@ -2816,13 +2919,13 @@ label.label-richiesta::after {
 .cart-item-price {
     font-size: 1.3em;
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .btn-remove-item {
     background-color: transparent;
-    color: var(--arancione-scuro);
-    border: 2px solid var(--arancione-scuro);
+    color: var(--col-link);
+    border: 2px solid var(--col-link);
     border-radius: 8px;
     padding: 8px 15px;
     font-weight: bold;
@@ -2832,28 +2935,28 @@ label.label-richiesta::after {
 
 .btn-remove-item:hover,
 .btn-remove-item:focus-visible {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
-    outline: 3px solid var(--arancione-scuro);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
 .cart-summary {
     flex: 1;
-    background-color: var(--crema);
-    border: 2px solid var(--arancione-scuro);
+    background-color: var(--col-surface-alt);
+    border: 2px solid var(--col-link);
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.1);
     position: sticky;
     top: 20px;
 }
 
 .cart-summary h2 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1.8em;
     margin-bottom: 20px;
-    border-bottom: 2px solid var(--arancione);
+    border-bottom: 2px solid var(--col-accent);
     padding-bottom: 10px;
 }
 
@@ -2862,25 +2965,25 @@ label.label-richiesta::after {
     justify-content: space-between;
     font-size: 1.1em;
     margin-bottom: 15px;
-    color: var(--black);
+    color: var(--col-text);
 }
 
 .summary-total {
     font-size: 1.5em;
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 2px solid var(--azzurro);
+    border-top: 2px solid var(--col-border);
     font-weight: bold;
 }
 
 .summary-total strong:last-child {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .btn-checkout {
     width: 100%;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 15px;
     font-size: 1.25em;
     font-weight: bold;
@@ -2893,21 +2996,21 @@ label.label-richiesta::after {
 
 .btn-checkout:hover:not([disabled]),
 .btn-checkout:focus-visible:not([disabled]) {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     transform: translateY(-2px);
-    outline: 3px solid var(--arancione-scuro);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
 .btn-checkout[disabled] {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     cursor: not-allowed;
     opacity: 0.6;
 }
 
 .cart-empty {
-    background-color: var(--white);
-    border: 2px dashed var(--arancione-chiaro);
+    background-color: var(--col-surface);
+    border: 2px dashed var(--col-accent-soft);
     border-radius: 12px;
     padding: 50px 20px;
     text-align: center;
@@ -2915,14 +3018,14 @@ label.label-richiesta::after {
 
 .cart-empty p {
     font-size: 1.2em;
-    color: var(--black);
+    color: var(--col-text);
     margin-bottom: 20px;
 }
 
 .btn-shopping {
     display: inline-block;
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     padding: 12px 25px;
     font-size: 1.1em;
     font-weight: bold;
@@ -2932,7 +3035,7 @@ label.label-richiesta::after {
 
 .btn-shopping:hover,
 .btn-shopping:focus-visible {
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
 }
 
 /* =========================================
@@ -2946,7 +3049,7 @@ label.label-richiesta::after {
 }
 
 .user-page-header h1 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 2.5em;
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -2954,7 +3057,7 @@ label.label-richiesta::after {
 
 /* --- 2. SFONDO E STRUTTURA A 2 COLONNE --- */
 .user-page-main {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     padding: 50px var(--spazio-laterale) 80px;
     min-height: 80vh;
 }
@@ -2972,17 +3075,17 @@ label.label-richiesta::after {
 .sidebar-user {
     flex: 1;
     min-width: 280px;
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     border-radius: 12px;
     padding: 30px 20px;
     position: sticky;
     top: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-bottom: 6px solid var(--arancione);
+    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.15);
+    border-bottom: 6px solid var(--col-accent);
 }
 
 .sidebar-user h2 {
-    color: var(--white);
+    color: var(--col-text-inverse);
     font-size: 1.5em;
     margin-bottom: 25px;
     text-align: center;
@@ -3010,7 +3113,7 @@ label.label-richiesta::after {
     display: block;
     padding: 14px 18px;
     border-radius: 8px;
-    color: var(--crema);
+    color: var(--col-text-inverse-soft);
     font-weight: bold;
     font-size: 1.1em;
     transition: all 0.3s ease;
@@ -3025,15 +3128,15 @@ label.label-richiesta::after {
 }
 
 .menu-list-user a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--arancione-chiaro);
+    background-color: rgba(var(--col-on-dark-rgb), 0.1);
+    color: var(--col-accent-soft);
 }
 
 .menu-list-user a.active {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     transform: translateX(8px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.2);
 }
 
 /* --- 4. CONTENUTO CENTRALE (SCHEDE BIANCHE) --- */
@@ -3043,18 +3146,18 @@ label.label-richiesta::after {
 }
 
 .content-card {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border-top: 6px solid var(--blu-scuro);
+    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.08);
+    border-top: 6px solid var(--col-text-heading);
 }
 
 .content-card h2 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 2.2em;
     margin-bottom: 30px;
-    border-bottom: 3px solid var(--arancione);
+    border-bottom: 3px solid var(--col-accent);
     padding-bottom: 15px;
 }
 
@@ -3088,15 +3191,15 @@ label.label-richiesta::after {
 
 /* Stile per i campi in sola lettura */
 .profile-form input[readonly] {
-    background-color: var(--azzurro) !important;
-    color: var(--black) !important;
-    border: 2px dashed var(--azzurro) !important;
+    background-color: var(--col-bg) !important;
+    color: var(--col-text) !important;
+    border: 2px dashed var(--col-border) !important;
     cursor: not-allowed;
 }
 
 .profile-form input[readonly]:hover,
 .profile-form input[readonly]:focus {
-    border-color: var(--azzurro) !important;
+    border-color: var(--col-border) !important;
     box-shadow: none !important;
 }
 
@@ -3133,24 +3236,24 @@ label.label-richiesta::after {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    background-color: var(--white);
-    border: 1px solid var(--arancione-chiaro);
-    border-left: 5px solid var(--arancione-scuro);
+    background-color: var(--col-surface);
+    border: 1px solid var(--col-accent-soft);
+    border-left: 5px solid var(--col-link);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 2px 10px rgba(var(--col-shadow-rgb), 0.07);
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .ticket-card-user:hover,
 .ticket-card-user:focus-within {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+    box-shadow: 0 6px 20px rgba(var(--col-shadow-rgb), 0.13);
     transform: translateY(-2px);
 }
 
 /* --- Colonna sinistra: badge tipo --- */
 .tcu-type {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3160,7 +3263,7 @@ label.label-richiesta::after {
 }
 
 .tcu-type-label {
-    color: var(--white);
+    color: var(--col-text-inverse);
     font-size: 0.95em;
     font-weight: bold;
     text-align: center;
@@ -3178,30 +3281,30 @@ label.label-richiesta::after {
     flex-direction: column;
     justify-content: center;
     gap: 6px;
-    border-left: 1px solid var(--arancione-chiaro);
-    border-right: 1px solid var(--arancione-chiaro);
+    border-left: 1px solid var(--col-accent-soft);
+    border-right: 1px solid var(--col-accent-soft);
 }
 
 .tcu-evento {
     font-size: 1.05em;
     font-weight: bold;
-    color: var(--black);
+    color: var(--col-text);
     margin: 0;
 }
 
 .tcu-location {
     font-size: 0.9em;
-    color: var(--black);
+    color: var(--col-text);
     margin: 0;
 }
 
 .tcu-stadio {
     font-weight: bold;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .tcu-tribuna {
-    color: var(--black);
+    color: var(--col-text);
 }
 
 /* --- Colonna destra: numero ordine e quantità --- */
@@ -3225,14 +3328,14 @@ label.label-richiesta::after {
 }
 
 .tcu-meta-item:not(:last-child) {
-    border-bottom: 1px dotted var(--arancione-chiaro);
+    border-bottom: 1px dotted var(--col-accent-soft);
     margin-bottom: 5px;
 }
 
 .tcu-meta-item dt {
     font-size: 0.75em;
     font-weight: bold;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -3240,7 +3343,7 @@ label.label-richiesta::after {
 .tcu-meta-item dd {
     font-size: 1em;
     font-weight: bold;
-    color: var(--black);
+    color: var(--col-text);
     margin: 2px 0 0 0;
 }
 
@@ -3248,8 +3351,8 @@ label.label-richiesta::after {
 @media (max-width: 640px) {
     .ticket-card-user {
         flex-direction: column;
-        border-left: 1px solid var(--arancione-chiaro);
-        border-top: 5px solid var(--arancione-scuro);
+        border-left: 1px solid var(--col-accent-soft);
+        border-top: 5px solid var(--col-link);
     }
 
     .tcu-type {
@@ -3261,8 +3364,8 @@ label.label-richiesta::after {
     .tcu-details {
         border-left: none;
         border-right: none;
-        border-top: 1px solid var(--arancione-chiaro);
-        border-bottom: 1px solid var(--arancione-chiaro);
+        border-top: 1px solid var(--col-accent-soft);
+        border-bottom: 1px solid var(--col-accent-soft);
         padding: 14px 18px;
     }
 
@@ -3294,15 +3397,15 @@ label.label-richiesta::after {
     caption-side: top;
     text-align: left;
     font-size: 0.85em;
-    color: var(--black);
+    color: var(--col-text);
     margin-bottom: 10px;
     font-style: italic;
     padding-bottom: 6px;
 }
 
 .orders-table-user thead th {
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     padding: 12px 16px;
     text-align: left;
     font-weight: bold;
@@ -3310,7 +3413,7 @@ label.label-richiesta::after {
 }
 
 .orders-table-user tbody tr {
-    border-bottom: 1px solid var(--arancione-chiaro);
+    border-bottom: 1px solid var(--col-accent-soft);
     transition: background-color 0.2s ease;
 }
 
@@ -3319,28 +3422,28 @@ label.label-richiesta::after {
 }
 
 .orders-table-user tbody tr:hover {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 }
 
 .orders-table-user tbody td {
     padding: 12px 16px;
-    color: var(--black);
+    color: var(--col-text);
     vertical-align: middle;
 }
 
 /* Riga notifica non letta: sfondo caldo + testo in grassetto */
 .orders-table-user .unread-row {
-    background-color: var(--crema);
+    background-color: var(--col-surface-alt);
     font-weight: bold;
 }
 
 .orders-table-user .unread-row:hover {
-    background-color: var(--arancione-chiaro);
+    background-color: var(--col-accent-soft);
 }
 
 /* Riga già letta: tono attenuato */
 .orders-table-user .read-row td {
-    color: var(--black);
+    color: var(--col-text);
 }
 
 /* Bottone "Segna Letta" nelle notifiche */
@@ -3358,7 +3461,7 @@ label.label-richiesta::after {
 
     .orders-table-user tbody tr {
         display: block;
-        border: 1px solid var(--arancione-chiaro);
+        border: 1px solid var(--col-accent-soft);
         border-radius: 8px;
         margin-bottom: 14px;
         padding: 10px;
@@ -3370,7 +3473,7 @@ label.label-richiesta::after {
         align-items: flex-start;
         gap: 8px;
         padding: 8px 4px;
-        border-bottom: 1px dotted var(--arancione-chiaro);
+        border-bottom: 1px dotted var(--col-accent-soft);
         font-size: 0.92em;
     }
 
@@ -3381,7 +3484,7 @@ label.label-richiesta::after {
     .orders-table-user tbody td::before {
         content: attr(data-label);
         font-weight: bold;
-        color: var(--blu-scuro);
+        color: var(--col-text-heading);
         flex-shrink: 0;
         min-width: 90px;
     }
@@ -3431,34 +3534,34 @@ label.label-richiesta::after {
 
 /* Box che contiene il form per aggiungere una nuova news */
 .admin-form-container {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid var(--azzurro);
+    border: 1px solid var(--col-border);
     margin-bottom: 50px;
 }
 
 .admin-form-container h3 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 20px;
     font-size: 1.5em;
 }
 
 /* Titolo della sezione "News Pubblicate" */
 .sub-section-title {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1.5em;
-    border-bottom: 2px solid var(--arancione);
+    border-bottom: 2px solid var(--col-accent);
     padding-bottom: 10px;
     margin-bottom: 25px;
 }
 
 /* Box per rispondere alle domande degli utenti */
 .admin-reply-form {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid var(--azzurro);
+    border: 1px solid var(--col-border);
     margin-top: 20px;
 }
 
@@ -3473,12 +3576,12 @@ label.label-richiesta::after {
 .form-gruppo textarea {
     width: 100%;
     padding: 15px 18px;
-    border: 2px solid var(--azzurro);
+    border: 2px solid var(--col-border);
     border-radius: 8px;
     font-size: 1.05rem;
     font-family: inherit;
-    background-color: var(--azzurro);
-    color: var(--black);
+    background-color: var(--col-bg);
+    color: var(--col-text);
     transition: all 0.3s ease;
     resize: vertical;
     /* Permette all'utente di allungare la casella solo verso il basso */
@@ -3486,16 +3589,16 @@ label.label-richiesta::after {
 
 .form-gruppo textarea:focus {
     outline: none;
-    border-color: var(--arancione);
-    background-color: var(--white);
-    box-shadow: 0 4px 15px rgba(var(--arancione-scuro-rgb), 0.15);
+    border-color: var(--col-accent);
+    background-color: var(--col-surface);
+    box-shadow: 0 4px 15px rgba(var(--col-action-rgb), 0.15);
 }
 
 /* Testi e descrizioni */
 .section-description {
     margin-bottom: 30px;
     font-size: 1.1em;
-    color: var(--black);
+    color: var(--col-text);
 }
 
 .user-message {
@@ -3507,7 +3610,7 @@ label.label-richiesta::after {
 .news-date {
     font-size: 0.9em;
     font-weight: bold;
-    color: var(--black);
+    color: var(--col-text);
     margin-bottom: 15px;
     text-transform: uppercase;
 }
@@ -3515,18 +3618,18 @@ label.label-richiesta::after {
 /* Spaziatura nel form di modifica delle news per separarlo dal tasto "Elimina" */
 .news-edit-form {
     margin-bottom: 15px;
-    border-bottom: 1px solid var(--azzurro);
+    border-bottom: 1px solid var(--col-border);
     padding-bottom: 20px;
 }
 
 /* Tasto di pericolo per le azioni distruttive */
 .btn-danger {
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
 }
 
 .btn-danger:hover,
 .btn-danger:focus-visible {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
 }
 
 /* =========================================
@@ -3535,7 +3638,7 @@ label.label-richiesta::after {
 
 /* 1. Rende il testo della checkbox leggibile (nero invece che crema) */
 .content-card .form-checkbox label {
-    color: var(--black);
+    color: var(--col-text);
     font-weight: bold;
 }
 
@@ -3555,21 +3658,21 @@ label.label-richiesta::after {
 /* 4. Nuovo stile per il bottone Elimina (Senza rosso, stile "Outline" blu scuro) */
 .btn-outline-dark {
     background-color: transparent;
-    color: var(--blu-scuro);
-    border: 2px solid var(--blu-scuro);
+    color: var(--col-text-heading);
+    border: 2px solid var(--col-text-heading);
 }
 
 /* Effetto quando passi col mouse sul bottone elimina */
 .btn-outline-dark:hover,
 .btn-outline-dark:focus-visible {
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
 }
 
 /* 1. Stile per la riga "Da:" */
 .message-sender {
     font-size: 1.1em;
-    color: var(--black);
+    color: var(--col-text);
     margin-bottom: 12px;
     font-weight: 600;
     display: flex;
@@ -3578,7 +3681,7 @@ label.label-richiesta::after {
 
 /* Il "Badge" colorato per il nome utente */
 .sender-badge {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
 
     font-weight: bold;
     padding: 4px 12px;
@@ -3590,21 +3693,21 @@ label.label-richiesta::after {
 /* 2. Stile per il riquadro del messaggio ("Fumetto") */
 .user-message {
     font-size: 1.15em;
-    color: var(--black);
+    color: var(--col-text);
     line-height: 1.6;
     margin-bottom: 25px;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     /* Sfondo bianco per farlo risaltare */
     padding: 15px 20px;
-    border-left: 4px solid var(--blu-scuro);
+    border-left: 4px solid var(--col-text-heading);
     /* Linea blu a sinistra stile citazione */
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 8px rgba(var(--col-shadow-rgb), 0.04);
 }
 
 /* Fa risaltare la parola "Messaggio:" mandando a capo il testo vero e proprio */
 .message-label {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: 800;
     text-transform: uppercase;
     font-size: 0.85em;
@@ -3639,19 +3742,19 @@ label.label-richiesta::after {
     border-radius: 8px;
     font-weight: bold;
     border-left: 5px solid;
-    background: var(--white);
+    background: var(--col-surface);
     transition: opacity 0.5s ease;
 }
 
 .msg-success {
-    color: var(--blu-scuro);
-    border-color: var(--arancione-chiaro);
-    box-shadow: 0 4px 12px rgba(var(--blu-scuro-rgb), 0.1);
+    color: var(--col-text-heading);
+    border-color: var(--col-accent-soft);
+    box-shadow: 0 4px 12px rgba(var(--col-surface-brand-rgb), 0.1);
 }
 
 .msg-error {
-    color: var(--arancione-scuro);
-    border-color: var(--arancione-scuro);
+    color: var(--col-link);
+    border-color: var(--col-link);
 }
 
 .btn-loading {
@@ -3669,8 +3772,8 @@ label.label-richiesta::after {
     /* Lo centra perfettamente in verticale */
 
     background-color: transparent;
-    color: var(--arancione-scuro);
-    border: 2px solid var(--arancione-scuro);
+    color: var(--col-link);
+    border: 2px solid var(--col-link);
     padding: 4px 15px;
     border-radius: 6px;
     font-weight: bold;
@@ -3682,9 +3785,9 @@ label.label-richiesta::after {
 
 .btn-logout-small:hover,
 .btn-logout-small:focus-visible {
-    background-color: var(--arancione-scuro);
-    color: var(--white) !important;
-    outline: 3px solid var(--arancione-scuro);
+    background-color: var(--col-action);
+    color: var(--col-on-action) !important;
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
@@ -3692,14 +3795,14 @@ label.label-richiesta::after {
     list-style: none;
     padding: 0;
     margin: 0;
-    border: 1px solid var(--azzurro);
+    border: 1px solid var(--col-border);
     border-radius: 8px;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     overflow: hidden;
 }
 
 .mail-row {
-    border-bottom: 1px solid var(--azzurro);
+    border-bottom: 1px solid var(--col-border);
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
@@ -3708,24 +3811,24 @@ label.label-richiesta::after {
 }
 
 .mail-row:hover {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(var(--col-shadow-rgb), 0.1);
     position: relative;
     z-index: 2;
 }
 
 /* Stato Non Letto */
 .mail-row.unread {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     font-weight: bold;
 }
 
 .mail-row.unread .read-dot {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
 }
 
 /* Stato Letto */
 .mail-row.read {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     font-weight: normal;
 }
 
@@ -3780,14 +3883,14 @@ label.label-richiesta::after {
     width: 100px;
     text-align: right;
     font-size: 0.9em;
-    color: var(--black);
+    color: var(--col-text);
     flex-shrink: 0;
 }
 
 /* Area Risposta Espansa */
 .mail-content {
-    background-color: var(--white);
-    border-top: 1px dashed var(--azzurro);
+    background-color: var(--col-surface);
+    border-top: 1px dashed var(--col-border);
     padding: 20px 20px 20px 40px;
     display: none;
 }
@@ -3796,13 +3899,13 @@ label.label-richiesta::after {
     margin-bottom: 20px;
     font-size: 1.05em;
     line-height: 1.6;
-    color: var(--black);
+    color: var(--col-text);
 }
 
 .mail-reply-form textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--azzurro);
+    border: 1px solid var(--col-border);
     border-radius: 6px;
     resize: vertical;
     margin-bottom: 15px;
@@ -3812,8 +3915,8 @@ label.label-richiesta::after {
 
 /* Bottone e Loading */
 .btn-send-reply {
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     border: none;
     padding: 10px 24px;
     border-radius: 4px;
@@ -3827,11 +3930,11 @@ label.label-richiesta::after {
 }
 
 .btn-send-reply:hover {
-    background-color: var(--arancione-scuro);
+    background-color: var(--col-action);
 }
 
 .btn-send-reply.loading {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     cursor: not-allowed;
     color: transparent;
     /* Nasconde il testo */
@@ -3843,9 +3946,9 @@ label.label-richiesta::after {
     position: absolute;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.4);
+    border: 3px solid rgba(var(--col-on-dark-rgb), 0.4);
     border-radius: 50%;
-    border-top-color: var(--white);
+    border-top-color: var(--col-text-inverse);
     animation: spin 1s ease-in-out infinite;
 }
 
@@ -3873,20 +3976,20 @@ label.label-richiesta::after {
 }
 
 .action-card {
-    background-color: var(--white);
-    border: 2px solid var(--azzurro);
+    background-color: var(--col-surface);
+    border: 2px solid var(--col-border);
     border-radius: 12px;
     padding: 30px 20px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 .action-card:hover {
     transform: translateY(-5px);
-    border-color: var(--arancione);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--col-accent);
+    box-shadow: 0 8px 15px rgba(var(--col-shadow-rgb), 0.1);
 }
 
 .action-icon img {
@@ -3895,13 +3998,13 @@ label.label-richiesta::after {
 }
 
 .action-card h3 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 10px;
     font-size: 1.3em;
 }
 
 .action-card p {
-    color: var(--black);
+    color: var(--col-text);
     font-size: 0.95em;
 }
 
@@ -3909,7 +4012,7 @@ label.label-richiesta::after {
 .btn-back-to-list {
     background: none;
     border: none;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: bold;
     cursor: pointer;
     padding: 10px 0;
@@ -3922,14 +4025,14 @@ label.label-richiesta::after {
 
 .btn-back-news:hover,
 .btn-back-to-list:hover {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     text-decoration: underline;
 }
 
 .view-title {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 25px;
-    border-bottom: 2px solid var(--arancione);
+    border-bottom: 2px solid var(--col-accent);
     padding-bottom: 10px;
     display: inline-block;
 }
@@ -3942,8 +4045,8 @@ label.label-richiesta::after {
 }
 
 .news-mini-card {
-    background: var(--white);
-    border: 1px solid var(--azzurro);
+    background: var(--col-surface);
+    border: 1px solid var(--col-border);
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
@@ -3954,15 +4057,15 @@ label.label-richiesta::after {
 
 .news-mini-card:hover {
     transform: scale(1.03);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    border-color: var(--blu-scuro);
+    box-shadow: 0 5px 15px rgba(var(--col-shadow-rgb), 0.15);
+    border-color: var(--col-text-heading);
 }
 
 .mini-card-img {
     width: 100%;
     height: 120px;
     object-fit: cover;
-    border-bottom: 3px solid var(--arancione);
+    border-bottom: 3px solid var(--col-accent);
 }
 
 .mini-card-info {
@@ -3971,14 +4074,14 @@ label.label-richiesta::after {
 
 .mini-card-info h4 {
     font-size: 1.05em;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 8px;
     line-height: 1.3;
 }
 
 .mini-card-info .mini-date {
     font-size: 0.85em;
-    color: var(--black);
+    color: var(--col-text);
     font-weight: bold;
 }
 
@@ -3997,21 +4100,21 @@ label.label-richiesta::after {
 
 /* Card delle FAQ */
 .faq-admin-card {
-    background: var(--white);
-    border-left: 4px solid var(--arancione);
+    background: var(--col-surface);
+    border-left: 4px solid var(--col-accent);
     border-radius: 8px;
     padding: 18px 20px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    box-shadow: 0 2px 6px rgba(var(--blu-scuro-rgb), 0.07);
+    box-shadow: 0 2px 6px rgba(var(--col-surface-brand-rgb), 0.07);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .faq-admin-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(var(--blu-scuro-rgb), 0.13);
+    box-shadow: 0 6px 16px rgba(var(--col-surface-brand-rgb), 0.13);
 }
 
 .faq-card-content {
@@ -4025,13 +4128,13 @@ label.label-richiesta::after {
 
 .faq-card-content .faq-q {
     font-weight: 600;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1rem;
     margin-bottom: 6px;
 }
 
 .faq-card-content .faq-a {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     opacity: 0.65;
     font-style: italic;
     font-size: 0.95rem;
@@ -4046,8 +4149,8 @@ label.label-richiesta::after {
 }
 
 .btn-edit-faq-trigger {
-    background: var(--blu-scuro);
-    color: var(--white);
+    background: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     border: none;
     padding: 7px 14px;
     border-radius: 6px;
@@ -4064,8 +4167,8 @@ label.label-richiesta::after {
 
 .btn-delete-faq-ajax {
     background: transparent;
-    color: var(--arancione-scuro);
-    border: 1px solid var(--arancione-scuro);
+    color: var(--col-link);
+    border: 1px solid var(--col-link);
     padding: 7px 14px;
     border-radius: 6px;
     cursor: pointer;
@@ -4075,8 +4178,8 @@ label.label-richiesta::after {
 
 .btn-delete-faq-ajax:hover,
 .btn-delete-faq-ajax:focus-visible {
-    background: var(--arancione-scuro);
-    color: var(--white);
+    background: var(--col-action);
+    color: var(--col-on-action);
 }
 
 /* Container per le sottoviste (Nuova News, Elenco, ecc.) */
@@ -4090,15 +4193,15 @@ label.label-richiesta::after {
 .admin-view-footer {
     margin-top: 25px;
     padding-top: 15px;
-    border-top: 1px solid var(--azzurro);
+    border-top: 1px solid var(--col-border);
     text-align: left;
 }
 
 /* Stile universale per i bottoni "Torna alla Dashboard/Elenco" */
 .btn-back-admin {
-    background: var(--white);
-    border: 1px solid var(--azzurro);
-    color: var(--black);
+    background: var(--col-surface);
+    border: 1px solid var(--col-border);
+    color: var(--col-text);
     font-weight: 600;
     padding: 8px 18px;
     border-radius: 30px;
@@ -4111,8 +4214,8 @@ label.label-richiesta::after {
 }
 
 .btn-back-admin:hover {
-    background: var(--azzurro);
-    border-color: var(--arancione-chiaro);
+    background: var(--col-bg);
+    border-color: var(--col-accent-soft);
 }
 
 .btn-back-admin .arrow-back {
@@ -4124,7 +4227,7 @@ label.label-richiesta::after {
 .current-img-info {
     display: block;
     margin-top: 5px;
-    color: var(--black);
+    color: var(--col-text);
 }
 
 
@@ -4133,25 +4236,25 @@ label.label-richiesta::after {
 ========================================= */
 .ticket-card {
     display: flex;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--azzurro);
+    box-shadow: 0 4px 15px rgba(var(--col-shadow-rgb), 0.08);
+    border: 1px solid var(--col-border);
     position: relative;
     transition: transform 0.2s ease;
 }
 
 .ticket-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.12);
 }
 
 .ticket-info {
     flex: 1;
     padding: 25px;
-    border-right: 2px dashed var(--arancione-chiaro);
+    border-right: 2px dashed var(--col-accent-soft);
     position: relative;
 }
 
@@ -4162,7 +4265,7 @@ label.label-richiesta::after {
     position: absolute;
     width: 24px;
     height: 24px;
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     border-radius: 50%;
     right: -13px;
     z-index: 5;
@@ -4170,19 +4273,19 @@ label.label-richiesta::after {
 
 .ticket-info::before {
     top: -12px;
-    box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 -1px 3px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 .ticket-info::after {
     bottom: -12px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 3px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 .ticket-badge {
     display: inline-block;
     padding: 5px 12px;
-    background-color: var(--arancione);
-    color: var(--white);
+    background-color: var(--col-accent);
+    color: var(--col-on-action);
     font-weight: bold;
     font-size: 0.85em;
     border-radius: 20px;
@@ -4192,16 +4295,16 @@ label.label-richiesta::after {
 }
 
 .ticket-badge.abbonamento {
-    background-color: var(--blu-scuro);
+    background-color: var(--col-surface-brand);
 }
 
 .ticket-badge.vip {
-    background-color: var(--arancione);
-    color: var(--black);
+    background-color: var(--col-accent);
+    color: var(--col-text);
 }
 
 .ticket-title {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1.5em;
     margin-bottom: 5px;
 }
@@ -4216,13 +4319,13 @@ label.label-richiesta::after {
 .t-detail span {
     display: block;
     font-size: 0.8em;
-    color: var(--black);
+    color: var(--col-text);
     text-transform: uppercase;
     margin-bottom: 2px;
 }
 
 .t-detail strong {
-    color: var(--black);
+    color: var(--col-text);
     font-size: 1.1em;
 }
 
@@ -4232,7 +4335,7 @@ label.label-richiesta::after {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--white);
+    background-color: var(--col-surface);
     min-width: 180px;
 }
 
@@ -4240,14 +4343,14 @@ label.label-richiesta::after {
     width: 120px;
     height: 120px;
     margin-bottom: 15px;
-    border: 5px solid var(--white);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 5px solid var(--col-text-inverse);
+    box-shadow: 0 0 10px rgba(var(--col-shadow-rgb), 0.1);
 }
 
 .ticket-qr .qr-code-id {
     font-family: monospace;
     font-size: 1em;
-    color: var(--black);
+    color: var(--col-text);
     letter-spacing: 2px;
     margin-bottom: 15px;
 }
@@ -4257,8 +4360,8 @@ label.label-richiesta::after {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    color: var(--arancione);
-    border: 2px solid var(--arancione);
+    color: var(--col-accent);
+    border: 2px solid var(--col-accent);
     padding: 6px 14px;
     border-radius: 6px;
     font-size: 0.8em;
@@ -4269,8 +4372,8 @@ label.label-richiesta::after {
 }
 
 .btn-download-ticket:hover {
-    background-color: var(--arancione);
-    color: var(--white);
+    background-color: var(--col-accent);
+    color: var(--col-on-action);
     transform: translateY(-2px);
 }
 
@@ -4281,7 +4384,7 @@ label.label-richiesta::after {
 
     .ticket-info {
         border-right: none;
-        border-bottom: 2px dashed var(--arancione-chiaro);
+        border-bottom: 2px dashed var(--col-accent-soft);
     }
 
     .ticket-info::before,
@@ -4314,13 +4417,13 @@ label.label-richiesta::after {
 }
 
 .esito-success {
-    color: var(--blu-scuro);
-    border-color: var(--blu-scuro);
+    color: var(--col-text-heading);
+    border-color: var(--col-text-heading);
 }
 
 .esito-error {
-    color: var(--arancione-scuro);
-    border-color: var(--arancione-scuro);
+    color: var(--col-link);
+    border-color: var(--col-link);
 }
 
 /* Messaggi di lista vuota */
@@ -4330,7 +4433,7 @@ label.label-richiesta::after {
 
 /* Elementi delle risposte */
 .reply-given {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-top: 10px;
 }
 
@@ -4358,56 +4461,56 @@ label.label-richiesta::after {
     font-size: 0.85em;
     font-weight: bold;
     text-transform: uppercase;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 8px;
     letter-spacing: 0.5px;
 }
 
 .user-question-box {
-    background-color: var(--white);
-    border-left: 4px solid var(--azzurro);
+    background-color: var(--col-surface);
+    border-left: 4px solid var(--col-border);
     padding: 15px 20px;
     border-radius: 4px 8px 8px 4px;
     align-self: flex-start;
     max-width: 90%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(var(--col-shadow-rgb), 0.05);
 }
 
 /* Stile per i campi quando sono modificabili */
 .input-editing {
-    border-bottom: 2px solid var(--arancione) !important;
-    background-color: var(--white) !important;
+    border-bottom: 2px solid var(--col-accent) !important;
+    background-color: var(--col-surface) !important;
     transition: all 0.3s ease;
 }
 
 /* Pulsante salva (usando i tuoi colori) */
 .btn-save {
-    background-color: var(--arancione) !important;
-    color: var(--white) !important;
+    background-color: var(--col-accent) !important;
+    color: var(--col-on-action) !important;
     border: none;
-    box-shadow: 0 4px 0 var(--arancione-scuro);
+    box-shadow: 0 4px 0 var(--col-action);
 }
 
 .btn-save:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--arancione-scuro);
+    box-shadow: 0 2px 0 var(--col-action);
 }
 
 .admin-answer-box {
-    background-color: var(--azzurro);
-    border-left: 4px solid var(--arancione);
+    background-color: var(--col-bg);
+    border-left: 4px solid var(--col-accent);
     padding: 15px 20px;
     border-radius: 4px 8px 8px 4px;
     align-self: flex-start;
     max-width: 90%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 5px rgba(var(--col-shadow-rgb), 0.08);
 }
 
 .user-question-box p,
 .admin-answer-box p {
     margin: 0;
     line-height: 1.5;
-    color: var(--black);
+    color: var(--col-text);
 }
 
 /* =========================================
@@ -4424,14 +4527,14 @@ label.label-richiesta::after {
     min-height: 70vh;
     /* Fa in modo che il footer non salga troppo su schermi grandi */
     padding: 60px var(--spazio-laterale);
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
 }
 
 /* Titolo H1 (Invisibile esteticamente per far risaltare il numero, 
    ma letto dagli screen reader e visibile se non c'è CSS) */
 #error-title {
     font-size: 1.2rem;
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 20px;
@@ -4451,17 +4554,17 @@ label.label-richiesta::after {
        minimo 6rem, ottimale 15vw, massimo 12rem su desktop giganti */
     font-size: clamp(6rem, 15vw, 12rem);
     font-weight: 900;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     line-height: 1;
     margin: 0;
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05);
+    text-shadow: 4px 4px 0px rgba(var(--col-shadow-rgb), 0.05);
     /* Leggero effetto profondità */
 }
 
 /* Sottotitolo (es. "Palla fuori campo!") */
 .error-content h2 {
     font-size: 2.5rem;
-    color: var(--black);
+    color: var(--col-text);
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -4469,7 +4572,7 @@ label.label-richiesta::after {
 /* Testo descrittivo dell'errore */
 .error-content p:not(.error-visual) {
     font-size: 1.25rem;
-    color: var(--black);
+    color: var(--col-text);
     line-height: 1.6;
     margin-bottom: 30px;
     max-width: 650px;
@@ -4477,11 +4580,11 @@ label.label-richiesta::after {
 
 /* Riquadro delle azioni (il bottone per tornare alla home) */
 .error-section .action-box {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     padding: 35px 40px;
     border-radius: 12px;
-    border: 2px solid var(--arancione);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--col-accent);
+    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.08);
     margin-top: 20px;
     width: 100%;
     max-width: 500px;
@@ -4489,7 +4592,7 @@ label.label-richiesta::after {
 
 .error-section .action-box p {
     font-size: 1.15rem;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: bold;
     margin-bottom: 25px;
 }
@@ -4518,8 +4621,8 @@ label.label-richiesta::after {
     margin: 0;
     overflow: visible;
     clip: auto;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     display: block;
     text-align: center;
     padding: 15px;
@@ -4527,13 +4630,13 @@ label.label-richiesta::after {
     font-size: 1.2rem;
     z-index: 9999;
     text-decoration: none;
-    outline: 4px solid var(--blu-scuro);
+    outline: 4px solid var(--col-text-heading);
 }
 
 .btn-ritorno {
     display: inline-block;
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     padding: 15px 40px;
     font-size: 1.2em;
     font-weight: bold;
@@ -4544,9 +4647,9 @@ label.label-richiesta::after {
 
 .btn-ritorno:hover,
 .btn-ritorno:focus-visible {
-    background-color: var(--blu-scuro);
-    color: var(--azzurro);
-    outline: 3px solid var(--arancione-scuro);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
 
@@ -4564,7 +4667,7 @@ label.label-richiesta::after {
     /* Centrata con un po' di spazio sotto e sopra */
     border-radius: 16px;
     /* Arrotonda gli angoli (utile se l'immagine non ha lo sfondo trasparente) */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(var(--col-shadow-rgb), 0.15);
     /* Una bella ombra morbida */
 
     /* Animazione che la fa galleggiare lentamente */
@@ -4598,16 +4701,16 @@ label.label-richiesta::after {
     margin-bottom: 30px;
     font-family: var(--font-main);
     animation: slideDown 0.5s ease-out;
-    border-left: 8px solid var(--arancione);
+    border-left: 8px solid var(--col-accent);
     /* Richiamo alla terra battuta */
 }
 
 /* Variante per il Successo con i tuoi colori */
 .success-banner {
-    background-color: var(--blu-scuro);
-    color: var(--white);
-    border: 1px solid var(--blu-scuro);
-    box-shadow: 0 10px 15px -3px rgba(var(--blu-scuro-rgb), 0.2);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    border: 1px solid var(--col-text-heading);
+    box-shadow: 0 10px 15px -3px rgba(var(--col-surface-brand-rgb), 0.2);
 }
 
 .banner-icon {
@@ -4617,7 +4720,7 @@ label.label-richiesta::after {
 
 .banner-content h2 {
     margin: 0 0 5px 0;
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
     /* Colore che spicca sul blu scuro */
     font-size: 1.5rem;
     text-transform: uppercase;
@@ -4627,12 +4730,12 @@ label.label-richiesta::after {
 .banner-content p {
     margin: 4px 0;
     line-height: 1.6;
-    color: var(--white);
+    color: var(--col-text-inverse);
 }
 
 .banner-content strong {
-    background: var(--arancione-scuro);
-    color: var(--white);
+    background: var(--col-action);
+    color: var(--col-on-action);
     padding: 2px 8px;
     border-radius: 4px;
     font-family: monospace;
@@ -4673,22 +4776,22 @@ label.label-richiesta::after {
 
 /* Variante Errore (Devi loggarti o errore tecnico) */
 .message-error {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     /* Fondo neutro per far risaltare il testo */
-    color: var(--black);
-    border-color: var(--arancione);
+    color: var(--col-text);
+    border-color: var(--col-accent);
     /* Segnale di attenzione con l'arancione del torneo */
-    border-right: 1px solid var(--arancione-chiaro);
-    border-top: 1px solid var(--arancione-chiaro);
-    border-bottom: 1px solid var(--arancione-chiaro);
+    border-right: 1px solid var(--col-accent-soft);
+    border-top: 1px solid var(--col-accent-soft);
+    border-bottom: 1px solid var(--col-accent-soft);
 }
 
 .message-error strong {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 .message-error a {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 2px;
@@ -4696,14 +4799,14 @@ label.label-richiesta::after {
 
 /* Variante Successo (Acquisto o invio FAQ riuscito) */
 .message-success {
-    background-color: var(--blu-scuro);
-    color: var(--white);
-    border-color: var(--arancione);
-    box-shadow: 4px 4px 0px var(--arancione-chiaro);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    border-color: var(--col-accent);
+    box-shadow: 4px 4px 0px var(--col-accent-soft);
 }
 
 .message-success strong {
-    color: var(--arancione-chiaro);
+    color: var(--col-accent-soft);
 }
 
 p a,
@@ -4714,11 +4817,11 @@ span a,
 }
 
 .faq-content {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     padding: 20px;
     border-radius: 0 0 8px 8px;
-    border: 1px solid var(--azzurro);
-    color: var(--black);
+    border: 1px solid var(--col-border);
+    color: var(--col-text);
     font-size: 0.95rem;
     line-height: 1.6;
     margin-top: -1px;
@@ -4729,12 +4832,12 @@ span a,
 }
 
 .success-msg {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     margin-bottom: 15px;
 }
 
 .error-msg {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     margin-bottom: 15px;
 }
 
@@ -4771,8 +4874,8 @@ span a,
     position: absolute;
     top: -100px;
     left: 0;
-    background-color: var(--blu-scuro);
-    color: var(--white);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     padding: 1rem;
     z-index: 9999;
     transition: top 0.3s ease;
@@ -4789,9 +4892,9 @@ span a,
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background-color: var(--arancione);
-    color: var(--white);
-    border: 2px solid var(--arancione-scuro);
+    background-color: var(--col-accent);
+    color: var(--col-on-action);
+    border: 2px solid var(--col-link);
     width: 4rem;
     /* Cerchio più grande */
     height: 4rem;
@@ -4802,15 +4905,15 @@ span a,
     font-size: 2.2rem;
     /* Freccia più grande */
     text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(var(--col-shadow-rgb), 0.3);
     z-index: 1000;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .back-to-top:hover,
 .back-to-top:focus {
-    background-color: var(--arancione-scuro);
-    color: var(--white);
+    background-color: var(--col-action);
+    color: var(--col-on-action);
     transform: translateY(-5px);
 }
 
@@ -4819,30 +4922,30 @@ span a,
    ========================================= */
 
 .legal-page-container {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     padding: 40px var(--spazio-laterale);
     min-height: 60vh;
 }
 
 .legal-content {
-    background-color: var(--white);
+    background-color: var(--col-surface);
     border-radius: 12px;
     padding: 48px 56px;
     max-width: 860px;
     margin: 0 auto;
-    box-shadow: 0 4px 20px rgba(var(--blu-scuro-rgb), 0.08);
-    border-top: 4px solid var(--arancione-scuro);
+    box-shadow: 0 4px 20px rgba(var(--col-surface-brand-rgb), 0.08);
+    border-top: 4px solid var(--col-link);
 }
 
 .legal-content h1 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 2em;
     margin-bottom: 6px;
     text-align: left;
 }
 
 .legal-update {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-size: 0.9em;
     margin-bottom: 36px;
     font-style: italic;
@@ -4854,16 +4957,16 @@ span a,
 }
 
 .legal-content h2 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 1.25em;
     margin-bottom: 12px;
     padding-bottom: 6px;
-    border-bottom: 1px solid var(--azzurro);
+    border-bottom: 1px solid var(--col-border);
     text-align: left;
 }
 
 .legal-content h3 {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-size: 1.05em;
     margin-top: 20px;
     margin-bottom: 8px;
@@ -4872,7 +4975,7 @@ span a,
 
 .legal-content p,
 .legal-content li {
-    color: var(--black);
+    color: var(--col-text);
     font-size: 1.1em;
     line-height: 1.8;
     text-align: left;
@@ -4889,14 +4992,14 @@ span a,
 }
 
 .legal-content a {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
 .legal-content a:hover,
 .legal-content a:focus-visible {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
 }
 
 @media screen and (max-width: 768px) {
@@ -4920,21 +5023,21 @@ span a,
 }
 
 .news-admin-row {
-    background: var(--white);
-    border-left: 4px solid var(--arancione);
+    background: var(--col-surface);
+    border-left: 4px solid var(--col-accent);
     border-radius: 8px;
     padding: 14px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    box-shadow: 0 2px 6px rgba(var(--blu-scuro-rgb), 0.07);
+    box-shadow: 0 2px 6px rgba(var(--col-surface-brand-rgb), 0.07);
     transition: box-shadow 0.3s ease, transform 0.3s ease, opacity 0.5s ease;
 }
 
 .news-admin-row:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(var(--blu-scuro-rgb), 0.13);
+    box-shadow: 0 6px 16px rgba(var(--col-surface-brand-rgb), 0.13);
 }
 
 .news-admin-row-info {
@@ -4955,7 +5058,7 @@ span a,
 
 .news-admin-title {
     font-weight: 600;
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
     font-size: 0.95rem;
     white-space: nowrap;
     overflow: hidden;
@@ -4975,8 +5078,8 @@ span a,
 }
 
 .btn-edit-news-trigger {
-    background: var(--blu-scuro);
-    color: var(--white);
+    background: var(--col-surface-brand);
+    color: var(--col-text-inverse);
     border: none;
     padding: 7px 14px;
     border-radius: 6px;
@@ -4989,14 +5092,14 @@ span a,
 .btn-edit-news-trigger:hover,
 .btn-edit-news-trigger:focus-visible {
     opacity: 0.82;
-    outline: 3px solid var(--arancione-chiaro);
+    outline: 3px solid var(--col-accent-soft);
     outline-offset: 2px;
 }
 
 .btn-delete-news-ajax {
     background: transparent;
-    color: var(--arancione-scuro);
-    border: 1px solid var(--arancione-scuro);
+    color: var(--col-link);
+    border: 1px solid var(--col-link);
     padding: 7px 14px;
     border-radius: 6px;
     cursor: pointer;
@@ -5006,9 +5109,9 @@ span a,
 
 .btn-delete-news-ajax:hover,
 .btn-delete-news-ajax:focus-visible {
-    background: var(--arancione-scuro);
-    color: var(--white);
-    outline: 3px solid var(--arancione-chiaro);
+    background: var(--col-action);
+    color: var(--col-on-action);
+    outline: 3px solid var(--col-accent-soft);
     outline-offset: 2px;
 }
 
@@ -5036,7 +5139,7 @@ span a,
    ========================================= */
 
 #home-notizie {
-    background-color: var(--azzurro);
+    background-color: var(--col-bg);
     padding: 70px var(--spazio-laterale);
 }
 
@@ -5046,11 +5149,11 @@ span a,
 }
 
 #home-notizie .titoli-notizie h2 {
-    color: var(--blu-scuro);
+    color: var(--col-text-heading);
 }
 
 #home-notizie .titoli-notizie p {
-    color: var(--arancione-scuro);
+    color: var(--col-link);
     font-weight: 600;
 }
 
@@ -5067,7 +5170,7 @@ span a,
 .home-news-grid .news-card {
     display: flex;
     flex-direction: row;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 12px rgba(var(--col-shadow-rgb), 0.1);
     transition: box-shadow 0.25s ease, transform 0.25s ease;
     min-height: 0;
 }
@@ -5075,7 +5178,7 @@ span a,
 .home-news-grid .news-card:hover,
 .home-news-grid .news-card:focus-within {
     transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 22px rgba(var(--col-shadow-rgb), 0.18);
 }
 
 /* Immagine: larghezza fissa a sinistra */
@@ -5182,4 +5285,52 @@ span a,
     .hero-section h2 {
         font-size: 1em;
     }
+}
+
+/* =========================================
+   BOTTONE DARK MODE (toggle tema)
+   Vive nell'header, eredita lo stile dei link nav ma è un <button> semantico.
+   Le due icone (sole/luna) sono aria-hidden; lo SR legge solo aria-label.
+========================================= */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background-color: transparent;
+    color: var(--col-text-inverse);
+    border: 2px solid transparent;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--col-accent-soft);
+    border-color: var(--col-accent-soft);
+}
+
+.theme-toggle:focus-visible {
+    outline: 3px solid var(--col-accent-soft);
+    outline-offset: 3px;
+}
+
+.theme-icon {
+    display: none;
+    /* L'icona visibile è scelta dal tema corrente, non dal JS */
+}
+
+/* Tema chiaro: mostro la luna (azione = "passa allo scuro").
+   :not([data-theme="dark"]) evita che la luna resti visibile anche al buio. */
+:root:not([data-theme="dark"]) .theme-icon-moon {
+    display: inline;
+}
+
+/* Tema scuro: mostro il sole (azione = "passa al chiaro") */
+[data-theme="dark"] .theme-icon-sun {
+    display: inline;
 }
