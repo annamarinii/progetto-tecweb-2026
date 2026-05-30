@@ -232,7 +232,14 @@ function changeQty(amount) {
     } else {
         return;
     }
-    const maxConsentito = dispDb > 0 ? Math.min(10, dispDb) : 10;
+
+    if (dispDb <= 0) {
+        const btnPlusSoldOut = document.querySelector('.qty-btn.plus');
+        if (btnPlusSoldOut) { btnPlusSoldOut.disabled = true; btnPlusSoldOut.setAttribute('aria-disabled', 'true'); }
+        return;
+    }
+
+    const maxConsentito = Math.min(10, dispDb);
 
     let newValue = parseInt(qtyInput.value, 10);
     if (isNaN(newValue)) newValue = 1;
@@ -484,6 +491,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+    });
+});
+
+/* Auto-scomparsa globale per tutti i messaggi .form-message generati dai controller PHP.
+   Si attiva solo su elementi presenti nel DOM al caricamento (non quelli AJAX, che
+   gestiscono autonomamente il proprio ciclo di vita nei rispettivi file JS). */
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.form-message').forEach(msg => {
+        setTimeout(() => {
+            msg.classList.add('fade-out');
+            setTimeout(() => msg.classList.add('hidden'), 500);
+        }, 4000);
     });
 });
 

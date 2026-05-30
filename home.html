@@ -21,19 +21,19 @@
         </ol>
     </nav>
     <main id="main-content">
-        <div class="hero-section">
-            <h1>Patavium Open</h1>
-            <h2><time datetime="2027-05-18">18</time>-<time datetime="2027-05-24">24 Maggio 2027</time></h2>
+        <section class="hero-section" aria-labelledby="hero-titolo">
+            <h1 id="hero-titolo">Patavium Open</h1>
+            <h2><time datetime="2027-05-18">18</time>&#8211;<time datetime="2027-05-24">24 Maggio 2027</time></h2>
             <a href="php-pages/Biglietti.php" class="btn-biglietti">Acquista i tuoi biglietti</a>
-        </div>
+        </section>
 
-        <section class="sezione-benvenuto">
+        <section class="sezione-benvenuto" aria-labelledby="titolo-benvenuto">
             <blockquote class="citazione-tennis">
                 <p>«Il tennis è più di uno sport. E' un'arte, al pari della danza. Il campo è la tela, la racchetta è il
                     pennello.»</p>
                 <cite>Andre Agassi</cite>
             </blockquote>
-            <h2>BENVENUTI AL PATAVIUM OPEN</h2>
+            <h2 id="titolo-benvenuto">BENVENUTI AL PATAVIUM OPEN</h2>
             <p>
                 Nato dalla passione per la terra rossa e immerso nella splendida cornice storica di Padova,
                 il Patavium Open è rapidamente diventato un appuntamento imperdibile nel calendario tennistico italiano.
@@ -49,16 +49,16 @@
             </p>
         </section>
 
-        <section class="sezione-campioni">
+        <section class="sezione-campioni" aria-labelledby="titolo-campioni">
             <div class="titoli-campioni">
-                <h2>I Nostri Campioni</h2>
+                <h2 id="titolo-campioni">I Nostri Campioni</h2>
                 <div class="divider" aria-hidden="true"></div>
             </div>
 
             <div class="griglia-campioni">
 
                 <article class="card-campione">
-                    <img src="assets/images/lorenzo_costa.jpg" alt="Lorenzo Costa" />
+                    <img src="assets/images/lorenzo_costa.jpg" alt="Lorenzo Costa" width="400" height="400" loading="lazy" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Maschile 2026</span>
                         <h3>Lorenzo Costa</h3>
@@ -66,7 +66,7 @@
                 </article>
 
                 <article class="card-campione">
-                    <img src="assets/images/sofia_esposito.jpg" alt="Sofia Esposito" />
+                    <img src="assets/images/sofia_esposito.jpg" alt="Sofia Esposito" width="400" height="400" loading="lazy" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Femminile 2026</span>
                         <h3>Sofia Esposito</h3>
@@ -74,7 +74,7 @@
                 </article>
 
                 <article class="card-campione">
-                    <img src="assets/images/david_richard.jpg" alt="David Richard" />
+                    <img src="assets/images/david_richard.jpg" alt="David Richard" width="400" height="400" loading="lazy" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Maschile 2025</span>
                         <h3>David Richard</h3>
@@ -82,7 +82,7 @@
                 </article>
 
                 <article class="card-campione">
-                    <img src="assets/images/alicia_schneider.jpg" alt="Alicia Schneider" />
+                    <img src="assets/images/alicia_schneider.jpg" alt="Alicia Schneider" width="400" height="400" loading="lazy" />
                     <div class="info-campione">
                         <span class="categoria">Singolo Femminile 2025</span>
                         <h3>Alicia Schneider</h3>
@@ -93,15 +93,15 @@
 
             </div>
         </section>
-        <section class="sezione-notizie">
+        <section class="sezione-notizie" id="home-notizie" aria-labelledby="titolo-notizie">
 
             <div class="titoli-notizie">
-                <h2>Ultime <span lang="en">News</span></h2>
+                <h2 id="titolo-notizie">Ultime <span lang="en">News</span></h2>
                 <div class="divider" aria-hidden="true"></div>
                 <p>Rimani aggiornato sul torneo</p>
             </div>
 
-            <div class="lista-notizie">
+            <div class="lista-notizie home-news-grid">
 
                 [NewsCards]
 

@@ -28,6 +28,8 @@
             <div class="divider"></div>
         </div>
 
+        [messaggio_esito]
+
         <div class="user-layout">
             <aside class="sidebar-user">
                 <nav aria-label="Menu principale amministrazione">
@@ -61,14 +63,14 @@
                         <div class="news-action-cards">
                             <button type="button" class="action-card" id="btn-new-news">
                                 <div class="action-icon">
-                                    <img src="../assets/images/plus.svg" alt="" aria-hidden="true" />
+                                    <img src="../assets/images/plus.svg" alt="" aria-hidden="true" width="60" height="60" loading="lazy" />
                                 </div>
                                 <p class="action-card-title">Pubblica una Nuova News</p>
                                 <p>Scrivi e metti in evidenza un nuovo annuncio</p>
                             </button>
                             <button type="button" class="action-card" id="btn-manage-news">
                                 <div class="action-icon">
-                                    <img src="../assets/images/newspaper-folded.svg" alt="" aria-hidden="true" />
+                                    <img src="../assets/images/newspaper-folded.svg" alt="" aria-hidden="true" width="60" height="60" loading="lazy" />
                                 </div>
                                 <p class="action-card-title">News Attualmente Pubblicate</p>
                                 <p>Modifica o rimuovi gli articoli gi� online</p>
@@ -107,8 +109,8 @@
                     </div>
 
                     <div id="view-elenco-news" class="admin-view-container hidden">
-                        <h2 class="view-title">Scegli la News da Modificare</h2>
-                        <div class="news-miniatures-grid">
+                        <h2 class="view-title">News Attualmente Pubblicate</h2>
+                        <div class="news-admin-list">
                             [lista_news_miniature]
                         </div>
                         <div class="admin-view-footer">
@@ -162,14 +164,14 @@
                         <div class="news-action-cards">
                             <button type="button" class="action-card" id="btn-new-faq">
                                 <div class="action-icon">
-                                    <img src="../assets/images/plus.svg" alt="" aria-hidden="true" />
+                                    <img src="../assets/images/plus.svg" alt="" aria-hidden="true" width="60" height="60" loading="lazy" />
                                 </div>
                                 <p class="action-card-title">Aggiungi Nuova FAQ</p>
                                 <p>Inserisci una nuova domanda e risposta per il pubblico</p>
                             </button>
                             <button type="button" class="action-card" id="btn-manage-faq">
                                 <div class="action-icon">
-                                    <img src="../assets/images/newspaper-folded.svg" alt="" aria-hidden="true" />
+                                    <img src="../assets/images/newspaper-folded.svg" alt="" aria-hidden="true" width="60" height="60" loading="lazy" />
                                 </div>
                                 <p class="action-card-title">Elenco FAQ Esistenti</p>
                                 <p>Visualizza e modifica le FAQ gi� pubblicate</p>
@@ -216,6 +218,8 @@
             </div>
         </div>
     </main>
+
+    [Footer]
 
     <script src="../javascript/areautente.js"></script>
     <script src="../javascript/gestione_domande.js"></script>

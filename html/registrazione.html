@@ -25,60 +25,75 @@
 <main id="main-content" class="registrazione-main">
     <div class="registrazione-card">
         <section class="register-section">
-            <header class="auth-header">
+            <div class="auth-header">
                 <h2>Crea il tuo Account</h2>
                 <p>Unisciti al Patavium Open ed entra a far parte del nostro club esclusivo.</p>
-            </header>
-            
-            [MessaggioEsito]
-            
+            </div>
+
             <form id="form-registrazione" class="auth-form" action="../php-pages/Registrazione.php" method="POST" novalidate>
-                
+
                 <div class="form-row">
                     <div class="form-gruppo">
-                        <label for="nome">Nome</label>
+                        <label for="nome" class="label-richiesta">Nome</label>
                         <input type="text" id="nome" name="nome" placeholder="Es. Mario" value="[ValoreNome]"
-                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" />
-                        <span class="errore-msg" id="err-nome" aria-live="polite"></span>
+                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere"
+                               required="required" aria-required="true" aria-describedby="err-nome" />
+                        <span class="errore-msg" id="err-nome" role="alert" aria-live="assertive"></span>
                     </div>
                     <div class="form-gruppo">
-                        <label for="cognome">Cognome</label>
+                        <label for="cognome" class="label-richiesta">Cognome</label>
                         <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" value="[ValoreCognome]"
-                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere" required="required" />
-                        <span class="errore-msg" id="err-cognome" aria-live="polite"></span>
+                               pattern="[A-Za-zÀ-ÿ\s]+" maxlength="30" title="Inserire solo lettere"
+                               required="required" aria-required="true" aria-describedby="err-cognome" />
+                        <span class="errore-msg" id="err-cognome" role="alert" aria-live="assertive"></span>
                     </div>
                 </div>
 
                 <div class="form-gruppo">
-                    <label for="username">Username (max 16 caratteri, no spazi)</label>
+                    <label for="username" class="label-richiesta">Username</label>
+                    <small>max 16 caratteri, solo lettere, numeri, punti e underscore</small>
                     <input type="text" id="username" name="username" placeholder="Es. TennisFan99" value="[ValoreUsername]"
-                           pattern="^[a-zA-Z0-9._]{1,16}$" maxlength="16" title="Puoi usare solo lettere, numeri, punti e underscore. Max 16 caratteri" required="required" />
-                    <span class="errore-msg" id="err-username" aria-live="polite"></span>
+                           pattern="^[a-zA-Z0-9._]{1,16}$" maxlength="16"
+                           title="Solo lettere, numeri, punti e underscore. Max 16 caratteri"
+                           required="required" aria-required="true" aria-describedby="err-username" />
+                    <span class="errore-msg" id="err-username" role="alert" aria-live="assertive"></span>
                 </div>
 
                 <div class="form-gruppo">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" maxlength="50" placeholder="esempio@email.com" value="[ValoreEmail]" required="required"
-                           title="Inserire un indirizzo email valido (es. nome@dominio.it)" />
-                    <span class="errore-msg" id="err-email" aria-live="polite"></span>
+                    <label for="email" class="label-richiesta">E-mail</label>
+                    <input type="email" id="email" name="email" maxlength="50" placeholder="esempio@email.com" value="[ValoreEmail]"
+                           title="Inserire un indirizzo email valido (es. nome@dominio.it)"
+                           required="required" aria-required="true" aria-describedby="err-email" />
+                    <span class="errore-msg" id="err-email" role="alert" aria-live="assertive"></span>
                 </div>
 
                 <div class="form-gruppo">
-                    <label for="pass">Password (8-20 caratteri)</label>
+                    <label for="pass" class="label-richiesta">Password</label>
                     <input type="password" id="pass" name="pass"
-                           minlength="8" maxlength="20" placeholder="Inserisci password" required="required"
-                           title="La password deve avere tra 8 e 20 caratteri" />
-                    <span class="errore-msg" id="err-pass" aria-live="polite"></span>
+                           minlength="8" maxlength="64" placeholder="Inserisci password"
+                           title="Almeno 8 caratteri, una maiuscola, una minuscola, un numero e un carattere speciale"
+                           required="required" aria-required="true" aria-describedby="err-pass pass-requisiti" />
+                    <ul id="pass-requisiti" aria-label="Requisiti password">
+                        <li id="req-lunghezza">Almeno 8 caratteri</li>
+                        <li id="req-maiuscola">Almeno una lettera maiuscola</li>
+                        <li id="req-minuscola">Almeno una lettera minuscola</li>
+                        <li id="req-numero">Almeno un numero</li>
+                        <li id="req-speciale">Almeno un carattere speciale (es. ! @ # $)</li>
+                    </ul>
+                    <span class="errore-msg" id="err-pass" role="alert" aria-live="assertive"></span>
                 </div>
 
                 <div class="form-gruppo">
-                    <label for="ripeti_pass">Ripeti Password</label>
-                    <input type="password" id="ripeti_pass" name="ripeti_pass" 
-                           minlength="8" maxlength="20" placeholder="Conferma password" required="required" />
-                    <span class="errore-msg" id="err-ripeti_pass" aria-live="polite"></span>
+                    <label for="ripeti_pass" class="label-richiesta">Ripeti Password</label>
+                    <input type="password" id="ripeti_pass" name="ripeti_pass"
+                           minlength="8" maxlength="64" placeholder="Conferma password"
+                           required="required" aria-required="true" aria-describedby="err-ripeti_pass" />
+                    <span class="errore-msg" id="err-ripeti_pass" role="alert" aria-live="assertive"></span>
                 </div>
-                
+
                 <button type="submit" class="btn-auth">Registrati Subito</button>
+
+                [MessaggioEsito]
 
             </form>
             
@@ -88,7 +103,7 @@
 
 [Footer]
 
-<script src="../javascript/validazione-reg.js"></script>
+<script src="../javascript/validazione-reg.js?v=2"></script>
     <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
 </body>
 </html>

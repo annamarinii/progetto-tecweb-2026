@@ -31,29 +31,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status_successo = false;
 
     if (empty($nome) || empty($cognome) || empty($username) || empty($email) || empty($password) || empty($ripeti_password)) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Tutti i campi sono obbligatori.</div>";
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Tutti i campi sono obbligatori.');
     } elseif (!preg_match('/^[A-Za-zÀ-ÿ\s]+$/', $nome) || !preg_match('/^[A-Za-zÀ-ÿ\s]+$/', $cognome)) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Nome e Cognome devono contenere solo lettere.</div>";
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Nome e Cognome devono contenere solo lettere.');
     } elseif (!preg_match('/^[a-zA-Z0-9._]{1,16}$/', $username)) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Username non valido (max 16 caratteri, solo lettere, numeri, punti e underscore).</div>";
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Username non valido (max 16 caratteri, solo lettere, numeri, punti e underscore).');
     } elseif ($password !== $ripeti_password) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Le password non coincidono.</div>";
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Le password non coincidono.');
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Indirizzo email non valido.</div>";
-    } elseif (strlen($password) < 8 || strlen($password) > 20) {
-        $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> La password deve avere tra 8 e 20 caratteri.</div>";
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Indirizzo email non valido.');
+    } elseif (!AccountManager::validaPassword($password)) {
+        $messaggio_esito = Tool::buildMessage('Errore:', 'La password deve avere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un carattere speciale.');
     } else {
         $risultato = AccountManager::registraUtente($nome, $cognome, $username, $email, $password);
 
         if ($risultato === true) {
             $status_successo = true;
-            $messaggio_esito = "<div class='form-message message-success' role='alert' aria-live='assertive'><strong>Ottimo!</strong> Registrazione completata. Stai per essere reindirizzato al login...</div>";
+            $messaggio_esito = Tool::buildMessage('Ottimo!', 'Registrazione completata. <a href=\'Login.php\'>Vai al login</a>', 'success');
         } elseif ($risultato === 'email_esistente') {
-            $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Esiste già un account con questa e-mail. <a href='Login.php'>Accedi qui</a></div>";
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Esiste già un account con questa e-mail. <a href=\'Login.php\'>Accedi qui</a>');
         } elseif ($risultato === 'username_esistente') {
-            $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Questo username è già in uso.</div>";
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Questo username è già in uso.');
         } else {
-            $messaggio_esito = "<div class='form-message message-error' role='alert' aria-live='assertive'><strong>Errore:</strong> Si è verificato un errore tecnico. Riprova più tardi.</div>";
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore tecnico. Riprova più tardi.');
         }
     }
 

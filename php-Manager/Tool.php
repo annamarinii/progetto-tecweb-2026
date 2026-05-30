@@ -89,6 +89,23 @@ class Tool
     }
 
     /**
+     * Genera l'HTML di un messaggio di feedback leggendo il template fragment item/alert_message.html.
+     *
+     * @param string $titolo Il testo in grassetto (es. "Errore:", "Ottimo!").
+     * @param string $testo  Il corpo del messaggio (può contenere HTML sicuro come link).
+     * @param string $tipo   Il suffisso della classe CSS (es. 'error', 'success', 'error login-error').
+     * @return string L'HTML completo del messaggio.
+     */
+    public static function buildMessage(string $titolo, string $testo, string $tipo = 'error'): string
+    {
+        $template = file_get_contents(__DIR__ . '/../item/alert_message.html');
+        $template = str_replace('[TipoAlert]',   $tipo,   $template);
+        $template = str_replace('[TitoloAlert]', $titolo, $template);
+        $template = str_replace('[TestoAlert]',  $testo,  $template);
+        return $template;
+    }
+
+    /**
      * Genera l'HTML dinamico dell'Header del sito gestendo i percorsi in modo intelligente.
      *
      * @param string $currentPage Il nome della pagina corrente per evidenziare il menù.
@@ -182,22 +199,48 @@ class Tool
     public static function buildFooter(string $currentPage): string
     {
         $inRoot = !str_contains($_SERVER['SCRIPT_NAME'], 'php-pages');
-        $basePath = $inRoot ? './' : '../';
+        $basePath  = $inRoot ? './' : '../';
+        $pagesPath = $inRoot ? 'php-pages/' : '';
 
         return '<footer class="footer-sito">
-        <hr aria-hidden="true" />
-        <div class="footer-contenuto">
-            <div class="footer-logo">
-                 <img src="' . $basePath . 'assets/images/logo1.png" alt="Patavium Open" width="120" />
+        <div class="footer-grid">
+
+            <div class="footer-col footer-brand">
+                <img src="' . $basePath . 'assets/images/logo1.png" alt="Patavium Open" width="80" height="80" class="footer-logo-img" />
+                <p class="footer-tagline">Il grande tennis internazionale nel cuore di Padova. Vivi l\'emozione della terra rossa dal 18 al 24 Maggio 2027.</p>
             </div>
-            <nav class="footer-nav" aria-label="Informazioni legali">
+
+            <nav class="footer-col" aria-labelledby="footer-esplora-titolo">
+                <h2 id="footer-esplora-titolo" class="footer-titolo">Esplora</h2>
                 <ul>
-                    <li><a href="' . $basePath . 'html/termini.html">Termini e condizioni</a></li>
-                    <li><a href="' . $basePath . 'html/privacy.html">Informativa sulla privacy</a></li>
+                    <li><a href="' . $basePath . 'index.php" lang="en">Home</a></li>
+                    <li><a href="' . $pagesPath . 'Biglietti.php">Biglietti</a></li>
+                    <li><a href="' . $pagesPath . 'News.php" lang="en">News</a></li>
+                    <li><a href="' . $pagesPath . 'Faq.php">Domande frequenti</a></li>
                 </ul>
             </nav>
+
+            <nav class="footer-col" aria-labelledby="footer-legale-titolo">
+                <h2 id="footer-legale-titolo" class="footer-titolo">Informazioni legali</h2>
+                <ul>
+                    <li><a href="' . $pagesPath . 'Termini.php">Termini e condizioni</a></li>
+                    <li><a href="' . $pagesPath . 'Privacy.php">Informativa sulla privacy</a></li>
+                </ul>
+            </nav>
+
+            <div class="footer-col">
+                <h2 class="footer-titolo">Contatti</h2>
+                <address class="footer-contatti">
+                    <p>Patavium Arena<br />Via dello Sport, 35100 Padova (PD)</p>
+                    <p><a href="mailto:info@pataviumopen.it">info@pataviumopen.it</a></p>
+                </address>
+            </div>
+
         </div>
-        <p class="footer-copyright">&copy; 2027 Patavium Open. Tutti i diritti riservati.</p>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright">&copy; 2027 Patavium Open. Tutti i diritti riservati.</p>
+        </div>
     </footer>';
     }
 }

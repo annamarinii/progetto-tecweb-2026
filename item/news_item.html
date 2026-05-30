@@ -1,10 +1,14 @@
-<article class="news-card">
+<article class="news-card" id="news-[IdNews]" aria-labelledby="news-titolo-[IdNews]">
     <div class="card-image">
-        <img src="../[PercorsoImg]" alt="Immagine correlata alla notizia: [Titolo]" width="300" height="200">
+        <img src="../[PercorsoImg]"
+             alt="Immagine correlata alla notizia: [Titolo]"
+             class="news-img"
+             width="300" height="200"
+             loading="lazy" />
     </div>
     <div class="card-content">
         <time datetime="[DataIso]">[DataLeggibile]</time>
-        <h2>[Titolo]</h2>
+        <h2 id="news-titolo-[IdNews]">[Titolo]</h2>
         <p>[Testo]</p>
     </div>
 </article>

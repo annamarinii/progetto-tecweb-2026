@@ -4,6 +4,12 @@ require_once "DBConnection.php";
 
 class AccountManager
 {
+    // Valida la forza della password: min 8 char, almeno una minuscola, maiuscola, numero e carattere speciale
+    public static function validaPassword(string $password): bool
+    {
+        return (bool) preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password);
+    }
+
     // registrazione
     public static function registraUtente($nome, $cognome, $username, $email, $password)
     {

@@ -40,7 +40,27 @@ if ($dati) {
         $stmt_check->close();
         $disponibili = (int)($row_check['disponibili'] ?? 0);
         if ($nuovo_item['quantita'] > $disponibili) {
-            echo json_encode(array('status' => 'error', 'message' => "Disponibili solo {$disponibili} biglietti per questa tribuna."));
+            echo json_encode(array('status' => 'error', 'message' => "Sono rimasti solo {$disponibili} biglietti per questo settore."));
+            exit();
+        }
+    }
+
+    // CONTROLLO DISPONIBILITÀ DB PER GROUND PASS
+    if ($nuovo_item['tipologia'] === 'Ground Pass' && $nuovo_item['idProgramma']) {
+        require_once 'TicketManager.php';
+        $disponibili = TicketManager::getDisponibilitaGroundPass((int)$nuovo_item['idProgramma']);
+        if ($nuovo_item['quantita'] > $disponibili) {
+            echo json_encode(array('status' => 'error', 'message' => "Sono rimasti solo {$disponibili} biglietti per questa data."));
+            exit();
+        }
+    }
+
+    // CONTROLLO DISPONIBILITÀ DB PER ABBONAMENTO
+    if ($nuovo_item['tipologia'] === 'Abbonamento' && $nuovo_item['titolo']) {
+        require_once 'TicketManager.php';
+        $disponibili = TicketManager::getDisponibilitaAbbonamento($nuovo_item['titolo']);
+        if ($nuovo_item['quantita'] > $disponibili) {
+            echo json_encode(array('status' => 'error', 'message' => "Sono rimasti solo {$disponibili} abbonamenti disponibili per questa tribuna."));
             exit();
         }
     }

@@ -106,6 +106,42 @@ class TicketManager
         return $dati_abbonamenti;
     }
 
+    public static function getDisponibilitaGroundPass(int $idProgramma): int
+    {
+        $conn = DBConnection::getConnessione();
+        $sql  = "SELECT COUNT(idBiglietto) AS disponibili
+                 FROM BIGLIETTI
+                 WHERE tipo = 'ground' AND idProgramma = ? AND numero_ordine IS NULL";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idProgramma);
+        $stmt->execute();
+        $row  = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return (int)($row['disponibili'] ?? 0);
+    }
+
+    public static function getDisponibilitaAbbonamento(string $tribuna): int
+    {
+        $conn = DBConnection::getConnessione();
+        // Un abbonamento = 1 biglietto per ciascuna delle 14 sessioni nella stessa tribuna.
+        // Il numero di abbonamenti disponibili = MIN(biglietti liberi per sessione).
+        $sql  = "SELECT MIN(disponibili) AS disponibili
+                 FROM (
+                     SELECT COUNT(CASE WHEN B.numero_ordine IS NULL THEN 1 END) AS disponibili
+                     FROM BIGLIETTI B
+                     JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                     WHERE B.tribuna = ? AND B.tipo IS NULL
+                     GROUP BY P.idProgramma
+                 ) AS sessioni
+                 HAVING COUNT(*) = 14";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $tribuna);
+        $stmt->execute();
+        $row  = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return (int)($row['disponibili'] ?? 0);
+    }
+
     public static function getCategorieBiglietti()
     {
         $conn = DBConnection::getConnessione();
