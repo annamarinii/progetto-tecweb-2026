@@ -20,15 +20,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim(strip_tags($_POST['email']    ?? ''));
     $username = trim(strip_tags($_POST['username'] ?? ''));
 
-    if ($nome === '' || $cognome === '' || $username === ''
-        || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: AreaUtente.php?status=error");
+    // Validazione formale lato controller (coerente con la registrazione).
+    // La validazione definitiva è comunque ripetuta dentro updateUtente().
+    if (!Tool::validaNomeProprio($nome) || !Tool::validaNomeProprio($cognome)
+        || !Tool::validaUsername($username)
+        || !Tool::validaEmailCompleta($email)) {
+        header("Location: AreaUtente.php?status=dati_non_validi");
         exit();
     }
 
-    $successo = AccountManager::updateUtente($id_utente_corrente, $nome, $cognome, $email, $username);
+    $esito = AccountManager::updateUtente($id_utente_corrente, $nome, $cognome, $email, $username);
 
-    $status = $successo ? "success" : "error";
+    // $esito === true => ok; altrimenti codice di errore (stringa) o false tecnico.
+    if ($esito === true) {
+        $status = "success";
+    } elseif ($esito === 'email_esistente' || $esito === 'username_esistente') {
+        $status = $esito;
+    } else {
+        $status = "error";
+    }
     header("Location: AreaUtente.php?status=" . $status);
     exit();
 }
@@ -50,10 +60,21 @@ $username_pulito = Tool::pulisciInput($dati_utente['username']);
 
 $messaggio_esito = "";
 if (isset($_GET['status'])) {
-    if ($_GET['status'] == 'success') {
-        $messaggio_esito = Tool::buildMessage('Ottimo!', 'Profilo aggiornato correttamente.', 'success');
-    } else {
-        $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore durante l\'aggiornamento del profilo.');
+    switch ($_GET['status']) {
+        case 'success':
+            $messaggio_esito = Tool::buildMessage('Ottimo!', 'Profilo aggiornato correttamente.', 'success');
+            break;
+        case 'dati_non_validi':
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Dati non validi. Controlla nome, cognome, username ed email.');
+            break;
+        case 'email_esistente':
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Questa email è già associata a un altro account.');
+            break;
+        case 'username_esistente':
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Questo username è già in uso.');
+            break;
+        default:
+            $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore durante l\'aggiornamento del profilo.');
     }
 }
 

@@ -13,8 +13,8 @@ if (isset($_GET['error']) && $_GET['error'] == 'devi_loggarti') {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Rimosso htmlspecialchars: la sanificazione avviene in output
-    $identificativo = trim($_POST['identificativo']);
-    $password = $_POST['password'];
+    $identificativo = trim($_POST['identificativo'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     $utente = AccountManager::verificaLogin($identificativo, $password);
 

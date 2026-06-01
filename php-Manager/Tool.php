@@ -50,19 +50,108 @@ class Tool
     /**
      * Sanifica una stringa di input in modo sicuro per prevenire XSS.
      *
-     * @param mixed $value
+     * Comportamento di default (nessun tag permesso): trim + strip_tags + htmlspecialchars,
+     * cioè neutralizzazione totale dell'HTML (identico alla versione storica).
+     *
+     * Con $allowedTags valorizzato (es. '<p><b><i><a>'), i tag indicati vengono
+     * PRESERVATI come HTML per le aree che richiedono formattazione (es. News).
+     * In quel caso NON si applica htmlspecialchars, altrimenti i tag permessi
+     * verrebbero escapati e resi inerti.
+     *
+     * ATTENZIONE (limite noto di strip_tags): con $allowedTags i tag sopravvivono
+     * ma i loro ATTRIBUTI non vengono ripuliti (es. <a onclick> o href "javascript:").
+     * Usare $allowedTags SOLO su input proveniente da utenti fidati (es. testo News
+     * redatto dagli amministratori), mai su input di utenti anonimi.
+     *
+     * @param mixed  $value
+     * @param string $allowedTags Lista di tag da preservare in formato strip_tags (default '': nessuno).
      * @return string
      */
-    public static function pulisciInput($value): string
+    public static function pulisciInput($value, string $allowedTags = ''): string
     {
         $value = $value ?? '';
 
         $value_testuale = (string) $value;
 
         $value_testuale = trim($value_testuale);
-        $value_testuale = strip_tags($value_testuale);
+        $value_testuale = strip_tags($value_testuale, $allowedTags);
 
-        return htmlspecialchars($value_testuale, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        // Solo quando non si permette alcun tag si applica l'escaping completo.
+        if ($allowedTags === '') {
+            $value_testuale = htmlspecialchars($value_testuale, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        }
+
+        return $value_testuale;
+    }
+
+    /**
+     * Valida un indirizzo email. Da usare SEMPRE prima di qualsiasi query che
+     * coinvolga l'email (registrazione, login per email, update profilo).
+     *
+     * @param string $email
+     * @return bool
+     */
+    public static function validaEmail(string $email): bool
+    {
+        return filter_var(trim($email), FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    /**
+     * Conta i caratteri in modo sicuro anche senza estensione mbstring.
+     */
+    private static function lunghezza(string $s): int
+    {
+        return function_exists('mb_strlen') ? mb_strlen($s, 'UTF-8') : strlen($s);
+    }
+
+    /**
+     * Valida un nome proprio / cognome: solo lettere (anche accentate) e spazi,
+     * lunghezza 1..$max. Riutilizzabile in registrazione e update profilo.
+     *
+     * @param string $valore
+     * @param int    $max Lunghezza massima (default 30, come la colonna DB UTENTE.nome/cognome).
+     * @return bool
+     */
+    public static function validaNomeProprio(string $valore, int $max = 30): bool
+    {
+        $valore = trim($valore);
+        if ($valore === '' || self::lunghezza($valore) > $max) {
+            return false;
+        }
+        return (bool) preg_match('/^[A-Za-zÀ-ÿ\s]+$/u', $valore);
+    }
+
+    /**
+     * Valida un indirizzo email per formato E lunghezza massima.
+     * La colonna UTENTE.email è VARCHAR(30): un'email più lunga va respinta con
+     * messaggio chiaro invece di causare un errore/troncamento a livello DB.
+     *
+     * @param string $email
+     * @param int    $max Lunghezza massima consentita (default 30).
+     * @return bool
+     */
+    public static function validaEmailCompleta(string $email, int $max = 30): bool
+    {
+        $email = trim($email);
+        return self::validaEmail($email) && self::lunghezza($email) <= $max;
+    }
+
+    /**
+     * Valida uno username: lettere, numeri, punto e underscore, 1..$max caratteri.
+     * Coerente con la regex usata storicamente in registrazione.
+     *
+     * @param string $username
+     * @param int    $max Lunghezza massima (default 16).
+     * @return bool
+     */
+    public static function validaUsername(string $username, int $max = 16): bool
+    {
+        $username = trim($username);
+        if ($username === '') {
+            return false;
+        }
+        // max 16 di default: più restrittivo del DB (VARCHAR 30), coerente con la UX storica
+        return (bool) preg_match('/^[a-zA-Z0-9._]{1,' . (int) $max . '}$/', $username);
     }
 
     /**
@@ -118,7 +207,21 @@ class Tool
         $basePath = $inRoot ? './' : '../';
         $pagesPath = $inRoot ? 'php-pages/' : '';
 
-        $headerHtml = '<header>
+        // Snippet ANTI-FLASH: gira appena il parser raggiunge il body, prima del
+        // rendering del contenuto. Imposta SOLO l'attributo data-theme su <html>
+        // (nessuno stile inline) leggendo localStorage o, in mancanza, la preferenza
+        // di sistema. Così la pagina non "lampeggia" passando da chiaro a scuro.
+        $headerHtml = '<script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("theme");
+                var dark = saved ? saved === "dark"
+                    : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (dark) { document.documentElement.setAttribute("data-theme", "dark"); }
+            } catch (e) { /* localStorage non disponibile: resta tema chiaro */ }
+        })();
+        </script>
+        <header>
         <span class="logo-brand">
             <img src="' . $basePath . 'assets/images/logo1.png" alt="" aria-hidden="true" id="logo-sito" />
             <span>Patavium Open</span>
@@ -137,7 +240,7 @@ class Tool
         foreach ($menuItems as $key => $item) {
             $langAttr = isset($item['lang']) && $item['lang'] === 'en' ? ' lang="en"' : '';
             if (strtolower($currentPage) === $key) {
-                $headerHtml .= "\n                <li id=\"currentLink\" aria-current=\"page\"{$langAttr}>{$item['label']}</li>";
+                $headerHtml .= "\n                <li class=\"current-link\" aria-current=\"page\"{$langAttr}>{$item['label']}</li>";
             } else {
                 $headerHtml .= "\n                <li><a href=\"{$item['url']}\"{$langAttr}>{$item['label']}</a></li>";
             }
@@ -161,7 +264,7 @@ class Tool
             
             // Link Profilo (Admin o Utente)
             if (strtolower($currentPage) === $profileKey) {
-                $headerHtml .= "\n                <li id=\"currentLink\" aria-current=\"page\">\n                        <img src=\"{$basePath}assets/images/user.svg\" alt=\"\" class=\"icone-menu\" />{$profileLabel}</li>";
+                $headerHtml .= "\n                <li class=\"current-link\" aria-current=\"page\">\n                        <img src=\"{$basePath}assets/images/user.svg\" alt=\"\" class=\"icone-menu\" />{$profileLabel}</li>";
             } else {
                 $headerHtml .= "\n                <li><a href=\"{$profileLink}\">\n                        <img src=\"{$basePath}assets/images/user.svg\" alt=\"\" class=\"icone-menu\" />{$profileLabel}</a></li>";
             }
@@ -169,7 +272,7 @@ class Tool
         } else {
             // Utente non loggato: un solo link "Profilo" che porta al Login
             if (strtolower($currentPage) === 'login') {
-                $headerHtml .= "\n                <li id=\"currentLink\" aria-current=\"page\">\n                        <img src=\"{$basePath}assets/images/user.svg\" alt=\"\" class=\"icone-menu\" />Profilo</li>";
+                $headerHtml .= "\n                <li class=\"current-link\" aria-current=\"page\">\n                        <img src=\"{$basePath}assets/images/user.svg\" alt=\"\" class=\"icone-menu\" />Profilo</li>";
             } else {
                 $headerHtml .= "\n                <li><a href=\"{$pagesPath}Login.php\">\n                        <img src=\"{$basePath}assets/images/user.svg\" alt=\"\" class=\"icone-menu\" />Profilo</a></li>";
             }
@@ -177,15 +280,29 @@ class Tool
 
         // Link Carrello (Sempre visibile per tutti)
         if (strtolower($currentPage) === 'carrello') {
-            $headerHtml .= "\n                <li id=\"currentLink\" aria-current=\"page\">\n                        <img src=\"{$basePath}assets/images/shopping-cart.svg\" alt=\"\" class=\"icone-menu\" />Carrello</li>";
+            $headerHtml .= "\n                <li class=\"current-link\" aria-current=\"page\">\n                        <img src=\"{$basePath}assets/images/shopping-cart.svg\" alt=\"\" class=\"icone-menu\" />Carrello</li>";
         } else {
             $headerHtml .= "\n                <li><a href=\"{$pagesPath}Carrello.php\">\n                        <img src=\"{$basePath}assets/images/shopping-cart.svg\" alt=\"\" class=\"icone-menu\" />Carrello</a></li>";
         }
+
+        // Bottone Dark Mode: semantico, senza onclick inline. Le icone sono decorative
+        // (aria-hidden), lo screen reader legge solo aria-label. Stato iniziale neutro:
+        // aria-label/aria-pressed/icona vengono sincronizzati da theme.js al caricamento.
+        $headerHtml .= "\n                <li>
+                    <button type=\"button\" id=\"theme-toggle\" class=\"theme-toggle\" aria-pressed=\"false\" aria-label=\"Attiva il tema scuro\">
+                        <span class=\"theme-icon theme-icon-sun\" aria-hidden=\"true\">&#9728;</span>
+                        <span class=\"theme-icon theme-icon-moon\" aria-hidden=\"true\">&#9790;</span>
+                    </button>
+                </li>";
 
         $headerHtml .= '
             </ul>
         </nav>
     </header>';
+
+        // Logica del tema (toggle, persistenza, ARIA): caricata da un unico punto per
+        // tutte le pagine. defer => non blocca il parsing e gira dopo che il bottone esiste.
+        $headerHtml .= "\n    <script src=\"{$basePath}javascript/theme.js\" defer></script>";
 
         return $headerHtml;
     }

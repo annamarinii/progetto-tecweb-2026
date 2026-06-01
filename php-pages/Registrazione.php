@@ -30,16 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Logica di validazione
     $status_successo = false;
 
+    // Validazione lato controller tramite i validatori centralizzati di Tool.
+    // (registraUtente() ri-valida comunque tutto in modo difensivo lato Manager.)
     if (empty($nome) || empty($cognome) || empty($username) || empty($email) || empty($password) || empty($ripeti_password)) {
         $messaggio_esito = Tool::buildMessage('Errore:', 'Tutti i campi sono obbligatori.');
-    } elseif (!preg_match('/^[A-Za-zÀ-ÿ\s]+$/', $nome) || !preg_match('/^[A-Za-zÀ-ÿ\s]+$/', $cognome)) {
-        $messaggio_esito = Tool::buildMessage('Errore:', 'Nome e Cognome devono contenere solo lettere.');
-    } elseif (!preg_match('/^[a-zA-Z0-9._]{1,16}$/', $username)) {
+    } elseif (!Tool::validaNomeProprio($nome) || !Tool::validaNomeProprio($cognome)) {
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Nome e Cognome devono contenere solo lettere (max 30 caratteri).');
+    } elseif (!Tool::validaUsername($username)) {
         $messaggio_esito = Tool::buildMessage('Errore:', 'Username non valido (max 16 caratteri, solo lettere, numeri, punti e underscore).');
     } elseif ($password !== $ripeti_password) {
         $messaggio_esito = Tool::buildMessage('Errore:', 'Le password non coincidono.');
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $messaggio_esito = Tool::buildMessage('Errore:', 'Indirizzo email non valido.');
+    } elseif (!Tool::validaEmailCompleta($email)) {
+        $messaggio_esito = Tool::buildMessage('Errore:', 'Indirizzo email non valido o troppo lungo (max 30 caratteri).');
     } elseif (!AccountManager::validaPassword($password)) {
         $messaggio_esito = Tool::buildMessage('Errore:', 'La password deve avere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un carattere speciale.');
     } else {
@@ -52,6 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $messaggio_esito = Tool::buildMessage('Errore:', 'Esiste già un account con questa e-mail. <a href=\'Login.php\'>Accedi qui</a>');
         } elseif ($risultato === 'username_esistente') {
             $messaggio_esito = Tool::buildMessage('Errore:', 'Questo username è già in uso.');
+        } elseif ($risultato === 'dati_non_validi') {
+            $messaggio_esito = Tool::buildMessage('Errore:', 'I dati inseriti non sono validi. Controlla i campi e riprova.');
         } else {
             $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore tecnico. Riprova più tardi.');
         }
