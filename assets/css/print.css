@@ -255,7 +255,7 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
     margin-bottom: 10pt;
 }
 
-html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-info p {
+html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-info .spec-riga {
     margin: 5pt 0;
     font-size: 11pt;
 }

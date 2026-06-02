@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it" xml:lang="it" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../assets/css/style.css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/print.css" media="print" />
+</head>
+
+<body id="top">
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
+    [Header]
+
+    <nav id="breadcrumb" aria-label="Percorso di navigazione">
+        <ol>
+            <li><a href="../index.php" lang="en">Home</a></li>
+            <li><span class="breadcrumb-active" aria-current="page">Profilo</span></li>
+        </ol>
+    </nav>
+
+    <main id="main-content" class="login-page">
+        <h1 class="sr-only">Area di Accesso e Registrazione</h1>
+        <div class="login-container">
+
+            <section class="login-section" aria-labelledby="titolo-login">
+                <h2 id="titolo-login">Sei già cliente? Login</h2>
+                <p class="login-sub">Accedi con la tua email o il tuo username per gestire i tuoi biglietti e continuare
+                    gli acquisti in modo rapido.</p>
+                [messaggio_esito]
+                <form action="../php-pages/login.php" method="POST" class="auth-form">
+                    <div class="form-gruppo">
+                        <label for="identificativo" class="label-richiesta">Username o E-mail</label>
+                        <input type="text" id="identificativo" name="identificativo"
+                            placeholder="Inserisci username o e-mail"
+                            required="required" aria-required="true" autocomplete="username" />
+                    </div>
+                    <div class="form-gruppo">
+                        <label for="pass" class="label-richiesta">Password</label>
+                        <input type="password" id="pass" name="password" placeholder="Inserisci la password"
+                            required="required" aria-required="true" autocomplete="current-password" />
+                    </div>
+                    <button type="submit" class="btn-auth">Login</button>
+                </form>
+            </section>
+
+            <div class="auth-divider" aria-hidden="true"></div>
+
+            <section class="register-section" aria-labelledby="titolo-nuovo">
+                <h2 id="titolo-nuovo">Nuovo cliente? Registrati</h2>
+                <p>Crea subito il tuo profilo gratuito per accedere in esclusiva ai biglietti del <span
+                        lang="la">Patavium</span> <span lang="en">Open</span> e prenotare velocemente i tuoi posti
+                    migliori sulle tribune.</p>
+                <a href="../php-pages/registrazione.php" class="btn-auth outline" role="button">Crea Account</a>
+            </section>
+
+        </div>
+    </main>
+
+    [Footer]
+    <script src="../javascript/script.js"></script>
+    <a href="#top" class="back-to-top"><span aria-hidden="true">&uarr;</span><span class="sr-only">Torna su</span></a>
+</body>
+
+</html>

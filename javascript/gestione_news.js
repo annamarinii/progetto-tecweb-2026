@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('edit-id-news').value            = btn.dataset.id ?? '';
         document.getElementById('edit-titolo').value             = row.querySelector('.news-admin-title')?.textContent ?? '';
         document.getElementById('edit-testo').value              = row.querySelector('.news-admin-testo-hidden')?.textContent ?? '';
+        document.getElementById('edit-alt-immagine').value       = btn.dataset.alt ?? '';
         document.getElementById('span-img-corrente').textContent = btn.dataset.img ?? '';
 
         const evidenzaCheck = document.getElementById('edit-evidenza');

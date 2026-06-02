@@ -1,11 +1,23 @@
 <article class="cart-item-card" data-index="[Index]">
     <div class="cart-item-info">
         <h3>[Tipologia] - [Titolo]</h3>
-        <p>Data: [Data] ([Sessione])</p>
-        <p>Quantità: [Quantita]</p>
+        <dl class="specifiche-match">
+            <div class="spec-riga">
+                <dt>Data:</dt>
+                <dd>[Data]</dd>
+            </div>
+            <div class="spec-riga">
+                <dt>Sessione:</dt>
+                <dd>[Sessione]</dd>
+            </div>
+            <div class="spec-riga">
+                <dt>Quantità:</dt>
+                <dd>[Quantita]</dd>
+            </div>
+        </dl>
     </div>
     <div class="cart-item-actions">
         <span class="cart-item-price">€ [Subtotale]</span>
-        <button type="button" class="btn-delete" onclick="rimuoviItem([Index])">Elimina</button>
+        <button type="button" class="btn-remove-item" onclick="rimuoviItem([Index])">Elimina</button>
     </div>
 </article>

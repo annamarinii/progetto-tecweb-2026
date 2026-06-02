@@ -11,7 +11,7 @@ window.rimuoviItem = function(indice) {
         cardDaRimuovere.classList.add('removing-item'); 
     }
 
-    fetch('../php-Manager/RimuoviCarrello.php', {
+    fetch('../php-Manager/rimuovi_carrello.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ indice: indice })
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCheckout = document.getElementById('btn-checkout');
     if (btnCheckout) {
         btnCheckout.addEventListener('click', function(e) {
-            // Invece di andare su Checkout.php, facciamo una chiamata AJAX
+            // Invece di andare su checkout.php, facciamo una chiamata AJAX
             // o gestiamo l'acquisto qui se hai un file che se ne occupa
             this.textContent = "Elaborazione...";
             this.classList.add('btn-loading');
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Se vuoi restare sulla stessa pagina, devi avere un file PHP 
             // che riceve questa richiesta, ad esempio lo stesso carrello.php
-            window.location.href = '../php-Manager/Checkout.php';
+            window.location.href = '../php-Manager/checkout.php';
         });
     }
 });

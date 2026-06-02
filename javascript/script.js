@@ -8,11 +8,26 @@ const statoAcquisto = {
     quantita: 1
 };
 
+// Sposta il focus sulla sezione appena rivelata (sul suo titolo h2), così la
+// navigazione da tastiera prosegue LOGICAMENTE nel nuovo contenuto invece di
+// restare sul giorno selezionato e passare al giorno successivo.
+// preventScroll: lo scroll fluido è già gestito da scrollIntoView.
+function moveFocusToSection(section) {
+    if (!section) return;
+    const target = section.querySelector('.step-header h2') || section;
+    target.setAttribute('tabindex', '-1'); // focusabile da script, ma fuori dall'ordine di Tab
+    target.focus({ preventScroll: true });
+}
+
 function selectDate(dayName, dayNumber, event) {
     // 1. Evidenzia la data selezionata
     const allDates = document.querySelectorAll('.date-tile');
-    allDates.forEach(date => date.classList.remove('highlight'));
+    allDates.forEach(date => {
+        date.classList.remove('highlight');
+        date.setAttribute('aria-pressed', 'false'); // comunica lo stato ai lettori di schermo
+    });
     event.currentTarget.classList.add('highlight');
+    event.currentTarget.setAttribute('aria-pressed', 'true'); // giorno attualmente selezionato
 
     // 2. Salva la data nello stato
     const fullDateString = `${dayName} ${dayNumber} Maggio 2027`;
@@ -45,11 +60,13 @@ function selectDate(dayName, dayNumber, event) {
         }
 
         sessionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        moveFocusToSection(sessionSection); // il Tab successivo va alle sessioni, non al giorno dopo
 
     } else if (groundSection) {
         // --- LOGICA PAGINA GROUND PASSES ---
         groundSection.classList.remove('d-none');
         groundSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        moveFocusToSection(groundSection);
     }
 
     // invia dati al php per determinare il prezzo in base a quello che ho selezionato
@@ -59,7 +76,7 @@ function selectDate(dayName, dayNumber, event) {
         let dati = new FormData();
         dati.append('data_scelta', '2027-05-' + dayNumber);
 
-        fetch('GroundPasses.php', { method: 'POST', body: dati })
+        fetch('ground_passes.php', { method: 'POST', body: dati })
             .then(risposta => risposta.json())
             .then(data => {
                 const avviso = document.getElementById('avviso-disponibilita');
@@ -124,6 +141,7 @@ function showSeatSelection(event, tipoSessione) {
             stickyBtn.href = '#seat-selection';
         }
         seatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        moveFocusToSection(seatSection); // dopo la sessione, il focus passa alle tribune
     }
 
     const dPremium = document.getElementById('prezzo-premium');
@@ -136,7 +154,7 @@ function showSeatSelection(event, tipoSessione) {
         dati.append('data_scelta', window.dataSelezionata);
         dati.append('sessione_scelta', tipoSessione);
 
-        fetch('SingleSession.php', { method: 'POST', body: dati })
+        fetch('single_session.php', { method: 'POST', body: dati })
             .then(risposta => risposta.json()) 
             .then(data => {
                 // Nella tua funzione formatta (dentro il fetch)
@@ -277,11 +295,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // Usiamo l'Event Delegation: un unico listener per tutto il contenitore
         calendarContainer.addEventListener('click', (event) => {
             const tile = event.target.closest('.date-tile');
-            
+
             if (tile) {
                 const dayName = tile.dataset.day;
                 const dayNumber = tile.dataset.number;
                 selectDate(dayName, dayNumber, { currentTarget: tile });
+            }
+        });
+
+        // Accessibilità tastiera: Invio o Spazio attivano la selezione esattamente
+        // come il click. Un <div role="button"> non lo fa nativamente (solo i
+        // <button> reali). preventDefault evita che lo Spazio scrolli la pagina.
+        calendarContainer.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+                const tile = event.target.closest('.date-tile');
+                if (tile) {
+                    event.preventDefault();
+                    selectDate(tile.dataset.day, tile.dataset.number, { currentTarget: tile });
+                }
             }
         });
     }
@@ -311,9 +342,12 @@ document.addEventListener('DOMContentLoaded', () => {
         category.addEventListener('click', (e) => {
             selectTribune(e.currentTarget);
         });
-        // Gestione accessibilità tastiera
+        // Gestione accessibilità tastiera: Invio e Spazio attivano la selezione
         category.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') selectTribune(e.currentTarget);
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                selectTribune(e.currentTarget);
+            }
         });
     });
 
@@ -419,7 +453,7 @@ if (btnMinus && btnPlus) {
                 idProgramma: statoAcquisto.idProgramma
             };
 
-            fetch('../php-Manager/AggiungiCarrello.php', {
+            fetch('../php-Manager/aggiungi_carrello.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(pacchettoBiglietto)
@@ -436,7 +470,7 @@ if (btnMinus && btnPlus) {
                         if (!document.getElementById('link-vai-carrello')) {
                             const linkCarrello = document.createElement('a');
                             linkCarrello.id = 'link-vai-carrello';
-                            linkCarrello.href = '../php-pages/Carrello.php';
+                            linkCarrello.href = '../php-pages/carrello.php';
                             linkCarrello.innerHTML = 'Vai al carrello ➔';
                             linkCarrello.style.display = 'block';
                             linkCarrello.style.marginTop = '10px';

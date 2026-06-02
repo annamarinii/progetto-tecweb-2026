@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const fd = new FormData();
                             fd.append('segna_letta_admin', 'si');
                             fd.append('id_domanda', idDomanda);
-                            fetch('../php-pages/AreaAdmin.php', {
+                            fetch('../php-pages/area_admin.php', {
                                 method: 'POST',
                                 headers: { 'X-Requested-With': 'XMLHttpRequest' },
                                 body: fd

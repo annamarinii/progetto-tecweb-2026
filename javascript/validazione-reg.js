@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data.status === 'success') {
                 msgDiv.className = 'form-message message-success';
-                msgDiv.innerHTML = '<strong>Ottimo!</strong> Registrazione completata. <a href="Login.php">Vai al login</a>';
+                msgDiv.innerHTML = '<strong>Ottimo!</strong> Registrazione completata. <a href="login.php">Vai al login</a>';
                 form.reset();
                 aggiornaRequisitiPassword('');
             } else {

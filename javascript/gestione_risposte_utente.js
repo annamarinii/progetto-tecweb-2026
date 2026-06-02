@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         fd.append('segna_letta_utente', 'si');
                         fd.append('id_domanda', idDomanda);
 
-                        fetch('../php-pages/areautente.php', {
+                        fetch('../php-pages/area_utente.php', {
                             method: 'POST',
                             headers: { 'X-Requested-With': 'XMLHttpRequest' },
                             body: fd

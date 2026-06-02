@@ -1,6 +1,6 @@
 <div class="news-admin-row" data-news-id="[NewsID]">
     <div class="news-admin-row-info">
-        <img src="[Percorso]" alt="" class="news-admin-thumb" loading="lazy" />
+        <img src="[Percorso]" alt="" aria-hidden="true" class="news-admin-thumb" loading="lazy" />
         <p class="news-admin-title">[Titolo]</p>
     </div>
     <div class="news-admin-actions">
@@ -8,9 +8,10 @@
                 class="btn-edit btn-edit-news-trigger"
                 data-id="[NewsID]"
                 data-img="[ImgName]"
+                data-alt="[AltImmagine]"
                 data-inevidenza="[InEvidenza]"
                 aria-label="Modifica la news: [Titolo]">Modifica</button>
-        <form action="AreaAdmin.php" method="POST" class="form-delete-news">
+        <form action="area_admin.php" method="POST" class="form-delete-news">
             <input type="hidden" name="id_news" value="[NewsID]" />
             <input type="hidden" name="elimina" value="si" />
             <button type="submit"

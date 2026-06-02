@@ -1,6 +1,6 @@
 <?php
 
-require_once 'DBConnection.php';
+require_once 'db_connection.php';
 
 echo "<h1>Test di Connessione</h1>";
 

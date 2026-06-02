@@ -1,0 +1,19 @@
+<tr>
+    <td data-title="ID">[AdminFaqID]</td>
+    <td data-title="Domanda" class="text-left">[AdminDomanda]</td>
+    <td data-title="Stato"><span class="status-badge [StatoClasse]">[AdminStato]</span></td>
+    <td data-title="Azioni">
+        <div class="actions-wrapper">
+            <form action="area_admin.php" method="POST" class="inline-form">
+                <input type="hidden" name="action" value="approve" />
+                <input type="hidden" name="faq_id" value="[AdminFaqID]" />
+                <button type="submit" class="btn btn-approve" aria-label="Approva la domanda numero [AdminFaqID]">Approva</button>
+            </form>
+            <form action="area_admin.php" method="POST" class="inline-form">
+                <input type="hidden" name="action" value="delete" />
+                <input type="hidden" name="faq_id" value="[AdminFaqID]" />
+                <button type="submit" class="btn btn-delete" aria-label="Elimina definitivamente la domanda numero [AdminFaqID]">Elimina</button>
+            </form>
+        </div>
+    </td>
+</tr>

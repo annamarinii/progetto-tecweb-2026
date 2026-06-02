@@ -1,10 +1,4 @@
-/* 1. TOKEN SEMANTICI DI COLORE (Design System)
-   I colori non sono mai hardcoded nelle regole: ogni regola usa var(--col-*).
-   Il TEMA CHIARO è definito qui in :root; il TEMA SCURO sovrascrive gli stessi
-   token nel selettore [data-theme="dark"] applicato su <html>.
-   I valori chiari corrispondono ai colori storici del brand (che già evitano
-   bianco/nero puri); i valori scuri rispettano WCAG 2.1 AA.
-   Nessun token usa colori puri (#fff / #000): nemmeno i canali per le ombre. */
+
 :root {
     /* --- Superfici / sfondi --- */
     --col-bg: #F1F3FC;
@@ -20,7 +14,7 @@
 
     /* --- Testo --- */
     --col-text: #101010;
-    /* testo del corpo (ex --black) */
+    /* testo del corpo */
     --col-text-heading: #07246F;
     /* titoli/testo enfatico su sfondo chiaro + bordi blu (ex --blu-scuro testo/bordo) */
     --col-text-inverse: #F1F1F1;
@@ -38,7 +32,11 @@
     --col-link: #A54600;
     /* arancione come testo/link/bordo-accento (ex --arancione-scuro usato come testo) */
     --col-accent-soft: #FFBE85;
-    /* accenti chiari su scuro: hover nav, read-more (ex --arancione-chiaro) */
+    /* accenti chiari su scuro: hover nav, read-more */
+
+    /* --- Icone (SVG inline .icon-themed) --- */
+    --col-icon: var(--col-text-heading);
+    /* icone blu brand sullo sfondo chiaro (Light Mode) */
 
     /* --- Bordi --- */
     --col-border: #F1F3FC;
@@ -46,7 +44,11 @@
     --col-border-strong: #101010;
     /* bordo marcato (ex --black usato come bordo) */
 
-    /* --- Canali RGB per rgba(var(--X), alpha) senza hardcoding --- */
+    /* --- Canali RGB (LEGACY, non più usati) ---
+       Servivano alla sintassi rgba(var(--X-rgb), a), rimossa perché alcuni
+       validatori la segnalano come "Parse Error". Sostituita dai token alpha
+       precompilati più sotto. NON reintrodurre rgba(var(...)): usare i token
+       --col-*-NN. Mantenuti solo come riferimento ai canali del tema chiaro. */
     --col-accent-rgb: 225, 116, 20;
     /* (ex --arancione-rgb) */
     --col-action-rgb: 165, 70, 0;
@@ -58,10 +60,59 @@
     --col-on-dark-rgb: 240, 244, 250;
     /* velature chiare su superfici scure: near-white (non bianco puro) */
 
+    /* --- Trasparenze precompilate (token alpha) ---
+       Sostituiscono la sintassi annidata rgba(var(--X-rgb), a), che alcuni
+       validatori (es. Total Validator) segnalano come "Parse Error". I canali
+       RGB del tema sono inseriti direttamente in rgba() classico: colori
+       sempre centralizzati e dark mode intatta. Suffisso = alpha x100. */
+    /* Ombre / overlay — near-black 13,17,23 (identico in dark) */
+    --col-shadow-02: rgba(13, 17, 23, 0.02);
+    --col-shadow-04: rgba(13, 17, 23, 0.04);
+    --col-shadow-05: rgba(13, 17, 23, 0.05);
+    --col-shadow-07: rgba(13, 17, 23, 0.07);
+    --col-shadow-08: rgba(13, 17, 23, 0.08);
+    --col-shadow-10: rgba(13, 17, 23, 0.1);
+    --col-shadow-12: rgba(13, 17, 23, 0.12);
+    --col-shadow-13: rgba(13, 17, 23, 0.13);
+    --col-shadow-14: rgba(13, 17, 23, 0.14);
+    --col-shadow-15: rgba(13, 17, 23, 0.15);
+    --col-shadow-18: rgba(13, 17, 23, 0.18);
+    --col-shadow-20: rgba(13, 17, 23, 0.2);
+    --col-shadow-25: rgba(13, 17, 23, 0.25);
+    --col-shadow-30: rgba(13, 17, 23, 0.3);
+    --col-shadow-35: rgba(13, 17, 23, 0.35);
+    --col-shadow-40: rgba(13, 17, 23, 0.4);
+    --col-shadow-50: rgba(13, 17, 23, 0.5);
+    /* Velature chiare su scuro — near-white 240,244,250 (identico in dark) */
+    --col-on-dark-10: rgba(240, 244, 250, 0.1);
+    --col-on-dark-18: rgba(240, 244, 250, 0.18);
+    --col-on-dark-40: rgba(240, 244, 250, 0.4);
+    /* Accent (arancione brand) */
+    --col-accent-10: rgba(225, 116, 20, 0.1);
+    --col-accent-12: rgba(225, 116, 20, 0.12);
+    --col-accent-20: rgba(225, 116, 20, 0.2);
+    --col-accent-25: rgba(225, 116, 20, 0.25);
+    --col-accent-30: rgba(225, 116, 20, 0.3);
+    /* Action (CTA piene) */
+    --col-action-10: rgba(165, 70, 0, 0.1);
+    --col-action-15: rgba(165, 70, 0, 0.15);
+    --col-action-20: rgba(165, 70, 0, 0.2);
+    /* Surface brand (blu scuro) */
+    --col-surface-brand-07: rgba(7, 36, 111, 0.07);
+    --col-surface-brand-08: rgba(7, 36, 111, 0.08);
+    --col-surface-brand-10: rgba(7, 36, 111, 0.1);
+    --col-surface-brand-13: rgba(7, 36, 111, 0.13);
+    --col-surface-brand-15: rgba(7, 36, 111, 0.15);
+    --col-surface-brand-20: rgba(7, 36, 111, 0.2);
+
     /* --- Tipografia e layout --- */
     --font-main: Arial, sans-serif;
     /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
     --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
+    /* Altezza dell'header sticky (logo 80px + padding 2x15). Usata per: offset
+       degli anchor (scroll-padding-top) e per agganciare sotto l'header gli altri
+       elementi sticky (stepper, riepilogo carrello, sidebar) senza sovrapposizioni. */
+    --header-height: 110px;
 
     /* --- Neutri SOLO per la stampa (print.css): non seguono il tema --- */
     --nero-puro: #000000;
@@ -71,11 +122,7 @@
     --grigio-medio: #666666;
 }
 
-/* 1b. TEMA SCURO — palette "Midnight Slate".
-   Scala neutra slate (niente blu navy di sfondo): superfici da #0F172A a #1E293B,
-   testo bianco-ghiaccio, arancione vibrante per le CTA. I bottoni con fill usano
-   testo SCURO (--col-on-action) per superare WCAG AA sull'arancione brillante.
-   Contrasti verificati WCAG 2.1 AA (testo normale >= 4.5:1, testo grande/UI >= 3:1). */
+/* 1b. TEMA SCURO — palette "Midnight Slate"*/
 [data-theme="dark"] {
     /* Superfici (slate, dal più profondo al più elevato) */
     --col-bg: #0F172A;
@@ -107,6 +154,10 @@
     --col-accent-soft: #FDBA74;
     /* accenti chiari su scuro (nav hover, read-more): su --col-bg ~10:1 */
 
+    /* Icone: arancione chiaro al buio #FFBE85 (su circoli scuri --col-surface ~6.4:1).
+       Valore letterale: in dark --col-accent-soft vale #FDBA74, non #FFBE85 richiesto. */
+    --col-icon: #FFBE85;
+
     /* Bordi (grigi freddi slate) */
     --col-border: #334155;
     --col-border-strong: #475569;
@@ -116,6 +167,23 @@
     --col-action-rgb: 249, 115, 22;
     --col-surface-brand-rgb: 30, 41, 59;
     /* shadow/on-dark restano invariati: ombre near-black e velature near-white anche al buio */
+
+    /* Trasparenze che cambiano col tema. shadow e on-dark NON si ridefiniscono:
+       ereditano i token di :root (stessi canali in entrambi i temi). */
+    --col-accent-10: rgba(251, 146, 60, 0.1);
+    --col-accent-12: rgba(251, 146, 60, 0.12);
+    --col-accent-20: rgba(251, 146, 60, 0.2);
+    --col-accent-25: rgba(251, 146, 60, 0.25);
+    --col-accent-30: rgba(251, 146, 60, 0.3);
+    --col-action-10: rgba(249, 115, 22, 0.1);
+    --col-action-15: rgba(249, 115, 22, 0.15);
+    --col-action-20: rgba(249, 115, 22, 0.2);
+    --col-surface-brand-07: rgba(30, 41, 59, 0.07);
+    --col-surface-brand-08: rgba(30, 41, 59, 0.08);
+    --col-surface-brand-10: rgba(30, 41, 59, 0.1);
+    --col-surface-brand-13: rgba(30, 41, 59, 0.13);
+    --col-surface-brand-15: rgba(30, 41, 59, 0.15);
+    --col-surface-brand-20: rgba(30, 41, 59, 0.2);
 }
 
 /* 2. IMPOSTAZIONI DI BASE */
@@ -137,9 +205,34 @@ body {
 :root { color-scheme: light; }
 [data-theme="dark"] { color-scheme: dark; }
 
-/* Rispetta chi ha chiesto meno animazioni: niente transizione di tema */
+/* Offset per gli anchor con header sticky: quando si salta a un #id (skip-link
+   verso #main-content, "torna su" #top, breadcrumb), il browser lascia in alto
+   lo spazio dell'header, così la destinazione NON finisce nascosta sotto di esso. */
+html {
+    scroll-padding-top: var(--header-height);
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     body { transition: none; }
+}
+
+/* Icone vettoriali inline: il colore arriva dal token --col-icon, che cambia
+   da blu brand (Light) ad arancione chiaro (Dark). Niente fill/stroke hardcoded
+   negli SVG, così ereditano da qui. stroke incluso per eventuali icone a linee.
+   NB: classe .icon-themed (NON .theme-icon, già usata dal toggle sole/luna). */
+.icon-themed {
+    fill: var(--col-icon);
+    stroke: none;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .icon-themed { transition: none; }
 }
 
 a {
@@ -149,15 +242,18 @@ a {
 
 /* 3. HEADER E NAVIGAZIONE */
 header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* sotto lo skip-link (9999), così resta raggiungibile e visibile sopra l'header */
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
     display: flex;
     align-items: center;
     padding: 15px 30px;
-    ;
 }
 
-/* --- REGOLE PER LOGO E TITOLO (Nascondono il bianco!) --- */
+/* --- REGOLE PER LOGO E TITOLO  --- */
 .logo-brand {
     display: flex;
     align-items: center;
@@ -174,6 +270,48 @@ header {
     margin-right: 15px;
 }
 
+/* =========================================
+   BOTTONE HAMBURGER (mobile)
+   Nascosto su desktop; mostrato nella media query <=992px.
+   È un <button> reale: accessibile da tastiera, target 44x44 (WCAG 2.5.5). */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 9px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.nav-toggle-bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--col-text-inverse);
+    /* bianco su header blu scuro: alto contrasto */
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle:focus-visible {
+    outline: 3px solid var(--col-accent-soft);
+    outline-offset: 2px;
+}
+
+/* Aperto: le tre barre diventano una "X" */
+header.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+header.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+header.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-toggle-bar { transition: none; }
+}
+
 header h1 {
     font-size: 1.5em;
 }
@@ -186,8 +324,6 @@ header h1 {
     /* Mantiene le proporzioni corrette senza schiacciare l'immagine */
 }
 
-
-/* Assicuriamoci che l'icona e il testo "Profilo" o "Carrello" stiano bene affiancati */
 #menu-utente a {
     display: flex;
     align-items: center;
@@ -217,6 +353,8 @@ header h1 {
     display: flex;
     list-style: none;
     gap: 20px;
+    align-items: center;
+    /* Centra verticalmente i link e il bottone tema (alture diverse) */
 }
 
 header li {
@@ -245,6 +383,13 @@ header a:not(.btn-login):not(.btn-register):hover {
     border-radius: 99px;
 }
 
+/* Pagina corrente: mantiene il RIQUADRO (sopra) ma SENZA sottolineatura — il box
+   indica già "sei qui", la riga sarebbe ridondante. Mirato solo all'attivo, così
+   l'hover dei link normali conserva la sua sottolineatura. */
+.current-link {
+    text-decoration: none;
+}
+
 /* --- FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) --- */
 #menu-utente .current-link,
 #menu-utente li.current-link a {
@@ -266,7 +411,6 @@ header a:visited {
     align-items: center;
     gap: 15px;
 }
-
 
 /* 4. BREADCRUMB */
 #breadcrumb {
@@ -317,7 +461,7 @@ header a:visited {
     color: var(--col-text-inverse);
     text-align: center;
     padding: 0 var(--spazio-laterale);
-    background-color: rgba(var(--col-shadow-rgb), 0.5);
+    background-color: var(--col-shadow-50);
     background-blend-mode: multiply;
 }
 
@@ -325,7 +469,7 @@ header a:visited {
     font-size: 5em;
     letter-spacing: 0.04em;
     margin-bottom: 14px;
-    text-shadow: 2px 2px 6px rgba(var(--col-shadow-rgb), 0.5);
+    text-shadow: 2px 2px 6px var(--col-shadow-50);
 }
 
 .hero-section h2 {
@@ -455,10 +599,48 @@ main {
     transition: color 0.25s ease, padding-left 0.25s ease;
 }
 
-.footer-col ul a:hover,
-.footer-col ul a:focus-visible {
+/* Pagina già VISITATA in sessione: arancione MA sottolineata (a differenza
+   della pagina corrente, che è arancione SENZA sottolineatura). L'underline
+   arriva dalla regola base .footer-col ul a (su :visited il browser consente
+   solo il cambio di colore, non del text-decoration: per questo basta il colore). */
+.footer-col ul a:visited {
+    color: var(--col-accent-soft);
+    text-decoration: underline;
+}
+
+/* Hover col mouse: arancione con micro-scorrimento. */
+.footer-col ul a:hover {
     color: var(--col-accent-soft);
     padding-left: 6px;
+}
+
+/* Focus da TASTIERA dei link normali (non correnti): testo BIANCO e sottolineato.
+   Volutamente diverso dallo stato attivo/visited (arancione): qui l'indicatore di
+   navigazione è l'outline, dichiarato in .footer-sito a:focus-visible. */
+.footer-col ul a:focus-visible {
+    color: var(--col-text-inverse);
+    text-decoration: underline;
+}
+
+/* Link della pagina corrente nel footer: stesso concetto del menu header.
+   Alta specificità (html body footer ...) per vincere su .footer-col ul a
+   senza ricorrere a !important. Niente sottolineatura, arancione vibrante. */
+html body footer .footer-col ul a.current-link {
+    color: var(--col-accent-soft);
+    text-decoration: none;
+    font-weight: normal;
+    /* Stesso trattamento dell'header: RIQUADRO (pill arancione) + niente
+       sottolineatura. Il box indica "sei qui", la riga sarebbe ridondante. */
+    border: 2px solid var(--col-accent-soft);
+    border-radius: 99px;
+    padding: 6px 14px;
+}
+
+html body footer .footer-col ul a.current-link:hover,
+html body footer .footer-col ul a.current-link:focus-visible {
+    color: var(--col-accent-soft);
+    padding: 6px 14px;
+    /* resta fermo (niente slide dell'hover): indica "sei qui", non è un bersaglio */
 }
 
 /* Colonna contatti */
@@ -487,7 +669,7 @@ main {
 
 /* Barra inferiore con copyright */
 .footer-bottom {
-    border-top: 1px solid rgba(var(--col-on-dark-rgb), 0.18);
+    border-top: 1px solid var(--col-on-dark-18);
     padding: 22px 0;
     text-align: center;
 }
@@ -553,11 +735,14 @@ main {
     font-weight: bold;
 }
 
-/* La Griglia che dispone le card automaticamente */
+/* La Griglia che dispone le card automaticamente.
+   Le colonne sono limitate a 240px (max) così le card non diventano enormi su
+   schermi larghi; justify-content:center le tiene centrate quando avanzano spazi.
+   Su mobile auto-fit scende a 1 colonna (min 200px), sempre <=240px. */
 .griglia-campioni {
     display: grid;
-    /* Crea colonne larghe minimo 220px. Se c'è spazio, le affianca! */
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 240px));
+    justify-content: center;
     gap: 25px;
     /* Spazio tra una card e l'altra */
 }
@@ -567,7 +752,7 @@ main {
     background-color: var(--col-surface-alt);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(var(--col-shadow-rgb), 0.25);
+    box-shadow: 0 6px 20px var(--col-shadow-25);
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-bottom: 5px solid var(--col-accent);
@@ -577,7 +762,7 @@ main {
 .card-campione:hover {
     transform: translateY(-5px);
     /* La card si solleva leggermente */
-    box-shadow: 0 8px 15px rgba(var(--col-shadow-rgb), 0.15);
+    box-shadow: 0 8px 15px var(--col-shadow-15);
     /* L'ombra diventa più intensa */
 }
 
@@ -656,13 +841,13 @@ main {
     /* Bordo identico ai campioni */
     text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.1);
+    box-shadow: 0 4px 10px var(--col-shadow-10);
 }
 
 .rettangolo-notizia:hover {
     transform: translateY(-5px);
     /* Si solleva verso l'alto esattamente come le foto */
-    box-shadow: 0 8px 15px rgba(var(--col-shadow-rgb), 0.2);
+    box-shadow: 0 8px 15px var(--col-shadow-20);
 }
 
 /* Testi dentro il rettangolo */
@@ -754,14 +939,13 @@ main {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 15px rgba(var(--col-shadow-rgb), 0.1);
+    box-shadow: 0 4px 15px var(--col-shadow-10);
     border: 1px solid var(--col-accent-soft);
     /* Bordo definito per chi ha difficoltà visive */
 }
 
 .card-image img {
     width: 100%;
-    height: 240px;
     object-fit: cover;
     border-bottom: 5px solid var(--col-accent);
 }
@@ -872,14 +1056,14 @@ main {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 16px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 4px 16px var(--col-shadow-08);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .ticket-card:hover,
 .ticket-card:focus-within {
     transform: translateY(-6px);
-    box-shadow: 0 14px 32px rgba(var(--col-shadow-rgb), 0.14);
+    box-shadow: 0 14px 32px var(--col-shadow-14);
     border-color: var(--col-link);
 }
 
@@ -1029,7 +1213,7 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: 0 4px 6px var(--col-shadow-05);
 }
 
 /* Effetto al passaggio del mouse o quando si naviga con la tastiera (tab) */
@@ -1038,8 +1222,23 @@ main {
     transform: translateY(-5px);
     border-color: var(--col-accent);
     /* Il bordo si illumina di arancione */
-    box-shadow: 0 8px 15px rgba(var(--col-accent-rgb), 0.2);
+    box-shadow: 0 8px 15px var(--col-accent-20);
     /* Ombra arancione leggera */
+}
+
+/* Focus DA TASTIERA ben visibile: outline netto e staccato, distinto dall'hover,
+   così l'utente capisce esattamente su quale giorno si trova. */
+.date-tile:focus-visible {
+    outline: 3px solid var(--col-link);
+    outline-offset: 3px;
+}
+
+/* Il titolo della sezione viene messo a fuoco via JS (tabindex="-1") dopo una
+   scelta, per far proseguire la navigazione nel nuovo step: nessun outline,
+   perché l'utente non ci è arrivato col Tab ma è stato portato qui dal flusso. */
+.step-header h2[tabindex="-1"]:focus,
+.section-container[tabindex="-1"]:focus {
+    outline: none;
 }
 
 /* Classe per la data selezionata (aggiunta dal tuo JS) */
@@ -1133,7 +1332,7 @@ main {
 /* 8. Variante Highlight (Per le finali, se vuoi farle spiccare un po' di più) */
 .date-tile.highlight {
     background-color: var(--col-surface-alt);
-    border: 1px solid rgba(var(--col-accent-rgb), 0.3);
+    border: 1px solid var(--col-accent-30);
 }
 
 .date-tile.highlight.selected {
@@ -1174,14 +1373,14 @@ main {
     border-left: 4px solid var(--col-accent);
     border-radius: 8px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(var(--col-shadow-rgb), 0.07);
+    box-shadow: 0 2px 8px var(--col-shadow-07);
     overflow: hidden;
     transition: box-shadow 0.2s ease, border-left-color 0.2s ease;
 }
 
 .faq-item:hover,
 .faq-item:focus-within {
-    box-shadow: 0 4px 16px rgba(var(--col-shadow-rgb), 0.12);
+    box-shadow: 0 4px 16px var(--col-shadow-12);
     border-left-color: var(--col-link);
 }
 
@@ -1287,7 +1486,7 @@ main {
     padding: 40px;
     border-radius: 12px;
     border-bottom: 6px solid var(--col-accent);
-    box-shadow: 0 8px 20px rgba(var(--col-shadow-rgb), 0.15);
+    box-shadow: 0 8px 20px var(--col-shadow-15);
     text-align: left;
 }
 
@@ -1344,7 +1543,7 @@ main {
 }
 
 .form-checkbox a {
-    color: var(--col-accent);
+    color: var(--col-accent-soft);
     text-decoration: underline;
 }
 
@@ -1394,12 +1593,13 @@ main {
 /* 2. STICKY BAR & STEPPER */
 .sticky-bar {
     position: sticky;
-    top: 0;
+    top: var(--header-height);
+    /* si aggancia SOTTO l'header sticky, non a top:0 (eviterebbe la sovrapposizione) */
     z-index: 100;
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
     padding: 15px 0;
-    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.2);
+    box-shadow: 0 4px 10px var(--col-shadow-20);
     border-bottom: 4px solid var(--col-accent);
 }
 
@@ -1417,7 +1617,7 @@ main {
 .sticky-title {
     font-size: 1.5em;
     font-weight: bold;
-    color: var(--col-accent);
+    color: var(--col-accent-soft);
     text-transform: uppercase;
 }
 
@@ -1442,8 +1642,10 @@ main {
     color: var(--col-accent-soft);
 }
 
-.step.active img {
-    filter: brightness(0) saturate(100%) invert(53%) sepia(86%) saturate(1472%) hue-rotate(3deg) brightness(70%) contrast(92%);
+/* Step attivo: icona in arancione brand (theme-aware via --col-link),
+   leggibile sia sul cerchio chiaro (Light) sia su quello scuro (Dark). */
+.step.active .icon-themed {
+    fill: var(--col-link);
 }
 
 .step-icon {
@@ -1458,7 +1660,8 @@ main {
     padding: 5px;
 }
 
-.step-icon img {
+.step-icon img,
+.step-icon .icon-themed {
     width: 100%;
     height: auto;
 }
@@ -1521,7 +1724,7 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(var(--col-shadow-rgb), 0.02);
+    box-shadow: 0 4px 6px var(--col-shadow-02);
     width: 100%;
     max-width: 350px;
 }
@@ -1546,6 +1749,12 @@ main {
     height: 50%;
     object-fit: cover;
     transform: scale(1.45);
+}
+
+/* Icona benefit (SVG inline) dentro il cerchio .benefit-icon-wrapper (80px) */
+.benefit-icon {
+    width: 55%;
+    height: 55%;
 }
 
 .benefit-text h4,
@@ -1577,7 +1786,7 @@ main {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 5px 15px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 5px 15px var(--col-shadow-08);
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -1654,12 +1863,12 @@ main {
     font-weight: 500;
 }
 
-.match-highlight {
+.session-details p.match-highlight {
     font-size: 1.1em;
-    border-left-color: var(--col-text-heading) !important;
+    border-left-color: var(--col-text-heading);
 }
 
-.match-highlight strong {
+.session-details p.match-highlight strong {
     color: var(--col-link);
     font-weight: 800;
 }
@@ -1733,13 +1942,13 @@ main {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(var(--col-shadow-rgb), 0.02);
+    box-shadow: 0 2px 5px var(--col-shadow-02);
 }
 
 .seat-category:hover,
 .seat-category:focus-visible {
     border-color: var(--col-accent);
-    box-shadow: 0 6px 15px rgba(var(--col-accent-rgb), 0.12);
+    box-shadow: 0 6px 15px var(--col-accent-12);
     transform: translateY(-2px);
     outline: 3px solid var(--col-link);
     outline-offset: 4px;
@@ -1748,7 +1957,7 @@ main {
 .seat-category.selected {
     border-color: var(--col-accent);
     background-color: var(--col-surface);
-    box-shadow: 0 8px 25px rgba(var(--col-accent-rgb), 0.25);
+    box-shadow: 0 8px 25px var(--col-accent-25);
     transform: translateY(-4px);
 }
 
@@ -1810,7 +2019,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    box-shadow: 0 4px 12px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: 0 4px 12px var(--col-shadow-05);
 }
 
 .purchase-controls {
@@ -1895,14 +2104,33 @@ main {
     width: 100%;
     padding: 16px;
     font-size: 1.25em;
+    font-weight: bold;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    background-color: var(--col-action);
+    color: var(--col-on-action);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     border-radius: 8px;
+}
+
+.action-box .buy-button:hover {
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--col-shadow-20);
+}
+
+.action-box .buy-button:focus-visible {
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
+    outline: 3px solid var(--col-link);
+    outline-offset: 3px;
 }
 
 .action-box .buy-button.added-to-cart {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(var(--col-shadow-rgb), 0.2);
+    box-shadow: 0 8px 20px var(--col-shadow-20);
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
     border: 2px solid var(--col-accent);
@@ -1921,10 +2149,6 @@ main {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
-}
-
-.d-none {
-    display: none !important;
 }
 
 .noscript-warning {
@@ -1950,21 +2174,21 @@ main {
     justify-content: center;
 }
 
-.img-contain {
-    object-fit: contain !important;
+img.img-contain {
+    object-fit: contain;
     background-color: var(--col-surface);
     padding: 10px;
 }
 
-.img-left {
-    object-position: left center !important;
+img.img-left {
+    object-position: left center;
 }
 
 .login-container {
     display: flex;
     background-color: var(--col-surface);
     border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(var(--col-shadow-rgb), 0.12);
+    box-shadow: 0 8px 30px var(--col-shadow-12);
     overflow: hidden;
     max-width: 1100px;
     width: 100%;
@@ -2026,7 +2250,7 @@ main {
 
 .btn-auth {
     display: inline-block;
-    background-color: var(--col-accent);
+    background-color: var(--col-action);
     color: var(--col-on-action);
     padding: 16px;
     font-size: 1.25em;
@@ -2041,7 +2265,8 @@ main {
 
 .btn-auth:hover,
 .btn-auth:focus-visible {
-    background-color: var(--col-action);
+    background-color: var(--col-surface-brand);
+    color: var(--col-text-inverse);
 }
 
 .btn-auth.outline {
@@ -2097,7 +2322,7 @@ main {
     border-radius: 12px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 15px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 4px 15px var(--col-shadow-08);
     overflow: hidden;
     border: 2px solid transparent;
     transition: all 0.3s ease;
@@ -2107,7 +2332,7 @@ main {
 .rettangolo-notizia:focus-visible {
     transform: translateX(10px);
     border-color: var(--col-accent);
-    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.15);
+    box-shadow: 0 8px 25px var(--col-shadow-15);
     outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
@@ -2183,7 +2408,8 @@ main {
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    box-shadow: 0 3px 12px rgba(var(--col-shadow-rgb), 0.14);
+    align-items: stretch;
+    box-shadow: 0 3px 12px var(--col-shadow-14);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -2191,17 +2417,36 @@ main {
 .news-card:focus-within {
     transform: translateY(-3px);
     border-color: var(--col-accent-soft);
-    box-shadow: 0 8px 24px rgba(var(--col-shadow-rgb), 0.2);
+    box-shadow: 0 8px 24px var(--col-shadow-20);
+}
+
+/* La card news è focusabile (tabindex="0") per navigarle in sequenza con Tab:
+   outline netto e visibile quando riceve il focus da tastiera. */
+.news-card:focus-visible {
+    outline: 3px solid var(--col-accent-soft);
+    outline-offset: 3px;
 }
 
 /* Immagine: colonna sinistra fissa */
 .news-card .card-image {
-    width: 240px;
-    flex-shrink: 0;
+    flex: 0 0 280px;
+    /* larghezza fissa 280px (asse principale in riga); l'immagine NON è forzata quadrata */
+    min-height: 240px;
+    /* altezza minima uniforme: le card restano alte almeno così */
+    position: relative;
+    /* contiene l'immagine in posizione assoluta */
     overflow: hidden;
 }
 
+/* Regola immagine UNIFICATA (Home + News). L'immagine è in POSIZIONE ASSOLUTA:
+   esce dal flusso e NON contribuisce all'altezza del wrapper, quindi la foto non
+   può più dettare l'altezza della card (risolve la dipendenza circolare di
+   height:100% su un contenitore ad altezza non-definita). object-fit la ritaglia. */
+.home-news-grid .card-image img,
+.news-card .card-image img,
 .news-card .card-image .news-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -2240,17 +2485,9 @@ main {
     font-size: 0.97em;
 }
 
-/* Responsive: stack verticale su mobile */
-@media screen and (max-width: 640px) {
-    .news-card {
-        flex-direction: column;
-    }
-
-    .news-card .card-image {
-        width: 100%;
-        height: 180px;
-    }
-}
+/* Responsive mobile news: vedi la media query unificata <=768px in fondo al file
+   (dev'essere DOPO tutte le regole desktop di .news-card e .home-news-grid per
+   vincere la cascata, dato che le @media non aumentano la specificità). */
 
 /* 5. Data — var(--col-accent-soft) garantisce contrasto 8:1 su var(--col-text-heading) (WCAG AA) */
 .card-content time {
@@ -2333,10 +2570,11 @@ main {
 }
 
 .auth-form input:focus {
-    outline: none;
+    outline: 3px solid var(--col-link);
+    outline-offset: 2px;
     border-color: var(--col-accent);
     background-color: var(--col-surface);
-    box-shadow: 0 4px 15px rgba(var(--col-action-rgb), 0.15);
+    box-shadow: 0 4px 15px var(--col-action-15);
 }
 
 .auth-form button[type="submit"] {
@@ -2405,29 +2643,66 @@ main {
         overflow-x: hidden;
     }
 
-    /* Mettiamo l'intero header in colonna */
+    /* Header compatto: logo a sinistra, hamburger a destra. Riduco il logo per
+       non avere una barra sticky troppo alta sui telefoni e ricalibro l'offset
+       degli anchor (--header-height) di conseguenza. */
+    :root {
+        --header-height: 80px;
+    }
+
     header {
-        flex-direction: column;
-        padding: 20px 15px;
+        padding: 12px 15px;
+        /* resta in RIGA (logo | hamburger): il menu diventa una tendina assoluta */
     }
 
-    .logo-brand {
-        margin-bottom: 15px;
+    #logo-sito {
+        width: 56px;
+        margin-right: 10px;
     }
 
+    /* Mostra l'hamburger e spingilo a destra */
+    .nav-toggle {
+        display: inline-flex;
+        margin-left: auto;
+    }
+
+    /* Il menu diventa una TENDINA sotto l'header: chiusa finché non si apre.
+       display:none la toglie anche dall'ordine di tab quando è chiusa (corretto). */
     #menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         flex-direction: column;
-        width: 100%;
-        gap: 15px;
+        gap: 0;
+        background-color: var(--col-surface-brand);
+        padding: 8px 15px 16px;
+        box-shadow: 0 10px 24px var(--col-shadow-35);
+        max-height: calc(100vh - var(--header-height));
+        overflow-y: auto;
     }
 
+    header.nav-open #menu {
+        display: flex;
+    }
+
+    /* Le due liste impilate in verticale, a tutta larghezza */
     #menu>ul:first-of-type,
     #menu-utente {
-        display: flex;
-        flex-wrap: wrap;
-        /* Fa andare a capo i link se non ci stanno */
-        justify-content: center;
-        gap: 15px;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        gap: 4px;
+        align-items: stretch;
+    }
+
+    /* Link a tutta larghezza = aree di tocco ampie (>=44px con il padding 12px) */
+    header a,
+    .current-link {
+        display: block;
+        width: 100%;
+        border-radius: 8px;
     }
 
     .hero-section h1 {
@@ -2522,7 +2797,7 @@ main {
     border: 2px solid var(--col-link);
     background-color: var(--col-surface-alt);
     transition: all 0.3s ease;
-    box-shadow: 0 0 0 4px rgba(var(--col-action-rgb), 0.1);
+    box-shadow: 0 0 0 4px var(--col-action-10);
 }
 
 .error-message,
@@ -2559,7 +2834,7 @@ main {
     width: 100%;
     max-width: 600px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(var(--col-shadow-rgb), 0.4);
+    box-shadow: 0 10px 30px var(--col-shadow-40);
     overflow: hidden;
 }
 
@@ -2570,7 +2845,7 @@ main {
     padding: 30px 20px;
     background-color: var(--col-surface-brand);
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(var(--col-surface-brand-rgb), 0.15);
+    box-shadow: 0 10px 30px var(--col-surface-brand-15);
     position: relative;
     overflow: hidden;
 }
@@ -2595,7 +2870,7 @@ main {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 800;
-    text-shadow: 1px 1px 1px rgba(var(--col-shadow-rgb), 0.1);
+    text-shadow: 1px 1px 1px var(--col-shadow-10);
 }
 
 
@@ -2665,7 +2940,7 @@ main {
     /* Più enfasi sull'errore di login */
     background-color: var(--col-bg);
     color: var(--col-text-heading);
-    box-shadow: 0 4px 10px rgba(var(--col-accent-rgb), 0.1);
+    box-shadow: 0 4px 10px var(--col-accent-10);
     /* Ombra leggera arancione */
 }
 
@@ -2695,8 +2970,9 @@ main {
 
 .form-gruppo input:focus {
     border-color: var(--col-link);
-    box-shadow: 0 0 0 4px rgba(var(--col-action-rgb), 0.2);
-    outline: none;
+    box-shadow: 0 0 0 4px var(--col-action-20);
+    outline: 3px solid var(--col-link);
+    outline-offset: 2px;
 }
 
 /* L'input field con l'aggiunta di bordo rosso è definito in input.invalid */
@@ -2831,8 +3107,9 @@ label.label-richiesta::after {
 }
 
 /* Effetto sul totale aggiornato */
-.text-highlight-update {
-    color: var(--col-accent) !important;
+.summary-row .text-highlight-update,
+.cart-summary .text-highlight-update {
+    color: var(--col-accent);
     transform: scale(1.05);
     transition: all 0.2s;
 }
@@ -2878,7 +3155,7 @@ label.label-richiesta::after {
 
 #cart-items-container {
     flex: 2;
-    background-color: transparent;
+    background-color: var(--bg );
 }
 
 .cart-item-card {
@@ -2890,7 +3167,7 @@ label.label-richiesta::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: 0 4px 10px var(--col-shadow-05);
 }
 
 .cart-item-info {
@@ -2903,10 +3180,29 @@ label.label-richiesta::after {
     margin-bottom: 5px;
 }
 
-.cart-item-info p {
-    color: var(--col-text);
+/* Lista di definizione semantica per le coppie Etichetta/Valore (es. Data, Sessione,
+   Quantità nella card del carrello). Riutilizzabile ovunque servano specifiche match.
+   Reset dei margini di default di <dl>/<dd> + layout a riga identico ai vecchi <p>. */
+.specifiche-match {
+    margin: 0;
+    padding: 0;
+}
+
+.spec-riga {
+    display: flex;
+    gap: 0.5rem;
     margin: 3px 0;
     font-size: 1.05em;
+}
+
+.spec-riga dt {
+    font-weight: bold;
+    color: var(--col-text-heading);
+}
+
+.spec-riga dd {
+    margin: 0;
+    color: var(--col-text);
 }
 
 .cart-item-actions {
@@ -2947,9 +3243,9 @@ label.label-richiesta::after {
     border: 2px solid var(--col-link);
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.1);
+    box-shadow: 0 8px 25px var(--col-shadow-10);
     position: sticky;
-    top: 20px;
+    top: calc(var(--header-height) + 20px);
 }
 
 .cart-summary h2 {
@@ -3055,6 +3351,13 @@ label.label-richiesta::after {
     margin-bottom: 10px;
 }
 
+/* Riga decorativa di Area Admin/Utente: l'arancione brand (--col-accent #E17414)
+   non raggiunge il 3:1 richiesto dalla WCAG per gli oggetti grafici sullo sfondo
+   chiaro --col-bg. Usiamo l'arancione scuro --col-link (#A54600) che lo supera. */
+.user-page-header .divider {
+    background-color: var(--col-link);
+}
+
 /* --- 2. SFONDO E STRUTTURA A 2 COLONNE --- */
 .user-page-main {
     background-color: var(--col-bg);
@@ -3079,8 +3382,8 @@ label.label-richiesta::after {
     border-radius: 12px;
     padding: 30px 20px;
     position: sticky;
-    top: 30px;
-    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.15);
+    top: calc(var(--header-height) + 30px);
+    box-shadow: 0 8px 25px var(--col-shadow-15);
     border-bottom: 6px solid var(--col-accent);
 }
 
@@ -3128,7 +3431,7 @@ label.label-richiesta::after {
 }
 
 .menu-list-user a:hover {
-    background-color: rgba(var(--col-on-dark-rgb), 0.1);
+    background-color: var(--col-on-dark-10);
     color: var(--col-accent-soft);
 }
 
@@ -3136,7 +3439,7 @@ label.label-richiesta::after {
     background-color: var(--col-action);
     color: var(--col-on-action);
     transform: translateX(8px);
-    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.2);
+    box-shadow: 0 4px 10px var(--col-shadow-20);
 }
 
 /* --- 4. CONTENUTO CENTRALE (SCHEDE BIANCHE) --- */
@@ -3149,7 +3452,7 @@ label.label-richiesta::after {
     background-color: var(--col-surface);
     border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 8px 25px var(--col-shadow-08);
     border-top: 6px solid var(--col-text-heading);
 }
 
@@ -3190,17 +3493,17 @@ label.label-richiesta::after {
 }
 
 /* Stile per i campi in sola lettura */
-.profile-form input[readonly] {
-    background-color: var(--col-bg) !important;
-    color: var(--col-text) !important;
-    border: 2px dashed var(--col-border) !important;
+form.profile-form input[readonly] {
+    background-color: var(--col-bg);
+    color: var(--col-text);
+    border: 2px dashed var(--col-border);
     cursor: not-allowed;
 }
 
-.profile-form input[readonly]:hover,
-.profile-form input[readonly]:focus {
-    border-color: var(--col-border) !important;
-    box-shadow: none !important;
+form.profile-form input[readonly]:hover,
+form.profile-form input[readonly]:focus {
+    border-color: var(--col-border);
+    box-shadow: none;
 }
 
 .profile-form .btn-auth {
@@ -3241,13 +3544,13 @@ label.label-richiesta::after {
     border-left: 5px solid var(--col-link);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(var(--col-shadow-rgb), 0.07);
+    box-shadow: 0 2px 10px var(--col-shadow-07);
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .ticket-card-user:hover,
 .ticket-card-user:focus-within {
-    box-shadow: 0 6px 20px rgba(var(--col-shadow-rgb), 0.13);
+    box-shadow: 0 6px 20px var(--col-shadow-13);
     transform: translateY(-2px);
 }
 
@@ -3290,21 +3593,6 @@ label.label-richiesta::after {
     font-weight: bold;
     color: var(--col-text);
     margin: 0;
-}
-
-.tcu-location {
-    font-size: 0.9em;
-    color: var(--col-text);
-    margin: 0;
-}
-
-.tcu-stadio {
-    font-weight: bold;
-    color: var(--col-link);
-}
-
-.tcu-tribuna {
-    color: var(--col-text);
 }
 
 /* --- Colonna destra: numero ordine e quantità --- */
@@ -3526,6 +3814,12 @@ label.label-richiesta::after {
         justify-content: space-between;
         align-items: center;
     }
+
+    /* Su schermi stretti la coppia etichetta/valore resta in linea ma può
+       andare a capo se il valore è lungo, senza rompere il layout. */
+    .spec-riga {
+        flex-wrap: wrap;
+    }
 }
 
 /* =========================================
@@ -3588,10 +3882,11 @@ label.label-richiesta::after {
 }
 
 .form-gruppo textarea:focus {
-    outline: none;
+    outline: 3px solid var(--col-link);
+    outline-offset: 2px;
     border-color: var(--col-accent);
     background-color: var(--col-surface);
-    box-shadow: 0 4px 15px rgba(var(--col-action-rgb), 0.15);
+    box-shadow: 0 4px 15px var(--col-action-15);
 }
 
 /* Testi e descrizioni */
@@ -3702,7 +3997,7 @@ label.label-richiesta::after {
     border-left: 4px solid var(--col-text-heading);
     /* Linea blu a sinistra stile citazione */
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 2px 8px rgba(var(--col-shadow-rgb), 0.04);
+    box-shadow: 0 2px 8px var(--col-shadow-04);
 }
 
 /* Fa risaltare la parola "Messaggio:" mandando a capo il testo vero e proprio */
@@ -3749,7 +4044,7 @@ label.label-richiesta::after {
 .msg-success {
     color: var(--col-text-heading);
     border-color: var(--col-accent-soft);
-    box-shadow: 0 4px 12px rgba(var(--col-surface-brand-rgb), 0.1);
+    box-shadow: 0 4px 12px var(--col-surface-brand-10);
 }
 
 .msg-error {
@@ -3783,10 +4078,10 @@ label.label-richiesta::after {
     transition: all 0.3s ease;
 }
 
-.btn-logout-small:hover,
-.btn-logout-small:focus-visible {
+a.btn-logout-small:hover,
+a.btn-logout-small:focus-visible {
     background-color: var(--col-action);
-    color: var(--col-on-action) !important;
+    color: var(--col-on-action);
     outline: 3px solid var(--col-link);
     outline-offset: 4px;
 }
@@ -3811,7 +4106,7 @@ label.label-richiesta::after {
 }
 
 .mail-row:hover {
-    box-shadow: 0 2px 6px rgba(var(--col-shadow-rgb), 0.1);
+    box-shadow: 0 2px 6px var(--col-shadow-10);
     position: relative;
     z-index: 2;
 }
@@ -3946,7 +4241,7 @@ label.label-richiesta::after {
     position: absolute;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(var(--col-on-dark-rgb), 0.4);
+    border: 3px solid var(--col-on-dark-40);
     border-radius: 50%;
     border-top-color: var(--col-text-inverse);
     animation: spin 1s ease-in-out infinite;
@@ -3983,18 +4278,19 @@ label.label-richiesta::after {
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: 0 4px 10px var(--col-shadow-05);
 }
 
 .action-card:hover {
     transform: translateY(-5px);
     border-color: var(--col-accent);
-    box-shadow: 0 8px 15px rgba(var(--col-shadow-rgb), 0.1);
+    box-shadow: 0 8px 15px var(--col-shadow-10);
 }
 
-.action-icon img {
+.action-icon img,
+.action-icon .icon-themed {
     width: 60px;
-    height: auto;
+    height: 60px;
 }
 
 .action-card h3 {
@@ -4057,8 +4353,15 @@ label.label-richiesta::after {
 
 .news-mini-card:hover {
     transform: scale(1.03);
-    box-shadow: 0 5px 15px rgba(var(--col-shadow-rgb), 0.15);
+    box-shadow: 0 5px 15px var(--col-shadow-15);
     border-color: var(--col-text-heading);
+}
+
+/* Focus tastiera ben visibile: l'outline è disegnato sul bottone stesso, quindi
+   l'overflow:hidden della card (che serve a tagliare l'immagine) NON lo nasconde. */
+.news-mini-card:focus-visible {
+    outline: 3px solid var(--col-link);
+    outline-offset: 3px;
 }
 
 .mini-card-img {
@@ -4108,13 +4411,13 @@ label.label-richiesta::after {
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    box-shadow: 0 2px 6px rgba(var(--col-surface-brand-rgb), 0.07);
+    box-shadow: 0 2px 6px var(--col-surface-brand-07);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .faq-admin-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(var(--col-surface-brand-rgb), 0.13);
+    box-shadow: 0 6px 16px var(--col-surface-brand-13);
 }
 
 .faq-card-content {
@@ -4240,7 +4543,7 @@ label.label-richiesta::after {
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 4px 15px var(--col-shadow-08);
     border: 1px solid var(--col-border);
     position: relative;
     transition: transform 0.2s ease;
@@ -4248,7 +4551,7 @@ label.label-richiesta::after {
 
 .ticket-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.12);
+    box-shadow: 0 8px 25px var(--col-shadow-12);
 }
 
 .ticket-info {
@@ -4273,12 +4576,12 @@ label.label-richiesta::after {
 
 .ticket-info::before {
     top: -12px;
-    box-shadow: inset 0 -1px 3px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: inset 0 -1px 3px var(--col-shadow-05);
 }
 
 .ticket-info::after {
     bottom: -12px;
-    box-shadow: inset 0 1px 3px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: inset 0 1px 3px var(--col-shadow-05);
 }
 
 .ticket-badge {
@@ -4344,7 +4647,7 @@ label.label-richiesta::after {
     height: 120px;
     margin-bottom: 15px;
     border: 5px solid var(--col-text-inverse);
-    box-shadow: 0 0 10px rgba(var(--col-shadow-rgb), 0.1);
+    box-shadow: 0 0 10px var(--col-shadow-10);
 }
 
 .ticket-qr .qr-code-id {
@@ -4412,10 +4715,6 @@ label.label-richiesta::after {
     pointer-events: none;
 }
 
-.hidden {
-    display: none !important;
-}
-
 .esito-success {
     color: var(--col-text-heading);
     border-color: var(--col-text-heading);
@@ -4473,20 +4772,21 @@ label.label-richiesta::after {
     border-radius: 4px 8px 8px 4px;
     align-self: flex-start;
     max-width: 90%;
-    box-shadow: 0 1px 3px rgba(var(--col-shadow-rgb), 0.05);
+    box-shadow: 0 1px 3px var(--col-shadow-05);
 }
 
 /* Stile per i campi quando sono modificabili */
-.input-editing {
-    border-bottom: 2px solid var(--col-accent) !important;
-    background-color: var(--col-surface) !important;
+.user-question-box input.input-editing {
+    border-bottom: 2px solid var(--col-accent);
+    background-color: var(--col-surface);
     transition: all 0.3s ease;
 }
 
 /* Pulsante salva (usando i tuoi colori) */
-.btn-save {
-    background-color: var(--col-accent) !important;
-    color: var(--col-on-action) !important;
+button.btn-save,
+input[type="submit"].btn-save {
+    background-color: var(--col-accent);
+    color: var(--col-on-action);
     border: none;
     box-shadow: 0 4px 0 var(--col-action);
 }
@@ -4503,7 +4803,7 @@ label.label-richiesta::after {
     border-radius: 4px 8px 8px 4px;
     align-self: flex-start;
     max-width: 90%;
-    box-shadow: 0 2px 5px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 2px 5px var(--col-shadow-08);
 }
 
 .user-question-box p,
@@ -4557,7 +4857,7 @@ label.label-richiesta::after {
     color: var(--col-text-heading);
     line-height: 1;
     margin: 0;
-    text-shadow: 4px 4px 0px rgba(var(--col-shadow-rgb), 0.05);
+    text-shadow: 4px 4px 0px var(--col-shadow-05);
     /* Leggero effetto profondità */
 }
 
@@ -4584,7 +4884,7 @@ label.label-richiesta::after {
     padding: 35px 40px;
     border-radius: 12px;
     border: 2px solid var(--col-accent);
-    box-shadow: 0 8px 25px rgba(var(--col-shadow-rgb), 0.08);
+    box-shadow: 0 8px 25px var(--col-shadow-08);
     margin-top: 20px;
     width: 100%;
     max-width: 500px;
@@ -4667,7 +4967,7 @@ label.label-richiesta::after {
     /* Centrata con un po' di spazio sotto e sopra */
     border-radius: 16px;
     /* Arrotonda gli angoli (utile se l'immagine non ha lo sfondo trasparente) */
-    box-shadow: 0 10px 30px rgba(var(--col-shadow-rgb), 0.15);
+    box-shadow: 0 10px 30px var(--col-shadow-15);
     /* Una bella ombra morbida */
 
     /* Animazione che la fa galleggiare lentamente */
@@ -4710,7 +5010,7 @@ label.label-richiesta::after {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
     border: 1px solid var(--col-text-heading);
-    box-shadow: 0 10px 15px -3px rgba(var(--col-surface-brand-rgb), 0.2);
+    box-shadow: 0 10px 15px -3px var(--col-surface-brand-20);
 }
 
 .banner-icon {
@@ -4849,8 +5149,13 @@ span a,
     text-decoration: underline;
 }
 
-.d-none {
-    display: none !important;
+/* Utility di nascondimento: raggruppate e senza !important. Definita in coda al
+   foglio, vince per ordine sul default degli elementi; nessuna regola d'autore
+   imposta `display` su questi elementi, quindi non serve forzare la cascata. */
+.d-none,
+.hidden,
+[hidden] {
+    display: none;
 }
 
 .map-img {
@@ -4905,7 +5210,7 @@ span a,
     font-size: 2.2rem;
     /* Freccia più grande */
     text-decoration: none;
-    box-shadow: 0 4px 8px rgba(var(--col-shadow-rgb), 0.3);
+    box-shadow: 0 4px 8px var(--col-shadow-30);
     z-index: 1000;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
@@ -4933,7 +5238,7 @@ span a,
     padding: 48px 56px;
     max-width: 860px;
     margin: 0 auto;
-    box-shadow: 0 4px 20px rgba(var(--col-surface-brand-rgb), 0.08);
+    box-shadow: 0 4px 20px var(--col-surface-brand-08);
     border-top: 4px solid var(--col-link);
 }
 
@@ -5031,13 +5336,13 @@ span a,
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    box-shadow: 0 2px 6px rgba(var(--col-surface-brand-rgb), 0.07);
+    box-shadow: 0 2px 6px var(--col-surface-brand-07);
     transition: box-shadow 0.3s ease, transform 0.3s ease, opacity 0.5s ease;
 }
 
 .news-admin-row:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(var(--col-surface-brand-rgb), 0.13);
+    box-shadow: 0 6px 16px var(--col-surface-brand-13);
 }
 
 .news-admin-row-info {
@@ -5170,7 +5475,8 @@ span a,
 .home-news-grid .news-card {
     display: flex;
     flex-direction: row;
-    box-shadow: 0 3px 12px rgba(var(--col-shadow-rgb), 0.1);
+    align-items: stretch;
+    box-shadow: 0 3px 12px var(--col-shadow-10);
     transition: box-shadow 0.25s ease, transform 0.25s ease;
     min-height: 0;
 }
@@ -5178,23 +5484,19 @@ span a,
 .home-news-grid .news-card:hover,
 .home-news-grid .news-card:focus-within {
     transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(var(--col-shadow-rgb), 0.18);
+    box-shadow: 0 8px 22px var(--col-shadow-18);
 }
 
 /* Immagine: larghezza fissa a sinistra */
 .home-news-grid .card-image {
-    width: 200px;
-    flex-shrink: 0;
+    flex: 0 0 220px;
+    /* larghezza fissa 220px; immagine non forzata quadrata */
+    min-height: 200px;
+    /* altezza minima uniforme per le card della home */
+    position: relative;
     overflow: hidden;
 }
-
-.home-news-grid .card-image img {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: unset;
-    object-fit: cover;
-    display: block;
-}
+/* L'immagine .home-news-grid è gestita dalla regola UNIFICATA (assoluta) più in alto. */
 
 /* Testo: occupa lo spazio rimanente, centrato verticalmente */
 .home-news-grid .card-content {
@@ -5223,22 +5525,26 @@ span a,
     align-self: flex-start;
 }
 
-/* ---- Responsive home news grid ---- */
-@media screen and (max-width: 680px) {
-    .home-news-grid .card-image {
-        width: 140px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    /* Su mobile ritorna verticale */
+/* ===== RESPONSIVE NEWS UNIFICATO (<=768px) =====================================
+   Unico breakpoint per ENTRAMBE le griglie (.news-grid e .home-news-grid).
+   Posizionato in fondo apposta: le @media non aggiungono specificità, quindi
+   deve stare DOPO le regole desktop di .home-news-grid per sovrascriverle.
+   La card diventa verticale; il riquadro immagine usa flex:0 0 220px che, in
+   colonna, blocca l'ALTEZZA a 220px (l'asse principale ora è verticale). Serve
+   min-height:0 per annullare il floor desktop (240/200), altrimenti vincerebbe
+   sui 220px. L'immagine assoluta (inset:0 + object-fit:cover) riempie e ritaglia. */
+@media screen and (max-width: 768px) {
+    .news-card,
     .home-news-grid .news-card {
         flex-direction: column;
     }
 
+    .news-card .card-image,
     .home-news-grid .card-image {
+        flex: 0 0 220px;
+        /* in colonna l'asse principale è verticale: 220px = ALTEZZA rigida (rettangolo) */
+        min-height: 0;
         width: 100%;
-        height: 160px;
     }
 }
 
@@ -5293,24 +5599,29 @@ span a,
    Le due icone (sole/luna) sono aria-hidden; lo SR legge solo aria-label.
 ========================================= */
 .theme-toggle {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+    /* box-sizing: border-box (globale) mantiene il bottone a 40x40 */
     background-color: transparent;
     color: var(--col-text-inverse);
-    border: 2px solid transparent;
-    border-radius: 99px;
+    border: 1px solid var(--col-border);
+    /* bordo sottile agganciato ai token del tema */
+    border-radius: 50%;
+    /* cerchio perfetto */
     cursor: pointer;
-    font-size: 1.25rem;
     line-height: 1;
     transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
+/* Hover: sfondo incassato + testo --col-text (scuro in light, chiaro in dark)
+   così l'icona resta leggibile in ENTRAMBI i temi (l'header è scuro). */
 .theme-toggle:hover {
-    color: var(--col-accent-soft);
+    background-color: var(--col-bg-subtle);
+    color: var(--col-text);
     border-color: var(--col-accent-soft);
 }
 
@@ -5322,6 +5633,9 @@ span a,
 .theme-icon {
     display: none;
     /* L'icona visibile è scelta dal tema corrente, non dal JS */
+    font-size: 1.5rem;
+    /* >= 24px: ben visibile e con buona area cliccabile */
+    line-height: 1;
 }
 
 /* Tema chiaro: mostro la luna (azione = "passa allo scuro").

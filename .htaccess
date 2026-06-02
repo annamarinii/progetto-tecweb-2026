@@ -1,6 +1,6 @@
 # Direttive per la gestione dinamica delle pagine di errore HTTP.
 # I controller PHP sostituiscono i placeholder [Header] e [Footer] tramite Tool::buildHeader/Footer,
 # garantendo che anche le pagine di errore mostrino il layout completo del sito.
-ErrorDocument 403 /progetto_tecweb_2026/403.php
-ErrorDocument 404 /progetto_tecweb_2026/404.php
-ErrorDocument 500 /progetto_tecweb_2026/500.php
+ErrorDocument 403 /progetto_tecweb_2026/php-pages/403.php
+ErrorDocument 404 /progetto_tecweb_2026/php-pages/404.php
+ErrorDocument 500 /progetto_tecweb_2026/php-pages/500.php

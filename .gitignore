@@ -1,0 +1,24 @@
+.DS_Store
+#Configurazioni locali
+/config/*.env
+/config/*.local.php
+
+#Cache e log
+/tmp/
+/logs/
+/cache/
+
+#File di sistema
+.DS_Store
+Thumbs.db
+
+#File temporanei o backup
+*.bak
+*.fls
+*.out
+*.toc
+*.swp
+*.tmp
+*.log
+
+config/conf.php
