@@ -1,8 +1,8 @@
 <?php
 
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/faq_manager.php';
-require_once '../php-Manager/tool.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/faq_manager.php';
+require_once '../php-manager/tool.php';
 
 $messaggio_esito_form = "";
 

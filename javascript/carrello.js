@@ -11,7 +11,7 @@ window.rimuoviItem = function(indice) {
         cardDaRimuovere.classList.add('removing-item'); 
     }
 
-    fetch('../php-Manager/rimuovi_carrello.php', {
+    fetch('../php-manager/rimuovi_carrello.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ indice: indice })
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Se vuoi restare sulla stessa pagina, devi avere un file PHP 
             // che riceve questa richiesta, ad esempio lo stesso carrello.php
-            window.location.href = '../php-Manager/checkout.php';
+            window.location.href = '../php-manager/checkout.php';
         });
     }
 });

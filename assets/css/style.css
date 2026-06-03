@@ -1,71 +1,39 @@
-
 :root {
-    /* --- Superfici / sfondi --- */
+    /* Superfici / sfondi */
     --col-bg: #F1F3FC;
-    /* sfondo principale di pagina e sezioni (ex --azzurro) */
     --col-bg-subtle: #F1F3FC;
-    /* pannelli incassati su superfici chiare: breadcrumb, faq-content, tag, input */
     --col-surface: #F1F1F1;
-    /* card e superfici chiare (ex --white usato come sfondo) */
     --col-surface-alt: #FDF7EB;
-    /* superfici calde (ex --crema usato come sfondo) */
     --col-surface-brand: #07246F;
-    /* superfici scure brand: header, footer, sidebar, banner (ex --blu-scuro bg) */
 
-    /* --- Testo --- */
+    /* Testo */
     --col-text: #101010;
-    /* testo del corpo */
     --col-text-heading: #07246F;
-    /* titoli/testo enfatico su sfondo chiaro + bordi blu (ex --blu-scuro testo/bordo) */
     --col-text-inverse: #F1F1F1;
-    /* testo chiaro su superfici scure (ex --white usato come testo) */
     --col-text-inverse-soft: #FDF7EB;
-    /* testo chiaro caldo su scuro: footer, sidebar (ex --crema usato come testo) */
 
-    /* --- Accenti / azioni --- */
+    /* Accenti / azioni */
     --col-accent: #E17414;
-    /* arancione brand decorativo: bordi, badge, divisori (ex --arancione) */
     --col-action: #A54600;
-    /* sfondo dei bottoni/CTA pieni (ex --arancione-scuro usato come sfondo) */
     --col-on-action: #F1F1F1;
-    /* testo sopra i riempimenti accent/action */
     --col-link: #A54600;
-    /* arancione come testo/link/bordo-accento (ex --arancione-scuro usato come testo) */
     --col-accent-soft: #FFBE85;
-    /* accenti chiari su scuro: hover nav, read-more */
 
-    /* --- Icone (SVG inline .icon-themed) --- */
+    /* Icone (SVG inline .icon-themed) */
     --col-icon: var(--col-text-heading);
-    /* icone blu brand sullo sfondo chiaro (Light Mode) */
 
-    /* --- Bordi --- */
+    /* Bordi */
     --col-border: #F1F3FC;
-    /* bordo tenue (ex --azzurro / --arancione-chiaro usati come bordo) */
     --col-border-strong: #101010;
-    /* bordo marcato (ex --black usato come bordo) */
 
-    /* --- Canali RGB (LEGACY, non più usati) ---
-       Servivano alla sintassi rgba(var(--X-rgb), a), rimossa perché alcuni
-       validatori la segnalano come "Parse Error". Sostituita dai token alpha
-       precompilati più sotto. NON reintrodurre rgba(var(...)): usare i token
-       --col-*-NN. Mantenuti solo come riferimento ai canali del tema chiaro. */
+    /* Canali RGB (LEGACY, non più usati) */
     --col-accent-rgb: 225, 116, 20;
-    /* (ex --arancione-rgb) */
     --col-action-rgb: 165, 70, 0;
-    /* (ex --arancione-scuro-rgb) */
     --col-surface-brand-rgb: 7, 36, 111;
-    /* (ex --blu-scuro-rgb) */
     --col-shadow-rgb: 13, 17, 23;
-    /* ombre, overlay hero, text-shadow: near-black (non nero puro) */
     --col-on-dark-rgb: 240, 244, 250;
-    /* velature chiare su superfici scure: near-white (non bianco puro) */
 
-    /* --- Trasparenze precompilate (token alpha) ---
-       Sostituiscono la sintassi annidata rgba(var(--X-rgb), a), che alcuni
-       validatori (es. Total Validator) segnalano come "Parse Error". I canali
-       RGB del tema sono inseriti direttamente in rgba() classico: colori
-       sempre centralizzati e dark mode intatta. Suffisso = alpha x100. */
-    /* Ombre / overlay — near-black 13,17,23 (identico in dark) */
+    /* Trasparenze precompilate (token alpha) */
     --col-shadow-02: rgba(13, 17, 23, 0.02);
     --col-shadow-04: rgba(13, 17, 23, 0.04);
     --col-shadow-05: rgba(13, 17, 23, 0.05);
@@ -83,21 +51,17 @@
     --col-shadow-35: rgba(13, 17, 23, 0.35);
     --col-shadow-40: rgba(13, 17, 23, 0.4);
     --col-shadow-50: rgba(13, 17, 23, 0.5);
-    /* Velature chiare su scuro — near-white 240,244,250 (identico in dark) */
     --col-on-dark-10: rgba(240, 244, 250, 0.1);
     --col-on-dark-18: rgba(240, 244, 250, 0.18);
     --col-on-dark-40: rgba(240, 244, 250, 0.4);
-    /* Accent (arancione brand) */
     --col-accent-10: rgba(225, 116, 20, 0.1);
     --col-accent-12: rgba(225, 116, 20, 0.12);
     --col-accent-20: rgba(225, 116, 20, 0.2);
     --col-accent-25: rgba(225, 116, 20, 0.25);
     --col-accent-30: rgba(225, 116, 20, 0.3);
-    /* Action (CTA piene) */
     --col-action-10: rgba(165, 70, 0, 0.1);
     --col-action-15: rgba(165, 70, 0, 0.15);
     --col-action-20: rgba(165, 70, 0, 0.2);
-    /* Surface brand (blu scuro) */
     --col-surface-brand-07: rgba(7, 36, 111, 0.07);
     --col-surface-brand-08: rgba(7, 36, 111, 0.08);
     --col-surface-brand-10: rgba(7, 36, 111, 0.1);
@@ -105,16 +69,12 @@
     --col-surface-brand-15: rgba(7, 36, 111, 0.15);
     --col-surface-brand-20: rgba(7, 36, 111, 0.2);
 
-    /* --- Tipografia e layout --- */
+    /* Tipografia e layout */
     --font-main: Arial, sans-serif;
-    /* TRUCCO MAGICO: Calcola lo spazio laterale in base alla grandezza dello schermo */
     --spazio-laterale: max(30px, calc((100vw - 1200px) / 2));
-    /* Altezza dell'header sticky (logo 80px + padding 2x15). Usata per: offset
-       degli anchor (scroll-padding-top) e per agganciare sotto l'header gli altri
-       elementi sticky (stepper, riepilogo carrello, sidebar) senza sovrapposizioni. */
     --header-height: 110px;
 
-    /* --- Neutri SOLO per la stampa (print.css): non seguono il tema --- */
+    /* Neutri SOLO per la stampa (print.css): non seguono il tema */
     --nero-puro: #000000;
     --bianco-puro: #ffffff;
     --grigio-bordo: #cccccc;
@@ -122,54 +82,34 @@
     --grigio-medio: #666666;
 }
 
-/* 1b. TEMA SCURO — palette "Midnight Slate"*/
+/* 1b. TEMA SCURO — palette "Midnight Slate" */
 [data-theme="dark"] {
-    /* Superfici (slate, dal più profondo al più elevato) */
     --col-bg: #0F172A;
     --col-bg-subtle: #172033;
     --col-surface: #1E293B;
     --col-surface-alt: #29374C;
     --col-surface-brand: #1E293B;
-    /* unificato con surface: niente più scontro nero/blu */
 
-    /* Testo */
     --col-text: #F8FAFC;
-    /* bianco ghiaccio: su --col-bg ~17:1, su --col-surface ~14:1 */
     --col-text-heading: #C7D2FE;
-    /* slate-indigo armonico: su --col-surface ~9.7:1 */
     --col-text-inverse: #F8FAFC;
-    /* su --col-surface-brand ~14:1 */
     --col-text-inverse-soft: #E2E8F0;
-    /* slate-200: su superfici scure ~12:1 */
 
-    /* Accenti / azioni (arancione vibrante) */
     --col-accent: #FB923C;
-    /* decorativo: bordi, badge */
     --col-action: #F97316;
-    /* fill CTA: con --col-on-action scuro ~6.4:1 */
     --col-on-action: #0F172A;
-    /* testo SCURO sui bottoni: blinda l'AA sull'arancione brillante */
     --col-link: #FB923C;
-    /* link/testo arancione: su --col-bg ~7.9:1 */
     --col-accent-soft: #FDBA74;
-    /* accenti chiari su scuro (nav hover, read-more): su --col-bg ~10:1 */
 
-    /* Icone: arancione chiaro al buio #FFBE85 (su circoli scuri --col-surface ~6.4:1).
-       Valore letterale: in dark --col-accent-soft vale #FDBA74, non #FFBE85 richiesto. */
     --col-icon: #FFBE85;
 
-    /* Bordi (grigi freddi slate) */
     --col-border: #334155;
     --col-border-strong: #475569;
 
-    /* Canali RGB */
     --col-accent-rgb: 251, 146, 60;
     --col-action-rgb: 249, 115, 22;
     --col-surface-brand-rgb: 30, 41, 59;
-    /* shadow/on-dark restano invariati: ombre near-black e velature near-white anche al buio */
 
-    /* Trasparenze che cambiano col tema. shadow e on-dark NON si ridefiniscono:
-       ereditano i token di :root (stessi canali in entrambi i temi). */
     --col-accent-10: rgba(251, 146, 60, 0.1);
     --col-accent-12: rgba(251, 146, 60, 0.12);
     --col-accent-20: rgba(251, 146, 60, 0.2);
@@ -197,17 +137,12 @@
 body {
     color: var(--col-text);
     background-color: var(--col-bg);
-    /* Sfondo base agganciato al tema: evita aree chiare residue in dark mode */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Comunica al browser lo schema corrente (scrollbar, form nativi, ecc.) */
 :root { color-scheme: light; }
 [data-theme="dark"] { color-scheme: dark; }
 
-/* Offset per gli anchor con header sticky: quando si salta a un #id (skip-link
-   verso #main-content, "torna su" #top, breadcrumb), il browser lascia in alto
-   lo spazio dell'header, così la destinazione NON finisce nascosta sotto di esso. */
 html {
     scroll-padding-top: var(--header-height);
     scroll-behavior: smooth;
@@ -215,24 +150,15 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+    body,
+    .icon-themed,
+    .nav-toggle-bar { transition: none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    body { transition: none; }
-}
-
-/* Icone vettoriali inline: il colore arriva dal token --col-icon, che cambia
-   da blu brand (Light) ad arancione chiaro (Dark). Niente fill/stroke hardcoded
-   negli SVG, così ereditano da qui. stroke incluso per eventuali icone a linee.
-   NB: classe .icon-themed (NON .theme-icon, già usata dal toggle sole/luna). */
 .icon-themed {
     fill: var(--col-icon);
     stroke: none;
     transition: fill 0.3s ease, stroke 0.3s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .icon-themed { transition: none; }
 }
 
 a {
@@ -245,7 +171,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    /* sotto lo skip-link (9999), così resta raggiungibile e visibile sopra l'header */
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
     display: flex;
@@ -253,7 +178,7 @@ header {
     padding: 15px 30px;
 }
 
-/* --- REGOLE PER LOGO E TITOLO  --- */
+/* REGOLE PER LOGO E TITOLO */
 .logo-brand {
     display: flex;
     align-items: center;
@@ -266,14 +191,10 @@ header {
     width: 80px;
     height: auto;
     border-radius: 50%;
-    /* Questo taglia gli angoli bianchi e fa il cerchio */
     margin-right: 15px;
 }
 
-/* =========================================
-   BOTTONE HAMBURGER (mobile)
-   Nascosto su desktop; mostrato nella media query <=992px.
-   È un <button> reale: accessibile da tastiera, target 44x44 (WCAG 2.5.5). */
+/* BOTTONE HAMBURGER (mobile) */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -293,7 +214,6 @@ header {
     width: 100%;
     height: 3px;
     background-color: var(--col-text-inverse);
-    /* bianco su header blu scuro: alto contrasto */
     border-radius: 2px;
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
@@ -303,14 +223,9 @@ header {
     outline-offset: 2px;
 }
 
-/* Aperto: le tre barre diventano una "X" */
 header.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 header.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
 header.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-@media (prefers-reduced-motion: reduce) {
-    .nav-toggle-bar { transition: none; }
-}
 
 header h1 {
     font-size: 1.5em;
@@ -318,22 +233,17 @@ header h1 {
 
 .icone-menu {
     width: 24px;
-    /* Dimensione perfetta e proporzionata. Prova 28px se le vuoi un pelino più grandi */
     height: auto;
 
-    /* Mantiene le proporzioni corrette senza schiacciare l'immagine */
 }
 
 #menu-utente a {
     display: flex;
     align-items: center;
-    /* Li centra in verticale l'uno rispetto all'altro */
     gap: 8px;
-    /* Crea un piccolo spazietto elegante tra l'icona e la parola */
     padding: 12px;
 }
 
-/* ----------------------------------------------------- */
 
 #menu {
     display: flex;
@@ -354,7 +264,6 @@ header h1 {
     list-style: none;
     gap: 20px;
     align-items: center;
-    /* Centra verticalmente i link e il bottone tema (alture diverse) */
 }
 
 header li {
@@ -368,11 +277,8 @@ header a,
     display: inline-block;
     text-decoration: underline;
     text-underline-offset: 4px;
-    /* Distanzia la riga dal testo */
     text-decoration-thickness: 1.5px;
-    /* Rende la linea un po' più marcata e leggibile */
     border: 2px solid transparent;
-    /* Crea lo spazio invisibile per evitare che il menu "salti" */
     border-radius: 99px;
 }
 
@@ -383,14 +289,11 @@ header a:not(.btn-login):not(.btn-register):hover {
     border-radius: 99px;
 }
 
-/* Pagina corrente: mantiene il RIQUADRO (sopra) ma SENZA sottolineatura — il box
-   indica già "sei qui", la riga sarebbe ridondante. Mirato solo all'attivo, così
-   l'hover dei link normali conserva la sua sottolineatura. */
 .current-link {
     text-decoration: none;
 }
 
-/* --- FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) --- */
+/* FIX DEFINITIVO PER PROFILO E CARRELLO (Alta specificità) */
 #menu-utente .current-link,
 #menu-utente li.current-link a {
     display: flex;
@@ -398,18 +301,8 @@ header a:not(.btn-login):not(.btn-register):hover {
     gap: 8px;
 }
 
-/* Colora di arancione i link delle pagine già visitate */
 header a:visited {
     color: var(--col-accent-soft);
-}
-
-/* =========================================
-   PULSANTI AUTH (Login / Registrati)
-========================================= */
-.menu-auth {
-    display: flex;
-    align-items: center;
-    gap: 15px;
 }
 
 /* 4. BREADCRUMB */
@@ -449,7 +342,7 @@ header a:visited {
 
 /* 5. HERO SECTION */
 .hero-section {
-    background-image: url('../images/patavium_arena.jpg');
+    background-image: url('../images/patavium_arena.webp');
     background-size: cover;
     background-position: center;
     height: 85vh;
@@ -480,19 +373,117 @@ header a:visited {
     opacity: 0.9;
 }
 
-.btn-biglietti {
+/* DESIGN SYSTEM — BOTTONE CTA UNIVERSALE */
+.btn-biglietti,
+.btn-primary,
+.btn-auth,
+.btn-checkout,
+.btn-ritorno,
+.btn-select-date,
+.buy-btn,
+.action-box .buy-button {
+    display: inline-block;
     background-color: var(--col-action);
     color: var(--col-on-action);
-    padding: 15px 40px;
-    font-size: 1.2em;
+    padding: 14px 32px;
+    font-size: 1.1em;
     font-weight: bold;
-    border-radius: 30px;
-    transition: all 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
-.btn-biglietti:hover {
+.btn-auth,
+.btn-checkout,
+.btn-primary,
+.action-box .buy-button {
+    width: 100%;
+}
+
+.btn-biglietti:hover,
+.btn-biglietti:focus-visible,
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.btn-auth:hover,
+.btn-auth:focus-visible,
+.btn-checkout:hover:not([disabled]),
+.btn-checkout:focus-visible:not([disabled]),
+.btn-ritorno:hover,
+.btn-ritorno:focus-visible,
+.btn-select-date:hover,
+.btn-select-date:focus-visible,
+.buy-btn:hover,
+.buy-btn:focus-visible,
+.action-box .buy-button:hover,
+.action-box .buy-button:focus-visible {
     background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse)
+    color: var(--col-text-inverse);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--col-shadow-20);
+}
+
+.btn-biglietti:focus-visible,
+.btn-primary:focus-visible,
+.btn-auth:focus-visible,
+.btn-checkout:focus-visible:not([disabled]),
+.btn-ritorno:focus-visible,
+.btn-select-date:focus-visible,
+.buy-btn:focus-visible,
+.action-box .buy-button:focus-visible {
+    outline: 3px solid var(--col-link);
+    outline-offset: 3px;
+}
+
+.btn-checkout[disabled] {
+    background-color: var(--col-bg);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+}
+
+/* DESIGN SYSTEM — CARD UNIVERSALE */
+.card-campione,
+.news-card,
+.ticket-card,
+.benefit-card,
+.session-card,
+.registrazione-card,
+.cart-item-card,
+.content-card,
+.ticket-card-user,
+.action-card,
+.news-mini-card,
+.faq-admin-card,
+.news-admin-row {
+    background-color: var(--col-surface);
+    border: 1px solid var(--col-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px var(--col-shadow-08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-campione:hover,
+.news-card:hover,
+.news-card:focus-within,
+.ticket-card:hover,
+.ticket-card:focus-within,
+.session-card:hover,
+.session-card:focus-within,
+.cart-item-card:hover,
+.content-card:hover,
+.ticket-card-user:hover,
+.ticket-card-user:focus-within,
+.action-card:hover,
+.news-mini-card:hover,
+.news-mini-card:focus-visible,
+.faq-admin-card:hover,
+.news-admin-row:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px var(--col-shadow-15);
 }
 
 /* 6. CORPO PRINCIPALE (MAIN) */
@@ -501,9 +492,7 @@ main {
     padding-bottom: 40px;
 }
 
-/* =========================================
-   SEZIONE BENVENUTO
-========================================= */
+/* SEZIONE BENVENUTO */
 .sezione-benvenuto {
     padding: 80px var(--spazio-laterale);
     background-color: var(--col-bg);
@@ -542,7 +531,6 @@ main {
     border-top: 5px solid var(--col-accent);
 }
 
-/* Griglia delle colonne */
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.4fr;
@@ -554,7 +542,6 @@ main {
     min-width: 0;
 }
 
-/* Colonna brand */
 .footer-logo-img {
     border-radius: 50%;
     margin-bottom: 16px;
@@ -568,7 +555,6 @@ main {
     max-width: 320px;
 }
 
-/* Titoli di colonna */
 .footer-titolo {
     font-size: 1.05em;
     color: var(--col-text-inverse);
@@ -580,7 +566,6 @@ main {
     display: inline-block;
 }
 
-/* Liste di link */
 .footer-col ul {
     list-style: none;
     margin: 0;
@@ -599,38 +584,25 @@ main {
     transition: color 0.25s ease, padding-left 0.25s ease;
 }
 
-/* Pagina già VISITATA in sessione: arancione MA sottolineata (a differenza
-   della pagina corrente, che è arancione SENZA sottolineatura). L'underline
-   arriva dalla regola base .footer-col ul a (su :visited il browser consente
-   solo il cambio di colore, non del text-decoration: per questo basta il colore). */
 .footer-col ul a:visited {
     color: var(--col-accent-soft);
     text-decoration: underline;
 }
 
-/* Hover col mouse: arancione con micro-scorrimento. */
 .footer-col ul a:hover {
     color: var(--col-accent-soft);
     padding-left: 6px;
 }
 
-/* Focus da TASTIERA dei link normali (non correnti): testo BIANCO e sottolineato.
-   Volutamente diverso dallo stato attivo/visited (arancione): qui l'indicatore di
-   navigazione è l'outline, dichiarato in .footer-sito a:focus-visible. */
 .footer-col ul a:focus-visible {
     color: var(--col-text-inverse);
     text-decoration: underline;
 }
 
-/* Link della pagina corrente nel footer: stesso concetto del menu header.
-   Alta specificità (html body footer ...) per vincere su .footer-col ul a
-   senza ricorrere a !important. Niente sottolineatura, arancione vibrante. */
 html body footer .footer-col ul a.current-link {
     color: var(--col-accent-soft);
     text-decoration: none;
     font-weight: normal;
-    /* Stesso trattamento dell'header: RIQUADRO (pill arancione) + niente
-       sottolineatura. Il box indica "sei qui", la riga sarebbe ridondante. */
     border: 2px solid var(--col-accent-soft);
     border-radius: 99px;
     padding: 6px 14px;
@@ -640,10 +612,8 @@ html body footer .footer-col ul a.current-link:hover,
 html body footer .footer-col ul a.current-link:focus-visible {
     color: var(--col-accent-soft);
     padding: 6px 14px;
-    /* resta fermo (niente slide dell'hover): indica "sei qui", non è un bersaglio */
 }
 
-/* Colonna contatti */
 .footer-contatti {
     font-style: normal;
     line-height: 1.7;
@@ -667,7 +637,6 @@ html body footer .footer-col ul a.current-link:focus-visible {
     color: var(--col-text-inverse);
 }
 
-/* Barra inferiore con copyright */
 .footer-bottom {
     border-top: 1px solid var(--col-on-dark-18);
     padding: 22px 0;
@@ -680,14 +649,12 @@ html body footer .footer-col ul a.current-link:focus-visible {
     margin: 0;
 }
 
-/* Focus visibile su tutti i link del footer (accessibilità tastiera) */
 .footer-sito a:focus-visible {
     outline: 3px solid var(--col-accent-soft);
     outline-offset: 3px;
     border-radius: 2px;
 }
 
-/* Responsive footer */
 @media screen and (max-width: 860px) {
     .footer-grid {
         grid-template-columns: 1fr 1fr;
@@ -710,9 +677,7 @@ html body footer .footer-col ul a.current-link:focus-visible {
     }
 }
 
-/* =========================================
-   SEZIONE CAMPIONI (Stile Card)
-========================================= */
+/* SEZIONE CAMPIONI (Stile Card) */
 .sezione-campioni {
     padding: 70px var(--spazio-laterale);
     text-align: center;
@@ -735,47 +700,30 @@ html body footer .footer-col ul a.current-link:focus-visible {
     font-weight: bold;
 }
 
-/* La Griglia che dispone le card automaticamente.
-   Le colonne sono limitate a 240px (max) così le card non diventano enormi su
-   schermi larghi; justify-content:center le tiene centrate quando avanzano spazi.
-   Su mobile auto-fit scende a 1 colonna (min 200px), sempre <=240px. */
 .griglia-campioni {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 240px));
     justify-content: center;
     gap: 25px;
-    /* Spazio tra una card e l'altra */
 }
 
-/* Stile della singola Card */
 .card-campione {
-    background-color: var(--col-surface-alt);
-    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 6px 20px var(--col-shadow-25);
     text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-bottom: 5px solid var(--col-accent);
 }
 
-/* Piccolo effetto quando passi sopra col mouse */
 .card-campione:hover {
     transform: translateY(-5px);
-    /* La card si solleva leggermente */
     box-shadow: 0 8px 15px var(--col-shadow-15);
-    /* L'ombra diventa più intensa */
 }
 
 .card-campione img {
     width: 100%;
     aspect-ratio: 1 / 1;
-    /* Costringe l'immagine a essere un quadrato perfetto */
     object-fit: cover;
-    /* Ritaglia l'immagine senza deformarla per farla entrare nel quadrato */
     display: block;
 }
 
-/* Contenitore dei testi sotto la foto */
 .info-campione {
     padding: 15px;
 }
@@ -796,12 +744,9 @@ html body footer .footer-col ul a.current-link:focus-visible {
     margin: 0;
 }
 
-/* =========================================
-   SEZIONE NOTIZIE 
-========================================= */
+/* SEZIONE NOTIZIE */
 .sezione-notizie {
     background-color: var(--col-bg);
-    /* Sfondo chiaro per far risaltare il blu */
     padding: 50px var(--spazio-laterale);
 }
 
@@ -822,62 +767,13 @@ html body footer .footer-col ul a.current-link:focus-visible {
     font-weight: bold;
 }
 
-/* Contenitore a lista */
 .lista-notizie {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Stile del singolo Rettangolo */
-.rettangolo-notizia {
-    display: block;
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    /* Stesso colore delle card dei campioni! */
-    padding: 25px 30px;
-    border-radius: 8px;
-    border-bottom: 5px solid var(--col-accent);
-    /* Bordo identico ai campioni */
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px var(--col-shadow-10);
-}
-
-.rettangolo-notizia:hover {
-    transform: translateY(-5px);
-    /* Si solleva verso l'alto esattamente come le foto */
-    box-shadow: 0 8px 15px var(--col-shadow-20);
-}
-
-/* Testi dentro il rettangolo */
-.rettangolo-notizia time {
-    display: block;
-    color: var(--col-accent-soft);
-    /* La data spicca in arancione */
-    font-size: 0.85em;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.rettangolo-notizia h3 {
-    color: var(--col-text-inverse);
-    /* Titolo chiaro per leggersi bene sul blu */
-    font-size: 1.6em;
-    margin-bottom: 10px;
-}
-
-.rettangolo-notizia p {
-    color: var(--col-text-inverse-soft);
-    /* Testo un po' più tenue */
-    font-size: 1em;
-    line-height: 1.5;
-    padding: 0;
-}
-
-a:focus-visible,
-.btn-biglietti:focus-visible {
+a:focus-visible {
     outline: 3px solid var(--col-accent);
     outline-offset: 4px;
     box-shadow: none;
@@ -886,18 +782,14 @@ a:focus-visible,
 
 
 
-/* =========================================
-   FIX ACCESSIBILITÀ PAGINA NEWS
-========================================= */
+/* FIX ACCESSIBILITÀ PAGINA NEWS */
 
-/* 1. Reset dello sfondo: il 'main' deve essere chiaro per la leggibilità */
 main {
     background-color: var(--col-bg);
     min-height: 80vh;
     padding-bottom: 60px;
 }
 
-/* 2. Intestazione: contrasto elevato tra testo e sfondo */
 .titoli-notizie {
     text-align: center;
     padding: 60px var(--spazio-laterale) 40px;
@@ -907,12 +799,10 @@ main {
 .titoli-notizie h1 {
     font-size: 3em;
     color: var(--col-text-heading);
-    /* Blu scuro su azzurro = Ottimo contrasto */
     margin-bottom: 15px;
     text-transform: uppercase;
 }
 
-/* Divider Arancione: visibile e decorativo */
 .divider {
     width: 80px;
     height: 6px;
@@ -924,24 +814,17 @@ main {
 .titoli-notizie p {
     font-size: 1.25em;
     color: var(--col-text);
-    /* Forza il nero per ipovedenti */
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
-    /* Spazio tra le righe per facilitare la lettura */
 }
 
 
-/* 4. La Card: struttura solida e leggibile */
 .news-card {
-    background-color: var(--col-surface);
-    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 15px var(--col-shadow-10);
-    border: 1px solid var(--col-accent-soft);
-    /* Bordo definito per chi ha difficoltà visive */
+;
 }
 
 .card-image img {
@@ -958,7 +841,6 @@ main {
 .card-content time {
     display: block;
     font-weight: 800;
-    /* Extra bold per far risaltare l'arancione */
     color: var(--col-accent);
     margin-bottom: 12px;
     font-size: 0.95em;
@@ -972,20 +854,14 @@ main {
     line-height: 1.2;
 }
 
-/* Testo della notizia: Cruciale per l'accessibilità */
 .card-content p {
     color: var(--col-text);
-    /* Nero quasi puro per il massimo contrasto */
     line-height: 1.8;
-    /* Interlinea ampia per dislessia e ipovisione */
     font-size: 1.1em;
     text-align: left;
-    /* Allineamento a sinistra (mai giustificato) */
 }
 
-/* =========================================
-   INTRODUZIONE SEZIONI (es. Biglietti)
-========================================= */
+/* INTRODUZIONE SEZIONI (es. Biglietti) */
 .intro-sezione {
     text-align: center;
     padding: 55px var(--spazio-laterale) 45px;
@@ -1011,14 +887,11 @@ main {
 .intro-sezione p {
     font-size: 1.1em;
     color: var(--col-text);
-    /* Alto contrasto per accessibilità */
     max-width: 850px;
     margin: 0 auto;
     line-height: 1.6;
-    /* Maggiore interlinea per leggibilità */
 }
 
-/* Evidenziazione parole chiave per un tocco premium */
 .highlight-text {
     font-weight: bold;
     color: var(--col-link);
@@ -1028,15 +901,11 @@ main {
     text-decoration: underline;
 }
 
-/* =========================================
-   SEZIONE BIGLIETTI
-========================================= */
+/* SEZIONE BIGLIETTI */
 
-/* Centra il contenitore principale e dà respiro */
 #hero-tickets {
     padding: 20px var(--spazio-laterale) 50px;
     background-color: var(--col-bg);
-    /* Aiuta a far staccare le card bianche */
     text-align: center;
 }
 
@@ -1048,16 +917,10 @@ main {
     margin: 0 auto;
 }
 
-/* Struttura della singola card */
 .ticket-card {
-    background-color: var(--col-surface);
-    border: 1px solid var(--col-accent-soft);
-    border-radius: 14px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 16px var(--col-shadow-08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .ticket-card:hover,
@@ -1067,7 +930,6 @@ main {
     border-color: var(--col-link);
 }
 
-/* Immagine di intestazione */
 .card-header {
     width: 100%;
     height: 220px;
@@ -1087,7 +949,6 @@ main {
     transform: scale(1.05);
 }
 
-/* Zona testi */
 .card-body {
     padding: 22px 22px 10px;
     display: flex;
@@ -1096,7 +957,6 @@ main {
     text-align: left;
 }
 
-/* Titolo categoria grande e d'impatto */
 .card-category {
     font-size: 2em;
     font-weight: bold;
@@ -1107,7 +967,6 @@ main {
     line-height: 1.1;
 }
 
-/* Prezzo */
 .ticket-price {
     font-size: 0.95em;
     color: var(--col-text);
@@ -1120,45 +979,18 @@ main {
     font-weight: bold;
 }
 
-/* Zona bottone */
 .card-footer {
     padding: 16px 22px 22px;
 }
 
-/* Bottone acquisto principale */
-.btn-primary {
-    display: block;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    text-align: center;
-    padding: 14px 20px;
-    font-size: 1.05em;
-    font-weight: bold;
-    border-radius: 8px;
-    width: 100%;
-    transition: background-color 0.25s ease, outline-offset 0.15s ease;
-}
+/* SEZIONE SELEZIONE DATA (CALENDARIO) */
 
-.btn-primary:hover,
-.btn-primary:focus-visible {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    outline: 3px solid var(--col-link);
-    outline-offset: 3px;
-}
-
-/* =========================================
-   SEZIONE SELEZIONE DATA (CALENDARIO)
-========================================= */
-
-/* 1. Contenitore Principale della Sezione */
 .section-container {
     padding: 60px var(--spazio-laterale);
     background-color: var(--col-bg);
 
 }
 
-/* 2. Intestazione dello Step */
 .step-header {
     text-align: center;
     margin-bottom: 40px;
@@ -1187,28 +1019,21 @@ main {
     font-weight: bold;
 }
 
-/* 3. La Griglia del Calendario */
 .calendar-wrapper {
     display: grid;
-    /* Crea colonne fluide: minimo 160px di larghezza */
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 15px;
     align-items: stretch;
-    /* Fa sì che tutte le "mattonelle" siano alte uguali */
 }
 
-/* 4. La "Mattonella" della Data (Date Tile) */
 .date-tile {
     background-color: var(--col-bg);
     border: 1px solid var(--col-border-strong);
-    /*border: 2px solid transparent; /* Bordo invisibile per non farla "saltare" all'hover */
     border-radius: 12px;
     padding: 20px 15px;
     text-align: center;
     cursor: pointer;
-    /* La manina che indica che è cliccabile */
     transition: all 0.3s ease;
-    /* Transizione morbida come hai fatto per le news */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1216,41 +1041,31 @@ main {
     box-shadow: 0 4px 6px var(--col-shadow-05);
 }
 
-/* Effetto al passaggio del mouse o quando si naviga con la tastiera (tab) */
 .date-tile:hover,
 .date-tile:focus-visible {
     transform: translateY(-5px);
     border-color: var(--col-accent);
-    /* Il bordo si illumina di arancione */
     box-shadow: 0 8px 15px var(--col-accent-20);
-    /* Ombra arancione leggera */
 }
 
-/* Focus DA TASTIERA ben visibile: outline netto e staccato, distinto dall'hover,
-   così l'utente capisce esattamente su quale giorno si trova. */
-.date-tile:focus-visible {
+.date-tile:focus-visible,
+.news-mini-card:focus-visible {
     outline: 3px solid var(--col-link);
     outline-offset: 3px;
 }
 
-/* Il titolo della sezione viene messo a fuoco via JS (tabindex="-1") dopo una
-   scelta, per far proseguire la navigazione nel nuovo step: nessun outline,
-   perché l'utente non ci è arrivato col Tab ma è stato portato qui dal flusso. */
 .step-header h2[tabindex="-1"]:focus,
 .section-container[tabindex="-1"]:focus {
     outline: none;
 }
 
-/* Classe per la data selezionata (aggiunta dal tuo JS) */
 .date-tile.selected {
     background-color: var(--col-surface-brand);
     border-color: var(--col-text-heading);
     color: var(--col-text-inverse);
     transform: translateY(-5px);
-    /* Resta sollevata per indicare la selezione */
 }
 
-/* 5. Contenuti dentro la mattonella */
 .day-name {
     font-size: 1em;
     font-weight: bold;
@@ -1259,7 +1074,6 @@ main {
     margin-bottom: 5px;
 }
 
-/* Se la mattonella è selezionata, l'arancione rischia di stonare sul blu scuro, quindi lo facciamo crema */
 .date-tile.selected .day-name {
     color: var(--col-text-inverse-soft);
 }
@@ -1272,12 +1086,10 @@ main {
     margin-bottom: 15px;
 }
 
-/* Se la mattonella è selezionata, il numero diventa bianco */
 .date-tile.selected .day-number {
     color: var(--col-text-inverse);
 }
 
-/* 6. I Tag (Es: "Opening Day", "Best Value") */
 .tag {
     font-size: 0.7em;
     font-weight: bold;
@@ -1289,47 +1101,38 @@ main {
     width: 100%;
 }
 
-/* Colori specifici per i vari Tag */
 .tag {
     background-color: var(--col-bg);
     color: var(--col-text);
 }
 
-/* Default grigio */
 .new-session {
     background-color: var(--col-action);
     color: var(--col-on-action);
 }
 
-/* Arancione scuro */
 .most-popular {
     background-color: var(--col-action);
     color: var(--col-on-action);
 }
 
-/* Arancione brand */
 .finals {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
 }
 
-/* Blu scuro brand */
 
-/* 7. Info sui Match (Testo piccolo in basso) */
 .matches-info {
     font-size: 0.85em;
     color: var(--col-text);
     line-height: 1.3;
     margin-top: auto;
-    /* Spinge il testo in fondo alla card se questa si allunga */
 }
 
-/* Selezionato: testo bianco */
 .date-tile.selected .matches-info {
     color: var(--col-text-inverse);
 }
 
-/* 8. Variante Highlight (Per le finali, se vuoi farle spiccare un po' di più) */
 .date-tile.highlight {
     background-color: var(--col-surface-alt);
     border: 1px solid var(--col-accent-30);
@@ -1337,28 +1140,21 @@ main {
 
 .date-tile.highlight.selected {
     background-color: var(--col-surface-brand);
-    /* Torna blu se selezionata */
 }
 
 .day-name abbr {
     text-decoration: none;
 }
 
-/* =========================================
-   IL DESIGN PER PC (Griglia a 7 colonne)
-   Questo va FUORI dalle Media Queries
-========================================= */
+/* IL DESIGN PER PC (Griglia a 7 colonne) */
 .calendar-wrapper {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    /* 7 colonne su Desktop */
     gap: 15px;
     align-items: stretch;
 }
 
-/* =========================================
-   SEZIONE FAQ
-========================================= */
+/* SEZIONE FAQ */
 
 .faq-wrapper {
     max-width: 860px;
@@ -1443,14 +1239,11 @@ main {
     line-height: 1.75;
 }
 
-/* Quando è aperta, border-left diventa arancione-scuro */
 .faq-item[open] {
     border-left-color: var(--col-link);
 }
 
-/* =========================================
-   SEZIONE CONTATTI
-========================================= */
+/* SEZIONE CONTATTI */
 
 .contatti-sezione {
     max-width: 680px;
@@ -1482,7 +1275,6 @@ main {
 .form-contatti {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse-soft);
-    /* Tutti i testi interni ora saranno crema */
     padding: 40px;
     border-radius: 12px;
     border-bottom: 6px solid var(--col-accent);
@@ -1571,30 +1363,10 @@ main {
     outline-offset: 3px;
 }
 
-/* =========================================
-   SINGLE SESSION & TICKET DETAILS
-========================================= */
-
-/* 1. SEZIONE HERO IMMAGINE (Banner) */
-.session-hero {
-    width: 100%;
-    height: 350px;
-    /* Banner orizzontale */
-    overflow: hidden;
-    margin-bottom: 25px;
-}
-
-.session-hero .hero-full-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 /* 2. STICKY BAR & STEPPER */
 .sticky-bar {
     position: sticky;
     top: var(--header-height);
-    /* si aggancia SOTTO l'header sticky, non a top:0 (eviterebbe la sovrapposizione) */
     z-index: 100;
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
@@ -1642,8 +1414,6 @@ main {
     color: var(--col-accent-soft);
 }
 
-/* Step attivo: icona in arancione brand (theme-aware via --col-link),
-   leggibile sia sul cerchio chiaro (Light) sia su quello scuro (Dark). */
 .step.active .icon-themed {
     fill: var(--col-link);
 }
@@ -1678,21 +1448,6 @@ main {
     opacity: 0.3;
 }
 
-.btn-select-date {
-    display: inline-block;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    padding: 10px 20px;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-select-date:hover,
-.btn-select-date:focus-visible {
-    background-color: var(--col-action);
-}
-
 /* 3. BENEFITS SECTION */
 .benefits-section {
     padding: 40px var(--spazio-laterale);
@@ -1716,15 +1471,11 @@ main {
 }
 
 .benefit-card {
-    background-color: var(--col-surface);
-    border: 1px solid var(--col-border);
-    border-radius: 8px;
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 4px 6px var(--col-shadow-02);
     width: 100%;
     max-width: 350px;
 }
@@ -1751,7 +1502,6 @@ main {
     transform: scale(1.45);
 }
 
-/* Icona benefit (SVG inline) dentro il cerchio .benefit-icon-wrapper (80px) */
 .benefit-icon {
     width: 55%;
     height: 55%;
@@ -1780,14 +1530,9 @@ main {
 }
 
 .session-card {
-    background-color: var(--col-surface);
-    border: 2px solid transparent;
-    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 5px 15px var(--col-shadow-08);
-    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .session-card:hover {
@@ -1863,16 +1608,6 @@ main {
     font-weight: 500;
 }
 
-.session-details p.match-highlight {
-    font-size: 1.1em;
-    border-left-color: var(--col-text-heading);
-}
-
-.session-details p.match-highlight strong {
-    color: var(--col-link);
-    font-weight: 800;
-}
-
 .session-footer {
     padding: 20px 25px;
     background-color: var(--col-bg);
@@ -1886,20 +1621,6 @@ main {
     font-size: 1.3em;
     font-weight: bold;
     color: var(--col-text-heading);
-}
-
-.buy-btn {
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    padding: 12px 20px;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
-
-.buy-btn:hover,
-.buy-btn:focus-visible {
-    background-color: var(--col-accent);
 }
 
 /* 5. SELEZIONE POSTO E ALTRI DETTAGLI BIGLIETTO */
@@ -2099,35 +1820,6 @@ main {
     text-align: center;
 }
 
-.action-box .buy-button {
-    display: block;
-    width: 100%;
-    padding: 16px;
-    font-size: 1.25em;
-    font-weight: bold;
-    text-transform: uppercase;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    border-radius: 8px;
-}
-
-.action-box .buy-button:hover {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px var(--col-shadow-20);
-}
-
-.action-box .buy-button:focus-visible {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    outline: 3px solid var(--col-link);
-    outline-offset: 3px;
-}
-
 .action-box .buy-button.added-to-cart {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px var(--col-shadow-20);
@@ -2162,9 +1854,7 @@ main {
     width: 100%;
 }
 
-/* =========================================
-   PAGINA LOGIN & REGISTRAZIONE SPLIT
-========================================= */
+/* PAGINA LOGIN & REGISTRAZIONE SPLIT */
 .login-page {
     background-color: var(--col-bg);
     padding: 60px var(--spazio-laterale);
@@ -2172,16 +1862,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-img.img-contain {
-    object-fit: contain;
-    background-color: var(--col-surface);
-    padding: 10px;
-}
-
-img.img-left {
-    object-position: left center;
 }
 
 .login-container {
@@ -2248,27 +1928,6 @@ img.img-left {
     gap: 25px;
 }
 
-.btn-auth {
-    display: inline-block;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    padding: 16px;
-    font-size: 1.25em;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-    text-align: center;
-}
-
-.btn-auth:hover,
-.btn-auth:focus-visible {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-}
-
 .btn-auth.outline {
     background-color: transparent;
     color: var(--col-link);
@@ -2281,9 +1940,7 @@ img.img-left {
     color: var(--col-on-action);
 }
 
-/* =========================================
-   HOME PAGE: SEZIONE NOTIZIE
-========================================= */
+/* HOME PAGE: SEZIONE NOTIZIE */
 .sezione-notizie {
     padding: 60px var(--spazio-laterale);
 }
@@ -2314,82 +1971,8 @@ img.img-left {
     margin: 0 auto;
 }
 
-.rettangolo-notizia {
-    background-color: var(--col-surface-brand);
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    border-radius: 12px;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 0 4px 15px var(--col-shadow-08);
-    overflow: hidden;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
+/* PAGINA NEWS */
 
-.rettangolo-notizia:hover,
-.rettangolo-notizia:focus-visible {
-    transform: translateX(10px);
-    border-color: var(--col-accent);
-    box-shadow: 0 8px 25px var(--col-shadow-15);
-    outline: 3px solid var(--col-link);
-    outline-offset: 4px;
-}
-
-.home-news-img-wrapper {
-    width: 250px;
-    flex-shrink: 0;
-    overflow: hidden;
-    border-right: 4px solid var(--col-accent);
-}
-
-.home-news-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.rettangolo-notizia:hover .home-news-img,
-.rettangolo-notizia:focus-visible .home-news-img {
-    transform: scale(1.05);
-}
-
-.home-news-content {
-    padding: 20px 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.home-news-content time {
-    font-size: 0.85em;
-    font-weight: bold;
-    color: var(--col-accent-soft);
-    margin-bottom: 8px;
-    display: block;
-    text-transform: uppercase;
-}
-
-.home-news-content h3 {
-    font-size: 1.3em;
-    color: var(--col-text-inverse);
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-
-.home-news-content p {
-    font-size: 1em;
-    color: var(--col-text-inverse);
-    line-height: 1.5;
-}
-
-/* =========================================
-   PAGINA NEWS
-========================================= */
-
-/* Lista verticale singola colonna per articoli completi */
 .news-grid {
     display: flex;
     flex-direction: column;
@@ -2399,18 +1982,11 @@ img.img-left {
     margin: 0 auto;
 }
 
-/* Card news pagina: layout orizzontale, immagine sinistra */
 .news-card {
-    background-color: var(--col-surface-brand);
-    border: 2px solid transparent;
-    border-left: 5px solid var(--col-accent);
-    border-radius: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    box-shadow: 0 3px 12px var(--col-shadow-14);
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .news-card:hover,
@@ -2420,28 +1996,19 @@ img.img-left {
     box-shadow: 0 8px 24px var(--col-shadow-20);
 }
 
-/* La card news è focusabile (tabindex="0") per navigarle in sequenza con Tab:
-   outline netto e visibile quando riceve il focus da tastiera. */
-.news-card:focus-visible {
+.news-card:focus-visible,
+.theme-toggle:focus-visible {
     outline: 3px solid var(--col-accent-soft);
     outline-offset: 3px;
 }
 
-/* Immagine: colonna sinistra fissa */
 .news-card .card-image {
     flex: 0 0 280px;
-    /* larghezza fissa 280px (asse principale in riga); l'immagine NON è forzata quadrata */
     min-height: 240px;
-    /* altezza minima uniforme: le card restano alte almeno così */
     position: relative;
-    /* contiene l'immagine in posizione assoluta */
     overflow: hidden;
 }
 
-/* Regola immagine UNIFICATA (Home + News). L'immagine è in POSIZIONE ASSOLUTA:
-   esce dal flusso e NON contribuisce all'altezza del wrapper, quindi la foto non
-   può più dettare l'altezza della card (risolve la dipendenza circolare di
-   height:100% su un contenitore ad altezza non-definita). object-fit la ritaglia. */
 .home-news-grid .card-image img,
 .news-card .card-image img,
 .news-card .card-image .news-img {
@@ -2458,7 +2025,6 @@ img.img-left {
     transform: scale(1.04);
 }
 
-/* Contenuto: colonna destra */
 .card-content {
     padding: 22px 28px;
     background-color: var(--col-surface-brand);
@@ -2469,7 +2035,6 @@ img.img-left {
     flex-grow: 1;
 }
 
-/* Titoli */
 .card-content h2,
 .card-content h3 {
     color: var(--col-text-inverse);
@@ -2478,18 +2043,13 @@ img.img-left {
     line-height: 1.35;
 }
 
-/* Testo articolo completo — buona leggibilità */
 .card-content p {
     color: var(--col-text-inverse-soft);
     line-height: 1.75;
     font-size: 0.97em;
 }
 
-/* Responsive mobile news: vedi la media query unificata <=768px in fondo al file
-   (dev'essere DOPO tutte le regole desktop di .news-card e .home-news-grid per
-   vincere la cascata, dato che le @media non aumentano la specificità). */
 
-/* 5. Data — var(--col-accent-soft) garantisce contrasto 8:1 su var(--col-text-heading) (WCAG AA) */
 .card-content time {
     color: var(--col-accent-soft);
     font-weight: 800;
@@ -2498,7 +2058,6 @@ img.img-left {
     margin-bottom: 10px;
 }
 
-/* 6. Link "Leggi di più" — var(--col-accent-soft) = 8:1 su sfondo blu scuro (WCAG AA) */
 .read-more {
     color: var(--col-accent-soft);
     border-bottom: 2px solid var(--col-accent-soft);
@@ -2535,9 +2094,7 @@ img.img-left {
     font-weight: bold;
 }
 
-/* =========================================
-   STILI PER FORM LOGIN / REGISTRAZIONE
-========================================= */
+/* STILI PER FORM LOGIN / REGISTRAZIONE */
 .auth-form label {
     display: block;
     margin-bottom: 8px;
@@ -2634,25 +2191,19 @@ img.img-left {
     }
 }
 
-/* =========================================
-   SCALINO 1: TABLET (sotto i 992px)
-========================================= */
+/* SCALINO 1: TABLET (sotto i 992px) */
 @media (max-width: 992px) {
 
     body {
         overflow-x: hidden;
     }
 
-    /* Header compatto: logo a sinistra, hamburger a destra. Riduco il logo per
-       non avere una barra sticky troppo alta sui telefoni e ricalibro l'offset
-       degli anchor (--header-height) di conseguenza. */
     :root {
         --header-height: 80px;
     }
 
     header {
         padding: 12px 15px;
-        /* resta in RIGA (logo | hamburger): il menu diventa una tendina assoluta */
     }
 
     #logo-sito {
@@ -2660,14 +2211,11 @@ img.img-left {
         margin-right: 10px;
     }
 
-    /* Mostra l'hamburger e spingilo a destra */
     .nav-toggle {
         display: inline-flex;
         margin-left: auto;
     }
 
-    /* Il menu diventa una TENDINA sotto l'header: chiusa finché non si apre.
-       display:none la toglie anche dall'ordine di tab quando è chiusa (corretto). */
     #menu {
         display: none;
         position: absolute;
@@ -2687,7 +2235,6 @@ img.img-left {
         display: flex;
     }
 
-    /* Le due liste impilate in verticale, a tutta larghezza */
     #menu>ul:first-of-type,
     #menu-utente {
         flex-direction: column;
@@ -2697,7 +2244,6 @@ img.img-left {
         align-items: stretch;
     }
 
-    /* Link a tutta larghezza = aree di tocco ampie (>=44px con il padding 12px) */
     header a,
     .current-link {
         display: block;
@@ -2719,15 +2265,11 @@ img.img-left {
 
 }
 
-/* =========================================
-   SCALINO 2: SMARTPHONE (sotto i 768px)
-========================================= */
+/* SCALINO 2: SMARTPHONE (sotto i 768px) */
 @media (max-width: 768px) {
 
-    /* Qui attiviamo la magia dello scorrimento laterale col dito! */
     .calendar-wrapper {
         display: flex;
-        /* Sovrascrive la griglia del PC */
         flex-wrap: nowrap;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -2737,53 +2279,24 @@ img.img-left {
 
     .calendar-wrapper .date-tile {
         flex: 0 0 180px;
-        /* Le card restano larghe 180px e le sfogli */
         scroll-snap-align: center;
     }
 
-    /* Personalizzazione della barra di scorrimento su mobile */
     .calendar-wrapper::-webkit-scrollbar {
         height: 8px;
     }
 
     .calendar-wrapper::-webkit-scrollbar-thumb {
         background-color: var(--col-accent);
-        /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
-    }
-
-    /* Mette l'immagine sopra e il testo sotto */
-    .rettangolo-notizia {
-        flex-direction: column;
-    }
-
-    /* Adatta l'immagine allo schermo mobile */
-    .home-news-img-wrapper {
-        width: 100%;
-        /* L'immagine prende tutta la larghezza dello smartphone */
-        height: 220px;
-        /* Diamo un'altezza fissa per non farla diventare troppo alta */
-        border-right: none;
-        /* Togliamo il bordo arancione laterale... */
-        border-bottom: 4px solid var(--col-accent);
-        /* ...e lo spostiamo sotto la foto! */
-    }
-
-    /* Un po' di respiro in più per il testo su mobile */
-    .home-news-content {
-        padding: 25px 20px;
     }
 }
 
-/* =========================================
-   SCALINO 3: MONITOR GRANDI E TV (sopra i 1400px)
-========================================= */
+/* SCALINO 3: MONITOR GRANDI E TV (sopra i 1400px) */
 
-/* Questa regola si attiva SOLO se lo schermo è più largo di 1400px */
 @media (min-width: 1400px) {
 
     :root {
-        /* Codice corretto */
         --spazio-laterale: calc((100% - 1200px) / 2);
     }
 
@@ -2792,15 +2305,12 @@ img.img-left {
     }
 }
 
-/* Correzione: aggiunto selettore specifico e virgola mancante */
 #form-registrazione input.invalid {
     border: 2px solid var(--col-link);
     background-color: var(--col-surface-alt);
     transition: all 0.3s ease;
     box-shadow: 0 0 0 4px var(--col-action-10);
 }
-
-.error-message,
 .errore-msg {
     display: none;
     color: var(--col-link);
@@ -2808,17 +2318,13 @@ img.img-left {
     font-weight: bold;
     margin-top: 5px;
 }
-
-.error-message.visible,
 .errore-msg.visible {
     display: block;
     animation: shake 0.4s ease-in-out;
 }
 
 
-/* =========================================
-   PAGINA DI REGISTRAZIONE E LOGIN
-========================================= */
+/* PAGINA DI REGISTRAZIONE E LOGIN */
 
 .registrazione-main {
     background-color: var(--col-bg);
@@ -2830,11 +2336,8 @@ img.img-left {
 }
 
 .registrazione-card {
-    background-color: var(--col-surface-alt);
     width: 100%;
     max-width: 600px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px var(--col-shadow-40);
     overflow: hidden;
 }
 
@@ -2850,7 +2353,6 @@ img.img-left {
     overflow: hidden;
 }
 
-/* Aggiungiamo un dettaglio che ricorda il campo da tennis (linea di fondo) */
 .auth-header::after {
     position: absolute;
     bottom: 0;
@@ -2900,7 +2402,6 @@ img.img-left {
 
 .auth-header p {
     color: var(--col-accent-soft);
-    /* Colore più morbido per il sottotitolo */
     font-size: 1.25rem;
     line-height: 1.4;
     max-width: 500px;
@@ -2934,14 +2435,11 @@ img.img-left {
 
 .login-error {
     justify-content: center;
-    /* Centriamo il testo per il form di login */
     text-align: center;
     border: 2px solid var(--col-accent);
-    /* Più enfasi sull'errore di login */
     background-color: var(--col-bg);
     color: var(--col-text-heading);
     box-shadow: 0 4px 10px var(--col-accent-10);
-    /* Ombra leggera arancione */
 }
 
 .login-error strong {
@@ -2954,7 +2452,6 @@ img.img-left {
     margin-bottom: 8px;
     font-weight: bold;
     font-size: 1.1em;
-    /* TRUCCO: Il colore viene ereditato dal contenitore */
     color: inherit;
 }
 
@@ -2975,54 +2472,8 @@ img.img-left {
     outline-offset: 2px;
 }
 
-/* L'input field con l'aggiunta di bordo rosso è definito in input.invalid */
 
-.btn-auth {
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    padding: 15px;
-    font-size: 1.2em;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
-}
-
-.btn-auth:hover,
-.btn-auth:focus-visible {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    transform: translateY(-2px);
-    outline: 3px solid var(--col-link);
-    outline-offset: 4px;
-}
-
-.auth-footer {
-    text-align: center;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid var(--col-border);
-}
-
-.auth-footer p {
-    color: var(--col-text);
-    font-size: 1.05em;
-}
-
-.auth-footer a {
-    color: var(--col-link);
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.auth-footer a:hover,
-.auth-footer a:focus-visible {
-    color: var(--col-text-heading);
-}
-
-/* --- CAMPI OBBLIGATORI: indicatore visivo via CSS (WCAG 2.1 AA) --- */
+/* CAMPI OBBLIGATORI: indicatore visivo via CSS (WCAG 2.1 AA) */
 label.label-richiesta::after {
     content: " (richiesto)";
     font-size: 0.8em;
@@ -3030,7 +2481,7 @@ label.label-richiesta::after {
     font-weight: normal;
 }
 
-/* --- REQUISITI PASSWORD --- */
+/* REQUISITI PASSWORD */
 #pass-requisiti {
     list-style: none;
     padding: 10px 14px;
@@ -3065,7 +2516,6 @@ label.label-richiesta::after {
     color: var(--col-link);
 }
 
-/* Responsività per la registrazione */
 @media (max-width: 600px) {
     .register-section {
         padding: 30px 20px;
@@ -3077,11 +2527,9 @@ label.label-richiesta::after {
     }
 }
 
-/* =========================================
-   PAGINA CARRELLO
-========================================= */
+/* PAGINA CARRELLO */
 
-/* --- Link dinamico "Vai al carrello" post-acquisto --- */
+/* Link dinamico "Vai al carrello" post-acquisto */
 #link-vai-carrello {
     display: block;
     margin-top: 15px;
@@ -3093,11 +2541,9 @@ label.label-richiesta::after {
     transition: color 0.3s ease;
 }
 
-/* Feedback durante la rimozione */
 .removing-item {
     opacity: 0.5;
     pointer-events: none;
-    /* Impedisce altri click durante l'invio */
 }
 
 .fade-out-right {
@@ -3106,20 +2552,11 @@ label.label-richiesta::after {
     opacity: 0;
 }
 
-/* Effetto sul totale aggiornato */
-.summary-row .text-highlight-update,
-.cart-summary .text-highlight-update {
-    color: var(--col-accent);
-    transform: scale(1.05);
-    transition: all 0.2s;
-}
-
 .btn-loading {
     cursor: wait;
     opacity: 0.8;
 }
 
-/* Effetto al passaggio del mouse per una UX migliore */
 #link-vai-carrello:hover {
     color: var(--col-link);
 }
@@ -3159,15 +2596,11 @@ label.label-richiesta::after {
 }
 
 .cart-item-card {
-    background-color: var(--col-surface);
-    border: 2px solid var(--col-border-strong);
-    border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px var(--col-shadow-05);
 }
 
 .cart-item-info {
@@ -3180,9 +2613,6 @@ label.label-richiesta::after {
     margin-bottom: 5px;
 }
 
-/* Lista di definizione semantica per le coppie Etichetta/Valore (es. Data, Sessione,
-   Quantità nella card del carrello). Riutilizzabile ovunque servano specifiche match.
-   Reset dei margini di default di <dl>/<dd> + layout a riga identico ai vecchi <p>. */
 .specifiche-match {
     margin: 0;
     padding: 0;
@@ -3277,31 +2707,7 @@ label.label-richiesta::after {
 }
 
 .btn-checkout {
-    width: 100%;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    padding: 15px;
-    font-size: 1.25em;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     margin-top: 25px;
-}
-
-.btn-checkout:hover:not([disabled]),
-.btn-checkout:focus-visible:not([disabled]) {
-    background-color: var(--col-surface-brand);
-    transform: translateY(-2px);
-    outline: 3px solid var(--col-link);
-    outline-offset: 4px;
-}
-
-.btn-checkout[disabled] {
-    background-color: var(--col-bg);
-    cursor: not-allowed;
-    opacity: 0.6;
 }
 
 .cart-empty {
@@ -3318,27 +2724,9 @@ label.label-richiesta::after {
     margin-bottom: 20px;
 }
 
-.btn-shopping {
-    display: inline-block;
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    padding: 12px 25px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
+/* AREA PERSONALE UTENTE (LAYOUT DEFINITIVO) */
 
-.btn-shopping:hover,
-.btn-shopping:focus-visible {
-    background-color: var(--col-action);
-}
-
-/* =========================================
-   AREA PERSONALE UTENTE (LAYOUT DEFINITIVO)
-========================================= */
-
-/* --- 1. TITOLO DELLA PAGINA --- */
+/* 1. TITOLO DELLA PAGINA */
 .user-page-header {
     text-align: center;
     margin-bottom: 40px;
@@ -3351,14 +2739,11 @@ label.label-richiesta::after {
     margin-bottom: 10px;
 }
 
-/* Riga decorativa di Area Admin/Utente: l'arancione brand (--col-accent #E17414)
-   non raggiunge il 3:1 richiesto dalla WCAG per gli oggetti grafici sullo sfondo
-   chiaro --col-bg. Usiamo l'arancione scuro --col-link (#A54600) che lo supera. */
 .user-page-header .divider {
     background-color: var(--col-link);
 }
 
-/* --- 2. SFONDO E STRUTTURA A 2 COLONNE --- */
+/* 2. SFONDO E STRUTTURA A 2 COLONNE */
 .user-page-main {
     background-color: var(--col-bg);
     padding: 50px var(--spazio-laterale) 80px;
@@ -3374,7 +2759,7 @@ label.label-richiesta::after {
     align-items: flex-start;
 }
 
-/* --- 3. SIDEBAR (MENU LATERALE BLU) --- */
+/* 3. SIDEBAR (MENU LATERALE BLU) */
 .sidebar-user {
     flex: 1;
     min-width: 280px;
@@ -3424,8 +2809,6 @@ label.label-richiesta::after {
     text-underline-offset: 3px;
 }
 
-/* Tab-switcher: nessuna sottolineatura — non navigano verso un'altra pagina.
-   Specificità (0,2,1) sovrascrive .menu-list-user a (0,1,1). */
 .menu-list-user a.tab-link {
     text-decoration: none;
 }
@@ -3442,18 +2825,14 @@ label.label-richiesta::after {
     box-shadow: 0 4px 10px var(--col-shadow-20);
 }
 
-/* --- 4. CONTENUTO CENTRALE (SCHEDE BIANCHE) --- */
+/* 4. CONTENUTO CENTRALE (SCHEDE BIANCHE) */
 .content-area-user {
     flex: 3;
     width: 100%;
 }
 
 .content-card {
-    background-color: var(--col-surface);
-    border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 8px 25px var(--col-shadow-08);
-    border-top: 6px solid var(--col-text-heading);
 }
 
 .content-card h2 {
@@ -3464,7 +2843,6 @@ label.label-richiesta::after {
     padding-bottom: 15px;
 }
 
-/* Magia del cambio scheda (Javascript) */
 .tab-content {
     display: none;
     animation: fadeInTab 0.4s ease forwards;
@@ -3486,13 +2864,12 @@ label.label-richiesta::after {
     }
 }
 
-/* --- 5. DETTAGLI DEL FORM (PROFILO) E BOTTONE --- */
+/* 5. DETTAGLI DEL FORM (PROFILO) E BOTTONE */
 .profile-form .form-gruppo {
     margin-bottom: 25px;
     max-width: 500px;
 }
 
-/* Stile per i campi in sola lettura */
 form.profile-form input[readonly] {
     background-color: var(--col-bg);
     color: var(--col-text);
@@ -3512,19 +2889,8 @@ form.profile-form input[readonly]:focus {
     padding: 14px 35px;
 }
 
-/* --- 6. LISTE (Ordini e Notifiche) --- */
-.orders-list-user,
-.notifications-list-user {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+/* 6b. CARD BIGLIETTI UTENTE (layout orizzontale) */
 
-/* --- 6b. CARD BIGLIETTI UTENTE (layout orizzontale) --- */
-
-/* Contenitore lista: colonna singola, ogni card prende tutta la larghezza */
 .biglietti-list {
     list-style: none;
     padding: 0;
@@ -3534,18 +2900,11 @@ form.profile-form input[readonly]:focus {
     margin-top: 20px;
 }
 
-/* Card orizzontale */
 .ticket-card-user {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    background-color: var(--col-surface);
-    border: 1px solid var(--col-accent-soft);
-    border-left: 5px solid var(--col-link);
-    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 10px var(--col-shadow-07);
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .ticket-card-user:hover,
@@ -3554,7 +2913,7 @@ form.profile-form input[readonly]:focus {
     transform: translateY(-2px);
 }
 
-/* --- Colonna sinistra: badge tipo --- */
+/* Colonna sinistra: badge tipo */
 .tcu-type {
     background-color: var(--col-surface-brand);
     display: flex;
@@ -3576,7 +2935,7 @@ form.profile-form input[readonly]:focus {
     line-height: 1.3;
 }
 
-/* --- Colonna centrale: evento e luogo --- */
+/* Colonna centrale: evento e luogo */
 .tcu-details {
     flex: 1;
     padding: 18px 22px;
@@ -3595,7 +2954,7 @@ form.profile-form input[readonly]:focus {
     margin: 0;
 }
 
-/* --- Colonna destra: numero ordine e quantità --- */
+/* Colonna destra: numero ordine e quantità */
 .tcu-meta {
     padding: 18px 22px;
     display: flex;
@@ -3635,7 +2994,7 @@ form.profile-form input[readonly]:focus {
     margin: 2px 0 0 0;
 }
 
-/* --- Responsive: impilamento verticale su mobile --- */
+/* Responsive: impilamento verticale su mobile */
 @media (max-width: 640px) {
     .ticket-card-user {
         flex-direction: column;
@@ -3673,7 +3032,7 @@ form.profile-form input[readonly]:focus {
     }
 }
 
-/* --- 6c. TABELLA ORDINI E NOTIFICHE --- */
+/* 6c. TABELLA ORDINI E NOTIFICHE */
 .orders-table-user {
     width: 100%;
     border-collapse: collapse;
@@ -3719,29 +3078,12 @@ form.profile-form input[readonly]:focus {
     vertical-align: middle;
 }
 
-/* Riga notifica non letta: sfondo caldo + testo in grassetto */
-.orders-table-user .unread-row {
-    background-color: var(--col-surface-alt);
-    font-weight: bold;
-}
-
-.orders-table-user .unread-row:hover {
-    background-color: var(--col-accent-soft);
-}
-
-/* Riga già letta: tono attenuato */
-.orders-table-user .read-row td {
-    color: var(--col-text);
-}
-
-/* Bottone "Segna Letta" nelle notifiche */
 .btn-close-mail {
     font-size: 0.85em;
     padding: 8px 14px;
     white-space: nowrap;
 }
 
-/* Responsive: stack a card su schermi piccoli */
 @media (max-width: 700px) {
     .orders-table-user thead {
         display: none;
@@ -3778,7 +3120,7 @@ form.profile-form input[readonly]:focus {
     }
 }
 
-/* --- 7. RESPONSIVE MOBILE --- */
+/* 7. RESPONSIVE MOBILE */
 @media (max-width: 900px) {
     .user-layout {
         flex-direction: column;
@@ -3815,18 +3157,13 @@ form.profile-form input[readonly]:focus {
         align-items: center;
     }
 
-    /* Su schermi stretti la coppia etichetta/valore resta in linea ma può
-       andare a capo se il valore è lungo, senza rompere il layout. */
     .spec-riga {
         flex-wrap: wrap;
     }
 }
 
-/* =========================================
-   PANNELLO AMMINISTRATORE
-========================================= */
+/* PANNELLO AMMINISTRATORE */
 
-/* Box che contiene il form per aggiungere una nuova news */
 .admin-form-container {
     background-color: var(--col-surface);
     padding: 30px;
@@ -3841,32 +3178,10 @@ form.profile-form input[readonly]:focus {
     font-size: 1.5em;
 }
 
-/* Titolo della sezione "News Pubblicate" */
-.sub-section-title {
-    color: var(--col-text-heading);
-    font-size: 1.5em;
-    border-bottom: 2px solid var(--col-accent);
-    padding-bottom: 10px;
-    margin-bottom: 25px;
-}
-
-/* Box per rispondere alle domande degli utenti */
-.admin-reply-form {
-    background-color: var(--col-surface);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--col-border);
-    margin-top: 20px;
-}
-
-/* Allarga il gruppo del form al 100%. 
-  Utile per i titoli lunghi delle news e per le aree di testo.
-*/
 .form-gruppo.full-width {
     max-width: 100%;
 }
 
-/* Stile per le Textarea (Caselle di testo grandi) */
 .form-gruppo textarea {
     width: 100%;
     padding: 15px 18px;
@@ -3878,7 +3193,6 @@ form.profile-form input[readonly]:focus {
     color: var(--col-text);
     transition: all 0.3s ease;
     resize: vertical;
-    /* Permette all'utente di allungare la casella solo verso il basso */
 }
 
 .form-gruppo textarea:focus {
@@ -3889,167 +3203,42 @@ form.profile-form input[readonly]:focus {
     box-shadow: 0 4px 15px var(--col-action-15);
 }
 
-/* Testi e descrizioni */
 .section-description {
     margin-bottom: 30px;
     font-size: 1.1em;
     color: var(--col-text);
 }
 
-.user-message {
-    margin-bottom: 20px;
-    font-size: 1.1em;
-    line-height: 1.5;
-}
+/* FIX: TESTO CHECKBOX E BOTTONE ELIMINA */
 
-.news-date {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: var(--col-text);
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-/* Spaziatura nel form di modifica delle news per separarlo dal tasto "Elimina" */
-.news-edit-form {
-    margin-bottom: 15px;
-    border-bottom: 1px solid var(--col-border);
-    padding-bottom: 20px;
-}
-
-/* Tasto di pericolo per le azioni distruttive */
-.btn-danger {
-    background-color: var(--col-action);
-}
-
-.btn-danger:hover,
-.btn-danger:focus-visible {
-    background-color: var(--col-surface-brand);
-}
-
-/* =========================================
-   FIX: TESTO CHECKBOX E BOTTONE ELIMINA
-========================================= */
-
-/* 1. Rende il testo della checkbox leggibile (nero invece che crema) */
 .content-card .form-checkbox label {
     color: var(--col-text);
     font-weight: bold;
 }
 
-/* 2. Rende la card "relativa" per poterci ancorare il bottone a destra */
-.data-card-user {
-    position: relative;
-}
-
-/* 3. Posiziona il form di eliminazione esattamente in basso a destra */
-.form-elimina {
-    position: absolute;
-    bottom: 30px;
-    /* Stessa misura del padding della card */
-    right: 30px;
-}
-
-/* 4. Nuovo stile per il bottone Elimina (Senza rosso, stile "Outline" blu scuro) */
 .btn-outline-dark {
     background-color: transparent;
     color: var(--col-text-heading);
     border: 2px solid var(--col-text-heading);
 }
 
-/* Effetto quando passi col mouse sul bottone elimina */
 .btn-outline-dark:hover,
 .btn-outline-dark:focus-visible {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
 }
 
-/* 1. Stile per la riga "Da:" */
-.message-sender {
-    font-size: 1.1em;
-    color: var(--col-text);
-    margin-bottom: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-}
-
-/* Il "Badge" colorato per il nome utente */
-.sender-badge {
-    color: var(--col-text-heading);
-
-    font-weight: bold;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-left: 8px;
-    letter-spacing: 0.5px;
-}
-
-/* 2. Stile per il riquadro del messaggio ("Fumetto") */
-.user-message {
-    font-size: 1.15em;
-    color: var(--col-text);
-    line-height: 1.6;
-    margin-bottom: 25px;
-    background-color: var(--col-surface);
-    /* Sfondo bianco per farlo risaltare */
-    padding: 15px 20px;
-    border-left: 4px solid var(--col-text-heading);
-    /* Linea blu a sinistra stile citazione */
-    border-radius: 0 8px 8px 0;
-    box-shadow: 0 2px 8px var(--col-shadow-04);
-}
-
-/* Fa risaltare la parola "Messaggio:" mandando a capo il testo vero e proprio */
-.message-label {
-    color: var(--col-text-heading);
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 0.85em;
-    display: block;
-    /* Manda il testo successivo a capo */
-    margin-bottom: 6px;
-    letter-spacing: 1px;
-}
-
-/* Gestione Accordion */
 .mail-content {
     display: none;
-    /* Nascondi di default */
 }
 
 .mail-row.open .mail-content {
     display: block;
-    /* Mostra solo quando la riga ha la classe open */
 }
 
-/* Animazioni di rimozione */
 .mail-row.fade-out {
     opacity: 0;
     transition: opacity 0.4s ease;
-}
-
-/* Messaggi di feedback (SoC: lo stile è qui, non nel JS) */
-/* Messaggi FAQ AJAX */
-.ajax-dynamic-msg-faq {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    border-left: 5px solid;
-    background: var(--col-surface);
-    transition: opacity 0.5s ease;
-}
-
-.msg-success {
-    color: var(--col-text-heading);
-    border-color: var(--col-accent-soft);
-    box-shadow: 0 4px 12px var(--col-surface-brand-10);
-}
-
-.msg-error {
-    color: var(--col-link);
-    border-color: var(--col-link);
 }
 
 .btn-loading {
@@ -4060,11 +3249,8 @@ form.profile-form input[readonly]:focus {
 .btn-logout-small {
     position: absolute;
     right: 30px;
-    /* Distanza dal bordo destro */
     top: 50%;
-    /* Lo spinge a metà altezza */
     transform: translateY(-50%);
-    /* Lo centra perfettamente in verticale */
 
     background-color: transparent;
     color: var(--col-link);
@@ -4111,7 +3297,6 @@ a.btn-logout-small:focus-visible {
     z-index: 2;
 }
 
-/* Stato Non Letto */
 .mail-row.unread {
     background-color: var(--col-surface);
     font-weight: bold;
@@ -4121,7 +3306,6 @@ a.btn-logout-small:focus-visible {
     background-color: var(--col-surface-brand);
 }
 
-/* Stato Letto */
 .mail-row.read {
     background-color: var(--col-bg);
     font-weight: normal;
@@ -4139,7 +3323,6 @@ a.btn-logout-small:focus-visible {
     gap: 15px;
 }
 
-/* Per schermi molto piccoli */
 @media (max-width: 600px) {
     .mail-row-header {
         flex-wrap: wrap;
@@ -4182,7 +3365,6 @@ a.btn-logout-small:focus-visible {
     flex-shrink: 0;
 }
 
-/* Area Risposta Espansa */
 .mail-content {
     background-color: var(--col-surface);
     border-top: 1px dashed var(--col-border);
@@ -4208,61 +3390,19 @@ a.btn-logout-small:focus-visible {
     font-size: 1em;
 }
 
-/* Bottone e Loading */
-.btn-send-reply {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    border: none;
-    padding: 10px 24px;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s;
-    min-width: 140px;
-}
-
-.btn-send-reply:hover {
-    background-color: var(--col-action);
-}
-
-.btn-send-reply.loading {
-    background-color: var(--col-bg);
-    cursor: not-allowed;
-    color: transparent;
-    /* Nasconde il testo */
-    position: relative;
-}
-
-.btn-send-reply.loading::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 3px solid var(--col-on-dark-40);
-    border-radius: 50%;
-    border-top-color: var(--col-text-inverse);
-    animation: spin 1s ease-in-out infinite;
-}
-
 @keyframes spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-/* Dissolvenza riga */
 .mail-row.fade-out {
     opacity: 0;
     transform: translateX(10px);
     transition: all 0.5s ease-out;
 }
 
-/* =========================================
-   UI GESTIONE NEWS (DASHBOARD)
-========================================= */
+/* UI GESTIONE NEWS (DASHBOARD) */
 .news-action-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -4271,14 +3411,9 @@ a.btn-logout-small:focus-visible {
 }
 
 .action-card {
-    background-color: var(--col-surface);
-    border: 2px solid var(--col-border);
-    border-radius: 12px;
     padding: 30px 20px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px var(--col-shadow-05);
 }
 
 .action-card:hover {
@@ -4333,20 +3468,9 @@ a.btn-logout-small:focus-visible {
     display: inline-block;
 }
 
-/* Griglia Miniature News */
-.news-miniatures-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
 .news-mini-card {
-    background: var(--col-surface);
-    border: 1px solid var(--col-border);
-    border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
     text-align: left;
     padding: 0;
 }
@@ -4355,13 +3479,6 @@ a.btn-logout-small:focus-visible {
     transform: scale(1.03);
     box-shadow: 0 5px 15px var(--col-shadow-15);
     border-color: var(--col-text-heading);
-}
-
-/* Focus tastiera ben visibile: l'outline è disegnato sul bottone stesso, quindi
-   l'overflow:hidden della card (che serve a tagliare l'immagine) NON lo nasconde. */
-.news-mini-card:focus-visible {
-    outline: 3px solid var(--col-link);
-    outline-offset: 3px;
 }
 
 .mini-card-img {
@@ -4382,40 +3499,29 @@ a.btn-logout-small:focus-visible {
     line-height: 1.3;
 }
 
-.mini-card-info .mini-date {
-    font-size: 0.85em;
-    color: var(--col-text);
-    font-weight: bold;
-}
-
 .form-actions-row {
     display: flex;
     gap: 15px;
     margin-top: 20px;
 }
 
-/* Lista FAQ admin */
-.faq-list-admin {
+.faq-list-admin,
+.news-admin-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* Card delle FAQ */
 .faq-admin-card {
-    background: var(--col-surface);
-    border-left: 4px solid var(--col-accent);
-    border-radius: 8px;
     padding: 18px 20px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    box-shadow: 0 2px 6px var(--col-surface-brand-07);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.faq-admin-card:hover {
+.faq-admin-card:hover,
+.news-admin-row:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px var(--col-surface-brand-13);
 }
@@ -4443,15 +3549,16 @@ a.btn-logout-small:focus-visible {
     font-size: 0.95rem;
 }
 
-/* Bottoni Azione */
-.faq-actions {
+.faq-actions,
+.news-admin-actions {
     display: flex;
     flex-direction: column;
     gap: 8px;
     flex-shrink: 0;
 }
 
-.btn-edit-faq-trigger {
+.btn-edit-faq-trigger,
+.btn-edit-news-trigger {
     background: var(--col-surface-brand);
     color: var(--col-text-inverse);
     border: none;
@@ -4468,7 +3575,8 @@ a.btn-logout-small:focus-visible {
     opacity: 0.82;
 }
 
-.btn-delete-faq-ajax {
+.btn-delete-faq-ajax,
+.btn-delete-news-ajax {
     background: transparent;
     color: var(--col-link);
     border: 1px solid var(--col-link);
@@ -4485,14 +3593,11 @@ a.btn-logout-small:focus-visible {
     color: var(--col-on-action);
 }
 
-/* Container per le sottoviste (Nuova News, Elenco, ecc.) */
 .admin-view-container {
     display: block;
-    /* Gestito via JS tramite classe .hidden */
     padding-top: 10px;
 }
 
-/* Footer delle viste per i tasti "Indietro" */
 .admin-view-footer {
     margin-top: 25px;
     padding-top: 15px;
@@ -4500,7 +3605,6 @@ a.btn-logout-small:focus-visible {
     text-align: left;
 }
 
-/* Stile universale per i bottoni "Torna alla Dashboard/Elenco" */
 .btn-back-admin {
     background: var(--col-surface);
     border: 1px solid var(--col-border);
@@ -4526,7 +3630,6 @@ a.btn-logout-small:focus-visible {
     font-weight: bold;
 }
 
-/* Testo piccolo informativo per l'immagine corrente */
 .current-img-info {
     display: block;
     margin-top: 5px;
@@ -4534,19 +3637,12 @@ a.btn-logout-small:focus-visible {
 }
 
 
-/* =========================================
-   UI BIGLIETTI UTENTE (TICKET STUB)
-========================================= */
+/* UI BIGLIETTI UTENTE (TICKET STUB) */
 .ticket-card {
     display: flex;
-    background-color: var(--col-surface);
-    border-radius: 12px;
     overflow: hidden;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px var(--col-shadow-08);
-    border: 1px solid var(--col-border);
     position: relative;
-    transition: transform 0.2s ease;
 }
 
 .ticket-card:hover {
@@ -4554,270 +3650,35 @@ a.btn-logout-small:focus-visible {
     box-shadow: 0 8px 25px var(--col-shadow-12);
 }
 
-.ticket-info {
-    flex: 1;
-    padding: 25px;
-    border-right: 2px dashed var(--col-accent-soft);
-    position: relative;
-}
-
-/* Semi-cerchi effetto strappo biglietto */
-.ticket-info::before,
-.ticket-info::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background-color: var(--col-bg);
-    border-radius: 50%;
-    right: -13px;
-    z-index: 5;
-}
-
-.ticket-info::before {
-    top: -12px;
-    box-shadow: inset 0 -1px 3px var(--col-shadow-05);
-}
-
-.ticket-info::after {
-    bottom: -12px;
-    box-shadow: inset 0 1px 3px var(--col-shadow-05);
-}
-
-.ticket-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    background-color: var(--col-accent);
-    color: var(--col-on-action);
-    font-weight: bold;
-    font-size: 0.85em;
-    border-radius: 20px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    letter-spacing: 1px;
-}
-
-.ticket-badge.abbonamento {
-    background-color: var(--col-surface-brand);
-}
-
-.ticket-badge.vip {
-    background-color: var(--col-accent);
-    color: var(--col-text);
-}
-
-.ticket-title {
-    color: var(--col-text-heading);
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.ticket-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.t-detail span {
-    display: block;
-    font-size: 0.8em;
-    color: var(--col-text);
-    text-transform: uppercase;
-    margin-bottom: 2px;
-}
-
-.t-detail strong {
-    color: var(--col-text);
-    font-size: 1.1em;
-}
-
-.ticket-qr {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--col-surface);
-    min-width: 180px;
-}
-
-.ticket-qr img {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 15px;
-    border: 5px solid var(--col-text-inverse);
-    box-shadow: 0 0 10px var(--col-shadow-10);
-}
-
-.ticket-qr .qr-code-id {
-    font-family: monospace;
-    font-size: 1em;
-    color: var(--col-text);
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-
-.btn-download-ticket {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    color: var(--col-accent);
-    border: 2px solid var(--col-accent);
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.8em;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-}
-
-.btn-download-ticket:hover {
-    background-color: var(--col-accent);
-    color: var(--col-on-action);
-    transform: translateY(-2px);
-}
-
 @media (max-width: 768px) {
     .ticket-card {
         flex-direction: column;
     }
-
-    .ticket-info {
-        border-right: none;
-        border-bottom: 2px dashed var(--col-accent-soft);
-    }
-
-    .ticket-info::before,
-    .ticket-info::after {
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .ticket-info::before {
-        top: auto;
-        bottom: -12px;
-    }
-
-    .ticket-info::after {
-        display: none;
-    }
 }
 
 
 
-/* Animazioni */
 .fade-out {
     opacity: 0;
     pointer-events: none;
 }
 
-.esito-success {
-    color: var(--col-text-heading);
-    border-color: var(--col-text-heading);
-}
-
-.esito-error {
-    color: var(--col-link);
-    border-color: var(--col-link);
-}
-
-/* Messaggi di lista vuota */
 .no-data-msg {
     padding: 20px;
-}
-
-/* Elementi delle risposte */
-.reply-given {
-    color: var(--col-text-heading);
-    margin-top: 10px;
-}
-
-/* Gestione visibilità */
-.hidden-content {
-    display: none;
 }
 
 .news-full-text {
     display: none;
 }
 
-/* =========================================
-   STILI PER LE NOTIFICHE (D&R) AREA UTENTE
-========================================= */
-.qa-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 5px;
-}
-
-.box-label {
-    display: block;
-    font-size: 0.85em;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--col-text-heading);
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-}
-
-.user-question-box {
-    background-color: var(--col-surface);
-    border-left: 4px solid var(--col-border);
-    padding: 15px 20px;
-    border-radius: 4px 8px 8px 4px;
-    align-self: flex-start;
-    max-width: 90%;
-    box-shadow: 0 1px 3px var(--col-shadow-05);
-}
-
-/* Stile per i campi quando sono modificabili */
-.user-question-box input.input-editing {
+input.input-editing {
     border-bottom: 2px solid var(--col-accent);
     background-color: var(--col-surface);
     transition: all 0.3s ease;
 }
 
-/* Pulsante salva (usando i tuoi colori) */
-button.btn-save,
-input[type="submit"].btn-save {
-    background-color: var(--col-accent);
-    color: var(--col-on-action);
-    border: none;
-    box-shadow: 0 4px 0 var(--col-action);
-}
+/* PAGINE DI ERRORE (404, 500, ecc.) */
 
-.btn-save:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--col-action);
-}
-
-.admin-answer-box {
-    background-color: var(--col-bg);
-    border-left: 4px solid var(--col-accent);
-    padding: 15px 20px;
-    border-radius: 4px 8px 8px 4px;
-    align-self: flex-start;
-    max-width: 90%;
-    box-shadow: 0 2px 5px var(--col-shadow-08);
-}
-
-.user-question-box p,
-.admin-answer-box p {
-    margin: 0;
-    line-height: 1.5;
-    color: var(--col-text);
-}
-
-/* =========================================
-   PAGINE DI ERRORE (404, 500, ecc.)
-========================================= */
-
-/* Contenitore principale dell'errore */
 .error-section {
     display: flex;
     flex-direction: column;
@@ -4825,13 +3686,10 @@ input[type="submit"].btn-save {
     align-items: center;
     text-align: center;
     min-height: 70vh;
-    /* Fa in modo che il footer non salga troppo su schermi grandi */
     padding: 60px var(--spazio-laterale);
     background-color: var(--col-bg);
 }
 
-/* Titolo H1 (Invisibile esteticamente per far risaltare il numero, 
-   ma letto dagli screen reader e visibile se non c'è CSS) */
 #error-title {
     font-size: 1.2rem;
     color: var(--col-link);
@@ -4848,20 +3706,15 @@ input[type="submit"].btn-save {
     align-items: center;
 }
 
-/* Il numero gigante (404, 500) */
 .error-visual {
-    /* La funzione clamp rende il testo fluido: 
-       minimo 6rem, ottimale 15vw, massimo 12rem su desktop giganti */
     font-size: clamp(6rem, 15vw, 12rem);
     font-weight: 900;
     color: var(--col-text-heading);
     line-height: 1;
     margin: 0;
     text-shadow: 4px 4px 0px var(--col-shadow-05);
-    /* Leggero effetto profondità */
 }
 
-/* Sottotitolo (es. "Palla fuori campo!") */
 .error-content h2 {
     font-size: 2.5rem;
     color: var(--col-text);
@@ -4869,7 +3722,6 @@ input[type="submit"].btn-save {
     margin-bottom: 20px;
 }
 
-/* Testo descrittivo dell'errore */
 .error-content p:not(.error-visual) {
     font-size: 1.25rem;
     color: var(--col-text);
@@ -4878,7 +3730,6 @@ input[type="submit"].btn-save {
     max-width: 650px;
 }
 
-/* Riquadro delle azioni (il bottone per tornare alla home) */
 .error-section .action-box {
     background-color: var(--col-surface);
     padding: 35px 40px;
@@ -4897,84 +3748,21 @@ input[type="submit"].btn-save {
     margin-bottom: 25px;
 }
 
-/* =========================================
-   ACCESSIBILITÀ: SKIP LINK TASTIERA
-========================================= */
-/* Nasconde visivamente il link "Vai al contenuto principale", 
-   ma lo rende visibile non appena l'utente preme il tasto TAB */
-.sr-only-focusable {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
 
-.sr-only-focusable:focus,
-.sr-only-focusable:active {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    display: block;
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    z-index: 9999;
-    text-decoration: none;
-    outline: 4px solid var(--col-text-heading);
-}
-
-.btn-ritorno {
-    display: inline-block;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    padding: 15px 40px;
-    font-size: 1.2em;
-    font-weight: bold;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.btn-ritorno:hover,
-.btn-ritorno:focus-visible {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    outline: 3px solid var(--col-link);
-    outline-offset: 4px;
-}
-
-/* =========================================
-   IMMAGINE PALLINA TRISTE (PAGINE ERRORE)
-========================================= */
+/* IMMAGINE PALLINA TRISTE (PAGINE ERRORE) */
 
 #pallina_triste {
     width: 100%;
     max-width: 100px;
-    /* Su PC non diventerà più larga di così */
     height: auto;
     display: block;
     margin: 20px auto 30px auto;
-    /* Centrata con un po' di spazio sotto e sopra */
     border-radius: 16px;
-    /* Arrotonda gli angoli (utile se l'immagine non ha lo sfondo trasparente) */
     box-shadow: 0 10px 30px var(--col-shadow-15);
-    /* Una bella ombra morbida */
 
-    /* Animazione che la fa galleggiare lentamente */
     animation: floatSadness 4s ease-in-out infinite;
 }
 
-/* La magia dell'animazione */
 @keyframes floatSadness {
     0% {
         transform: translateY(0);
@@ -4982,16 +3770,13 @@ input[type="submit"].btn-save {
 
     50% {
         transform: translateY(-12px);
-        /* Si solleva di 12 pixel */
     }
 
     100% {
         transform: translateY(0);
-        /* Torna giù */
     }
 }
 
-/* Container principale del banner */
 .order-status-banner {
     display: flex;
     align-items: center;
@@ -5002,10 +3787,8 @@ input[type="submit"].btn-save {
     font-family: var(--font-main);
     animation: slideDown 0.5s ease-out;
     border-left: 8px solid var(--col-accent);
-    /* Richiamo alla terra battuta */
 }
 
-/* Variante per il Successo con i tuoi colori */
 .success-banner {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
@@ -5013,15 +3796,9 @@ input[type="submit"].btn-save {
     box-shadow: 0 10px 15px -3px var(--col-surface-brand-20);
 }
 
-.banner-icon {
-    font-size: 2.5rem;
-    /* Un trucco: se l'emoji è troppo colorata, possiamo filtrarla o lasciarla così per contrasto */
-}
-
 .banner-content h2 {
     margin: 0 0 5px 0;
     color: var(--col-accent-soft);
-    /* Colore che spicca sul blu scuro */
     font-size: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -5039,10 +3816,8 @@ input[type="submit"].btn-save {
     padding: 2px 8px;
     border-radius: 4px;
     font-family: monospace;
-    /* Ideale per i codici ordine */
 }
 
-/* Animazione */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -5055,7 +3830,6 @@ input[type="submit"].btn-save {
     }
 }
 
-/* Classe base per i messaggi del form */
 .form-message {
     display: flex;
     align-items: center;
@@ -5065,7 +3839,6 @@ input[type="submit"].btn-save {
     font-size: 1.05rem;
     line-height: 1.5;
     border-left: 6px solid;
-    /* Bordo decorativo stile istituzionale */
     transition: opacity 0.5s ease;
 }
 
@@ -5074,13 +3847,10 @@ input[type="submit"].btn-save {
     pointer-events: none;
 }
 
-/* Variante Errore (Devi loggarti o errore tecnico) */
 .message-error {
     background-color: var(--col-bg);
-    /* Fondo neutro per far risaltare il testo */
     color: var(--col-text);
     border-color: var(--col-accent);
-    /* Segnale di attenzione con l'arancione del torneo */
     border-right: 1px solid var(--col-accent-soft);
     border-top: 1px solid var(--col-accent-soft);
     border-bottom: 1px solid var(--col-accent-soft);
@@ -5097,7 +3867,6 @@ input[type="submit"].btn-save {
     text-underline-offset: 2px;
 }
 
-/* Variante Successo (Acquisto o invio FAQ riuscito) */
 .message-success {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
@@ -5136,11 +3905,6 @@ span a,
     margin-bottom: 15px;
 }
 
-.error-msg {
-    color: var(--col-link);
-    margin-bottom: 15px;
-}
-
 .empty-list-msg {
     padding: 20px;
 }
@@ -5149,9 +3913,6 @@ span a,
     text-decoration: underline;
 }
 
-/* Utility di nascondimento: raggruppate e senza !important. Definita in coda al
-   foglio, vince per ordine sul default degli elementi; nessuna regola d'autore
-   imposta `display` su questi elementi, quindi non serve forzare la cascata. */
 .d-none,
 .hidden,
 [hidden] {
@@ -5165,16 +3926,13 @@ span a,
     height: auto;
 }
 
-/*non eliminare questo serve per il css della stampa*/
+/* non eliminare questo serve per il css della stampa */
 .testo-solo-stampa {
     display: none;
 }
 
-/* ==========================================================
-   ACCESSIBILITA' (SKIP-LINK) E TORNA SU (BACK-TO-TOP)
-   ========================================================== */
+/* ACCESSIBILITA' (SKIP-LINK) E TORNA SU (BACK-TO-TOP) */
 
-/* Skip Link - Nascosto visivamente, appare solo con il tasto Tab (WCAG AA) */
 .skip-link {
     position: absolute;
     top: -100px;
@@ -5192,7 +3950,6 @@ span a,
     top: 0;
 }
 
-/* Pulsante Torna Su */
 .back-to-top {
     position: fixed;
     bottom: 2rem;
@@ -5201,14 +3958,12 @@ span a,
     color: var(--col-on-action);
     border: 2px solid var(--col-link);
     width: 4rem;
-    /* Cerchio più grande */
     height: 4rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.2rem;
-    /* Freccia più grande */
     text-decoration: none;
     box-shadow: 0 4px 8px var(--col-shadow-30);
     z-index: 1000;
@@ -5222,9 +3977,7 @@ span a,
     transform: translateY(-5px);
 }
 
-/* =========================================
-   PAGINE LEGALI (Privacy e Termini)
-   ========================================= */
+/* PAGINE LEGALI (Privacy e Termini) */
 
 .legal-page-container {
     background-color: var(--col-bg);
@@ -5317,32 +4070,14 @@ span a,
     }
 }
 
-/* =========================================
-   GESTIONE NEWS ADMIN (lista con azioni inline)
-   ========================================= */
-
-.news-admin-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+/* GESTIONE NEWS ADMIN (lista con azioni inline) */
 
 .news-admin-row {
-    background: var(--col-surface);
-    border-left: 4px solid var(--col-accent);
-    border-radius: 8px;
     padding: 14px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    box-shadow: 0 2px 6px var(--col-surface-brand-07);
-    transition: box-shadow 0.3s ease, transform 0.3s ease, opacity 0.5s ease;
-}
-
-.news-admin-row:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px var(--col-surface-brand-13);
 }
 
 .news-admin-row-info {
@@ -5375,41 +4110,11 @@ span a,
     display: none;
 }
 
-.news-admin-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.btn-edit-news-trigger {
-    background: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    border: none;
-    padding: 7px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.875rem;
-    transition: opacity 0.2s;
-}
-
 .btn-edit-news-trigger:hover,
 .btn-edit-news-trigger:focus-visible {
     opacity: 0.82;
     outline: 3px solid var(--col-accent-soft);
     outline-offset: 2px;
-}
-
-.btn-delete-news-ajax {
-    background: transparent;
-    color: var(--col-link);
-    border: 1px solid var(--col-link);
-    padding: 7px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: background 0.2s, color 0.2s;
 }
 
 .btn-delete-news-ajax:hover,
@@ -5438,10 +4143,7 @@ span a,
     }
 }
 
-/* =========================================
-   HOME PAGE — NEWS COMPATTE (griglia 3 colonne)
-   Scoped con #home-notizie per non toccare la pagina News.
-   ========================================= */
+/* HOME PAGE — NEWS COMPATTE (griglia 3 colonne) */
 
 #home-notizie {
     background-color: var(--col-bg);
@@ -5462,8 +4164,6 @@ span a,
     font-weight: 600;
 }
 
-/* Griglia a 3 colonne */
-/* Lista orizzontale: immagine sinistra, testo destra — più compatta e leggibile */
 .home-news-grid {
     display: flex;
     flex-direction: column;
@@ -5487,18 +4187,13 @@ span a,
     box-shadow: 0 8px 22px var(--col-shadow-18);
 }
 
-/* Immagine: larghezza fissa a sinistra */
 .home-news-grid .card-image {
     flex: 0 0 220px;
-    /* larghezza fissa 220px; immagine non forzata quadrata */
     min-height: 200px;
-    /* altezza minima uniforme per le card della home */
     position: relative;
     overflow: hidden;
 }
-/* L'immagine .home-news-grid è gestita dalla regola UNIFICATA (assoluta) più in alto. */
 
-/* Testo: occupa lo spazio rimanente, centrato verticalmente */
 .home-news-grid .card-content {
     padding: 16px 22px;
     flex-grow: 1;
@@ -5525,14 +4220,7 @@ span a,
     align-self: flex-start;
 }
 
-/* ===== RESPONSIVE NEWS UNIFICATO (<=768px) =====================================
-   Unico breakpoint per ENTRAMBE le griglie (.news-grid e .home-news-grid).
-   Posizionato in fondo apposta: le @media non aggiungono specificità, quindi
-   deve stare DOPO le regole desktop di .home-news-grid per sovrascriverle.
-   La card diventa verticale; il riquadro immagine usa flex:0 0 220px che, in
-   colonna, blocca l'ALTEZZA a 220px (l'asse principale ora è verticale). Serve
-   min-height:0 per annullare il floor desktop (240/200), altrimenti vincerebbe
-   sui 220px. L'immagine assoluta (inset:0 + object-fit:cover) riempie e ritaglia. */
+/* RESPONSIVE NEWS UNIFICATO (<=768px) */
 @media screen and (max-width: 768px) {
     .news-card,
     .home-news-grid .news-card {
@@ -5542,13 +4230,12 @@ span a,
     .news-card .card-image,
     .home-news-grid .card-image {
         flex: 0 0 220px;
-        /* in colonna l'asse principale è verticale: 220px = ALTEZZA rigida (rettangolo) */
         min-height: 0;
         width: 100%;
     }
 }
 
-/* ---- Responsive sezione benvenuto (grid → stack) ---- */
+/* Responsive sezione benvenuto (grid → stack) */
 @media screen and (max-width: 820px) {
     .sezione-benvenuto {
         grid-template-columns: 1fr;
@@ -5571,7 +4258,7 @@ span a,
     }
 }
 
-/* ---- Responsive hero ---- */
+/* Responsive hero */
 @media screen and (max-width: 992px) {
     .hero-section h1 {
         font-size: 3.2em;
@@ -5593,11 +4280,7 @@ span a,
     }
 }
 
-/* =========================================
-   BOTTONE DARK MODE (toggle tema)
-   Vive nell'header, eredita lo stile dei link nav ma è un <button> semantico.
-   Le due icone (sole/luna) sono aria-hidden; lo SR legge solo aria-label.
-========================================= */
+/* BOTTONE DARK MODE (toggle tema) */
 .theme-toggle {
     display: flex;
     align-items: center;
@@ -5605,46 +4288,31 @@ span a,
     width: 40px;
     height: 40px;
     padding: 6px;
-    /* box-sizing: border-box (globale) mantiene il bottone a 40x40 */
     background-color: transparent;
     color: var(--col-text-inverse);
     border: 1px solid var(--col-border);
-    /* bordo sottile agganciato ai token del tema */
     border-radius: 50%;
-    /* cerchio perfetto */
     cursor: pointer;
     line-height: 1;
     transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
-/* Hover: sfondo incassato + testo --col-text (scuro in light, chiaro in dark)
-   così l'icona resta leggibile in ENTRAMBI i temi (l'header è scuro). */
 .theme-toggle:hover {
     background-color: var(--col-bg-subtle);
     color: var(--col-text);
     border-color: var(--col-accent-soft);
 }
 
-.theme-toggle:focus-visible {
-    outline: 3px solid var(--col-accent-soft);
-    outline-offset: 3px;
-}
-
 .theme-icon {
     display: none;
-    /* L'icona visibile è scelta dal tema corrente, non dal JS */
     font-size: 1.5rem;
-    /* >= 24px: ben visibile e con buona area cliccabile */
     line-height: 1;
 }
 
-/* Tema chiaro: mostro la luna (azione = "passa allo scuro").
-   :not([data-theme="dark"]) evita che la luna resti visibile anche al buio. */
 :root:not([data-theme="dark"]) .theme-icon-moon {
     display: inline;
 }
 
-/* Tema scuro: mostro il sole (azione = "passa al chiaro") */
 [data-theme="dark"] .theme-icon-sun {
     display: inline;
 }

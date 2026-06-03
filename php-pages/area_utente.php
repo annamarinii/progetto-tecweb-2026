@@ -1,9 +1,9 @@
 <?php
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/account_manager.php';
-require_once '../php-Manager/faq_manager.php';
-require_once '../php-Manager/ticket_manager.php';
-require_once '../php-Manager/tool.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/account_manager.php';
+require_once '../php-manager/faq_manager.php';
+require_once '../php-manager/ticket_manager.php';
+require_once '../php-manager/tool.php';
 
 // 1. CONTROLLO ACCESSO
 if (!Tool::isLoggedIn()) {
@@ -152,7 +152,7 @@ if (empty($notifiche)) {
     </table>';
 }
 
-$pagina_html = file_get_contents(__DIR__ . '/../pages/areautente.html');
+$pagina_html = file_get_contents(__DIR__ . '/../pages/area_utente.html');
 $pagina_html = str_replace('[Header]',           Tool::buildHeader('areautente'), $pagina_html);
 $pagina_html = str_replace('[Footer]',           Tool::buildFooter('areautente'), $pagina_html);
 $pagina_html = str_replace('[messaggio_esito]',  $messaggio_esito,  $pagina_html);

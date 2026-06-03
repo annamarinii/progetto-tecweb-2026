@@ -1,7 +1,7 @@
 <?php
 
-require '../php-Manager/init_session.php';
-require_once '../php-Manager/tool.php';
+require '../php-manager/init_session.php';
+require_once '../php-manager/tool.php';
 
 $carrello = isset($_SESSION['carrello']) ? $_SESSION['carrello'] : [];
 $totale = 0;
@@ -43,7 +43,7 @@ if (empty($carrello)) {
 
     // Pulsante attivo se il carrello contiene elementi
     $html_pulsante_acquisto = '
-        <form action="../php-Manager/checkout.php" method="POST">
+        <form action="../php-manager/checkout.php" method="POST">
             <button type="submit" class="btn-checkout">Completa Acquisto</button>
         </form>';
 }
