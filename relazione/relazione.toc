@@ -5,3 +5,4 @@
 \contentsline {subsection}{\numberline {2.1}Area Pubblica e Informativa}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Area Riservata agli Utenti}{2}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Area Amministrativa}{2}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Schema di navigazione dell'utente nel sito (metafora della pesca)}{3}{subsection.2.4}%
