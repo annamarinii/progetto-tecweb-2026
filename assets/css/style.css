@@ -403,15 +403,6 @@ header a:visited {
     color: var(--col-accent-soft);
 }
 
-/* =========================================
-   PULSANTI AUTH (Login / Registrati)
-========================================= */
-.menu-auth {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
 /* 4. BREADCRUMB */
 #breadcrumb {
     background-color: var(--col-bg);
@@ -827,53 +818,6 @@ html body footer .footer-col ul a.current-link:focus-visible {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-/* Stile del singolo Rettangolo */
-.rettangolo-notizia {
-    display: block;
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    /* Stesso colore delle card dei campioni! */
-    padding: 25px 30px;
-    border-radius: 8px;
-    border-bottom: 5px solid var(--col-accent);
-    /* Bordo identico ai campioni */
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px var(--col-shadow-10);
-}
-
-.rettangolo-notizia:hover {
-    transform: translateY(-5px);
-    /* Si solleva verso l'alto esattamente come le foto */
-    box-shadow: 0 8px 15px var(--col-shadow-20);
-}
-
-/* Testi dentro il rettangolo */
-.rettangolo-notizia time {
-    display: block;
-    color: var(--col-accent-soft);
-    /* La data spicca in arancione */
-    font-size: 0.85em;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.rettangolo-notizia h3 {
-    color: var(--col-text-inverse);
-    /* Titolo chiaro per leggersi bene sul blu */
-    font-size: 1.6em;
-    margin-bottom: 10px;
-}
-
-.rettangolo-notizia p {
-    color: var(--col-text-inverse-soft);
-    /* Testo un po' più tenue */
-    font-size: 1em;
-    line-height: 1.5;
-    padding: 0;
 }
 
 a:focus-visible,
@@ -1571,25 +1515,6 @@ main {
     outline-offset: 3px;
 }
 
-/* =========================================
-   SINGLE SESSION & TICKET DETAILS
-========================================= */
-
-/* 1. SEZIONE HERO IMMAGINE (Banner) */
-.session-hero {
-    width: 100%;
-    height: 350px;
-    /* Banner orizzontale */
-    overflow: hidden;
-    margin-bottom: 25px;
-}
-
-.session-hero .hero-full-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 /* 2. STICKY BAR & STEPPER */
 .sticky-bar {
     position: sticky;
@@ -1861,16 +1786,6 @@ main {
     border-radius: 8px;
     border-left: 5px solid var(--col-accent);
     font-weight: 500;
-}
-
-.session-details p.match-highlight {
-    font-size: 1.1em;
-    border-left-color: var(--col-text-heading);
-}
-
-.session-details p.match-highlight strong {
-    color: var(--col-link);
-    font-weight: 800;
 }
 
 .session-footer {
@@ -2174,16 +2089,6 @@ main {
     justify-content: center;
 }
 
-img.img-contain {
-    object-fit: contain;
-    background-color: var(--col-surface);
-    padding: 10px;
-}
-
-img.img-left {
-    object-position: left center;
-}
-
 .login-container {
     display: flex;
     background-color: var(--col-surface);
@@ -2312,77 +2217,6 @@ img.img-left {
     gap: 25px;
     max-width: 900px;
     margin: 0 auto;
-}
-
-.rettangolo-notizia {
-    background-color: var(--col-surface-brand);
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    border-radius: 12px;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 0 4px 15px var(--col-shadow-08);
-    overflow: hidden;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.rettangolo-notizia:hover,
-.rettangolo-notizia:focus-visible {
-    transform: translateX(10px);
-    border-color: var(--col-accent);
-    box-shadow: 0 8px 25px var(--col-shadow-15);
-    outline: 3px solid var(--col-link);
-    outline-offset: 4px;
-}
-
-.home-news-img-wrapper {
-    width: 250px;
-    flex-shrink: 0;
-    overflow: hidden;
-    border-right: 4px solid var(--col-accent);
-}
-
-.home-news-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.rettangolo-notizia:hover .home-news-img,
-.rettangolo-notizia:focus-visible .home-news-img {
-    transform: scale(1.05);
-}
-
-.home-news-content {
-    padding: 20px 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.home-news-content time {
-    font-size: 0.85em;
-    font-weight: bold;
-    color: var(--col-accent-soft);
-    margin-bottom: 8px;
-    display: block;
-    text-transform: uppercase;
-}
-
-.home-news-content h3 {
-    font-size: 1.3em;
-    color: var(--col-text-inverse);
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-
-.home-news-content p {
-    font-size: 1em;
-    color: var(--col-text-inverse);
-    line-height: 1.5;
 }
 
 /* =========================================
@@ -2751,28 +2585,6 @@ img.img-left {
         /* Usiamo il tuo arancione per la barra! */
         border-radius: 10px;
     }
-
-    /* Mette l'immagine sopra e il testo sotto */
-    .rettangolo-notizia {
-        flex-direction: column;
-    }
-
-    /* Adatta l'immagine allo schermo mobile */
-    .home-news-img-wrapper {
-        width: 100%;
-        /* L'immagine prende tutta la larghezza dello smartphone */
-        height: 220px;
-        /* Diamo un'altezza fissa per non farla diventare troppo alta */
-        border-right: none;
-        /* Togliamo il bordo arancione laterale... */
-        border-bottom: 4px solid var(--col-accent);
-        /* ...e lo spostiamo sotto la foto! */
-    }
-
-    /* Un po' di respiro in più per il testo su mobile */
-    .home-news-content {
-        padding: 25px 20px;
-    }
 }
 
 /* =========================================
@@ -2799,8 +2611,6 @@ img.img-left {
     transition: all 0.3s ease;
     box-shadow: 0 0 0 4px var(--col-action-10);
 }
-
-.error-message,
 .errore-msg {
     display: none;
     color: var(--col-link);
@@ -2808,8 +2618,6 @@ img.img-left {
     font-weight: bold;
     margin-top: 5px;
 }
-
-.error-message.visible,
 .errore-msg.visible {
     display: block;
     animation: shake 0.4s ease-in-out;
@@ -2999,29 +2807,6 @@ img.img-left {
     outline-offset: 4px;
 }
 
-.auth-footer {
-    text-align: center;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid var(--col-border);
-}
-
-.auth-footer p {
-    color: var(--col-text);
-    font-size: 1.05em;
-}
-
-.auth-footer a {
-    color: var(--col-link);
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.auth-footer a:hover,
-.auth-footer a:focus-visible {
-    color: var(--col-text-heading);
-}
-
 /* --- CAMPI OBBLIGATORI: indicatore visivo via CSS (WCAG 2.1 AA) --- */
 label.label-richiesta::after {
     content: " (richiesto)";
@@ -3104,14 +2889,6 @@ label.label-richiesta::after {
     transition: all 0.3s ease;
     transform: translateX(100px);
     opacity: 0;
-}
-
-/* Effetto sul totale aggiornato */
-.summary-row .text-highlight-update,
-.cart-summary .text-highlight-update {
-    color: var(--col-accent);
-    transform: scale(1.05);
-    transition: all 0.2s;
 }
 
 .btn-loading {
@@ -3318,22 +3095,6 @@ label.label-richiesta::after {
     margin-bottom: 20px;
 }
 
-.btn-shopping {
-    display: inline-block;
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    padding: 12px 25px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-shopping:hover,
-.btn-shopping:focus-visible {
-    background-color: var(--col-action);
-}
-
 /* =========================================
    AREA PERSONALE UTENTE (LAYOUT DEFINITIVO)
 ========================================= */
@@ -3510,16 +3271,6 @@ form.profile-form input[readonly]:focus {
     margin-top: 15px;
     width: auto;
     padding: 14px 35px;
-}
-
-/* --- 6. LISTE (Ordini e Notifiche) --- */
-.orders-list-user,
-.notifications-list-user {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 /* --- 6b. CARD BIGLIETTI UTENTE (layout orizzontale) --- */
@@ -3719,21 +3470,6 @@ form.profile-form input[readonly]:focus {
     vertical-align: middle;
 }
 
-/* Riga notifica non letta: sfondo caldo + testo in grassetto */
-.orders-table-user .unread-row {
-    background-color: var(--col-surface-alt);
-    font-weight: bold;
-}
-
-.orders-table-user .unread-row:hover {
-    background-color: var(--col-accent-soft);
-}
-
-/* Riga già letta: tono attenuato */
-.orders-table-user .read-row td {
-    color: var(--col-text);
-}
-
 /* Bottone "Segna Letta" nelle notifiche */
 .btn-close-mail {
     font-size: 0.85em;
@@ -3841,24 +3577,6 @@ form.profile-form input[readonly]:focus {
     font-size: 1.5em;
 }
 
-/* Titolo della sezione "News Pubblicate" */
-.sub-section-title {
-    color: var(--col-text-heading);
-    font-size: 1.5em;
-    border-bottom: 2px solid var(--col-accent);
-    padding-bottom: 10px;
-    margin-bottom: 25px;
-}
-
-/* Box per rispondere alle domande degli utenti */
-.admin-reply-form {
-    background-color: var(--col-surface);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--col-border);
-    margin-top: 20px;
-}
-
 /* Allarga il gruppo del form al 100%. 
   Utile per i titoli lunghi delle news e per le aree di testo.
 */
@@ -3896,37 +3614,6 @@ form.profile-form input[readonly]:focus {
     color: var(--col-text);
 }
 
-.user-message {
-    margin-bottom: 20px;
-    font-size: 1.1em;
-    line-height: 1.5;
-}
-
-.news-date {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: var(--col-text);
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-/* Spaziatura nel form di modifica delle news per separarlo dal tasto "Elimina" */
-.news-edit-form {
-    margin-bottom: 15px;
-    border-bottom: 1px solid var(--col-border);
-    padding-bottom: 20px;
-}
-
-/* Tasto di pericolo per le azioni distruttive */
-.btn-danger {
-    background-color: var(--col-action);
-}
-
-.btn-danger:hover,
-.btn-danger:focus-visible {
-    background-color: var(--col-surface-brand);
-}
-
 /* =========================================
    FIX: TESTO CHECKBOX E BOTTONE ELIMINA
 ========================================= */
@@ -3935,19 +3622,6 @@ form.profile-form input[readonly]:focus {
 .content-card .form-checkbox label {
     color: var(--col-text);
     font-weight: bold;
-}
-
-/* 2. Rende la card "relativa" per poterci ancorare il bottone a destra */
-.data-card-user {
-    position: relative;
-}
-
-/* 3. Posiziona il form di eliminazione esattamente in basso a destra */
-.form-elimina {
-    position: absolute;
-    bottom: 30px;
-    /* Stessa misura del padding della card */
-    right: 30px;
 }
 
 /* 4. Nuovo stile per il bottone Elimina (Senza rosso, stile "Outline" blu scuro) */
@@ -3962,54 +3636,6 @@ form.profile-form input[readonly]:focus {
 .btn-outline-dark:focus-visible {
     background-color: var(--col-surface-brand);
     color: var(--col-text-inverse);
-}
-
-/* 1. Stile per la riga "Da:" */
-.message-sender {
-    font-size: 1.1em;
-    color: var(--col-text);
-    margin-bottom: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-}
-
-/* Il "Badge" colorato per il nome utente */
-.sender-badge {
-    color: var(--col-text-heading);
-
-    font-weight: bold;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-left: 8px;
-    letter-spacing: 0.5px;
-}
-
-/* 2. Stile per il riquadro del messaggio ("Fumetto") */
-.user-message {
-    font-size: 1.15em;
-    color: var(--col-text);
-    line-height: 1.6;
-    margin-bottom: 25px;
-    background-color: var(--col-surface);
-    /* Sfondo bianco per farlo risaltare */
-    padding: 15px 20px;
-    border-left: 4px solid var(--col-text-heading);
-    /* Linea blu a sinistra stile citazione */
-    border-radius: 0 8px 8px 0;
-    box-shadow: 0 2px 8px var(--col-shadow-04);
-}
-
-/* Fa risaltare la parola "Messaggio:" mandando a capo il testo vero e proprio */
-.message-label {
-    color: var(--col-text-heading);
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 0.85em;
-    display: block;
-    /* Manda il testo successivo a capo */
-    margin-bottom: 6px;
-    letter-spacing: 1px;
 }
 
 /* Gestione Accordion */
@@ -4027,29 +3653,6 @@ form.profile-form input[readonly]:focus {
 .mail-row.fade-out {
     opacity: 0;
     transition: opacity 0.4s ease;
-}
-
-/* Messaggi di feedback (SoC: lo stile è qui, non nel JS) */
-/* Messaggi FAQ AJAX */
-.ajax-dynamic-msg-faq {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    border-left: 5px solid;
-    background: var(--col-surface);
-    transition: opacity 0.5s ease;
-}
-
-.msg-success {
-    color: var(--col-text-heading);
-    border-color: var(--col-accent-soft);
-    box-shadow: 0 4px 12px var(--col-surface-brand-10);
-}
-
-.msg-error {
-    color: var(--col-link);
-    border-color: var(--col-link);
 }
 
 .btn-loading {
@@ -4208,45 +3811,6 @@ a.btn-logout-small:focus-visible {
     font-size: 1em;
 }
 
-/* Bottone e Loading */
-.btn-send-reply {
-    background-color: var(--col-surface-brand);
-    color: var(--col-text-inverse);
-    border: none;
-    padding: 10px 24px;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s;
-    min-width: 140px;
-}
-
-.btn-send-reply:hover {
-    background-color: var(--col-action);
-}
-
-.btn-send-reply.loading {
-    background-color: var(--col-bg);
-    cursor: not-allowed;
-    color: transparent;
-    /* Nasconde il testo */
-    position: relative;
-}
-
-.btn-send-reply.loading::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 3px solid var(--col-on-dark-40);
-    border-radius: 50%;
-    border-top-color: var(--col-text-inverse);
-    animation: spin 1s ease-in-out infinite;
-}
-
 @keyframes spin {
     to {
         transform: rotate(360deg);
@@ -4333,13 +3897,6 @@ a.btn-logout-small:focus-visible {
     display: inline-block;
 }
 
-/* Griglia Miniature News */
-.news-miniatures-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
 .news-mini-card {
     background: var(--col-surface);
     border: 1px solid var(--col-border);
@@ -4380,12 +3937,6 @@ a.btn-logout-small:focus-visible {
     color: var(--col-text-heading);
     margin-bottom: 8px;
     line-height: 1.3;
-}
-
-.mini-card-info .mini-date {
-    font-size: 0.85em;
-    color: var(--col-text);
-    font-weight: bold;
 }
 
 .form-actions-row {
@@ -4554,156 +4105,9 @@ a.btn-logout-small:focus-visible {
     box-shadow: 0 8px 25px var(--col-shadow-12);
 }
 
-.ticket-info {
-    flex: 1;
-    padding: 25px;
-    border-right: 2px dashed var(--col-accent-soft);
-    position: relative;
-}
-
-/* Semi-cerchi effetto strappo biglietto */
-.ticket-info::before,
-.ticket-info::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background-color: var(--col-bg);
-    border-radius: 50%;
-    right: -13px;
-    z-index: 5;
-}
-
-.ticket-info::before {
-    top: -12px;
-    box-shadow: inset 0 -1px 3px var(--col-shadow-05);
-}
-
-.ticket-info::after {
-    bottom: -12px;
-    box-shadow: inset 0 1px 3px var(--col-shadow-05);
-}
-
-.ticket-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    background-color: var(--col-accent);
-    color: var(--col-on-action);
-    font-weight: bold;
-    font-size: 0.85em;
-    border-radius: 20px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    letter-spacing: 1px;
-}
-
-.ticket-badge.abbonamento {
-    background-color: var(--col-surface-brand);
-}
-
-.ticket-badge.vip {
-    background-color: var(--col-accent);
-    color: var(--col-text);
-}
-
-.ticket-title {
-    color: var(--col-text-heading);
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.ticket-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.t-detail span {
-    display: block;
-    font-size: 0.8em;
-    color: var(--col-text);
-    text-transform: uppercase;
-    margin-bottom: 2px;
-}
-
-.t-detail strong {
-    color: var(--col-text);
-    font-size: 1.1em;
-}
-
-.ticket-qr {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--col-surface);
-    min-width: 180px;
-}
-
-.ticket-qr img {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 15px;
-    border: 5px solid var(--col-text-inverse);
-    box-shadow: 0 0 10px var(--col-shadow-10);
-}
-
-.ticket-qr .qr-code-id {
-    font-family: monospace;
-    font-size: 1em;
-    color: var(--col-text);
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-
-.btn-download-ticket {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    color: var(--col-accent);
-    border: 2px solid var(--col-accent);
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.8em;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-}
-
-.btn-download-ticket:hover {
-    background-color: var(--col-accent);
-    color: var(--col-on-action);
-    transform: translateY(-2px);
-}
-
 @media (max-width: 768px) {
     .ticket-card {
         flex-direction: column;
-    }
-
-    .ticket-info {
-        border-right: none;
-        border-bottom: 2px dashed var(--col-accent-soft);
-    }
-
-    .ticket-info::before,
-    .ticket-info::after {
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .ticket-info::before {
-        top: auto;
-        bottom: -12px;
-    }
-
-    .ticket-info::after {
-        display: none;
     }
 }
 
@@ -4715,102 +4119,20 @@ a.btn-logout-small:focus-visible {
     pointer-events: none;
 }
 
-.esito-success {
-    color: var(--col-text-heading);
-    border-color: var(--col-text-heading);
-}
-
-.esito-error {
-    color: var(--col-link);
-    border-color: var(--col-link);
-}
-
 /* Messaggi di lista vuota */
 .no-data-msg {
     padding: 20px;
-}
-
-/* Elementi delle risposte */
-.reply-given {
-    color: var(--col-text-heading);
-    margin-top: 10px;
-}
-
-/* Gestione visibilità */
-.hidden-content {
-    display: none;
 }
 
 .news-full-text {
     display: none;
 }
 
-/* =========================================
-   STILI PER LE NOTIFICHE (D&R) AREA UTENTE
-========================================= */
-.qa-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 5px;
-}
-
-.box-label {
-    display: block;
-    font-size: 0.85em;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--col-text-heading);
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-}
-
-.user-question-box {
-    background-color: var(--col-surface);
-    border-left: 4px solid var(--col-border);
-    padding: 15px 20px;
-    border-radius: 4px 8px 8px 4px;
-    align-self: flex-start;
-    max-width: 90%;
-    box-shadow: 0 1px 3px var(--col-shadow-05);
-}
-
 /* Stile per i campi quando sono modificabili */
-.user-question-box input.input-editing {
+input.input-editing {
     border-bottom: 2px solid var(--col-accent);
     background-color: var(--col-surface);
     transition: all 0.3s ease;
-}
-
-/* Pulsante salva (usando i tuoi colori) */
-button.btn-save,
-input[type="submit"].btn-save {
-    background-color: var(--col-accent);
-    color: var(--col-on-action);
-    border: none;
-    box-shadow: 0 4px 0 var(--col-action);
-}
-
-.btn-save:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--col-action);
-}
-
-.admin-answer-box {
-    background-color: var(--col-bg);
-    border-left: 4px solid var(--col-accent);
-    padding: 15px 20px;
-    border-radius: 4px 8px 8px 4px;
-    align-self: flex-start;
-    max-width: 90%;
-    box-shadow: 0 2px 5px var(--col-shadow-08);
-}
-
-.user-question-box p,
-.admin-answer-box p {
-    margin: 0;
-    line-height: 1.5;
-    color: var(--col-text);
 }
 
 /* =========================================
@@ -4897,42 +4219,6 @@ input[type="submit"].btn-save {
     margin-bottom: 25px;
 }
 
-/* =========================================
-   ACCESSIBILITÀ: SKIP LINK TASTIERA
-========================================= */
-/* Nasconde visivamente il link "Vai al contenuto principale", 
-   ma lo rende visibile non appena l'utente preme il tasto TAB */
-.sr-only-focusable {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-.sr-only-focusable:focus,
-.sr-only-focusable:active {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
-    background-color: var(--col-action);
-    color: var(--col-on-action);
-    display: block;
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    z-index: 9999;
-    text-decoration: none;
-    outline: 4px solid var(--col-text-heading);
-}
-
 .btn-ritorno {
     display: inline-block;
     background-color: var(--col-action);
@@ -5011,11 +4297,6 @@ input[type="submit"].btn-save {
     color: var(--col-text-inverse);
     border: 1px solid var(--col-text-heading);
     box-shadow: 0 10px 15px -3px var(--col-surface-brand-20);
-}
-
-.banner-icon {
-    font-size: 2.5rem;
-    /* Un trucco: se l'emoji è troppo colorata, possiamo filtrarla o lasciarla così per contrasto */
 }
 
 .banner-content h2 {
@@ -5133,11 +4414,6 @@ span a,
 
 .success-msg {
     color: var(--col-text-heading);
-    margin-bottom: 15px;
-}
-
-.error-msg {
-    color: var(--col-link);
     margin-bottom: 15px;
 }
 
