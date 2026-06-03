@@ -20,5 +20,3 @@ Thumbs.db
 *.swp
 *.tmp
 *.log
-
-config/conf.php

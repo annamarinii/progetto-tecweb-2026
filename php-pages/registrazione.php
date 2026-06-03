@@ -1,7 +1,7 @@
 <?php
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/account_manager.php';
-require_once '../php-Manager/tool.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/account_manager.php';
+require_once '../php-manager/tool.php';
 
 // CONTROLLO SESSIONE
 if (Tool::isLoggedIn()) {

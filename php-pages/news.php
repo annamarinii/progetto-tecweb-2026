@@ -1,7 +1,7 @@
 <?php
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/news_manager.php';
-require_once '../php-Manager/tool.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/news_manager.php';
+require_once '../php-manager/tool.php';
 
 // RECUPERO NEWS
 $lista_news_db = NewsManager::getNews();

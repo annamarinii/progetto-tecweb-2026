@@ -1,6 +1,6 @@
 <?php
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/tool.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/tool.php';
 
 $pagina_html = file_get_contents(__DIR__ . '/../pages/termini.html');
 $pagina_html = str_replace('[Header]', Tool::buildHeader('termini'), $pagina_html);

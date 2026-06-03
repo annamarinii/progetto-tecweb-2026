@@ -1,7 +1,7 @@
 <?php
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/tool.php';
-require_once '../php-Manager/ticket_manager.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/tool.php';
+require_once '../php-manager/ticket_manager.php';
 
 $frammento_card = file_get_contents(__DIR__ . '/../item/biglietto_card.html');
 $categorie = TicketManager::getCategorieBiglietti();
@@ -21,19 +21,19 @@ if (empty($categorie)) {
             $link      = 'abbonamento.php';
             $cat_class = 'card-abbonamento';
             $cat_text  = 'Abbonamento';
-            $img_url   = '../assets/images/abbonamento.jpg';
+            $img_url   = '../assets/images/abbonamento.webp';
             $img_alt   = 'Panoramica del campo centrale con le tribune gremite di spettatori durante il Patavium Open';
         } elseif ($tipo === 'single') {
             $link      = 'single_session.php';
             $cat_class = 'card-single';
             $cat_text  = 'Single Session';
-            $img_url   = '../assets/images/single_session.png';
+            $img_url   = '../assets/images/single_session.webp';
             $img_alt   = 'Spettatori in tribuna che assistono a un match sul campo del Patavium Open';
         } else {
             $link      = 'ground_passes.php';
             $cat_class = 'card-ground';
             $cat_text  = 'Ground Pass';
-            $img_url   = '../assets/images/ground_passes.jpg';
+            $img_url   = '../assets/images/ground_passes.webp';
             $img_alt   = 'Vista dell\'area hospitality e del villaggio del torneo Patavium Open';
         }
 

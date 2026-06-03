@@ -1,10 +1,10 @@
 <?php
-require_once '../php-Manager/init_session.php';
-require_once '../php-Manager/account_manager.php';
-require_once '../php-Manager/news_manager.php';
-require_once '../php-Manager/faq_manager.php';
-require_once '../php-Manager/db_connection.php';
-require_once '../php-Manager/tool.php';
+require_once '../php-manager/init_session.php';
+require_once '../php-manager/account_manager.php';
+require_once '../php-manager/news_manager.php';
+require_once '../php-manager/faq_manager.php';
+require_once '../php-manager/db_connection.php';
+require_once '../php-manager/tool.php';
 
 // CONTROLLO ACCESSO RIGIDO
 if (!Tool::isLoggedIn() || !Tool::isAdmin()) {
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else if ($idNews && $idNews != "") {
             $esito = NewsManager::aggiornaNews($idNews, $titolo, $testo, $immagine_path, $alt_immagine, $inEvidenza);
         } else {
-            $img_to_save = ($immagine_path != "") ? $immagine_path : 'assets/images/logo1.png';
+            $img_to_save = ($immagine_path != "") ? $immagine_path : 'assets/images/logo1.webp';
             $esito = NewsManager::inserisciNews($titolo, $testo, $img_to_save, $alt_immagine, $id_utente_corrente, $inEvidenza);
         }
         $ancora = "#gestione-news";
@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newsArray = NewsManager::getNews();
             $html_news = "";
             foreach ($newsArray as $news) {
-                $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.png' : '../' . htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8');
-                $img_name = (empty($news['immagine'])) ? 'logo1.png' : basename($news['immagine']);
+                $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.webp' : '../' . htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8');
+                $img_name = (empty($news['immagine'])) ? 'logo1.webp' : basename($news['immagine']);
                 $html_news .= str_replace(
                     ['[NewsID]', '[Percorso]', '[Titolo]', '[Testo]', '[ImgName]', '[AltImmagine]', '[InEvidenza]'],
                     [
@@ -196,8 +196,8 @@ $username_pulito = Tool::pulisciInput($dati_utente['username']);
 $newsArray = NewsManager::getNews();
 $html_miniature = !empty($newsArray) ? "" : "<p>Nessuna news pubblicata.</p>";
 foreach ($newsArray as $news) {
-    $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.png' : '../' . htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8');
-    $img_name = (empty($news['immagine'])) ? 'logo1.png' : basename($news['immagine']);
+    $percorso = (empty($news['immagine'])) ? '../assets/images/logo1.webp' : '../' . htmlspecialchars($news['immagine'], ENT_QUOTES, 'UTF-8');
+    $img_name = (empty($news['immagine'])) ? 'logo1.webp' : basename($news['immagine']);
     $html_miniature .= str_replace(
         ['[NewsID]', '[Percorso]', '[Titolo]', '[Testo]', '[ImgName]', '[AltImmagine]', '[InEvidenza]'],
         [
@@ -259,7 +259,7 @@ if (isset($_GET['status'])) {
     }
 }
 
-$pagina_html = file_get_contents(__DIR__ . '/../pages/areaadmin.html');
+$pagina_html = file_get_contents(__DIR__ . '/../pages/area_admin.html');
 $pagina_html = str_replace('[Header]', Tool::buildHeader('areaadmin'), $pagina_html);
 $pagina_html = str_replace('[Footer]', Tool::buildFooter('areaadmin'), $pagina_html);
 

@@ -1,9 +1,9 @@
 <?php
 
 // Inizializzazione della sessione e inclusione dei file manager principali
-require_once 'php-Manager/init_session.php';
-require_once 'php-Manager/news_manager.php';
-require_once 'php-Manager/tool.php';
+require_once 'php-manager/init_session.php';
+require_once 'php-manager/news_manager.php';
+require_once 'php-manager/tool.php';
 
 // 1. Recupero delle ultime 3 news dal database per la sezione della Home
 $ultime_news = NewsManager::getUltimeNews(3);
@@ -21,7 +21,7 @@ $template_card = file_get_contents(__DIR__ . '/item/news_home_card.html');
 // 5. Generazione delle News Cards tramite foreach
 //    Nessun fallback: si assume che il DB contenga sempre news pubblicate.
 //    basename() isola il nome file dal percorso eventualmente già presente nel DB
-//    (es. "assets/images/sinner.jpg" → "sinner.jpg"), garantendo la sincronizzazione
+//    (es. "assets/images/sinner_vince.webp" → "sinner_vince.webp"), garantendo la sincronizzazione
 //    con il placeholder src="assets/images/[ImmagineNews]" nel template.
 $news_html_content = "";
 foreach ($ultime_news as $news) {

@@ -1,8 +1,8 @@
 <?php
 
-require '../php-Manager/init_session.php';
-require_once '../php-Manager/ticket_manager.php';
-require_once '../php-Manager/tool.php';
+require '../php-manager/init_session.php';
+require_once '../php-manager/ticket_manager.php';
+require_once '../php-manager/tool.php';
 
 
 //connessione con ticket.js

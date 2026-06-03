@@ -449,7 +449,7 @@ header a:visited {
 
 /* 5. HERO SECTION */
 .hero-section {
-    background-image: url('../images/patavium_arena.jpg');
+    background-image: url('../images/patavium_arena.webp');
     background-size: cover;
     background-position: center;
     height: 85vh;
