@@ -79,7 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validazione difensiva lato server: per inserimento/modifica nome, categoria e anno
         // sono obbligatori; un'estensione immagine non valida blocca l'operazione.
         if (!$isEliminazione && (!CampioniManager::validaCampiCampione($nome, $categoria, $anno) || $upload_msg !== "")) {
-            header("Location: area_admin.php?status=error&t=" . time() . "#gestione-campioni");
+            $msg_errore = $upload_msg !== "" ? $upload_msg : "Nome, categoria e anno del campione sono obbligatori.";
+            header("Location: area_admin.php?status=error&msg=" . urlencode($msg_errore) . "&t=" . time() . "#gestione-campioni");
             exit();
         }
 
@@ -145,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['status' => 'error', 'upload_msg' => $msg_errore, 'html_miniature' => '']);
                 exit();
             }
-            header("Location: area_admin.php?status=error&t=" . time() . "#gestione-news");
+            header("Location: area_admin.php?status=error&msg=" . urlencode($msg_errore) . "&t=" . time() . "#gestione-news");
             exit();
         }
 
@@ -351,7 +352,13 @@ if (isset($_GET['status'])) {
     if ($_GET['status'] == 'success') {
         $messaggio_esito = Tool::buildMessage('Ottimo!', 'Operazione completata con successo.', 'success');
     } else {
-        $messaggio_esito = Tool::buildMessage('Errore:', 'Si è verificato un errore durante l\'operazione. Riprova.');
+        // Se il ramo che ha generato l'errore ha passato un dettaglio specifico
+        // (es. "Formato immagine non valido"), lo si mostra; altrimenti messaggio generico.
+        // htmlspecialchars obbligatorio: il valore arriva da $_GET e buildMessage lo inserisce raw nell'HTML.
+        $dettaglio_errore = (isset($_GET['msg']) && trim($_GET['msg']) !== '')
+            ? htmlspecialchars($_GET['msg'], ENT_QUOTES, 'UTF-8')
+            : 'Si è verificato un errore durante l\'operazione. Riprova.';
+        $messaggio_esito = Tool::buildMessage('Errore:', $dettaglio_errore);
     }
 }
 
