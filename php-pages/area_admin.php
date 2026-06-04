@@ -192,6 +192,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idFaq = isset($_POST['idFaq']) ? $_POST['idFaq'] : null;
             $domanda_faq  = trim(strip_tags($_POST['domanda_faq']  ?? ''));
             $risposta_faq = trim(strip_tags($_POST['risposta_faq'] ?? ''));
+            $categoria_faq = trim(strip_tags($_POST['categoria'] ?? ''));
+
+            // Default sicuro: accetta solo le categorie previste, altrimenti 'Regolamento'
+            $categorie_valide = ['Info Pratiche e Accessi', 'Biglietteria', 'Regolamento'];
+            if (!in_array($categoria_faq, $categorie_valide, true)) {
+                $categoria_faq = 'Regolamento';
+            }
 
             if ($domanda_faq === '' || $risposta_faq === '') {
                 if ($isAjax) {
@@ -203,9 +210,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if ($idFaq && $idFaq != "") {
-                $esito = FaqManager::aggiornaFaq($idFaq, $domanda_faq, $risposta_faq);
+                $esito = FaqManager::aggiornaFaq($idFaq, $domanda_faq, $risposta_faq, $categoria_faq);
             } else {
-                $esito = FaqManager::inserisciFaqUfficiale($domanda_faq, $risposta_faq);
+                $esito = FaqManager::inserisciFaqUfficiale($domanda_faq, $risposta_faq, $categoria_faq);
             }
         }
         $ancora = "#gestione-faq";
@@ -216,9 +223,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($faqArray as $f) {
                 $q_pulito = htmlspecialchars($f['testo_domanda'], ENT_QUOTES, 'UTF-8');
                 $a_pulito = htmlspecialchars($f['testo_risposta'], ENT_QUOTES, 'UTF-8');
+                $cat_pulita = htmlspecialchars($f['categoria'], ENT_QUOTES, 'UTF-8');
                 $html_faq .= str_replace(
-                    ['[FaqID]', '[Domanda]', '[Risposta]'],
-                    [(int)$f['idFaq'], $q_pulito, $a_pulito],
+                    ['[FaqID]', '[Domanda]', '[Risposta]', '[Categoria]'],
+                    [(int)$f['idFaq'], $q_pulito, $a_pulito, $cat_pulita],
                     $frammento_faq_admin
                 );
             }
@@ -305,9 +313,10 @@ $html_faq = !empty($faqArray) ? "" : "<p>Nessuna FAQ pubblicata.</p>";
 foreach ($faqArray as $f) {
     $q = htmlspecialchars($f['testo_domanda'], ENT_QUOTES, 'UTF-8');
     $a = htmlspecialchars($f['testo_risposta'], ENT_QUOTES, 'UTF-8');
+    $cat = htmlspecialchars($f['categoria'], ENT_QUOTES, 'UTF-8');
     $html_faq .= str_replace(
-        ['[FaqID]', '[Domanda]', '[Risposta]'],
-        [(int)$f['idFaq'], $q, $a],
+        ['[FaqID]', '[Domanda]', '[Risposta]', '[Categoria]'],
+        [(int)$f['idFaq'], $q, $a, $cat],
         $frammento_faq_admin
     );
 }

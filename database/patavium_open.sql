@@ -72,7 +72,8 @@ CREATE TABLE BIGLIETTI (
 CREATE TABLE FAQ (
     idFaq INT AUTO_INCREMENT PRIMARY KEY,
     testo_domanda TEXT NOT NULL,
-    testo_risposta TEXT NOT NULL
+    testo_risposta TEXT NOT NULL,
+    categoria VARCHAR(50) NOT NULL DEFAULT 'Regolamento'
 );
 
 CREATE TABLE CAMPIONI (
@@ -241,14 +242,31 @@ INSERT INTO BIGLIETTI (prezzo, tribuna, tipo, idProgramma) VALUES
 (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21),
 (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21), (50.00, NULL, 'ground', 21);
 
-INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES
-('A che ora aprono i cancelli del torneo?','I cancelli aprono tutti i giorni alle ore 09:00 del mattino. L''accesso alle tribune è consentito circa 30 minuti prima dell match della giornata.'),
-('Il biglietto che acquisto è nominativo?', 'No, i biglietti NON sono nominativi. E'' indicato il nome dell''acquirente, ma possono essere ceduti ad altri.'),
-('L''impianto è accessibile per le persone con disabilità motorie?','Assolutamente sì. Tutti i campi principali sono dotati di rampe e ascensori.'),
-('Posso portare cibo, bevande o macchine fotografiche nell''impianto?', 'È consentito portare piccoli snack e bottiglie non in vetro di massimo 500ml. Non è permesso l''ingresso con borse frigo. Le macchine fotografiche sono ammesse solo se senza flash e con obiettivi non professionali. Se gli oggetti portati non sono in linea con le regole dell''impianto, il nostro staff li costudirà all''ingresso.'),
-('Dove posso parcheggiare la macchina?', 'È disponibile un ampio parcheggio nell''area Ovest distante pochi minuti a piedi dall''ingresso principale. Il parcheggio è incluso per chi è in possesso dell''Abbonamento stagionale, mentre per gli altri biglietti è a tariffa giornaliera.'),
-('I minori devono essere accompagnati da un adulto?', 'Il minore entro i 14 anni deve necessariamente essere accompagnato da un adulto per accedere ai campi; sia il minore sia l''adulto dovranno essere muniti di regolare titolo di ingresso.'),
-('Posso entrare anche a sessione iniziata?', 'Sì, è possibile accedere in qualsiasi momento, compatibilmente ai tempi di gioco.');
+INSERT INTO FAQ (testo_domanda, testo_risposta, categoria) VALUES
+
+-- ===== INFO PRATICHE E ACCESSI =====
+('A che ora aprono i cancelli del torneo?','I cancelli aprono tutti i giorni alle ore 09:00. L''accesso alle tribune è consentito a partire da circa 30 minuti prima dell''inizio della sessione della giornata.','Info Pratiche e Accessi'),
+('Quali sono gli ingressi principali e come sono organizzati?','L''impianto è suddiviso in settori con accessi dedicati: Area Ovest, Area Est e Area Sud. Ogni biglietto riporta il settore di riferimento e l''ingresso consigliato. La mappa dettagliata degli accessi, con i nomi delle vie e i varchi di sicurezza, viene pubblicata su questa pagina nei giorni che precedono l''inizio del torneo.','Info Pratiche e Accessi'),
+('Dove posso parcheggiare?','Sono previste aree di parcheggio in prossimità dei settori Est e Sud. I posti sono limitati e si consiglia l''uso dei mezzi pubblici. Le indicazioni stradali dettagliate e le tariffe verranno comunicate sul sito in avvicinamento all''evento.','Info Pratiche e Accessi'),
+('L''impianto è accessibile per le persone con disabilità motorie?','Sì. I campi principali sono dotati di rampe, ascensori e postazioni dedicate. Per assistenza specifica o per prenotare una postazione accessibile è possibile contattare il nostro team tramite il modulo a fondo pagina.','Info Pratiche e Accessi'),
+('È possibile entrare e uscire dall''impianto durante la giornata?','Sì, conservando il biglietto è consentito uscire e rientrare nello stesso settore nell''arco della sessione acquistata. Ti consigliamo di verificare i varchi attivi indicati all''ingresso.','Info Pratiche e Accessi'),
+('Si può accedere con borse o zaini?','Sono ammesse borse di piccole dimensioni, soggette a controllo ai varchi di sicurezza. Per ragioni di sicurezza alcuni oggetti possono non essere consentiti; l''elenco aggiornato viene pubblicato prima dell''evento.','Info Pratiche e Accessi'),
+
+-- ===== BIGLIETTERIA =====
+('Cosa significa acquistare una "sessione" invece di un singolo match?','Il torneo si articola in sessioni di gioco (diurne e serali). Acquistando una sessione hai accesso a tutti gli incontri programmati in quella fascia, nel settore scelto. Questo ti permette di assicurarti il posto in anticipo, anche prima che venga definito il calendario dettagliato degli incontri.','Biglietteria'),
+('Posso già sapere quale giocatore scenderà in campo e in quale giorno?','Al momento no: il calendario dettagliato e gli accoppiamenti tra i giocatori vengono definiti solo in avvicinamento al torneo, secondo il tabellone ufficiale. Per questo la vendita è organizzata per sessioni e per settore, e non per singolo incontro. Il programma giornaliero verrà pubblicato sul sito non appena disponibile.','Biglietteria'),
+('Che differenza c''è tra Single Session, Ground Pass e Abbonamento?','La Single Session dà accesso a una specifica sessione in una tribuna scelta. Il Ground Pass consente l''accesso alle aree e ai campi secondari per un''intera giornata. L''Abbonamento copre tutte le giornate del torneo per la tribuna selezionata. Trovi il dettaglio e i prezzi nella pagina Biglietti.','Biglietteria'),
+('Il biglietto che acquisto è nominativo?','Il biglietto riporta il nome dell''acquirente ma non è strettamente nominativo all''ingresso: può essere ceduto. Ti invitiamo comunque a conservarlo con cura, poiché è il titolo necessario per l''accesso al settore indicato.','Biglietteria'),
+('Come ricevo i biglietti dopo l''acquisto?','Una volta completato l''acquisto, i biglietti sono associati al tuo account e consultabili nella tua Area Personale, nella sezione "I miei biglietti", insieme al numero d''ordine.','Biglietteria'),
+('Posso ottenere un rimborso o modificare l''acquisto?','Le condizioni di rimborso e di modifica dipendono dalla tipologia di biglietto e dalle tempistiche. Per richieste specifiche contatta il nostro team tramite il modulo a fondo pagina, indicando il numero d''ordine.','Biglietteria'),
+
+-- ===== REGOLAMENTO =====
+('Come funziona in generale il torneo?','Il Patavium Open è un torneo di tennis che si sviluppa su più giornate, suddivise in sessioni di gioco. Con il procedere del tabellone gli incontri si concentrano fino alle fasi finali. Il programma di ciascuna giornata viene pubblicato in avvicinamento all''evento.','Regolamento'),
+('Cosa succede in caso di pioggia o sospensione degli incontri?','In caso di maltempo gli incontri possono essere sospesi o riprogrammati secondo le decisioni della direzione del torneo. Le tribune coperte non sono soggette a interruzioni per pioggia. Le politiche relative a recuperi ed eventuali rimborsi vengono comunicate caso per caso.','Regolamento'),
+('È consentito fotografare o riprendere gli incontri?','Sono consentite riprese e fotografie per uso strettamente personale. Non è permesso l''utilizzo a scopo commerciale o la diffusione di materiale senza autorizzazione, né l''uso di attrezzature professionali senza accredito.','Regolamento'),
+('Ci sono punti di ristoro all''interno dell''impianto?','Sì, all''interno dei settori sono presenti aree ristoro e punti vendita. La disponibilità specifica per ciascuna area viene indicata sulla mappa pubblicata prima dell''evento.','Regolamento'),
+('Si può portare cibo o acqua da casa?','Per ragioni di sicurezza non è consentito introdurre cibo o bevande dall''esterno. È ammessa una sola bottiglia d''acqua sigillata di massimo 500 ml a persona, che potrà essere sottoposta a controllo agli ingressi. All''interno dei settori sono presenti aree ristoro e punti vendita di cibo e bevande.','Info Pratiche e Accessi'),
+('È possibile accedere con animali domestici?','Per motivi di sicurezza e igiene, non è consentito l''accesso con animali domestici, ad eccezione di cani guida per persone con disabilità.','Info Pratiche e Accessi');
 
 -- Inserimento nella tabella NEWS
 INSERT INTO NEWS (idNews, titolo, testo, data_pubblicazione, immagine, idAutore, inEvidenza) VALUES

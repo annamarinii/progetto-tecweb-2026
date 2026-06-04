@@ -5,25 +5,25 @@ class FaqManager {
     // Recupera FAQ ufficiali
     public static function getFaq() {
         $conn = DBConnection::getConnessione();
-        $sql = "SELECT idFaq, testo_domanda, testo_risposta FROM FAQ";
+        $sql = "SELECT idFaq, testo_domanda, testo_risposta, categoria FROM FAQ ORDER BY categoria, idFaq";
         $risultato = $conn->query($sql);
         $faq = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
         return $faq;
     }
 
-    public static function inserisciFaqUfficiale($domanda, $risposta) {
+    public static function inserisciFaqUfficiale($domanda, $risposta, $categoria) {
         $conn = DBConnection::getConnessione();
-        $stmt = $conn->prepare("INSERT INTO FAQ (testo_domanda, testo_risposta) VALUES (?, ?)");
-        $stmt->bind_param("ss", $domanda, $risposta);
+        $stmt = $conn->prepare("INSERT INTO FAQ (testo_domanda, testo_risposta, categoria) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $domanda, $risposta, $categoria);
         $esito = $stmt->execute();
         $stmt->close();
         return $esito;
     }
 
-    public static function aggiornaFaq($idFaq, $domanda, $risposta) {
+    public static function aggiornaFaq($idFaq, $domanda, $risposta, $categoria) {
         $conn = DBConnection::getConnessione();
-        $stmt = $conn->prepare("UPDATE FAQ SET testo_domanda = ?, testo_risposta = ? WHERE idFaq = ?");
-        $stmt->bind_param("ssi", $domanda, $risposta, $idFaq);
+        $stmt = $conn->prepare("UPDATE FAQ SET testo_domanda = ?, testo_risposta = ?, categoria = ? WHERE idFaq = ?");
+        $stmt->bind_param("sssi", $domanda, $risposta, $categoria, $idFaq);
         $esito = $stmt->execute();
         $stmt->close();
         return $esito;

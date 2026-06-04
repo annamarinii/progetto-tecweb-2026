@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const faqIdInput    = document.getElementById('idFaq');
     const domandaInput  = document.getElementById('domanda_faq');
     const rispostaInput = document.getElementById('risposta_faq');
+    const categoriaInput = document.getElementById('categoria_faq');
     const formTitle     = document.querySelector('#view-nuova-faq .view-title');
     const backFaqBtn    = document.querySelector('#view-nuova-faq .btn-back-faq');
 
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (domandaInput)  domandaInput.value  = btn.dataset.q;
         if (rispostaInput) rispostaInput.value = btn.dataset.a;
         if (faqIdInput)    faqIdInput.value    = btn.dataset.id;
+        if (categoriaInput) categoriaInput.value = btn.dataset.categoria;
 
         configuraFormPerModalita('modifica');
         switchView('form');
