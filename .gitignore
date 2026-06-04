@@ -1,22 +1,26 @@
-.DS_Store
-#Configurazioni locali
+# Configurazioni locali (credenziali fuori dal versionamento)
 /config/*.env
 /config/*.local.php
 
-#Cache e log
-/tmp/
-/logs/
-/cache/
-
-#File di sistema
+# File di sistema
 .DS_Store
 Thumbs.db
 
-#File temporanei o backup
+# File temporanei o backup
 *.bak
-*.fls
-*.out
-*.toc
 *.swp
 *.tmp
+
+# Cache e log
+/tmp/
+/logs/
+/cache/
 *.log
+
+# File ausiliari LaTeX (si versiona solo relazione.pdf e relazione.tex)
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.out
