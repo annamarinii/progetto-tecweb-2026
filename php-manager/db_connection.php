@@ -2,30 +2,44 @@
 
 class DBConnection
 {
-    // 1. Costanti senza modificatore di visibilità
-    const DB_HOST = "localhost";
-    const DB_USER = "root";
-    const DB_PASS = "root";
-    const DB_NAME = "pataviumopen";
-
-    // 2. La proprietà statica (le variabili la supportavano già) rimane privata
     private static $connessione = null;
+    private static $config = null;
+
+    private static function getConfig()
+    {
+        if (self::$config === null) {
+            $configFile = __DIR__ . '/../config/database.local.php';
+
+            if (!file_exists($configFile)) {
+                error_log("DB config mancante: " . $configFile . " (clona config/database.example.php in config/database.local.php)");
+                header("Location: /progetto_tecweb_2026/php-pages/500.php");
+                exit;
+            }
+
+            self::$config = require_once $configFile;
+        }
+
+        return self::$config;
+    }
 
     public static function getConnessione()
     {
         // Se la connessione non c'è, la stabiliamo
         if (self::$connessione === null) {
 
-            // Usiamo self:: per richiamare le costanti della classe stessa
+            $config = self::getConfig();
+
             self::$connessione = new mysqli(
-                self::DB_HOST,
-                self::DB_USER,
-                self::DB_PASS,
-                self::DB_NAME
+                $config['host'],
+                $config['user'],
+                $config['pass'],
+                $config['name']
             );
 
             if (self::$connessione->connect_error) {
-                die("Errore DB: " . self::$connessione->connect_error);
+                error_log("Errore connessione DB: " . self::$connessione->connect_error);
+                header("Location: /progetto_tecweb_2026/php-pages/500.php");
+                exit;
             }
         }
 

@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage{titlesec}
 
 \renewcommand{\contentsname}{Indice}
@@ -135,42 +136,259 @@ Abbiamo scelto di non includere funzionalità “di facciata” (like, commenti,
 
 Nella progettazione abbiamo tenuto conto anche di possibili motori di ricerca (SEO): il sito deve rispondere a query tipiche come \textit{“Patavium Open biglietti”}, \textit{“quando si gioca il torneo di Padova”}, \textit{“prezzi abbonamenti tennis Padova”}. Le azioni intraprese per migliorare il ranking vengono discusse nella sezione dedicata dell’analisi.
 
-\section{Struttura del Sito e Funzionalità}
+\section{Architettura del Sito e Scelte Implementative}
 
-L'architettura del sito \textit{Patavium Open} è stata concepita per guidare l'utente attraverso un flusso di navigazione lineare e intuitivo, suddividendo le funzionalità in aree logiche ben distinte. Di seguito viene presentata una panoramica delle principali pagine realizzate e delle relative finalità.
+L'architettura del portale \textit{Patavium Open} è stata concepita per guidare l'utente attraverso un flusso di navigazione intuitivo, adottando un approccio modulare. Il sistema separa in modo netto la logica di business dall'interfaccia utente, organizzando le risorse in directory specializzate e standardizzando i nomi dei file secondo la convenzione \texttt{snake\_case} per garantire pulizia e compatibilità.
 
-\subsection{Area Pubblica e Informativa}
-Questa sezione è accessibile a tutti gli utenti e funge da punto di ingresso al portale:
+\subsection{Struttura Logica e Flusso di Navigazione}
+
+\subsubsection*{Area Pubblica e Informativa}
+Accessibile a tutti, è la vetrina principale del portale e immerge subito l'utente nel contesto del tennis professionistico:
 \begin{itemize}
-    \item \textbf{Home Page (\texttt{home.html}):} Il fulcro del sito, che offre una panoramica sull'evento, le ultime notizie in evidenza e un accesso rapido alle categorie principali.
-    \item \textbf{Sezione Biglietteria (\texttt{Biglietti.php}, \texttt{SingleSession.php}, \texttt{Abbonamento.php}, \texttt{GroundPasses.php}):} Queste pagine offrono all'utente una distinzione chiara tra le diverse tipologie di accesso al torneo. Permettono di visualizzare i dettagli tecnici e i costi, facilitando una scelta consapevole prima dell'acquisto.
-    \item \textbf{News (\texttt{News.php}):} Dedicata agli aggiornamenti sul torneo, risultati in tempo reale e approfondimenti, per mantenere vivo l'interesse del pubblico.
-    \item \textbf{Supporto e Normativa (\texttt{Faq.php}, \texttt{Termini.php}, \texttt{Privacy.php}):} Spazio dedicato alla trasparenza, dove l'utente può consultare le risposte alle domande frequenti e prendere visione dei termini legali del servizio.
+    \item \textbf{Home Page (\texttt{pages/index.html}):} Il fulcro del sito. Offre una panoramica immediata sull'evento, le notizie in evidenza e un accesso rapido alle azioni principali (come l'acquisto dei biglietti).
+    \item \textbf{Sezione Biglietteria (\texttt{php-pages/biglietti.php}):} Presentata tramite card chiare e descrittive, divide l'offerta in tre opzioni pensate per le reali esigenze del pubblico:
+    \begin{itemize}
+        \item \textit{Abbonamento (\texttt{php-pages/abbonamento.php}):} Accesso completo per l'intera durata del torneo.
+        \item \textit{Ground Pass (\texttt{php-pages/ground\_passes.php}):} Titolo d'ingresso per vivere l'atmosfera del parco sportivo, accedere alle aree ristoro e seguire i match dai maxischermi, senza un posto numerato negli stadi principali.
+        \item \textit{Singola Sessione (\texttt{php-pages/single\_session.php}):} Acquisto flessibile e mirato per la sessione diurna o serale di una specifica giornata.
+    \end{itemize}
+    \item \textbf{News (\texttt{php-pages/news.php}):} Modulo dinamico per gli aggiornamenti, i risultati in tempo reale e gli approfondimenti. Mantiene vivo l'interesse del pubblico e favorisce un'ottima indicizzazione sui motori di ricerca.
+    \item \textbf{Supporto Interattivo - FAQ (\texttt{php-pages/faq.php}):} Molto più di un semplice elenco statico. Se un utente non trova la risposta che cerca tra le domande frequenti, può inviare un quesito personalizzato. Questo crea un vero sistema di ticketing: la domanda arriva alla dashboard dell'amministratore, che può rispondere facendo apparire la notifica direttamente nell'area personale dell'utente.
+    \item \textbf{Informativa Legale (\texttt{php-pages/termini.php}, \texttt{php-pages/privacy.php}):} Pagine dedicate alla trasparenza, logicamente separate dal supporto, dove consultare i termini di servizio e le policy sulla privacy.
 \end{itemize}
 
-\subsection{Area Riservata agli Utenti}
-Le funzionalità interattive sono protette da autenticazione per garantire la sicurezza delle operazioni:
+\subsubsection{Area Riservata e Transazionale}
+Le funzionalità interattive e legate agli acquisti sono protette da autenticazione:
 \begin{itemize}
-    \item \textbf{Autenticazione (\texttt{Login.php}, \texttt{Registrazione.php}):} Gestiscono il ciclo di vita dell'account, garantendo l'accesso personalizzato ai servizi di prenotazione.
-    \item \textbf{Carrello (\texttt{Carrello.php}):} Il cuore transazionale del sito. Qui l'utente gestisce i biglietti selezionati, visualizza il riepilogo e procede all'acquisto finale.
-    \item \textbf{Area Utente (\texttt{AreaUtente.php}):} Uno spazio personale in cui l'utente può monitorare lo storico dei propri ordini, consultare lo stato dei ticket acquistati e visualizzare eventuali notifiche o aggiornamenti dal sistema.
+    \item \textbf{Autenticazione (\texttt{php-pages/login.php}, \texttt{php-pages/registrazione.php}):} Pagine che gestiscono l'accesso e la creazione sicura degli account.
+    \item \textbf{Carrello (\texttt{php-pages/carrello.php}):} Il cuore delle transazioni. L'utente gestisce i biglietti scelti, visualizza il riepilogo dinamico dei costi e conclude l'acquisto.
+    \item \textbf{Area Utente (\texttt{php-pages/area\_utente.php}):} La dashboard personale. Qui l'utente ritrova lo storico dei suoi ordini, i ticket generati e un centro notifiche dove arrivano le risposte dell'amministrazione ai quesiti posti nella sezione FAQ.
 \end{itemize}
 
-\subsection{Area Amministrativa}
+\subsubsection{Area Amministrativa}
 \begin{itemize}
-    \item \textbf{Gestione Torneo (\texttt{AreaAdmin.php}):} Riservata al personale autorizzato, questa area permette il controllo granulare dei contenuti. Gli amministratori possono gestire le notizie pubblicate, aggiornare le FAQ e mantenere il database delle informazioni aggiornato, garantendo che il sito rifletta sempre lo stato reale del torneo.
+    \item \textbf{Gestione Torneo (\texttt{php-pages/area\_admin.php}):} Pannello di controllo riservato allo staff. Permette di gestire attivamente i contenuti: pubblicare nuove notizie, aggiungere FAQ generali e rispondere ai ticket di supporto aperti dagli utenti, garantendo che il sito sia sempre aggiornato e interattivo.
 \end{itemize}
 
-Questa suddivisione modulare non solo facilita la navigazione lato utente, ma semplifica anche la manutenzione del sistema, permettendo aggiornamenti mirati su specifiche aree funzionali senza impattare sull'intera infrastruttura.
+\subsection{Pattern Architetturale a Componenti (Template Engine)}
+Per rispettare il principio DRY (Don't Repeat Yourself) ed evitare codice ridondante, l'interfaccia non è stata costruita con file monolitici, ma tramite un motore di template custom lato server gestito dal PHP.
+Il sistema sfrutta due cartelle principali:
+\begin{itemize}
+    \item \textbf{La directory \texttt{pages/}:} Contiene i layout macroscopici. Questi file HTML definiscono la struttura di base e posizionano dei segnaposto (come \texttt{[Header]} o \texttt{[lista\_ordini]}) in attesa dei dati.
+    \item \textbf{La directory \texttt{item/}:} Contiene i \textit{Template Fragments}. Elementi grafici che si ripetono (come la card di un biglietto, la riga di una notifica o il blocco di una notizia) sono stati isolati qui in singoli file HTML.
+\end{itemize}
+Grazie a questa architettura, quando bisogna mostrare una lista di notizie, il PHP recupera i dati dal database, riempie il frammento HTML prelevato da \texttt{item/} per ogni singola news, e inietta il risultato finale nella pagina. Se in futuro vorremo modificare il design di una card, basterà aggiornare un solo file per vederlo cambiato in tutto il sito.
 
 \subsection{Schema di navigazione dell'utente nel sito (metafora della pesca)}
+
 Il portale web del Patavium Open presenta un'architettura dell'informazione solida e strutturata, concepita per assecondare i molteplici comportamenti di ricerca tipici degli utenti. Possiamo analizzare l'attuale configurazione del sito attraverso la "metafora della pesca":
+
 \begin{itemize}
-    \item \textbf{Tiro perfetto:} In questo scenario, "gli utenti sanno quello che stanno cercando". Il portale asseconda questa necessità attraverso un menu di navigazione chiaro, esaustivo e privo di ambiguità, che permette di individuare istantaneamente le sezioni di servizio. Una precisa e consapevole scelta di design ha portato all'omissione della tradizionale barra di ricerca: le analisi sulle intenzioni d'uso evidenziano infatti che la maggioranza degli utenti accede al sito del torneo con l'obiettivo primario di assicurarsi i biglietti di accesso. Per ottimizzare questo percorso, si è optato per un approccio più diretto, posizionando un pulsante "Acquista i tuoi biglietti" direttamente nella Home Page. In questo modo, l'utente è messo nelle condizioni di compiere il suo "tiro perfetto" verso l'azione più rilevante nel minor tempo possibile e senza passaggi intermedi.
-    \item \textbf{Trappola per aragoste:} a struttura si adatta perfettamente a chi naviga senza un'idea definita, attirandolo e guidandolo progressivamente verso la conversione. Il flusso di acquisto all'interno della sezione Biglietti ne è la dimostrazione pratica: l'utente entra con un'intenzione generica e viene incanalato, come in una trappola a cilindri concentrici, verso scelte sempre più specifiche (selezionando prima la macro-tipologia tra Abbonamento, Ground Passes o Single Session, per poi definire i dettagli)
-    \item \textbf{Pesca con la rete:} L'esigenza di esplorare un argomento in tutta la sua totalità è soddisfatta dalla sezione News. Questo ambiente è progettato per gli utenti che "non lasciano nulla di intentato", offrendo una panoramica aggregata di tutti gli aggiornamenti, i risultati dei match e le comunicazioni sul torneo, permettendo di "catturare" tutto il contenuto informativo disponibile in un'unica area dedicata.
-    \item \textbf{Boa di segnalazione:} Per supportare la necessità di salvare e recuperare informazioni utili in un secondo momento, il portale integra strumenti strategici. Il Carrello funge da memoria temporanea per mantenere traccia dei biglietti in fase di selezione, mentre l'Area Personale rappresenta la "boa di segnalazione" definitiva, offrendo all'utente uno spazio sicuro per recuperare in qualsiasi momento i propri titoli di accesso e lo storico degli acquisti. 
+    \item \textbf{Tiro perfetto:} In questo scenario l'utente sa esattamente quello che sta cercando. Il portale asseconda questa necessità attraverso un menu di navigazione privo di ambiguità. Un'attenta analisi sulle intenzioni d'uso ha evidenziato che la maggioranza dell'utenza accede al sito con l'obiettivo primario di acquistare i biglietti; per questo motivo si è scelto di omettere la tradizionale barra di ricerca (ritenuta in questo contesto dispersiva) a favore di un approccio molto più diretto: un grande pulsante "Acquista i tuoi biglietti" campeggia subito nella Home Page. L'utente è così messo nelle condizioni di compiere il suo "tiro perfetto" verso la conversione nel minor tempo possibile.
+    
+    \item \textbf{Trappola per aragoste:} La struttura si adatta perfettamente anche a chi naviga senza un'idea predefinita, attirandolo e guidandolo progressivamente. Il flusso di acquisto nella sezione Biglietti ne è la dimostrazione pratica: l'utente entra con un'intenzione generica e viene incanalato, come in una trappola a cilindri concentrici, verso scelte sempre più specifiche (seleziona prima la macro-tipologia tra Abbonamento, Ground Passes o Singola Sessione, per poi scendere nel dettaglio del posto e della giornata).
+    
+    \item \textbf{Pesca con la rete:} L'esigenza di esplorare un argomento in tutta la sua totalità è soddisfatta dalla sezione News. Questo ambiente è progettato per gli utenti che non vogliono perdersi nulla, offrendo una panoramica aggregata di tutti gli aggiornamenti e i risultati, permettendo di "catturare" con un'unica mossa tutta l'attualità legata al torneo.
+    
+    \item \textbf{Boa di segnalazione:} Per supportare la necessità di salvare e recuperare informazioni utili in un secondo momento, il portale integra strumenti strategici. Il Carrello funge da memoria temporanea per mantenere traccia dei biglietti in fase di selezione, mentre l'Area Personale rappresenta la vera e propria "boa di segnalazione", offrendo all'utente uno spazio privato e sicuro dove recuperare in qualsiasi momento i propri titoli d'accesso, lo storico ordini e le comunicazioni dallo staff.
 \end{itemize}
 
+\section{Progettazione del Database}
 
+Per la gestione dei dati del portale abbiamo optato per un database relazionale (MySQL/MariaDB), progettato partendo dalla definizione del modello Entità-Relazione (ER). L'obiettivo principale è stato mantenere il database normalizzato, evitando la ridondanza delle informazioni e garantendo l'integrità dei dati tramite l'uso rigoroso delle chiavi esterne (\textit{Foreign Key}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/schemaer.png}
+    \caption{Schema E-R del database Patavium Open}
+    \label{fig:schemaer}
+\end{figure}
+
+\subsection{Schema Relazionale}
+
+Di seguito è riportato lo schema logico relazionale derivato dal modello concettuale. Le relazioni presentano le chiavi primarie indicate con la \underline{sottolineatura}, mentre gli attributi opzionali, che ammettono il valore \texttt{NULL}, sono contrassegnati da un asterisco (*).
+
+\begin{itemize}
+    \item \textbf{UTENTE}(\underline{idUtente}, username, email, password, nome, cognome, isAdmin)
+    
+    \item \textbf{INCONTRO}(\underline{idIncontro}, data, sessione*, stadio)
+    
+    \item \textbf{NEWS}(\underline{idNews}, titolo, testo, data\_pubblicazione, immagine, alt\_immagine, idAutore, inEvidenza)\\
+    FK: \texttt{idAutore} $\rightarrow$ \textbf{UTENTE}(\texttt{idUtente})
+    
+    \item \textbf{DOMANDA}(\underline{idDomanda}, testo\_domanda, testo\_risposta*, lettura\_admin, lettura\_user, data\_invio, idUtente)\\
+    FK: \texttt{idUtente} $\rightarrow$ \textbf{UTENTE}(\texttt{idUtente})
+    
+    \item \textbf{ORDINE}(\underline{numero\_ordine}, totale, data\_acquisto, idUtente)\\
+    FK: \texttt{idUtente} $\rightarrow$ \textbf{UTENTE}(\texttt{idUtente})
+    
+    \item \textbf{BIGLIETTO}(\underline{idBiglietto}, prezzo, tribuna*, tipo*, numero\_ordine*, idIncontro)\\
+    FK: \texttt{numero\_ordine} $\rightarrow$ \textbf{ORDINE}(\texttt{numero\_ordine})\\
+    FK: \texttt{idIncontro} $\rightarrow$ \textbf{INCONTRO}(\texttt{idIncontro})
+    
+    \item \textbf{FAQ}(\underline{idFaq}, testo\_domanda, testo\_risposta)
+\end{itemize}
+
+Come si può notare dallo schema in Figura \ref{fig:schemaer}, il database è strutturato in tre macro-aree logiche: la gestione degli account, l'area di e-commerce (ordini e biglietti) e l'area di interazione e supporto (news e ticket).
+
+\subsection{Gestione degli Account}
+Il cuore del sistema è la tabella \textbf{UTENTE}. Al suo interno salviamo i dati anagrafici e le credenziali di accesso. Per questioni di sicurezza, le password non vengono mai salvate in chiaro nel database, ma sono cifrate utilizzando la funzione nativa di hashing \texttt{bcrypt} di PHP. 
+
+Invece di creare due tabelle separate per i clienti e per gli amministratori, abbiamo preferito semplificare la struttura inserendo un campo booleano chiamato \texttt{isAdmin}. Se questo flag è a 1, il sistema riconosce l'utente come membro dello staff e gli sblocca l'accesso al pannello di controllo (\texttt{area\_admin.php}); altrimenti, l'utente naviga con i privilegi standard.
+
+\subsection{Sistema di Vendita: Programma, Ordini e Biglietti}
+La gestione della biglietteria è stata progettata per prevenire alla radice problemi di concorrenza o di \textit{overbooking} (ad esempio, quando due utenti tentano di comprare lo stesso posto nello stesso istante). Per farlo, utilizziamo tre tabelle interconnesse:
+
+\begin{itemize}
+    \item \textbf{INCONTRO:} Contiene il calendario del torneo. Ogni riga rappresenta un evento, definendone la data, lo stadio (es. Patavium Arena o Giotto Court) e il tipo di sessione (diurna, serale o ground).
+    \item \textbf{BIGLIETTO:} La nostra scelta implementativa è stata quella di "pre-generare" fisicamente nel database tutti i biglietti disponibili per ogni partita, ancor prima che vengano venduti. Ogni biglietto nasce con un prezzo, una tribuna e il collegamento all'incontro, ma con il campo \texttt{numero\_ordine} impostato a \texttt{NULL}.
+    \item \textbf{ORDINE:} Quando un utente completa un acquisto dal carrello, il sistema crea un record in questa tabella (registrando il totale pagato e la data) e va semplicemente a inserire l'ID di questo nuovo ordine dentro i biglietti scelti. Se un biglietto ha il \texttt{numero\_ordine} valorizzato, il sistema sa che è già stato venduto e non lo mostra più tra quelli disponibili.
+\end{itemize}
+
+\subsection{Informazione e Supporto: News, FAQ e Domande}
+L'interazione con gli utenti e l'aggiornamento del portale si basano su tre tabelle specifiche:
+
+\begin{itemize}
+    \item \textbf{NEWS:} Tabella dedicata agli articoli e agli aggiornamenti. È collegata all'utente amministratore che l'ha scritta (tramite \texttt{idAutore}) e include i campi per il percorso dell'immagine e per il suo testo alternativo (\texttt{alt\_immagine}), fondamentale per l'accessibilità. Il flag \texttt{inEvidenza} è molto utile per permettere all'admin di scegliere quali notizie far comparire in primo piano nella Home Page.
+    \item \textbf{FAQ:} Una tabella indipendente e di consultazione pubblica, che contiene semplicemente le domande frequenti e le relative risposte.
+    \item \textbf{DOMANDA:} Rappresenta il vero e proprio sistema di supporto clienti (Ticketing). Qualsiasi utente registrato può inviare un quesito. Al momento dell'invio, il sistema compila il \texttt{testo\_domanda} e lascia temporaneamente vuoto il \texttt{testo\_risposta}. Per gestire le notifiche in modo efficiente, abbiamo inserito due flag: \texttt{lettura\_admin} e \texttt{lettura\_user}. Quando l'utente scrive, il sistema avvisa l'amministratore; non appena l'admin risponde, il flag dell'utente scatta, facendogli comparire la notifica visiva direttamente all'interno della sua Area Personale, in modo che sappia di aver ricevuto assistenza.
+\end{itemize}
+
+\section{Dettagli implementativi}
+\subsection{Markup HTML5 e Inclusività (Conformità WCAG 2.1 AA)}
+
+Particolare attenzione è stata posta alla stesura del codice HTML, considerato non come semplice strumento di impaginazione, ma come livello semantico fondamentale per l'accessibilità e l'indicizzazione. Le interfacce sono state sviluppate rispettando rigorosamente le linee guida WCAG 2.1 livello AA, attraverso l'adozione dei seguenti pattern:
+
+\begin{itemize}
+    \item \textbf{HTML5 Strict e Graceful Degradation:} Il markup è stato scritto in rigoroso HTML5, prestando attenzione a mantenere una sintassi di tipo XML (chiusura esplicita di tutti i tag e attributi correttamente quotati). Il sito è stato progettato per "degradare con grazia": anche in assenza di fogli di stile o con JavaScript disabilitato, il contenuto rimane perfettamente leggibile, gerarchico e navigabile grazie al solo HTML puro.
+    \item \textbf{Landmark Semantici e Segmentazione:} La struttura di ogni pagina evita l'abuso di contenitori generici (\texttt{<div>}), affidandosi a tag semantici nativi (\texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<section>}, \texttt{<article>}, \texttt{<footer>}). Questo partizionamento logico permette agli screen reader (come NVDA o JAWS) di generare un albero di navigazione corretto, consentendo agli utenti con disabilità visive di orientarsi immediatamente all'interno dei contenuti.
+    
+    \item \textbf{Liste di Definizione Semantiche:} Per la presentazione di dati strutturati (come i dettagli dei match o le specifiche dei biglietti), si è optato per l'utilizzo delle \textit{Definition Lists} (\texttt{<dl>}, \texttt{<dt>}, \texttt{<dd>}). Questa scelta architetturale crea un legame logico indissolubile tra l'etichetta (es. "Data:") e il suo valore, garantendo una gerarchia informativa impeccabile e semanticamente superiore rispetto a semplici paragrafi affiancati.
+    
+    \item \textbf{Feedback Asincroni e Live Regions:} Per garantire un'esperienza utente reattiva e accessibile, la validazione dei form (es. Login e Registrazione) fa uso delle \textit{ARIA Live Regions}. Implementando l'attributo \texttt{aria-live="polite"}, il sistema annuncia in tempo reale i messaggi di errore o di successo, assicurando che l'utente venga notificato in modo vocale senza subire disorientanti ricaricamenti di pagina o perdite di focus.
+    
+    \item \textbf{Skip-Link e Gestione del Focus:} Per favorire la navigazione tramite tastiera, è stato integrato uno \textit{Skip Link} ("Vai al contenuto") visibile solo al momento della ricezione del focus. Inoltre, tutti gli elementi interattivi presentano indicatori visivi di focus (\texttt{outline}) studiati per mantenere un elevato rapporto di contrasto sia nel tema chiaro che nella Dark Mode.
+    
+    \item \textbf{Contenuti Multimediali e Decorativi:} Le immagini informative sono provviste di attributi \texttt{alt} concisi. Al contrario, gli elementi puramente estetici (come file vettoriali SVG o icone di accompagnamento) sono stati silenziati tramite gli attributi \texttt{alt=""} e \texttt{aria-hidden="true"}, al fine di non generare "rumore cognitivo" durante la lettura assistita.
+
+    \item \textbf{Utilità per Screen Reader:} Per menu a tendina o pannelli espandibili sono stati usati i tag nativi \texttt{<details>} e \texttt{<summary>}, che garantiscono nativamente l'accessibilità da tastiera. Infine, informazioni visivamente superflue ma necessarie al contesto sono state preservate per gli screen reader utilizzando la classe di utilità CSS \texttt{.sr-only} (che nasconde l'elemento a schermo senza rimuoverlo dal DOM) e l'attributo \texttt{lang="en"} per evitare errori di pronuncia sui termini inglesi.
+\end{itemize}
+
+\subsection{Logica di Backend e Gestione dei Dati (PHP)}
+
+Il cuore del sistema è stato sviluppato in PHP puro, adottando un pattern architetturale molto vicino al modello MVC (Model-View-Controller). L'obiettivo primario è stato separare la gestione delle richieste HTTP dalla logica di interazione con il database. Per farlo, abbiamo diviso gli script in due macro-directory: \texttt{php-pages} e \texttt{php-manager}.
+
+\subsubsection{Il Livello dei Controller (\texttt{php-pages})}
+I file contenuti in questa cartella (come \texttt{abbonamento.php} o \texttt{area\_admin.php}) fungono da orchestratori. Il loro compito è intercettare le richieste dell'utente (tramite GET o POST), verificare in modo stringente i permessi di sessione e dialogare con i Manager per ottenere i dati necessari. Una volta recepite le informazioni, il controller sfrutta il nostro motore di template custom per iniettarle all'interno dei file HTML, per poi restituire la pagina finita al browser. Abbiamo inoltre gestito le chiamate asincrone (AJAX), permettendo ai controller di interrompere l'esecuzione e restituire risposte pulite in formato JSON per le interazioni dinamiche dell'interfaccia.
+
+\subsubsection{Il Livello dei Manager (\texttt{php-manager})}
+Tutta la logica di business e l'interazione con il database relazionale sono state isolate nei file Manager. Classi come \texttt{TicketManager} e \texttt{NewsManager} incapsulano interamente le query SQL. Abbiamo dedicato molta cura alla stesura di query complesse e ottimizzate: ad esempio, il calcolo della disponibilità reale degli abbonamenti non è un dato statico, ma viene elaborato al volo incrociando i biglietti invenduti con i raggruppamenti delle 14 sessioni del torneo. Questo isolamento garantisce che un'eventuale futura modifica alla struttura del database richiederà aggiornamenti solo all'interno dei Manager, lasciando intatto il resto del sito.
+
+\subsubsection{Sicurezza Attiva e Validazione (La classe \texttt{Tool})}
+La sicurezza è stata trattata come requisito fondamentale e non come aggiunta a posteriori. Abbiamo centralizzato tutte le funzioni di utilità e validazione nella classe statica \texttt{Tool}:
+\begin{itemize}
+    \item \textbf{Prevenzione XSS (Cross-Site Scripting):} Qualsiasi input inserito dall'utente viene ripulito tramite il metodo \texttt{Tool::pulisciInput()}. Questa funzione combina \texttt{strip\_tags} e \texttt{htmlspecialchars} con i flag più restrittivi (\texttt{ENT\_QUOTES | ENT\_HTML5}), garantendo che codice malevolo o script iniettati nei form vengano neutralizzati prima di arrivare al database.
+    \item \textbf{Prevenzione SQL Injection:} Utilizziamo ovunque i \textbf{Prepared Statements} (\texttt{bind\_param}), delegando al driver del database il compito di sanificare i parametri, rendendo le iniezioni SQL strutturalmente impossibili.
+    \item \textbf{Validazione Upload Sicura:} Nell'area amministrativa, il sistema di caricamento delle immagini per le notizie non si limita a controllare l'estensione del file (es. \texttt{.jpg} o \texttt{.webp}). Sfruttiamo controlli MIME avanzati tramite \texttt{getimagesize()} per verificare che il file sia realmente un'immagine e non uno script PHP mascherato, bloccando alla radice potenziali intrusioni nel server.
+\end{itemize}
+
+\subsubsection{Accessibilità generata Server-Side e Gestione Errori}
+Abbiamo integrato l'accessibilità direttamente nel motore PHP, evitando di delegare la modifica degli stati visivi solo a JavaScript. Il backend calcola e inietta gli attributi \texttt{ARIA} appropriati; ad esempio, se le query di \texttt{TicketManager} riportano che i posti per una tribuna sono esauriti, il file \texttt{abbonamento.php} stampa dinamicamente l'attributo \texttt{aria-disabled="true"} e le classi di blocco direttamente nel DOM.
+
+Infine, abbiamo prestato molta attenzione alla gestione degli errori e alle operazioni critiche sul database. I passaggi più delicati, come il salvataggio di un ordine dal carrello, sono inseriti all'interno di blocchi \texttt{try-catch}. Se qualcosa va storto durante il checkout, blocchiamo l'operazione facendo un \textit{rollback}, così evitiamo di salvare dati incompleti o corrotti. L'utente viene poi reindirizzato a una pagina sicura con un messaggio di errore chiaro (generato tramite \texttt{Tool::buildMessage()}). In questo modo evitiamo che la pagina crashi mostrando i classici errori nativi di PHP, che finirebbero per svelare percorsi del server o dettagli delle query SQL. Con la stessa logica di sicurezza abbiamo gestito il logout: non ci limitiamo a svuotare l'array di sessione sul server, ma andiamo a cancellare fisicamente i cookie dal browser del client, azzerando qualsiasi rischio di riutilizzo della sessione.
+\subsection{Comportamento Client-Side e Interazioni Asincrone (JavaScript)}
+
+Il livello di interazione lato client è stato sviluppato interamente in \textit{Vanilla JavaScript} (ECMAScript 6+), escludendo l'uso di librerie esterne o framework. L'obiettivo è stato quello di arricchire l'esperienza utente mantenendo il caricamento delle pagine rapido e il codice manutenibile. 
+
+L'architettura JavaScript del progetto si fonda su quattro pilastri:
+
+\begin{itemize}
+    \item \textbf{Comunicazione Asincrona (AJAX e Fetch API):}
+    Per evitare ricaricamenti di pagina durante le operazioni di routine, abbiamo deciso di utilizzare chiamate asincrone tramite la \texttt{Fetch API}. Un esempio è la rimozione di un biglietto nel \texttt{carrello.js}: quando l'utente elimina un elemento, il client invia una richiesta POST al server con l'indice del biglietto; alla ricezione della conferma (in formato JSON), il JavaScript aggiorna il totale a schermo e rimuove l'elemento dal DOM applicando un'animazione CSS, senza interrompere la navigazione.
+    
+    \item \textbf{Gestione Dinamica delle Viste:}
+    In sezioni complesse come l'Area Admin o l'Area Utente, invece di avere file HTML separati per visualizzare la lista delle FAQ o il form per inserirne una nuova, il JavaScript intercetta i click sui menu laterali e "accende o spegne" le diverse sezioni della pagina manipolando le classi CSS (\texttt{.active} o \texttt{.hidden}). Questo approccio azzera i tempi di caricamento durante la navigazione interna dei pannelli di controllo.
+    
+    \item \textbf{Controllo dei form in tempo reale e gestione errori:} Nel file \texttt{validazione-reg.js} volevamo dare un aiuto immediato a chi si registra, senza aspettare che prema il tasto "Invia". Mentre l'utente scrive la password, usiamo delle espressioni regolari per verificare subito i requisiti (lettere maiuscole, numeri, caratteri speciali) e aggiorniamo una checklist a schermo che si colora man mano che le regole vengono rispettate. Abbiamo curato anche l'accessibilità dei messaggi d'errore asincroni (le chiamate AJAX): quando qualcosa va storto, il JavaScript crea al volo un blocco con l'attributo \texttt{aria-live="assertive"}. In questo modo forziamo lo screen reader ad annunciare subito il problema, avvisando tempestivamente l'utente.    
+    \item \textbf{Gestione del menu da tastiera:} Nello script \texttt{nav.js} abbiamo curato l'accessibilità del menu "hamburger" per mobile. Abbiamo aggiunto un ascoltatore per l'evento \texttt{keydown} in modo che, se l'utente preme il tasto \texttt{Escape} con la tendina aperta, il menu si chiude in automatico e l'attributo \texttt{aria-expanded} torna a "false". La cosa più importante che abbiamo implementato è il ritorno del \textit{focus}: una volta chiuso il menu, il cursore torna esattamente sul pulsante di apertura. In questo modo, chi naviga solo con la tastiera non rischia di ritrovarsi sbalzato all'inizio o in fondo alla pagina.    
+    \item \textbf{Dark Mode e salvataggio delle preferenze:} Nel file \texttt{theme.js} abbiamo gestito il tema scuro evitando di manipolare gli stili inline tramite JavaScript. Lo script si limita ad applicare l'attributo \texttt{data-theme="dark"} direttamente al tag \texttt{<html>}, lasciando al CSS il compito di scambiare le variabili colore. La scelta dell'utente viene salvata nel \texttt{localStorage} per mantenerla attiva durante tutta la navigazione. Come accortezza in più, per i nuovi visitatori, utilizziamo \texttt{window.matchMedia} per leggere le impostazioni del sistema operativo (ad esempio, se il telefono o il PC dell'utente è già in modalità scura) e adattiamo il sito di conseguenza fin dal primo caricamento.
+\end{itemize}
+
+\subsection{Sviluppo del Livello di Presentazione (CSS3 e Design System)}
+
+Il foglio di stile del progetto è stato sviluppato adottando un approccio architetturale solido e moderno, senza l'ausilio di framework esterni, per garantire il massimo controllo sulle performance e sulla personalizzazione visiva.
+
+\subsubsection{Design System e CSS Custom Properties}
+L'intera interfaccia si basa su un Design System centralizzato governato da CSS Custom Properties (variabili) dichiarate nella pseudo-classe \texttt{:root}. Questa scelta ha permesso di tokenizzare l'intera palette cromatica (suddivisa in colori di superficie, testo e accenti), le spaziature fluide e i livelli di opacità precompilati (es. \texttt{--col-shadow-15}). L'utilizzo dei token ha garantito una totale coerenza visiva lungo tutte le macro-sezioni dell'applicativo, facilitando future operazioni di manutenzione.
+
+\subsubsection{Dark Mode Architetturale}
+L'implementazione del tema scuro (\textit{Dark Mode}) è stata progettata per essere scalabile e priva di ridondanze strutturali. Invece di riscrivere le regole CSS per ogni singolo componente, il tema scuro viene attivato a livello globale mediante l'attributo \texttt{[data-theme="dark"]}, il quale si limita a sovrascrivere i valori delle variabili radice (come \texttt{--col-bg}, \texttt{--col-surface} e le palette dei testi). Di conseguenza, tutti i moduli ereditano dinamicamente i nuovi contrasti, garantendo un'esperienza immersiva al buio senza incrementare il debito tecnico o il peso del file.
+
+\subsubsection{Accessibilità Visiva e Media Queries Avanzate}
+In totale conformità con le direttive WCAG, un'attenzione particolare è stata posta all'inclusività motoria e visiva del front-end:
+\begin{itemize}
+    \item \textbf{Gestione del Focus:} Tutti gli elementi interattivi (pulsanti, link, controlli dei form) presentano stati di \texttt{:focus-visible} rigorosamente standardizzati, i quali applicano un \texttt{outline} marcato e spaziato per guidare agevolmente la navigazione da tastiera.
+    \item \textbf{Animazioni Ridotte (\texttt{prefers-reduced-motion}):} Sono state integrate speciali \textit{media queries} in grado di interrogare le preferenze di sistema dell'utente. Qualora l'utente abbia richiesto una riduzione del movimento (per prevenire disagi vestibolari), il CSS disabilita nativamente tutte le transizioni, le animazioni e lo scorrimento fluido (\texttt{scroll-behavior: auto}).
+\end{itemize}
+
+\subsubsection{Approccio DRY e Raggruppamento dei Componenti}
+Per ottimizzare la pulizia del codice e scongiurare le ripetizioni (rispettando il pattern architetturale DRY - \textit{Don't Repeat Yourself}), le regole strutturali condivise sono state consolidate in macro-selettori di raggruppamento. Le proprietà grafiche identiche — come \texttt{border-radius}, transizioni e \texttt{box-shadow} delle \textit{card} o i \textit{padding} e i colori di sfondo dei pulsanti — sono centralizzate. Le classi specifiche di ciascun componente si limitano a definire unicamente le logiche interne di layout (tramite \textit{CSS Grid} e \textit{Flexbox}), mantenendo un'architettura a componenti estremamente robusta.
+
+\subsubsection{Ottimizzazione per la Stampa}
+Il livello di presentazione è stato arricchito con regole mirate per la corretta impaginazione e la fruizione su supporti cartacei. Il layout di stampa agisce in modo sottrattivo e normalizzante:
+\begin{itemize}
+    \item Gli elementi interattivi non essenziali per la lettura (come il menu di navigazione, i pulsanti d'acquisto, la sidebar utente e lo \textit{skip-link}) vengono nascosti automaticamente tramite la direttiva \texttt{display: none}.
+    \item Il foglio di stile neutralizza le ombreggiature e disabilita i background colorati, forzando un alto contrasto basato su testo nero puro (\texttt{var(--nero-puro)}) su sfondi bianchi (\texttt{var(--bianco-puro)}).
+    \item Per prevenire il troncamento dei testi a metà tra due pagine stampate, i contenitori principali (come i riquadri delle date, i biglietti e gli elementi \textit{FAQ}) fanno uso delle direttive \texttt{page-break-inside: avoid} e \texttt{break-inside: avoid}.
+    \item I collegamenti ipertestuali sono stati espansi tramite l'uso degli pseudo-elementi (\texttt{::after} e \texttt{attr(href)}), permettendo di stampare fisicamente l'URL di destinazione accanto al testo del link.
+\end{itemize}
+
+\section{Metodologia di Lavoro e Suddivisione dei Compiti}
+
+Il lavoro di sviluppo è stato portato avanti dal nostro gruppo composto da quattro persone: Anna Marini, Eleonora Bellet, Lorenzo Milanese e Diego Belluz. 
+
+\subsection{Pianificazione e Organizzazione}
+Data l'importanza di prendere decisioni condivise fin da subito, le fasi iniziali di \textit{brainstorming} e la definizione dello schema ER (il modello del database) si sono svolte tramite sessioni di confronto su Discord. Questa scelta è stata cruciale perché ci ha permesso di decidere insieme la struttura del database e l'architettura generale del sito prima di scrivere anche una sola riga di codice. 
+
+Durante questi incontri abbiamo anche definito delle regole comuni di base per non "incasinarci" durante lo sviluppo:
+\begin{itemize}
+    \item \textbf{Naming Convention:} abbiamo deciso di usare esclusivamente il formato \texttt{snake\_case} per i nomi di tutti i file.
+    \item \textbf{Struttura delle cartelle:} abbiamo creato una suddivisione chiara tra i file PHP e i file HTML per tenere tutto in ordine.
+\end{itemize}
+
+\subsection{Suddivisione dello sviluppo}
+Per lavorare in modo efficiente e parallelo, abbiamo deciso di non metterci mai a lavorare sugli stessi file contemporaneamente, evitando così conflitti e sovrapposizioni.
+
+\subsubsection{Fase 1: Struttura HTML e Database}
+Mentre tre di noi (Eleonora, Diego e Anna) si dedicavano alla costruzione dell'HTML, Lorenzo si è occupato del \textit{backend} inteso come base dati, creando il file \texttt{patavium\_open.sql} e gestendo la logica del database. 
+Gli altri tre componenti hanno suddiviso le pagine del sito: chi si occupava della sezione "Biglietti" ha gestito sia la pagina principale che la creazione delle \textit{card} e degli \textit{item} specifici (come le sessioni e i Ground Pass), così da mantenere omogeneo lo stile di ogni singola pagina.
+
+\subsubsection{Fase 2: Logica PHP e JavaScript}
+Una volta completata la parte strutturale, ci siamo spostati sulla logica vera e propria. Anche in questa fase abbiamo lavorato in parallelo: ognuno di noi ha preso in carico dei moduli specifici. Ad esempio, chi aveva già sviluppato la pagina Biglietti ha curato anche la logica di inserimento nel carrello, mentre altri si sono concentrati sulla gestione delle FAQ o sull'Area Utente.
+
+Per quanto riguarda JavaScript e PHP, abbiamo evitato di scrivere codice sparso: le funzioni più complesse o riutilizzabili sono state create da chi di noi era più focalizzato su quella specifica funzionalità, per poi essere condivise e richiamate da tutti. Questo ci ha permesso di non dover fare ognuno il "proprio" PHP o il "proprio" JS, ma di avere un codice che funzionasse in modo uguale su tutto il sito. 
+
+Questo approccio ci ha permesso di procedere in parallelo, completando le varie aree funzionali (come il carrello, l'area admin e il sistema di notifiche) in tempi brevi, riuscendo a integrare tutto correttamente grazie al continuo allineamento durante le nostre sessioni di lavoro.
+
+\subsection{Strumenti di comunicazione}
+
+Per mantenere il team sempre allineato e gestire le diverse fasi di sviluppo in modo ordinato, abbiamo adottato una strategia basata su strumenti di comunicazione e collaborazione immediati, evitando complessità eccessive che avrebbero potuto rallentare il lavoro.
+
+La comunicazione quotidiana si è basata principalmente su due pilastri:
+\begin{itemize}
+    \item \textbf{Discord:} utilizzato per le chiamate di gruppo e per le sessioni di brainstorming più lunghe. È stato lo spazio virtuale in cui abbiamo preso le decisioni più importanti, come la definizione del database e la struttura delle cartelle.
+    \item \textbf{WhatsApp:} utilizzato per scambi di informazioni rapide, alert immediati e per mantenere un contatto costante e informale durante le ore di lavoro individuale.
+\end{itemize}
+
+\subsection{Monitoraggio dei Task: La ``Task Board'' su Google Doc}
+Per tracciare lo stato di avanzamento del lavoro, abbiamo creato un documento Google condiviso contenente una tabella di gestione dei task. L'idea di fondo era quella di avere uno strumento simile a un sistema di \textit{Issue Tracking} (come quello di GitHub), ma più semplice e immediato da consultare per tutti i membri del gruppo.
+
+La tabella era strutturata in modo molto chiaro:
+\begin{itemize}
+    \item \textbf{Obiettivo:} una breve descrizione del task (es. ``Creazione pagina FAQ'', ``Validazione form Login'').
+    \item \textbf{Responsabile:} il nome del componente del team incaricato di completare il compito.
+    \item \textbf{Stato:} un campo dinamico che aggiornavamo costantemente con tre stati: \textit{Da fare}, \textit{In corso}, \textit{Completato}.
+\end{itemize}
+
+Questa ``bacheca'' digitale ci ha permesso di avere sempre una visione d'insieme chiara di cosa mancava, chi stava lavorando su cosa e a che punto era il progetto. È stata la nostra soluzione per evitare che due persone lavorassero sullo stesso task senza saperlo e per assicurarci di arrivare alla consegna con tutti i pezzi pronti e testati.
 \end{document}

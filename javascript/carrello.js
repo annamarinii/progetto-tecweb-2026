@@ -2,7 +2,7 @@
  * Gestione dinamica del Carrello - Patavium Open
  */
 
-window.rimuoviItem = function(indice) {
+function rimuoviItem(indice) {
     // Selezioniamo la card tramite l'attributo data-index (coerenza con il PHP)
     const cardDaRimuovere = document.querySelector(`article[data-index="${indice}"]`);
 
@@ -47,7 +47,7 @@ window.rimuoviItem = function(indice) {
         console.error("Errore AJAX:", err);
         if (cardDaRimuovere) cardDaRimuovere.classList.remove('removing-item');
     });
-};
+}
 
 /**
  * Aggiorna il totale nel DOM con formattazione locale it-IT
@@ -65,6 +65,18 @@ function aggiornaTotaleCarrello(nuovoTotale) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Event Delegation: un solo listener sul contenitore padre degli item
+    const cartContainer = document.getElementById('cart-items-container');
+    if (cartContainer) {
+        cartContainer.addEventListener('click', (e) => {
+            const btnRemove = e.target.closest('.btn-remove-item');
+            if (!btnRemove) return;
+
+            const indice = btnRemove.dataset.index;
+            rimuoviItem(indice);
+        });
+    }
+
     const btnCheckout = document.getElementById('btn-checkout');
     if (btnCheckout) {
         btnCheckout.addEventListener('click', function(e) {
