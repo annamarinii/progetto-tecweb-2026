@@ -70,6 +70,11 @@ class CarrelloManager {
             for ($i = 1; $i <= 14; $i++) {
                 $idProgrammaLoop = $i;
                 $stmt->execute();
+
+                if ($stmt->affected_rows < $quantita) {
+                    $stmt->close();
+                    throw new Exception("Abbonamenti esauriti per la tribuna {$titolo_pulito} (giornata {$i}).");
+                }
             }
             $stmt->close();
 
@@ -83,6 +88,11 @@ class CarrelloManager {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("iii", $idOrdine, $idProg, $quantita);
             $stmt->execute();
+
+            if ($stmt->affected_rows < $quantita) {
+                $stmt->close();
+                throw new Exception("Ground pass non sufficienti per la data richiesta.");
+            }
             $stmt->close();
 
         } else {
@@ -97,8 +107,10 @@ class CarrelloManager {
             $stmt->bind_param("isii", $idOrdine, $titolo_pulito, $idProg, $quantita);
             $stmt->execute();
 
-            if ($stmt->affected_rows === 0) {
-                throw new Exception("Nessun biglietto disponibile per la Tribuna: {$titolo_pulito}");
+            $assegnati = $stmt->affected_rows;
+            if ($assegnati < $quantita) {
+                $stmt->close();
+                throw new Exception("Disponibilità insufficiente per la Tribuna: {$titolo_pulito} (richiesti {$quantita}, assegnati {$assegnati}).");
             }
             $stmt->close();
         }

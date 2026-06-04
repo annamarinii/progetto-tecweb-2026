@@ -1,5 +1,4 @@
-/* mobile.css - Direttive responsive (max-width) estratte da style.css */
-/* Separation of Concerns: caricato con media="screen and (max-width: 992px)" */
+/* media="screen and (max-width: 992px)" */
 
 @media screen and (max-width: 860px) {
     .footer-grid {

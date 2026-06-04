@@ -3,10 +3,14 @@
 // Inizializzazione della sessione e inclusione dei file manager principali
 require_once 'php-manager/init_session.php';
 require_once 'php-manager/news_manager.php';
+require_once 'php-manager/campioni_manager.php';
 require_once 'php-manager/tool.php';
 
 // 1. Recupero delle ultime 3 news dal database per la sezione della Home
 $ultime_news = NewsManager::getUltimeNews(3);
+
+// 1b. Recupero dei campioni dal database per la sezione "I Nostri Campioni"
+$campioni = CampioniManager::getCampioni();
 
 // 2. Lettura del template HTML della Home Page
 $pagina_html = file_get_contents(__DIR__ . '/pages/index.html');
@@ -43,6 +47,29 @@ foreach ($ultime_news as $news) {
 
 // 6. Iniezione del blocco cards nel segnaposto della pagina
 $pagina_html = str_replace('[NewsCards]', $news_html_content, $pagina_html);
+
+// 6b. Generazione delle Cards Campioni tramite foreach (stesso pattern delle News Cards)
+//     basename() isola il nome file dal percorso salvato nel DB, sincronizzandolo con
+//     il placeholder src="assets/images/[ImmagineCampione]" nel template del frammento.
+//     La categoria mostrata combina categoria + anno (es. "Singolo Maschile 2026").
+$template_campione = file_get_contents(__DIR__ . '/item/campione_card.html');
+$campioni_html_content = "";
+foreach ($campioni as $campione) {
+    $immagine_c = basename(Tool::pulisciInput($campione['immagine']));
+    $alt_c      = !empty($campione['alt_immagine']) ? Tool::pulisciInput($campione['alt_immagine']) : 'Ritratto del campione';
+    $nome_c     = Tool::pulisciInput($campione['nome']);
+    $categoria_c = Tool::pulisciInput($campione['categoria']);
+    $anno_c     = (int) $campione['anno'];
+
+    $campioni_html_content .= str_replace(
+        ['[ImmagineCampione]', '[AltCampione]', '[CategoriaCampione]', '[AnnoCampione]', '[NomeCampione]'],
+        [$immagine_c,          $alt_c,          $categoria_c,          $anno_c,           $nome_c],
+        $template_campione
+    );
+}
+
+// 6c. Iniezione del blocco campioni nel segnaposto della pagina
+$pagina_html = str_replace('[CampioniCards]', $campioni_html_content, $pagina_html);
 
 // 7. SEO: la home usa i meta tag generici di default (nessun parametro specifico)
 $pagina_html = Tool::setupSEO($pagina_html);

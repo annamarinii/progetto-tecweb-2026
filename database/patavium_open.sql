@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS NEWS;
 DROP TABLE IF EXISTS PROGRAMMA;
 DROP TABLE IF EXISTS UTENTE;
 DROP TABLE IF EXISTS FAQ;
+DROP TABLE IF EXISTS CAMPIONI;
 
 
 -- tabelle primarie
@@ -72,6 +73,16 @@ CREATE TABLE FAQ (
     idFaq INT AUTO_INCREMENT PRIMARY KEY,
     testo_domanda TEXT NOT NULL,
     testo_risposta TEXT NOT NULL
+);
+
+CREATE TABLE CAMPIONI (
+    idCampione   INT AUTO_INCREMENT PRIMARY KEY,
+    nome         VARCHAR(60)  NOT NULL,
+    categoria    VARCHAR(40)  NOT NULL,
+    anno         SMALLINT     NOT NULL,
+    immagine     VARCHAR(255) NOT NULL DEFAULT 'assets/images/logo1.webp',
+    alt_immagine VARCHAR(255) NOT NULL DEFAULT 'Ritratto del campione',
+    ordine       INT          NOT NULL DEFAULT 0
 );
 
 
@@ -261,3 +272,10 @@ INSERT INTO DOMANDE (testo_domanda, testo_risposta, lettura_admin, lettura_user,
 ('Ho smarrito una sciarpa blu in Tribuna Antenore ieri, è stata ritrovata?', NULL, 1, 0, 2),
 ('La tribuna Fondo Campo è accessibile con sedia a rotelle?', 'Certamente, la tribuna è dotata di rampa dedicata e posti riservati.', 1, 1, 2),
 ('A che ora è prevista la finale del singolare maschile di domenica?', NULL, 0, 0, 2);
+
+-- Inserimento nella tabella CAMPIONI (gli stessi 4 campioni della home, con i loro alt-text reali)
+INSERT INTO CAMPIONI (nome, categoria, anno, immagine, alt_immagine, ordine) VALUES
+('Lorenzo Costa', 'Singolo Maschile', 2026, 'assets/images/lorenzo_costa.webp', 'Il tennista Lorenzo Costa sorridente mentre solleva la coppa del torneo dopo la vittoria', 1),
+('Sofia Esposito', 'Singolo Femminile', 2026, 'assets/images/sofia_esposito.webp', 'La tennista Sofia Esposito in azione mentre colpisce la palla con un potente rovescio a due mani', 2),
+('David Richard', 'Singolo Maschile', 2025, 'assets/images/david_richard.webp', 'Il tennista David Richard in posa sul campo con la racchetta appoggiata sulla spalla', 3),
+('Alicia Schneider', 'Singolo Femminile', 2025, 'assets/images/alicia_schneider.webp', 'La tennista Alicia Schneider concentrata mentre prepara il servizio lanciando la palla in alto', 4);

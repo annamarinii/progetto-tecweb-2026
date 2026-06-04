@@ -1,0 +1,24 @@
+<div class="news-admin-row" data-campione-id="[CampioneID]">
+    <div class="news-admin-row-info">
+        <img src="[Percorso]" alt="" aria-hidden="true" class="news-admin-thumb" loading="lazy" />
+        <p class="news-admin-title">[Nome]</p>
+    </div>
+    <div class="news-admin-actions">
+        <button type="button"
+                class="btn-edit btn-edit-campione-trigger"
+                data-id="[CampioneID]"
+                data-img="[ImgName]"
+                data-alt="[AltImmagine]"
+                data-categoria="[Categoria]"
+                data-anno="[Anno]"
+                data-ordine="[Ordine]"
+                aria-label="Modifica il campione: [Nome]">Modifica</button>
+        <form action="area_admin.php" method="POST" class="form-delete-campione">
+            <input type="hidden" name="id_campione" value="[CampioneID]" />
+            <input type="hidden" name="elimina" value="si" />
+            <button type="submit"
+                    class="btn-delete-news-ajax"
+                    aria-label="Elimina definitivamente il campione: [Nome]">Elimina</button>
+        </form>
+    </div>
+</div>

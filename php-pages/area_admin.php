@@ -2,6 +2,7 @@
 require_once '../php-manager/init_session.php';
 require_once '../php-manager/account_manager.php';
 require_once '../php-manager/news_manager.php';
+require_once '../php-manager/campioni_manager.php';
 require_once '../php-manager/faq_manager.php';
 require_once '../php-manager/db_connection.php';
 require_once '../php-manager/tool.php';
@@ -22,14 +23,79 @@ $frammento_faq_admin     = file_get_contents(__DIR__ . '/../item/faq_admin_card.
 $frammento_domanda       = file_get_contents(__DIR__ . '/../item/domanda_utente_item.html');
 $frammento_form_risposta = file_get_contents(__DIR__ . '/../item/faq_risposta_admin.html');
 $frammento_news_admin    = file_get_contents(__DIR__ . '/../item/admin_news_row.html');
+$frammento_campione_admin = file_get_contents(__DIR__ . '/../item/admin_campione_row.html');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $esito = false;
     $ancora = "";
     $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
+    // --- GESTIONE CAMPIONI (LATO INGRESSO: SALVATAGGIO PURO NEL DB) ---
+    // Intercettata PRIMA delle news: l'eliminazione campione invia anch'essa elimina=si,
+    // perciò la si distingue tramite la presenza di 'nome' (insert/update) o 'id_campione'.
+    if (isset($_POST['nome']) || (isset($_POST['elimina']) && $_POST['elimina'] == 'si' && isset($_POST['id_campione']))) {
+        $idCampione = isset($_POST['id_campione']) ? $_POST['id_campione'] : null;
+        // Non si convertono le entità in ingresso per salvare dati puri. Si ripulisce solo da tag dannosi se necessario.
+        $nome      = isset($_POST['nome']) ? trim(strip_tags($_POST['nome'])) : '';
+        $categoria = isset($_POST['categoria']) ? trim(strip_tags($_POST['categoria'])) : '';
+        $anno      = isset($_POST['anno']) ? trim($_POST['anno']) : '';
+        $ordine    = isset($_POST['ordine']) ? (int) $_POST['ordine'] : 0;
+        // Testo alternativo dell'immagine (accessibilità): se lasciato vuoto si usa
+        // un fallback coerente con il DEFAULT della colonna nel DB.
+        $alt_immagine = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
+        if ($alt_immagine === '') {
+            $alt_immagine = 'Ritratto del campione';
+        }
+        $immagine_path = "";
+
+        $upload_msg = "";
+        $estensioni_ok = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (isset($_FILES['immagine'])) {
+            if ($_FILES['immagine']['error'] === UPLOAD_ERR_OK) {
+                $tmp_name = $_FILES['immagine']['tmp_name'];
+                $file_type = strtolower(pathinfo($_FILES['immagine']['name'], PATHINFO_EXTENSION));
+
+                // Sicurezza: accetta solo immagini con estensione whitelisted E
+                // contenuto realmente di tipo immagine (evita upload di .php travestiti).
+                $mime_ok = function_exists('getimagesize') ? (bool) @getimagesize($tmp_name) : true;
+
+                if (!in_array($file_type, $estensioni_ok, true) || !$mime_ok) {
+                    $upload_msg = "Formato immagine non valido. Sono ammessi solo JPG, PNG, GIF o WEBP.";
+                } else {
+                    $new_filename = "campione_" . time() . "." . $file_type;
+                    if (move_uploaded_file($tmp_name, "../assets/images/" . $new_filename)) {
+                        $immagine_path = "assets/images/" . $new_filename;
+                    } else {
+                        $upload_msg = "Impossibile spostare il file nel server.";
+                    }
+                }
+            } else if ($_FILES['immagine']['error'] !== UPLOAD_ERR_NO_FILE) {
+                $upload_msg = "Errore caricamento file (Codice PHP: " . $_FILES['immagine']['error'] . "). Forse il file è troppo pesante.";
+            }
+        }
+
+        $isEliminazione = (isset($_POST['elimina']) && $_POST['elimina'] == 'si');
+
+        // Validazione difensiva lato server: per inserimento/modifica nome, categoria e anno
+        // sono obbligatori; un'estensione immagine non valida blocca l'operazione.
+        if (!$isEliminazione && (!CampioniManager::validaCampiCampione($nome, $categoria, $anno) || $upload_msg !== "")) {
+            header("Location: area_admin.php?status=error&t=" . time() . "#gestione-campioni");
+            exit();
+        }
+
+        if ($isEliminazione) {
+            $esito = CampioniManager::eliminaCampione($idCampione);
+        } else if ($idCampione && $idCampione != "") {
+            $esito = CampioniManager::aggiornaCampione($idCampione, $nome, $categoria, $anno, $immagine_path, $alt_immagine, $ordine);
+        } else {
+            $img_to_save = ($immagine_path != "") ? $immagine_path : 'assets/images/logo1.webp';
+            $esito = CampioniManager::inserisciCampione($nome, $categoria, $anno, $img_to_save, $alt_immagine, $ordine);
+        }
+        $ancora = "#gestione-campioni";
+    }
+
     // --- GESTIONE NEWS (LATO INGRESSO: SALVATAGGIO PURO NEL DB) ---
-    if (isset($_POST['titolo']) || (isset($_POST['elimina']) && $_POST['elimina'] == 'si')) { 
+    else if (isset($_POST['titolo']) || (isset($_POST['elimina']) && $_POST['elimina'] == 'si')) {
         $idNews = isset($_POST['id_news']) ? $_POST['id_news'] : null;
         // Non si convertono le entità in ingresso per salvare dati puri. Si ripulisce solo da tag dannosi se necessario.
         $titolo = isset($_POST['titolo']) ? trim(strip_tags($_POST['titolo'])) : '';
@@ -213,6 +279,27 @@ foreach ($newsArray as $news) {
     );
 }
 
+$campioniArray = CampioniManager::getCampioni();
+$html_campioni = !empty($campioniArray) ? "" : "<p>Nessun campione pubblicato.</p>";
+foreach ($campioniArray as $campione) {
+    $percorso = (empty($campione['immagine'])) ? '../assets/images/logo1.webp' : '../' . htmlspecialchars($campione['immagine'], ENT_QUOTES, 'UTF-8');
+    $img_name = (empty($campione['immagine'])) ? 'logo1.webp' : basename($campione['immagine']);
+    $html_campioni .= str_replace(
+        ['[CampioneID]', '[Percorso]', '[ImgName]', '[Nome]', '[AltImmagine]', '[Categoria]', '[Anno]', '[Ordine]'],
+        [
+            (int)$campione['idCampione'],
+            $percorso,
+            htmlspecialchars($img_name,                   ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($campione['nome'],           ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($campione['alt_immagine'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($campione['categoria'],      ENT_QUOTES, 'UTF-8'),
+            (int)$campione['anno'],
+            (int)$campione['ordine']
+        ],
+        $frammento_campione_admin
+    );
+}
+
 $faqArray = FaqManager::getFaq();
 $html_faq = !empty($faqArray) ? "" : "<p>Nessuna FAQ pubblicata.</p>";
 foreach ($faqArray as $f) {
@@ -263,6 +350,6 @@ $pagina_html = file_get_contents(__DIR__ . '/../pages/area_admin.html');
 $pagina_html = str_replace('[Header]', Tool::buildHeader('areaadmin'), $pagina_html);
 $pagina_html = str_replace('[Footer]', Tool::buildFooter('areaadmin'), $pagina_html);
 
-$search  = ['[nome_utente]', '[cognome_utente]', '[username_utente]', '[lista_news_miniature]', '[lista_faq_per_modifica]', '[lista_domande_utenti]', '[messaggio_esito]'];
-$replace = [$nome_pulito, $cognome_pulito, $username_pulito, $html_miniature, $html_faq, $html_domande, $messaggio_esito];
+$search  = ['[nome_utente]', '[cognome_utente]', '[username_utente]', '[lista_news_miniature]', '[ListaCampioniAdmin]', '[lista_faq_per_modifica]', '[lista_domande_utenti]', '[messaggio_esito]'];
+$replace = [$nome_pulito, $cognome_pulito, $username_pulito, $html_miniature, $html_campioni, $html_faq, $html_domande, $messaggio_esito];
 echo str_replace($search, $replace, $pagina_html);
