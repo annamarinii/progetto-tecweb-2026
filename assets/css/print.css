@@ -61,7 +61,7 @@ html body #breadcrumb a::after {
 button, .btn-auth, .btn-ritorno, .btn-biglietti, .btn-logout-small, .action-box, 
 .purchase-controls, .purchase-container, form, input, textarea, .divider, .error-visual, 
 #pallina_triste, .step-badge, .step-header h2, .session-footer, #selected-full-date,
-section#gestione-news, section#gestione-faq, .subject, .back-to-top, a.read-more{
+section#gestione-news, section#gestione-faq, .subject, .back-to-top, a.read-more, .faq-search-wrapper {
     display: none;
 }
 
