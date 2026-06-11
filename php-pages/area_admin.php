@@ -39,13 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome      = isset($_POST['nome']) ? trim(strip_tags($_POST['nome'])) : '';
         $categoria = isset($_POST['categoria']) ? trim(strip_tags($_POST['categoria'])) : '';
         $anno      = isset($_POST['anno']) ? trim($_POST['anno']) : '';
-        $ordine    = isset($_POST['ordine']) ? (int) $_POST['ordine'] : 0;
-        // Testo alternativo dell'immagine (accessibilità): se lasciato vuoto si usa
-        // un fallback coerente con il DEFAULT della colonna nel DB.
-        $alt_immagine = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
-        if ($alt_immagine === '') {
-            $alt_immagine = 'Ritratto del campione';
-        }
+        // Ordine di visualizzazione: ora OBBLIGATORIO. Conserviamo il valore grezzo
+        // per validarne la presenza prima della conversione a intero.
+        $ordine_raw = isset($_POST['ordine']) ? trim($_POST['ordine']) : '';
+        $ordine    = ($ordine_raw !== '') ? (int) $ordine_raw : 0;
+        // Testo alternativo dell'immagine (accessibilità): ora OBBLIGATORIO. Il fallback
+        // resta solo come ultima difesa coerente con il DEFAULT della colonna nel DB.
+        $alt_raw = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
+        $alt_immagine = ($alt_raw !== '') ? $alt_raw : 'Ritratto del campione';
         $immagine_path = "";
 
         $upload_msg = "";
@@ -75,11 +76,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $isEliminazione = (isset($_POST['elimina']) && $_POST['elimina'] == 'si');
+        // Inserimento = nessun id_campione presente. In creazione l'immagine è
+        // obbligatoria; in modifica può restare quella esistente (file vuoto = invariato).
+        $isInserimentoCampione = !$isEliminazione && empty($idCampione);
 
-        // Validazione difensiva lato server: per inserimento/modifica nome, categoria e anno
-        // sono obbligatori; un'estensione immagine non valida blocca l'operazione.
-        if (!$isEliminazione && (!CampioniManager::validaCampiCampione($nome, $categoria, $anno) || $upload_msg !== "")) {
-            $msg_errore = $upload_msg !== "" ? $upload_msg : "Nome, categoria e anno del campione sono obbligatori.";
+        // Validazione difensiva lato server: nome, categoria, anno, alt e ordine sono
+        // obbligatori; l'immagine è obbligatoria in creazione; estensione non valida blocca.
+        $errore_campione = "";
+        if (!$isEliminazione) {
+            if (!CampioniManager::validaCampiCampione($nome, $categoria, $anno)) {
+                $errore_campione = "Nome, categoria e anno del campione sono obbligatori.";
+            } elseif ($upload_msg !== "") {
+                $errore_campione = $upload_msg;
+            } elseif ($alt_raw === "") {
+                $errore_campione = "Il testo alternativo dell'immagine è obbligatorio.";
+            } elseif ($ordine_raw === "" || !is_numeric($ordine_raw)) {
+                $errore_campione = "L'ordine di visualizzazione è obbligatorio.";
+            } elseif ($isInserimentoCampione && $immagine_path === "") {
+                $errore_campione = "L'immagine del campione è obbligatoria.";
+            }
+        }
+
+        if (!$isEliminazione && $errore_campione !== "") {
+            $msg_errore = $errore_campione;
             header("Location: area_admin.php?status=error&msg=" . urlencode($msg_errore) . "&t=" . time() . "#gestione-campioni");
             exit();
         }
@@ -101,12 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Non si convertono le entità in ingresso per salvare dati puri. Si ripulisce solo da tag dannosi se necessario.
         $titolo = isset($_POST['titolo']) ? trim(strip_tags($_POST['titolo'])) : '';
         $testo = isset($_POST['testo']) ? trim(strip_tags($_POST['testo'])) : '';
-        // Testo alternativo dell'immagine (accessibilità): se lasciato vuoto si usa
-        // un fallback coerente con il DEFAULT della colonna nel DB.
-        $alt_immagine = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
-        if ($alt_immagine === '') {
-            $alt_immagine = 'Immagine della news';
-        }
+        // Testo alternativo dell'immagine (accessibilità): ora è OBBLIGATORIO.
+        // Conserviamo il valore grezzo per poterne validare la presenza; il fallback
+        // resta solo come ultima difesa coerente con il DEFAULT della colonna.
+        $alt_raw = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
+        $alt_immagine = ($alt_raw !== '') ? $alt_raw : 'Immagine della news';
         $inEvidenza = isset($_POST['inEvidenza']) ? 1 : 0;
         $immagine_path = "";
 
@@ -137,11 +155,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $isEliminazione = (isset($_POST['elimina']) && $_POST['elimina'] == 'si');
+        // Inserimento = nessun id_news presente. In creazione l'immagine di copertina
+        // è obbligatoria; in modifica può restare quella esistente (file vuoto = invariato).
+        $isInserimentoNews = !$isEliminazione && empty($idNews);
 
-        // Validazione difensiva lato server: per inserimento/modifica titolo e testo
-        // sono obbligatori; un'estensione immagine non valida blocca l'operazione.
-        if (!$isEliminazione && (!NewsManager::validaCampiNews($titolo, $testo) || $upload_msg !== "")) {
-            $msg_errore = $upload_msg !== "" ? $upload_msg : "Titolo e testo della news sono obbligatori.";
+        // Validazione difensiva lato server: titolo, testo e alt sono sempre obbligatori;
+        // l'immagine di copertina è obbligatoria in fase di creazione.
+        $errore_news = "";
+        if (!$isEliminazione) {
+            if (!NewsManager::validaCampiNews($titolo, $testo)) {
+                $errore_news = "Titolo e testo della news sono obbligatori.";
+            } elseif ($upload_msg !== "") {
+                $errore_news = $upload_msg;
+            } elseif ($isInserimentoNews && $immagine_path === "") {
+                $errore_news = "L'immagine di copertina della news è obbligatoria.";
+            } elseif ($alt_raw === "") {
+                $errore_news = "Il testo alternativo dell'immagine è obbligatorio.";
+            }
+        }
+
+        if (!$isEliminazione && $errore_news !== "") {
+            $msg_errore = $errore_news;
             if ($isAjax) {
                 echo json_encode(['status' => 'error', 'upload_msg' => $msg_errore, 'html_miniature' => '']);
                 exit();
@@ -195,13 +229,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $risposta_faq = trim(strip_tags($_POST['risposta_faq'] ?? ''));
             $categoria_faq = trim(strip_tags($_POST['categoria'] ?? ''));
 
-            // Default sicuro: accetta solo le categorie previste, altrimenti 'Regolamento'
+            // La categoria è OBBLIGATORIA e deve appartenere alla whitelist prevista:
+            // un valore vuoto o non riconosciuto fa fallire la validazione (niente più
+            // fallback silenzioso a 'Regolamento').
             $categorie_valide = ['Info Pratiche e Accessi', 'Biglietteria', 'Regolamento'];
-            if (!in_array($categoria_faq, $categorie_valide, true)) {
-                $categoria_faq = 'Regolamento';
-            }
 
-            if ($domanda_faq === '' || $risposta_faq === '') {
+            if ($domanda_faq === '' || $risposta_faq === '' || !in_array($categoria_faq, $categorie_valide, true)) {
                 if ($isAjax) {
                     echo json_encode(['status' => 'error', 'html_faq' => '']);
                     exit();

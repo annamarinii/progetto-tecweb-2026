@@ -17,6 +17,9 @@
     --col-action: #A54600;
     --col-on-action: #F1F1F1;
     --col-link: #A54600;
+    --col-visited: #FFBE85;   /* link visitati: ARANCIONE CHIARO. Il basso contrasto su
+                                 sfondo chiaro e' compensato dalla sottolineatura TRATTEGGIATA. */
+    --col-visited-soft: #FFBE85; /* link visitati su superfici scure (header/footer) */
     --col-accent-soft: #FFBE85;
 
     /* Icone (SVG inline .icon-themed) */
@@ -99,6 +102,8 @@
     --col-action: #F97316;
     --col-on-action: #0F172A;
     --col-link: #FB923C;
+    --col-visited: #FDBA74;   /* link visitati (tema scuro): arancione chiaro + tratteggiato */
+    --col-visited-soft: #FDBA74; /* su superfici scure (header/footer) nel tema scuro */
     --col-accent-soft: #FDBA74;
 
     --col-icon: #FFBE85;
@@ -161,9 +166,25 @@ html {
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
+/* === SISTEMA LINK ACCESSIBILE (UX) ================================
+   Per ostacolare l'History Sniffing i browser, su :visited, ignorano
+   ogni proprietà tranne i *-color: text-decoration-style NON è quindi
+   applicabile a :visited. Per dare ai link VISITATI una sottolineatura
+   di stile diverso (tratteggiata) usiamo due canali, entrambi leciti:
+     - :link  -> sottolineatura SOLIDA via text-decoration. La pseudo-
+                 classe :link non corrisponde ai link visitati, perciò la
+                 riga solida sparisce da sola quando il link e' visitato.
+     - bordo  -> sottolineatura TRATTEGGIATA "pre-impostata" trasparente
+                 nel base e resa visibile su :visited cambiando SOLO
+                 border-bottom-color (l'unica proprieta' ammessa).
+   Il base resta neutro (color:inherit, nessuna riga): i link con class
+   - bottoni, card, voci di menu - non vengono toccati. La distinzione
+   "visitato" si applica ai link testuali dei contenuti (vedi piu' sotto:
+   main p/span a, .legal-content a, .message-error/.message-success a). */
 a {
     text-decoration: none;
     color: inherit;
+    border-bottom: 2px dashed transparent;
 }
 
 /* 3. HEADER E NAVIGAZIONE */
@@ -301,7 +322,11 @@ header a:not(.btn-login):not(.btn-register):hover {
     gap: 8px;
 }
 
-header a:visited {
+/* Stato "visitato" nell'header: DOPPIO segnale. Il COLORE arancione chiaro si
+   ottiene con :visited (i browser ammettono i cambi di colore); la PALLINA da
+   tennis e' aggiunta dalla classe .link-visitato via JS (l'icona non sarebbe
+   possibile con :visited). Esclusi bottoni e pagina corrente. */
+header a:not(.btn-login):not(.btn-register):visited {
     color: var(--col-accent-soft);
 }
 
@@ -394,6 +419,35 @@ header a:visited {
     text-align: center;
     text-decoration: none;
     transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+/* === REGOLA GLOBALE: BOTTONI MAI SOTTOLINEATI ======================
+   Gli elementi grafici a bottone (es. "Acquista ora", "Acquista i tuoi
+   biglietti"), anche quando sono realizzati con un tag <a>, non devono MAI
+   essere sottolineati. Si usa !important per vincere anche le regole dei
+   link testuali dentro <main> (vedi "main p a:link"). I link puramente
+   testuali (es. "Torna alla Dashboard") sono esclusi: vedi regola sotto. */
+.btn-biglietti,
+.btn-primary,
+.btn-auth,
+.btn-checkout,
+.btn-ritorno,
+.btn-select-date,
+.buy-btn,
+.buy-button,
+.action-box .buy-button,
+.btn-login,
+.btn-register,
+.btn-logout-small,
+.btn-outline-dark,
+.action-card,
+.btn-edit-news-trigger,
+.btn-edit-faq-trigger,
+.btn-edit-campione-trigger,
+.btn-delete-news-ajax,
+.btn-delete-faq-ajax,
+.btn-remove-item {
+    text-decoration: none !important;
 }
 
 .btn-auth,
@@ -878,6 +932,25 @@ main {
     text-decoration: underline;
 }
 
+/* INDICATORE "PAGINA GIA' VISITATA" ================================
+   La classe .link-visitato e' aggiunta da javascript/visited-links.js ai link
+   di header e footer che puntano a pagine gia' aperte (tracciamento via
+   localStorage). NON si usa la pseudo-classe :visited perche' i browser, per
+   privacy, vi consentono solo cambi di colore: niente icone ne' sottolineature
+   nuove. Essendo una classe normale, qui possiamo disegnare una pallina da
+   tennis dopo il testo del link. */
+.link-visitato::after {
+    content: "";
+    display: inline-block;
+    width: 0.85em;
+    height: 0.85em;
+    margin-left: 6px;
+    vertical-align: -0.12em;
+    background-color: #C2E812;   /* giallo-verde "pallina da tennis", visibile su sfondo scuro */
+    -webkit-mask: url("../images/tennis.svg") center / contain no-repeat;
+            mask: url("../images/tennis.svg") center / contain no-repeat;
+}
+
 /* SEZIONE BIGLIETTI */
 
 #hero-tickets {
@@ -1136,7 +1209,11 @@ main {
 .faq-wrapper {
     max-width: 860px;
     margin: 0 auto;
-    padding: 10px var(--spazio-laterale) 60px;
+    /* Padding laterale LIMITATO: NON usare --spazio-laterale qui. Quel gutter
+       cresce fino a (100vw-1200)/2 e, sommato al box-sizing:border-box su un
+       contenitore con max-width ridotto, ne azzererebbe l'area su schermi larghi
+       (o a zoom basso). La centratura e' gia' garantita da margin:0 auto. */
+    padding: 10px clamp(15px, 4vw, 30px) 60px;
     background-color: var(--col-bg);
 }
 
@@ -1170,6 +1247,9 @@ main {
     align-items: center;
     gap: 16px;
     transition: background-color 0.2s ease, color 0.2s ease;
+    /* Le domande lunghe vanno a capo invece di forzare la larghezza/overflow. */
+    overflow-wrap: anywhere;
+    min-width: 0;
 }
 
 .faq-item summary::-webkit-details-marker { display: none; }
@@ -1225,7 +1305,7 @@ main {
 .faq-search-wrapper {
     max-width: 860px;
     margin: 0 auto;
-    padding: 10px var(--spazio-laterale) 0;
+    padding: 10px clamp(15px, 4vw, 30px) 0;
 }
 
 .faq-search-wrapper label {
@@ -1278,7 +1358,7 @@ main {
 .contatti-sezione {
     max-width: 680px;
     margin: 0 auto;
-    padding: 60px var(--spazio-laterale);
+    padding: 60px clamp(15px, 4vw, 30px);
     text-align: center;
 }
 
@@ -2002,7 +2082,9 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 30px var(--spazio-laterale) 60px;
+    /* Padding laterale LIMITATO: vedi nota in .faq-wrapper. Con --spazio-laterale
+       le card collassavano a una linea su schermi larghi / zoom basso. */
+    padding: 30px clamp(15px, 4vw, 30px) 60px;
     max-width: 960px;
     margin: 0 auto;
 }
@@ -2058,6 +2140,12 @@ main {
     justify-content: flex-start;
     gap: 8px;
     flex-grow: 1;
+    /* In layout a riga (desktop) il contenuto e' un flex item: senza min-width:0
+       il default "auto" gli impedisce di restringersi, schiacciando il testo o
+       provocando overflow. Cosi' invece il testo va a capo correttamente. */
+    flex-basis: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .card-content h2,
@@ -2109,6 +2197,8 @@ main {
     text-decoration-thickness: 1px;
 }
 
+/* Il breadcrumb NON distingue lo stato visitato: "Home" resta del colore
+   normale (es. nero su tema chiaro), come da richiesta. */
 #breadcrumb a:hover,
 #breadcrumb a:focus-visible {
     color: var(--col-link);
@@ -2398,6 +2488,12 @@ label.label-richiesta::after {
     font-size: 0.8em;
     color: var(--col-text);
     font-weight: normal;
+}
+
+/* Il modulo "Contattaci" ha sfondo scuro fisso (surface-brand) in entrambi i
+   temi: qui "(richiesto)" usa il colore chiaro per restare leggibile. */
+.form-contatti label.label-richiesta::after {
+    color: var(--col-text-inverse-soft);
 }
 
 /* REQUISITI PASSWORD */
@@ -3347,7 +3443,8 @@ a.btn-logout-small:focus-visible {
 }
 
 .btn-edit-faq-trigger,
-.btn-edit-news-trigger {
+.btn-edit-news-trigger,
+.btn-edit-campione-trigger {
     background: var(--col-surface-brand);
     color: var(--col-text-inverse);
     border: none;
@@ -3394,9 +3491,12 @@ a.btn-logout-small:focus-visible {
     text-align: left;
 }
 
+/* "Torna alla Dashboard / all'Elenco": e' un BOTTONE, non un link testuale.
+   Niente sottolineatura (la forma a pillola col bordo netto comunica gia'
+   l'azione). Bordo ben visibile per non confonderlo con un link. */
 .btn-back-admin {
     background: var(--col-surface);
-    border: 1px solid var(--col-border);
+    border: 1.5px solid var(--col-border-strong);
     color: var(--col-text);
     font-weight: 600;
     padding: 8px 18px;
@@ -3407,11 +3507,14 @@ a.btn-logout-small:focus-visible {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    text-decoration: none;
 }
 
-.btn-back-admin:hover {
-    background: var(--col-bg);
-    border-color: var(--col-accent-soft);
+.btn-back-admin:hover,
+.btn-back-admin:focus-visible {
+    background: var(--col-link);
+    border-color: var(--col-link);
+    color: var(--col-on-action);
 }
 
 .btn-back-admin .arrow-back {
@@ -3645,8 +3748,16 @@ input.input-editing {
 .message-error a {
     color: var(--col-text-heading);
     font-weight: bold;
-    text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+.message-error a:link {
+    text-decoration: underline solid;
+}
+
+.message-error a:visited {
+    color: var(--col-visited);
+    border-bottom-color: var(--col-visited);
 }
 
 .message-success {
@@ -3660,11 +3771,39 @@ input.input-editing {
     color: var(--col-accent-soft);
 }
 
-p a,
-span a,
-.message-success a {
-    text-decoration: underline;
+/* Link testuali dei contenuti (tema chiaro, dentro <main> per non
+   toccare header/footer/breadcrumb): SOLIDI se nuovi, TRATTEGGIATI +
+   colore tenue se visitati. Vedi nota "SISTEMA LINK" sulla regola base. */
+main p a,
+main span a {
+    color: var(--col-link);
     text-underline-offset: 2px;
+}
+
+main p a:link,
+main span a:link {
+    text-decoration: underline solid;
+}
+
+main p a:visited,
+main span a:visited {
+    color: var(--col-visited);
+    border-bottom-color: var(--col-visited);   /* unica proprieta' ammessa su :visited */
+}
+
+/* Stesso schema nei messaggi "success" (sfondo scuro): si usa il colore
+   chiaro accent-soft al posto del viola, per mantenere il contrasto. */
+.message-success a {
+    text-underline-offset: 2px;
+}
+
+.message-success a:link {
+    text-decoration: underline solid;
+}
+
+.message-success a:visited {
+    color: var(--col-accent-soft);
+    border-bottom-color: var(--col-accent-soft);
 }
 
 .faq-content {
@@ -3833,8 +3972,16 @@ span a,
 
 .legal-content a {
     color: var(--col-text-heading);
-    text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+.legal-content a:link {
+    text-decoration: underline solid;
+}
+
+.legal-content a:visited {
+    color: var(--col-visited);
+    border-bottom-color: var(--col-visited);
 }
 
 .legal-content a:hover,
@@ -3884,7 +4031,9 @@ span a,
 }
 
 .btn-edit-news-trigger:hover,
-.btn-edit-news-trigger:focus-visible {
+.btn-edit-news-trigger:focus-visible,
+.btn-edit-campione-trigger:hover,
+.btn-edit-campione-trigger:focus-visible {
     opacity: 0.82;
     outline: 3px solid var(--col-accent-soft);
     outline-offset: 2px;

@@ -32,8 +32,8 @@ CREATE TABLE NEWS (
                       titolo VARCHAR(100) NOT NULL,
                       testo TEXT NOT NULL,
                       data_pubblicazione DATETIME DEFAULT CURRENT_TIMESTAMP,
-                      immagine VARCHAR(255) DEFAULT 'assets/images/default-news.webp',
-                      alt_immagine VARCHAR(255) DEFAULT 'Immagine della news',
+                      immagine VARCHAR(255) NOT NULL DEFAULT 'assets/images/default-news.webp',
+                      alt_immagine VARCHAR(255) NOT NULL DEFAULT 'Immagine della news',
                       idAutore INT NOT NULL,
                       inEvidenza BOOLEAN DEFAULT FALSE,
                       FOREIGN KEY (idAutore) REFERENCES UTENTE(idUtente)

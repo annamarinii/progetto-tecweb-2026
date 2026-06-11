@@ -344,6 +344,9 @@ class Tool
         // tutte le pagine. defer => non blocca il parsing e gira dopo che il bottone esiste.
         $headerHtml .= "\n    <script src=\"{$basePath}javascript/theme.js\" defer></script>";
         $headerHtml .= "\n    <script src=\"{$basePath}javascript/nav.js\" defer></script>";
+        // Indicatore "pagina gia' visitata" (pallina da tennis): tracciamento via
+        // localStorage, caricato su tutte le pagine da questo unico punto.
+        $headerHtml .= "\n    <script src=\"{$basePath}javascript/visited-links.js\" defer></script>";
 
         return $headerHtml;
     }

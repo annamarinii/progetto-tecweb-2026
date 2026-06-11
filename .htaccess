@@ -4,3 +4,14 @@
 ErrorDocument 403 /progetto_tecweb_2026/php-pages/403.php
 ErrorDocument 404 /progetto_tecweb_2026/php-pages/404.php
 ErrorDocument 500 /progetto_tecweb_2026/php-pages/500.php
+
+# SVILUPPO: nessuna cache su CSS e JS, cosi' le modifiche agli stili/script
+# si vedono subito con un semplice ricaricamento (niente piu' versioni vecchie
+# congelate nel browser). Il guard IfModule evita errori se mod_headers non c'e'.
+<FilesMatch "\.(css|js)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </IfModule>
+</FilesMatch>

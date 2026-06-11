@@ -98,19 +98,19 @@
                         <div class="admin-form-container">
                             <form action="../php-pages/area_admin.php" method="post" id="form-nuova-news" enctype="multipart/form-data">
                                 <div class="form-gruppo full-width">
-                                    <label for="nuovo-titolo">Titolo:</label>
+                                    <label class="label-richiesta" for="nuovo-titolo">Titolo:</label>
                                     <input type="text" id="nuovo-titolo" name="titolo" required="required" placeholder="Es: Risultati Semifinale" />
                                 </div>
                                 <div class="form-gruppo full-width">
-                                    <label for="nuovo-immagine">Immagine di Copertina:</label>
-                                    <input type="file" id="nuovo-immagine" name="immagine" accept=".jpg, .jpeg, .png, .webp" />
+                                    <label class="label-richiesta" for="nuovo-immagine">Immagine di Copertina:</label>
+                                    <input type="file" id="nuovo-immagine" name="immagine" accept=".jpg, .jpeg, .png, .webp" required="required" />
                                 </div>
                                 <div class="form-gruppo full-width">
-                                    <label for="nuovo-alt-immagine">Testo alternativo immagine (accessibilit&agrave;):</label>
-                                    <input type="text" id="nuovo-alt-immagine" name="alt_immagine" maxlength="255" placeholder="Es: Tennista solleva il trofeo sul campo centrale" />
+                                    <label class="label-richiesta" for="nuovo-alt-immagine">Testo alternativo immagine (accessibilit&agrave;):</label>
+                                    <input type="text" id="nuovo-alt-immagine" name="alt_immagine" maxlength="255" required="required" placeholder="Es: Tennista solleva il trofeo sul campo centrale" />
                                 </div>
                                 <div class="form-gruppo full-width">
-                                    <label for="nuovo-testo">Testo della News:</label>
+                                    <label class="label-richiesta" for="nuovo-testo">Testo della News:</label>
                                     <textarea id="nuovo-testo" name="testo" rows="4" required="required" placeholder="Scrivi il contenuto dell'articolo..."></textarea>
                                 </div>
                                 <div class="form-checkbox">
@@ -145,7 +145,7 @@
                             <form action="../php-pages/area_admin.php" method="post" id="form-modifica-news" enctype="multipart/form-data">
                                 <input type="hidden" id="edit-id-news" name="id_news" value="" />
                                 <div class="form-gruppo full-width">
-                                    <label for="edit-titolo">Titolo:</label>
+                                    <label class="label-richiesta" for="edit-titolo">Titolo:</label>
                                     <input type="text" id="edit-titolo" name="titolo" required="required" />
                                 </div>
                                 <div class="form-gruppo full-width">
@@ -154,11 +154,11 @@
                                     <small class="current-img-info">Immagine attuale: <span id="span-img-corrente"></span></small>
                                 </div>
                                 <div class="form-gruppo full-width">
-                                    <label for="edit-alt-immagine">Testo alternativo immagine (accessibilit&agrave;):</label>
-                                    <input type="text" id="edit-alt-immagine" name="alt_immagine" maxlength="255" />
+                                    <label class="label-richiesta" for="edit-alt-immagine">Testo alternativo immagine (accessibilit&agrave;):</label>
+                                    <input type="text" id="edit-alt-immagine" name="alt_immagine" maxlength="255" required="required" />
                                 </div>
                                 <div class="form-gruppo full-width">
-                                    <label for="edit-testo">Testo della News:</label>
+                                    <label class="label-richiesta" for="edit-testo">Testo della News:</label>
                                     <textarea id="edit-testo" name="testo" rows="6" required="required"></textarea>
                                 </div>
                                 <div class="form-checkbox">
@@ -222,16 +222,17 @@
                             <input type="hidden" id="idFaq" name="idFaq" value="" />
                             
                             <div class="form-gruppo full-width">
-                                <label for="domanda_faq">Domanda:</label>
+                                <label class="label-richiesta" for="domanda_faq">Domanda:</label>
                                 <input type="text" id="domanda_faq" name="domanda_faq" required="required" placeholder="Es: Orari di apertura?" />
                             </div>
                             <div class="form-gruppo full-width">
-                                <label for="risposta_faq">Risposta:</label>
+                                <label class="label-richiesta" for="risposta_faq">Risposta:</label>
                                 <textarea id="risposta_faq" name="risposta_faq" rows="4" required="required" placeholder="Inserisci risposta..."></textarea>
                             </div>
                             <div class="form-gruppo full-width">
-                                <label for="categoria_faq">Categoria:</label>
-                                <select id="categoria_faq" name="categoria">
+                                <label class="label-richiesta" for="categoria_faq">Categoria:</label>
+                                <select id="categoria_faq" name="categoria" required="required">
+                                    <option value="" disabled selected>Seleziona una categoria&hellip;</option>
                                     <option value="Info Pratiche e Accessi">Info Pratiche e Accessi</option>
                                     <option value="Biglietteria">Biglietteria</option>
                                     <option value="Regolamento">Regolamento</option>
@@ -292,30 +293,30 @@
                         <div class="admin-form-container">
                             <form action="../php-pages/area_admin.php" method="post" id="form-nuovo-campione" enctype="multipart/form-data">
                                 <fieldset>
-                                    <legend>Dati del campione <span class="campo-obbligatorio-nota">(i campi contrassegnati con * sono obbligatori)</span></legend>
+                                    <legend>Dati del campione</legend>
                                     <div class="form-gruppo full-width">
-                                        <label for="nuovo-nome-campione">Nome *:</label>
+                                        <label class="label-richiesta" for="nuovo-nome-campione">Nome:</label>
                                         <input type="text" id="nuovo-nome-campione" name="nome" required="required" maxlength="60" placeholder="Es: Lorenzo Costa" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="nuovo-categoria-campione">Categoria *:</label>
+                                        <label class="label-richiesta" for="nuovo-categoria-campione">Categoria:</label>
                                         <input type="text" id="nuovo-categoria-campione" name="categoria" required="required" maxlength="40" placeholder="Es: Singolo Maschile" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="nuovo-anno-campione">Anno *:</label>
+                                        <label class="label-richiesta" for="nuovo-anno-campione">Anno:</label>
                                         <input type="number" id="nuovo-anno-campione" name="anno" required="required" min="2000" max="2100" placeholder="Es: 2026" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="nuovo-immagine-campione">Immagine del Campione:</label>
-                                        <input type="file" id="nuovo-immagine-campione" name="immagine" accept=".jpg, .jpeg, .png, .webp" />
+                                        <label class="label-richiesta" for="nuovo-immagine-campione">Immagine del Campione:</label>
+                                        <input type="file" id="nuovo-immagine-campione" name="immagine" accept=".jpg, .jpeg, .png, .webp" required="required" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="nuovo-alt-immagine-campione">Testo alternativo immagine (accessibilit&agrave;):</label>
-                                        <input type="text" id="nuovo-alt-immagine-campione" name="alt_immagine" maxlength="255" placeholder="Es: Il tennista solleva il trofeo sul campo centrale" />
+                                        <label class="label-richiesta" for="nuovo-alt-immagine-campione">Testo alternativo immagine (accessibilit&agrave;):</label>
+                                        <input type="text" id="nuovo-alt-immagine-campione" name="alt_immagine" maxlength="255" required="required" placeholder="Es: Il tennista solleva il trofeo sul campo centrale" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="nuovo-ordine-campione">Ordine di visualizzazione:</label>
-                                        <input type="number" id="nuovo-ordine-campione" name="ordine" min="0" placeholder="Es: 1" />
+                                        <label class="label-richiesta" for="nuovo-ordine-campione">Ordine di visualizzazione:</label>
+                                        <input type="number" id="nuovo-ordine-campione" name="ordine" min="0" required="required" placeholder="Es: 1" />
                                     </div>
                                 </fieldset>
                                 <button type="submit" class="btn-auth">Aggiungi Campione</button>
@@ -346,17 +347,17 @@
                             <form action="../php-pages/area_admin.php" method="post" id="form-modifica-campione" enctype="multipart/form-data">
                                 <input type="hidden" id="edit-id-campione" name="id_campione" value="" />
                                 <fieldset>
-                                    <legend>Dati del campione <span class="campo-obbligatorio-nota">(i campi contrassegnati con * sono obbligatori)</span></legend>
+                                    <legend>Dati del campione</legend>
                                     <div class="form-gruppo full-width">
-                                        <label for="edit-nome-campione">Nome *:</label>
+                                        <label class="label-richiesta" for="edit-nome-campione">Nome:</label>
                                         <input type="text" id="edit-nome-campione" name="nome" required="required" maxlength="60" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="edit-categoria-campione">Categoria *:</label>
+                                        <label class="label-richiesta" for="edit-categoria-campione">Categoria:</label>
                                         <input type="text" id="edit-categoria-campione" name="categoria" required="required" maxlength="40" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="edit-anno-campione">Anno *:</label>
+                                        <label class="label-richiesta" for="edit-anno-campione">Anno:</label>
                                         <input type="number" id="edit-anno-campione" name="anno" required="required" min="2000" max="2100" />
                                     </div>
                                     <div class="form-gruppo full-width">
@@ -365,12 +366,12 @@
                                         <small class="current-img-info">Immagine attuale: <span id="span-img-campione-corrente"></span></small>
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="edit-alt-immagine-campione">Testo alternativo immagine (accessibilit&agrave;):</label>
-                                        <input type="text" id="edit-alt-immagine-campione" name="alt_immagine" maxlength="255" />
+                                        <label class="label-richiesta" for="edit-alt-immagine-campione">Testo alternativo immagine (accessibilit&agrave;):</label>
+                                        <input type="text" id="edit-alt-immagine-campione" name="alt_immagine" maxlength="255" required="required" />
                                     </div>
                                     <div class="form-gruppo full-width">
-                                        <label for="edit-ordine-campione">Ordine di visualizzazione:</label>
-                                        <input type="number" id="edit-ordine-campione" name="ordine" min="0" />
+                                        <label class="label-richiesta" for="edit-ordine-campione">Ordine di visualizzazione:</label>
+                                        <input type="number" id="edit-ordine-campione" name="ordine" min="0" required="required" />
                                     </div>
                                 </fieldset>
                                 <div class="form-actions-row">
