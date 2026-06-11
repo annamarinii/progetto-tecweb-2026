@@ -10,6 +10,8 @@
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{caption}
 
 \renewcommand{\contentsname}{Indice}
 
@@ -183,14 +185,81 @@ Grazie a questa architettura, quando bisogna mostrare una lista di notizie, il P
 Il portale web del Patavium Open presenta un'architettura dell'informazione solida e strutturata, concepita per assecondare i molteplici comportamenti di ricerca tipici degli utenti. Possiamo analizzare l'attuale configurazione del sito attraverso la "metafora della pesca":
 
 \begin{itemize}
-    \item \textbf{Tiro perfetto:} In questo scenario l'utente sa esattamente quello che sta cercando. Il portale asseconda questa necessità attraverso un menu di navigazione privo di ambiguità. Un'attenta analisi sulle intenzioni d'uso ha evidenziato che la maggioranza dell'utenza accede al sito con l'obiettivo primario di acquistare i biglietti; per questo motivo si è scelto di omettere la tradizionale barra di ricerca (ritenuta in questo contesto dispersiva) a favore di un approccio molto più diretto: un grande pulsante "Acquista i tuoi biglietti" campeggia subito nella Home Page. L'utente è così messo nelle condizioni di compiere il suo "tiro perfetto" verso la conversione nel minor tempo possibile.
+    \item \textbf{Tiro perfetto:} Per ottimizzare l'esperienza degli utenti \textit{goal-oriented} -- ovvero coloro che accedono al portale con un intento ben preciso e sanno esattamente cosa cercare -- sono state implementate specifiche soluzioni per velocizzare la navigazione. Da un lato, per intercettare l'utente pronto all'acquisto dei biglietti, è stata inserita una \textit{Call to Action} primaria e ben visibile (il pulsante \textbf{``Acquista i tuoi biglietti''}) direttamente nella sezione \textit{hero} della \textit{Home Page}, riducendo al minimo i clic necessari per accedere all'offerta. Dall'altro lato, per supportare la ricerca di informazioni operative e logistiche (quali dettagli su parcheggi, varchi di ingresso, orari dei match o regolamenti), la pagina dedicata alle \textbf{FAQ} è stata potenziata con una barra di ricerca reattiva. Questa funzionalità permette di filtrare dinamicamente le risposte a schermo in base alle parole chiave digitate, garantendo un recupero immediato e mirato delle informazioni senza costringere l'utente a scorrere estesi elenchi testuali.
     
     \item \textbf{Trappola per aragoste:} La struttura si adatta perfettamente anche a chi naviga senza un'idea predefinita, attirandolo e guidandolo progressivamente. Il flusso di acquisto nella sezione Biglietti ne è la dimostrazione pratica: l'utente entra con un'intenzione generica e viene incanalato, come in una trappola a cilindri concentrici, verso scelte sempre più specifiche (seleziona prima la macro-tipologia tra Abbonamento, Ground Passes o Singola Sessione, per poi scendere nel dettaglio del posto e della giornata).
     
     \item \textbf{Pesca con la rete:} L'esigenza di esplorare un argomento in tutta la sua totalità è soddisfatta dalla sezione News. Questo ambiente è progettato per gli utenti che non vogliono perdersi nulla, offrendo una panoramica aggregata di tutti gli aggiornamenti e i risultati, permettendo di "catturare" con un'unica mossa tutta l'attualità legata al torneo.
     
-    \item \textbf{Boa di segnalazione:} Per supportare la necessità di salvare e recuperare informazioni utili in un secondo momento, il portale integra strumenti strategici. Il Carrello funge da memoria temporanea per mantenere traccia dei biglietti in fase di selezione, mentre l'Area Personale rappresenta la vera e propria "boa di segnalazione", offrendo all'utente uno spazio privato e sicuro dove recuperare in qualsiasi momento i propri titoli d'accesso, lo storico ordini e le comunicazioni dallo staff.
+    \item \textbf{Boa di segnalazione:} "Il sistema di carrello è stato progettato per garantire la massima persistenza e continuità durante l'esperienza di navigazione. Abbandonando un approccio puramente client-side, la gestione dello stato è stata centralizzata lato server mediante l'utilizzo dell'array \texttt{\$\_SESSION}. Questa scelta architetturale assicura che gli articoli selezionati non vadano persi durante il cambio di pagina o i ricaricamenti. Dal punto di vista dell'interfaccia, l'icona del carrello – costantemente visibile nell'header globale – funge da punto di ancoraggio per l'utente: ciò gli consente di interrompere temporaneamente il flusso di acquisto per esplorare altre sezioni del sito o consultare materiali di supporto, con la totale sicurezza di poter riprendere e finalizzare la transazione in qualsiasi momento, senza alcuna perdita del contesto operativo.
 \end{itemize}
+
+\section{Accessibilità}
+\subsection{Colori}
+La seguente sezione illustra la palette cromatica adottata per l'interfaccia utente del progetto. I colori sono stati rigorosamente selezionati per bilanciare l'identità visiva dello scopo del sito (scegliendo colori che ricordassero la terra rossa e il suolo blu dei campi da tennis) con i fondamentali requisiti di accessibilità. 
+
+
+\begin{figure}[h]
+    \centering
+\includegraphics[width=10cm]{images/color_palette.png}
+    \caption{La palette di colori del sito, con i relativi codici esadecimali.}
+    \label{fig:color_palette}
+\end{figure}
+
+
+La seguente tabella riporta l'analisi dei contrasti cromatici per le combinazioni di colore utilizzate nel foglio di stile (CSS), indicando la conformità ai criteri di accessibilità WCAG (Web Content Accessibility Guidelines) e i relativi contesti di applicazione nel layout. \\
+
+Per testare i contrasti tra i colori abbiamo utilizzato il sito: \textbf{Tanaguru Contrast-Finder} (\url{https://contrast-finder.tanaguru.com/}), che fornisce un'analisi dettagliata dei rapporti di contrasto e verifica la conformità ai livelli WCAG 2.1 (AA e AAA) per i testi normali e grandi. 
+
+\vspace{0.4cm}
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\begin{tabularx}{\textwidth}{|
+ >{\centering\arraybackslash}m{2cm}| 
+  >{\centering\arraybackslash}m{2.5cm}| 
+  c| 
+  >{\centering\arraybackslash}m{2cm}| 
+  >{\centering\arraybackslash}X|}
+\hline
+\textbf{Colore 1} & \textbf{Colore 2} & \textbf{Contrasto} & \textbf{Livello WCAG} & \textbf{Dove viene usato nel CSS} \\
+\hline
+\texttt{\#F1F3FC} & \texttt{\#101010} & 17.18 & AAA & È il contrasto principale del sito. Usato per il testo base (\texttt{body}), le briciole di pane (\texttt{\#breadcrumb}), e i testi interni alle card e ai form. \\
+\hline
+\texttt{\#07246F} & \texttt{\#F1F3FC} & 12.72 & AAA & Usato per i titoli (\texttt{H1}, \texttt{H2}) sul colore di sfondo principale. Ad esempio nella \texttt{.sezione-benvenuto}, nei \texttt{.titoli-notizie} e nei form. \\
+\hline
+\texttt{\#07246F} & \texttt{\#FDF7EB}  & 13.20 & AAA & Usato per i testi secondari sopra gli sfondi blu scuro del brand. Si trova nel footer (\texttt{.footer-tagline}, contatti) e nel testo delle card delle notizie. \\
+\hline
+\texttt{\#07246F} & \texttt{\#FFBE85} & 8.68 & AAA & Usato per gli stati attivi (\texttt{hover}, \texttt{focus}, link correnti) sopra gli sfondi brand. Esempi: \texttt{.current-link} nel menu, l'orario delle sessioni (\texttt{.session-time}). \\
+\hline
+\texttt{\#A54600} & \texttt{\#FDF7EB} & 5.66 & AA \newline \scriptsize(AAA per testi grandi) & Usato per i link o le azioni posizionati sulla ``superficie alternativa'' (es. testi nella \texttt{.register-section} o messaggi di attenzione). \\
+\hline
+\texttt{\#A54600} & \texttt{\#F1F3FC} & 5.45 & AA \newline \scriptsize(AAA per testi grandi) & Usato per i testi link e le call to action sul colore di sfondo principale. Esempio: i testi in \texttt{.contatti-sezione} o i link dei breadcrumb. \\
+\hline
+\texttt{\#07246F} & \texttt{\#E17414} & 4.50 & AA & Usato per i bordi decorativi e i separatori sulle sezioni brand. Esempio: il bordo superiore del footer (\texttt{.footer-sito}) e l'icona delle sessioni. \\
+\hline
+\texttt{\#FDF7EB} \newline \scriptsize(Link non visitato) & \texttt{\#FFBE85} \newline \scriptsize(Link visitato) & 1.51 & \textbf{Non superato}* & Si verifica nel footer (\texttt{.footer-col ul a} vs \texttt{a:visited}) e nell'header. Differenzia gli stati del link tra di loro sul colore di sfondo brand. \\
+\hline
+\end{tabularx}
+
+\vspace{0.2cm} % Aggiunge un po' di spazio tra la tabella e la didascalia
+\caption{Analisi dei rapporti di contrasto e mappatura delle classi CSS}
+\label{tab:contrasti_colore}
+\end{table}
+\newpage
+* Il contrasto tra i link visitati e non visitati nel footer non raggiunge il livello minimo richiesto per i testi normali (4.5:1), ma è importante sottolineare che questa combinazione è stata utilizzata esclusivamente per differenziare visivamente lo stato dei link (visitato vs non visitato) su uno sfondo brand. In questo contesto, la scelta di colori è stata fatta per garantire una distinzione chiara tra i due stati, pur riconoscendo che il contrasto complessivo non soddisfa i requisiti WCAG per i testi normali. Tuttavia, sia il colore del link visitato che il colore del link non visitato hanno un contrasto che rispetta il requisito AA con un contrasto maggiore di 4:5:1.\\
+
+Nella seguente figura viene presentata la palette di colori della dark mode. Per garantire un'esperienza utente coerente e accessibile anche in modalità scura, sono stati scelti colori che mantengono un contrasto sufficiente e rispettano le stesse linee guida WCAG 2.1, adattando le tonalità per preservare l'identità visiva del brand anche in questo contesto.
+
+
+\begin{figure}[h]
+    \centering
+\includegraphics[width=15cm]{images/color_palette_dark_mode.png}
+    \caption{La palette di colori della dark mode, con i relativi codici esadecimali.}
+    \label{fig:color_palette}
+\end{figure}
 
 \section{Progettazione del Database}
 
