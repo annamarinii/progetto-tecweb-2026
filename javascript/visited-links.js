@@ -1,14 +1,7 @@
-/*
- * INDICATORE PAGINE VISITATE (senza :visited)
- * -------------------------------------------------------------------------
- * I browser, per privacy, sulla pseudo-classe CSS :visited permettono di
- * cambiare SOLO i colori di elementi gia' visibili: niente icone, niente
- * sottolineature "nuove", e da JavaScript lo stato :visited non e' leggibile.
- * Per dare un segnale affidabile usiamo quindi un tracciamento nostro: salviamo
- * in localStorage le pagine aperte su questo sito e marchiamo con la classe
- * .link-visitato i link di header e footer che puntano a quelle pagine. Essendo
- * una classe normale (non :visited), il CSS puo' aggiungere l'icona pallina.
- */
+/* Segna i link delle pagine gia' visitate.
+   Non si usa :visited (i browser ne permettono solo il cambio di colore e non la
+   espongono a JavaScript): salviamo le pagine aperte in localStorage e mettiamo
+   la classe .link-visitato sui link che vi puntano, su cui il CSS mostra la pallina. */
 (function () {
     'use strict';
 
@@ -59,10 +52,7 @@
             var p = a.pathname;
             // Non si marca la pagina su cui ci si trova.
             if (p && p !== pathCorrente && visitate.indexOf(p) !== -1) {
-                // Solo la classe: la pallina e' decorativa (CSS ::after) e lo stato
-                // "visitato" e' gia' annunciato nativamente dagli screen reader in
-                // base alla cronologia del browser. Aggiungere un testo .sr-only
-                // sarebbe ridondante e appesantirebbe la lettura assistita.
+                // La pallina e' decorativa (CSS ::after): basta la classe.
                 a.classList.add('link-visitato');
             }
         });

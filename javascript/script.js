@@ -461,12 +461,11 @@ if (btnMinus && btnPlus) {
                 .then(risposta => risposta.json())
                 .then(dati => {
                     if (dati.status === 'success') {
-                        // Feedback visivo: Successo (stile interamente nella classe .added-to-cart)
+                        // Feedback di conferma
                         acquistaBtn.classList.add('added-to-cart');
                         acquistaBtn.textContent = 'AGGIUNTO ✓';
 
                         // Mostra il link al carrello se non esiste
-                        // (aspetto gestito dalla regola CSS #link-vai-carrello)
                         if (!document.getElementById('link-vai-carrello')) {
                             const linkCarrello = document.createElement('a');
                             linkCarrello.id = 'link-vai-carrello';
@@ -501,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allForms = document.querySelectorAll('form');
 
     allForms.forEach(form => {
-        // Escludiamo i form che hanno logiche AJAX proprietarie o validazioni custom
+        // Saltiamo i form che hanno già una logica AJAX o una validazione propria
         const excludedForms = ['form-registrazione', 'form-faq-admin', 'form-nuova-news', 'form-modifica-news'];
         if (excludedForms.includes(form.id) || form.classList.contains('form-delete-faq')) return;
 
@@ -510,14 +509,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = form.querySelector('button[type="submit"], .btn-checkout');
 
             if (submitBtn) {
-                // Blocca il bottone e dà un feedback visivo (stile nella classe .btn-loading)
+                // Disabilita il bottone per evitare il doppio invio
                 submitBtn.disabled = true;
                 submitBtn.classList.add('btn-loading');
-                // Accessibilità: segnala agli screen reader che l'azione è in corso
                 submitBtn.setAttribute('aria-busy', 'true');
 
-                // Cambiamo il testo per far capire che sta caricando
-                // Manteniamo le icone originali se ci sono, cambiando solo il testo
+                // Cambia il testo solo se il bottone ne ha uno
                 if (submitBtn.textContent.trim() !== '') {
                     submitBtn.textContent = "Attendere...";
                 }
@@ -526,9 +523,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-/* Auto-scomparsa globale per tutti i messaggi .form-message generati dai controller PHP.
-   Si attiva solo su elementi presenti nel DOM al caricamento (non quelli AJAX, che
-   gestiscono autonomamente il proprio ciclo di vita nei rispettivi file JS). */
+/* Fa sparire da sole le .form-message stampate dal PHP al caricamento pagina
+   (non quelle AJAX, gestite nei rispettivi file). */
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.form-message').forEach(msg => {
         setTimeout(() => {

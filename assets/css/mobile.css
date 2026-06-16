@@ -199,7 +199,8 @@
         padding: 10px;
     }
 
-    .orders-table-user tbody td {
+    .orders-table-user tbody td,
+    .orders-table-user tbody th[scope="row"] {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -213,7 +214,8 @@
         border-bottom: none;
     }
 
-    .orders-table-user tbody td::before {
+    .orders-table-user tbody td::before,
+    .orders-table-user tbody th[scope="row"]::before {
         content: attr(data-label);
         font-weight: bold;
         color: var(--col-text-heading);

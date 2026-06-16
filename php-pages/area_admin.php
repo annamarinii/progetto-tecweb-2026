@@ -39,12 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome      = isset($_POST['nome']) ? trim(strip_tags($_POST['nome'])) : '';
         $categoria = isset($_POST['categoria']) ? trim(strip_tags($_POST['categoria'])) : '';
         $anno      = isset($_POST['anno']) ? trim($_POST['anno']) : '';
-        // Ordine di visualizzazione: ora OBBLIGATORIO. Conserviamo il valore grezzo
-        // per validarne la presenza prima della conversione a intero.
+        // Ordine di visualizzazione (obbligatorio): teniamo il valore grezzo
+        // per controllarne la presenza prima di convertirlo in intero.
         $ordine_raw = isset($_POST['ordine']) ? trim($_POST['ordine']) : '';
         $ordine    = ($ordine_raw !== '') ? (int) $ordine_raw : 0;
-        // Testo alternativo dell'immagine (accessibilità): ora OBBLIGATORIO. Il fallback
-        // resta solo come ultima difesa coerente con il DEFAULT della colonna nel DB.
+        // Testo alternativo immagine (obbligatorio); il fallback copre solo il DEFAULT della colonna.
         $alt_raw = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
         $alt_immagine = ($alt_raw !== '') ? $alt_raw : 'Ritratto del campione';
         $immagine_path = "";
@@ -120,9 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Non si convertono le entità in ingresso per salvare dati puri. Si ripulisce solo da tag dannosi se necessario.
         $titolo = isset($_POST['titolo']) ? trim(strip_tags($_POST['titolo'])) : '';
         $testo = isset($_POST['testo']) ? trim(strip_tags($_POST['testo'])) : '';
-        // Testo alternativo dell'immagine (accessibilità): ora è OBBLIGATORIO.
-        // Conserviamo il valore grezzo per poterne validare la presenza; il fallback
-        // resta solo come ultima difesa coerente con il DEFAULT della colonna.
+        // Testo alternativo immagine (obbligatorio): teniamo il valore grezzo
+        // per controllarne la presenza; il fallback copre solo il DEFAULT della colonna.
         $alt_raw = isset($_POST['alt_immagine']) ? trim(strip_tags($_POST['alt_immagine'])) : '';
         $alt_immagine = ($alt_raw !== '') ? $alt_raw : 'Immagine della news';
         $inEvidenza = isset($_POST['inEvidenza']) ? 1 : 0;

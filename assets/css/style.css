@@ -3043,10 +3043,15 @@ form.profile-form input[readonly]:focus {
     background-color: var(--col-bg);
 }
 
-.orders-table-user tbody td {
+/* La prima cella di ogni riga è un th scope="row"; qui lo mostriamo come una
+   cella normale (a sinistra, peso normale). */
+.orders-table-user tbody td,
+.orders-table-user tbody th[scope="row"] {
     padding: 12px 16px;
     color: var(--col-text);
     vertical-align: middle;
+    text-align: left;
+    font-weight: normal;
 }
 
 .btn-close-mail {

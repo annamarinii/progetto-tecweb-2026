@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
-    // Pulizia dei dati (Inversione di rotta: solo trim in ingresso, XSS gestito in uscita)
+    // Pulizia input: solo trim in ingresso, l'escaping XSS è fatto in output
     $nome     = trim($_POST['nome']     ?? '');
     $cognome  = trim($_POST['cognome']  ?? '');
     $username = trim($_POST['username'] ?? '');
@@ -30,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Logica di validazione
     $status_successo = false;
 
-    // Validazione lato controller tramite i validatori centralizzati di Tool.
-    // (registraUtente() ri-valida comunque tutto in modo difensivo lato Manager.)
+    // Validazione lato controller con i validatori di Tool.
+    // (registraUtente() ri-controlla comunque i dati lato Manager.)
     if (empty($nome) || empty($cognome) || empty($username) || empty($email) || empty($password) || empty($ripeti_password)) {
         $messaggio_esito = Tool::buildMessage('Errore:', 'Tutti i campi sono obbligatori.');
     } elseif (!Tool::validaNomeProprio($nome) || !Tool::validaNomeProprio($cognome)) {
