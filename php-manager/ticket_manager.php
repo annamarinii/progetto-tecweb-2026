@@ -9,8 +9,8 @@ class TicketManager
         $conn = DBConnection::getConnessione();
 
         $sql = "SELECT B.prezzo, COUNT(B.idBiglietto) as quantita_disponibile 
-                FROM BIGLIETTI B
-                JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                FROM BIGLIETTO B
+                JOIN INCONTRO P ON B.idIncontro = P.idIncontro
                 WHERE B.tipo = 'ground' 
                 AND DATE(P.data) = ? 
                 AND B.numero_ordine IS NULL 
@@ -37,8 +37,8 @@ class TicketManager
         $conn = DBConnection::getConnessione();
 
         $sql = "SELECT B.tribuna, B.prezzo, COUNT(B.idBiglietto) as quantita_disponibile 
-                FROM BIGLIETTI B
-                JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                FROM BIGLIETTO B
+                JOIN INCONTRO P ON B.idIncontro = P.idIncontro
                 WHERE DATE(P.data) = ? 
                 AND P.sessione = ? 
                 AND B.numero_ordine IS NULL 
@@ -80,16 +80,16 @@ class TicketManager
                 FROM (
                     SELECT 
                         B.tribuna, 
-                        P.idProgramma, 
+                        P.idIncontro, 
                         COUNT(CASE WHEN B.numero_ordine IS NULL THEN 1 END) as disponibili,
                         MAX(B.prezzo) as prezzo_singolo
-                    FROM BIGLIETTI B
-                    JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                    FROM BIGLIETTO B
+                    JOIN INCONTRO P ON B.idIncontro = P.idIncontro
                     WHERE B.tipo IS NULL
-                    GROUP BY B.tribuna, P.idProgramma
+                    GROUP BY B.tribuna, P.idIncontro
                 ) AS statistiche_sessioni
                 GROUP BY tribuna
-                HAVING COUNT(idProgramma) = 14";
+                HAVING COUNT(idIncontro) = 14";
 
         $risultato = $conn->query($sql);
         $dati_abbonamenti = [];
@@ -106,14 +106,14 @@ class TicketManager
         return $dati_abbonamenti;
     }
 
-    public static function getDisponibilitaGroundPass(int $idProgramma): int
+    public static function getDisponibilitaGroundPass(int $idIncontro): int
     {
         $conn = DBConnection::getConnessione();
         $sql  = "SELECT COUNT(idBiglietto) AS disponibili
-                 FROM BIGLIETTI
-                 WHERE tipo = 'ground' AND idProgramma = ? AND numero_ordine IS NULL";
+                 FROM BIGLIETTO
+                 WHERE tipo = 'ground' AND idIncontro = ? AND numero_ordine IS NULL";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $idProgramma);
+        $stmt->bind_param("i", $idIncontro);
         $stmt->execute();
         $row  = $stmt->get_result()->fetch_assoc();
         $stmt->close();
@@ -128,10 +128,10 @@ class TicketManager
         $sql  = "SELECT MIN(disponibili) AS disponibili
                  FROM (
                      SELECT COUNT(CASE WHEN B.numero_ordine IS NULL THEN 1 END) AS disponibili
-                     FROM BIGLIETTI B
-                     JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                     FROM BIGLIETTO B
+                     JOIN INCONTRO P ON B.idIncontro = P.idIncontro
                      WHERE B.tribuna = ? AND B.tipo IS NULL
-                     GROUP BY P.idProgramma
+                     GROUP BY P.idIncontro
                  ) AS sessioni
                  HAVING COUNT(*) = 14";
         $stmt = $conn->prepare($sql);
@@ -146,10 +146,10 @@ class TicketManager
     {
         $conn = DBConnection::getConnessione();
 
-        $res = $conn->query("SELECT MIN(prezzo) AS prezzo_min FROM BIGLIETTI WHERE tipo IS NULL");
+        $res = $conn->query("SELECT MIN(prezzo) AS prezzo_min FROM BIGLIETTO WHERE tipo IS NULL");
         $prezzo_single = ($res && $res->num_rows > 0) ? (float)$res->fetch_assoc()['prezzo_min'] : null;
 
-        $res = $conn->query("SELECT MIN(prezzo) AS prezzo_min FROM BIGLIETTI WHERE tipo = 'ground'");
+        $res = $conn->query("SELECT MIN(prezzo) AS prezzo_min FROM BIGLIETTO WHERE tipo = 'ground'");
         $prezzo_ground = ($res && $res->num_rows > 0) ? (float)$res->fetch_assoc()['prezzo_min'] : null;
 
         // L'abbonamento = somma dei prezzi minimi di ognuna delle 14 sessioni (tipo IS NULL)
@@ -157,10 +157,10 @@ class TicketManager
             "SELECT SUM(prezzo_min) AS prezzo_min
              FROM (
                  SELECT MIN(B.prezzo) AS prezzo_min
-                 FROM BIGLIETTI B
-                 JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+                 FROM BIGLIETTO B
+                 JOIN INCONTRO P ON B.idIncontro = P.idIncontro
                  WHERE B.tipo IS NULL
-                 GROUP BY P.idProgramma
+                 GROUP BY P.idIncontro
              ) AS sessioni"
         );
         $prezzo_abb = ($res && $res->num_rows > 0) ? (float)$res->fetch_assoc()['prezzo_min'] : null;
@@ -178,9 +178,9 @@ class TicketManager
 
         $sql = "SELECT B.idBiglietto, B.tipo, B.tribuna, B.prezzo, 
                    P.data, P.sessione, O.numero_ordine
-            FROM BIGLIETTI B
+            FROM BIGLIETTO B
             JOIN ORDINE O ON B.numero_ordine = O.numero_ordine
-            JOIN PROGRAMMA P ON B.idProgramma = P.idProgramma
+            JOIN INCONTRO P ON B.idIncontro = P.idIncontro
             WHERE O.idUtente = ?
             ORDER BY O.data_acquisto DESC";
 

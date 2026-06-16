@@ -50,25 +50,25 @@ class CarrelloManager {
         $conn          = DBConnection::getConnessione();
         $tipo_carrello = strtolower(trim($item['tipologia']));
         $titolo_pulito = trim($item['titolo']);
-        $idProg        = (int) $item['idProgramma'];
+        $idProg        = (int) $item['idIncontro'];
         $quantita      = (int) $item['quantita'];
 
         if ($tipo_carrello === 'abbonamento') {
             // Un abbonamento copre tutti e 14 i programmi settimanali.
             // bind_param è chiamato UNA SOLA VOLTA fuori dal ciclo (lavora per riferimento).
-            // Dentro il ciclo aggiorniamo solo $idProgrammaLoop e richiamiamo execute().
-            $sql  = "UPDATE BIGLIETTI
+            // Dentro il ciclo aggiorniamo solo $idIncontroLoop e richiamiamo execute().
+            $sql  = "UPDATE BIGLIETTO
                         SET numero_ordine = ?, tipo = 'abbonamento'
                       WHERE tribuna = ?
-                        AND idProgramma = ?
+                        AND idIncontro = ?
                         AND numero_ordine IS NULL
                       LIMIT ?";
             $stmt          = $conn->prepare($sql);
-            $idProgrammaLoop = 0;
-            $stmt->bind_param("isii", $idOrdine, $titolo_pulito, $idProgrammaLoop, $quantita);
+            $idIncontroLoop = 0;
+            $stmt->bind_param("isii", $idOrdine, $titolo_pulito, $idIncontroLoop, $quantita);
 
             for ($i = 1; $i <= 14; $i++) {
-                $idProgrammaLoop = $i;
+                $idIncontroLoop = $i;
                 $stmt->execute();
 
                 if ($stmt->affected_rows < $quantita) {
@@ -79,10 +79,10 @@ class CarrelloManager {
             $stmt->close();
 
         } elseif ($tipo_carrello === 'ground pass' || $tipo_carrello === 'ground') {
-            $sql  = "UPDATE BIGLIETTI
+            $sql  = "UPDATE BIGLIETTO
                         SET numero_ordine = ?
                       WHERE tipo = 'ground'
-                        AND idProgramma = ?
+                        AND idIncontro = ?
                         AND numero_ordine IS NULL
                       LIMIT ?";
             $stmt = $conn->prepare($sql);
@@ -97,10 +97,10 @@ class CarrelloManager {
 
         } else {
             // Single Session o qualsiasi altro tipo
-            $sql  = "UPDATE BIGLIETTI
+            $sql  = "UPDATE BIGLIETTO
                         SET numero_ordine = ?
                       WHERE tribuna = ?
-                        AND idProgramma = ?
+                        AND idIncontro = ?
                         AND numero_ordine IS NULL
                       LIMIT ?";
             $stmt = $conn->prepare($sql);

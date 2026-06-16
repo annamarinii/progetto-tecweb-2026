@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS BIGLIETTI;
+DROP TABLE IF EXISTS BIGLIETTO;
 DROP TABLE IF EXISTS ORDINE;
-DROP TABLE IF EXISTS DOMANDE;
+DROP TABLE IF EXISTS DOMANDA;
 DROP TABLE IF EXISTS NEWS;
-DROP TABLE IF EXISTS PROGRAMMA;
+DROP TABLE IF EXISTS INCONTRO;
 DROP TABLE IF EXISTS UTENTE;
 DROP TABLE IF EXISTS FAQ;
-DROP TABLE IF EXISTS CAMPIONI;
+DROP TABLE IF EXISTS CAMPIONE;
 
 
 -- tabelle primarie
@@ -19,8 +19,8 @@ CREATE TABLE UTENTE (
                         isAdmin BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE PROGRAMMA (
-                          idProgramma INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE INCONTRO (
+                          idIncontro INT AUTO_INCREMENT PRIMARY KEY,
                           data DATETIME NOT NULL,
                           sessione VARCHAR(20),
                           stadio VARCHAR(20) NOT NULL
@@ -39,7 +39,7 @@ CREATE TABLE NEWS (
                       FOREIGN KEY (idAutore) REFERENCES UTENTE(idUtente)
 );
 
-CREATE TABLE DOMANDE (
+CREATE TABLE DOMANDA (
                          idDomanda INT AUTO_INCREMENT PRIMARY KEY,
                          testo_domanda TEXT NOT NULL,
                          testo_risposta TEXT,
@@ -58,15 +58,15 @@ CREATE TABLE ORDINE (
                         FOREIGN KEY (idUtente) REFERENCES UTENTE(idUtente)
 );
 
-CREATE TABLE BIGLIETTI (
+CREATE TABLE BIGLIETTO (
                            idBiglietto INT AUTO_INCREMENT PRIMARY KEY,
                            prezzo DECIMAL (6,2) NOT NULL,
                            tribuna VARCHAR(20),
                            tipo VARCHAR(20) DEFAULT NULL,
                            numero_ordine INT DEFAULT NULL,
-                           idProgramma INT NOT NULL,
+                           idIncontro INT NOT NULL,
                            FOREIGN KEY (numero_ordine) REFERENCES ORDINE(numero_ordine),
-                           FOREIGN KEY (idProgramma) REFERENCES PROGRAMMA(idProgramma)
+                           FOREIGN KEY (idIncontro) REFERENCES INCONTRO(idIncontro)
 );
 
 CREATE TABLE FAQ (
@@ -76,7 +76,7 @@ CREATE TABLE FAQ (
     categoria VARCHAR(50) NOT NULL DEFAULT 'Regolamento'
 );
 
-CREATE TABLE CAMPIONI (
+CREATE TABLE CAMPIONE (
     idCampione   INT AUTO_INCREMENT PRIMARY KEY,
     nome         VARCHAR(60)  NOT NULL,
     categoria    VARCHAR(40)  NOT NULL,
@@ -94,7 +94,7 @@ VALUES
 ('admin', 'admin@pataviumopen.it', '$2y$10$hJs.Dy1/uAcVxtJDMjwE0OqvxWaiwysPVoOaTOs7eqFPNM4ObP8sW', 'admin', 'admin', 1),
 ('user', 'user@pataviumopen.it', '$2y$10$3c2HqNP45kB2OHZUPl3Zh.giWOM/hT0JFAriYHZPNIk7pw7zMYgeG', 'user', 'user', 0);
 
-INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
+INSERT INTO INCONTRO (data, sessione, stadio) VALUES
 -- Giorno 1 (18)
 ('2027-05-18 11:00:00', 'diurna', 'Giotto Court'),
 ('2027-05-18 19:00:00', 'serale', 'Patavium Arena'),
@@ -133,7 +133,7 @@ INSERT INTO PROGRAMMA (data, sessione, stadio) VALUES
 ('2027-05-24 09:00:00', 'ground', 'Accesso Ground');
 
 -- verranno 560 biglietti totali divisi in 30 per la diurna e 50 per la serale
-INSERT INTO BIGLIETTI (prezzo, tribuna, idProgramma) VALUES
+INSERT INTO BIGLIETTO (prezzo, tribuna, idIncontro) VALUES
 
 -- ================= GIORNATA 1
 -- Incontro 1 (30 Biglietti)
@@ -219,7 +219,7 @@ INSERT INTO BIGLIETTI (prezzo, tribuna, idProgramma) VALUES
 (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14), (140, 'Tribuna Fondo Campo', 14),
 (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14), (120, 'Anello Superiore', 14);
 
-INSERT INTO BIGLIETTI (prezzo, tribuna, tipo, idProgramma) VALUES
+INSERT INTO BIGLIETTO (prezzo, tribuna, tipo, idIncontro) VALUES
 -- ID 15 (18 Maggio) - Prezzo: 20€
 (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15),
 (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15), (20.00, NULL, 'ground', 15),
@@ -278,8 +278,8 @@ INSERT INTO NEWS (idNews, titolo, testo, data_pubblicazione, immagine, idAutore,
 (6, 'Un torneo sempre più verde: il nostro impegno per la sostenibilità', 'Il Patavium Open scende in campo per difendere l''ambiente. Quest''anno abbiamo intrapreso una svolta "green" eliminando quasi totalmente la plastica monouso nell''impianto. I visitatori troveranno colonnine per il rifornimento di acqua gratuita e tutti i punti ristoro useranno esclusivamente materiali biodegradabili. Inoltre, grazie alla collaborazione con il Comune di Padova, abbiamo potenziato il servizio di navette elettriche gratuite dalla stazione centrale per disincentivare l''uso delle auto private. Un piccolo gesto concreto per proteggere il nostro futuro.', '2026-05-29 15:06:41', 'assets/images/torneo_sostenibile.webp', 1, 0),
 (7, 'Partnership Trenitalia: sconti esclusivi per chi arriva in treno', 'Raggiungere la Patavium Arena non è mai stato così comodo ed ecologico. Grazie al nuovo accordo di partnership siglato oggi, tutti gli appassionati che arriveranno a Padova a bordo dei treni Frecce o Intercity avranno diritto a uno sconto del 15% sui biglietti delle sessioni diurne e del 10% sulle finali serali. Vogliamo premiare i tifosi che scelgono i mezzi pubblici, promuovendo una mobilità sostenibile e riducendo l''impatto ambientale dell''evento. Scopri tutti i dettagli per richiedere lo sconto nella sezione FAQ.', '2026-05-29 15:37:05', 'assets/images/treno_partnership.webp', 1, 0);
 
--- Inserimento nella tabella DOMANDE (separato dal punto e virgola sopra)
-INSERT INTO DOMANDE (testo_domanda, testo_risposta, lettura_admin, lettura_user, idUtente) VALUES
+-- Inserimento nella tabella DOMANDA (separato dal punto e virgola sopra)
+INSERT INTO DOMANDA (testo_domanda, testo_risposta, lettura_admin, lettura_user, idUtente) VALUES
 ('È possibile acquistare i biglietti direttamente ai botteghini dello stadio il giorno del match?', NULL, 0, 0, 2),
 ('Quali sono le restrizioni per il parcheggio vicino alla Patavium Arena?', NULL, 1, 0, 2),
 ('Avete un servizio di deposito bagagli all''ingresso?', 'Sì, è disponibile un servizio gratuito di deposito per oggetti ingombranti.', 1, 0, 2),
@@ -291,8 +291,8 @@ INSERT INTO DOMANDE (testo_domanda, testo_risposta, lettura_admin, lettura_user,
 ('La tribuna Fondo Campo è accessibile con sedia a rotelle?', 'Certamente, la tribuna è dotata di rampa dedicata e posti riservati.', 1, 1, 2),
 ('A che ora è prevista la finale del singolare maschile di domenica?', NULL, 0, 0, 2);
 
--- Inserimento nella tabella CAMPIONI (gli stessi 4 campioni della home, con i loro alt-text reali)
-INSERT INTO CAMPIONI (nome, categoria, anno, immagine, alt_immagine, ordine) VALUES
+-- Inserimento nella tabella CAMPIONE (gli stessi 4 campioni della home, con i loro alt-text reali)
+INSERT INTO CAMPIONE (nome, categoria, anno, immagine, alt_immagine, ordine) VALUES
 ('Lorenzo Costa', 'Singolo Maschile', 2026, 'assets/images/lorenzo_costa.webp', 'Il tennista Lorenzo Costa sorridente mentre solleva la coppa del torneo dopo la vittoria', 1),
 ('Sofia Esposito', 'Singolo Femminile', 2026, 'assets/images/sofia_esposito.webp', 'La tennista Sofia Esposito in azione mentre colpisce la palla con un potente rovescio a due mani', 2),
 ('David Richard', 'Singolo Maschile', 2025, 'assets/images/david_richard.webp', 'Il tennista David Richard in posa sul campo con la racchetta appoggiata sulla spalla', 3),

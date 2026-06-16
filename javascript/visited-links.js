@@ -59,14 +59,11 @@
             var p = a.pathname;
             // Non si marca la pagina su cui ci si trova.
             if (p && p !== pathCorrente && visitate.indexOf(p) !== -1) {
+                // Solo la classe: la pallina e' decorativa (CSS ::after) e lo stato
+                // "visitato" e' gia' annunciato nativamente dagli screen reader in
+                // base alla cronologia del browser. Aggiungere un testo .sr-only
+                // sarebbe ridondante e appesantirebbe la lettura assistita.
                 a.classList.add('link-visitato');
-                // Testo per screen reader: l'icona pallina e' solo visiva.
-                if (!a.querySelector('.indicatore-visitato-sr')) {
-                    var sr = document.createElement('span');
-                    sr.className = 'sr-only indicatore-visitato-sr';
-                    sr.textContent = ' (pagina già visitata)';
-                    a.appendChild(sr);
-                }
             }
         });
     }

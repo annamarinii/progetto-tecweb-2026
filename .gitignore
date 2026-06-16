@@ -9,6 +9,7 @@ Thumbs.db
 # File temporanei o backup
 *.bak
 *.swp
+*.aux
 *.tmp
 
 # Cache e log

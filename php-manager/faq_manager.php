@@ -40,7 +40,7 @@ class FaqManager {
 
     public static function getDomandaById($idDomanda) {
         $conn = DBConnection::getConnessione();
-        $stmt = $conn->prepare("SELECT * FROM DOMANDE WHERE idDomanda = ?");
+        $stmt = $conn->prepare("SELECT * FROM DOMANDA WHERE idDomanda = ?");
         $stmt->bind_param("i", $idDomanda);
         $stmt->execute();
         $risultato = $stmt->get_result();
@@ -51,17 +51,17 @@ class FaqManager {
 
     public static function eliminaDomanda($idDomanda) {
         $conn = DBConnection::getConnessione();
-        $stmt = $conn->prepare("DELETE FROM DOMANDE WHERE idDomanda = ?");
+        $stmt = $conn->prepare("DELETE FROM DOMANDA WHERE idDomanda = ?");
         $stmt->bind_param("i", $idDomanda);
         $esito = $stmt->execute();
         $stmt->close();
         return $esito;
     }
 
-    // Inserisce una domanda inviata da un utente loggato (Tabella DOMANDE)
+    // Inserisce una domanda inviata da un utente loggato (Tabella DOMANDA)
     public static function inserisciDomanda($testo_domanda, $idUtente) {
         $conn = DBConnection::getConnessione();
-        $stmt = $conn->prepare("INSERT INTO DOMANDE (testo_domanda, idUtente) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO DOMANDA (testo_domanda, idUtente) VALUES (?, ?)");
         $stmt->bind_param("si", $testo_domanda, $idUtente);
         $esito = $stmt->execute();
         $stmt->close();
@@ -71,7 +71,7 @@ class FaqManager {
     // Recupera domande utenti (non ancora risposte)
     public static function getDomandeUtenti() {
         $conn = DBConnection::getConnessione();
-        $sql = "SELECT D.*, U.username FROM DOMANDE D 
+        $sql = "SELECT D.*, U.username FROM DOMANDA D 
                 JOIN UTENTE U ON D.idUtente = U.idUtente 
                 WHERE D.testo_risposta IS NULL OR D.testo_risposta = ''
                 ORDER BY D.data_invio DESC";
@@ -83,7 +83,7 @@ class FaqManager {
     public static function rispondiADomanda($idDomanda, $risposta) {
         $conn = DBConnection::getConnessione();
         // Impostiamo lettura_admin a 1 e lettura_user a 0 (notifica per l'utente)
-        $stmt = $conn->prepare("UPDATE DOMANDE SET testo_risposta = ?, lettura_admin = 1, lettura_user = 0 WHERE idDomanda = ?");
+        $stmt = $conn->prepare("UPDATE DOMANDA SET testo_risposta = ?, lettura_admin = 1, lettura_user = 0 WHERE idDomanda = ?");
         $stmt->bind_param("si", $risposta, $idDomanda);
         $esito = $stmt->execute();
         $stmt->close();
@@ -92,7 +92,7 @@ class FaqManager {
 
     public static function segnaLettaAdmin($idDomanda) {
         $conn = DBConnection::getConnessione();
-        $stmt = $conn->prepare("UPDATE DOMANDE SET lettura_admin = 1 WHERE idDomanda = ?");
+        $stmt = $conn->prepare("UPDATE DOMANDA SET lettura_admin = 1 WHERE idDomanda = ?");
         $stmt->bind_param("i", $idDomanda);
         $esito = $stmt->execute();
         $stmt->close();
@@ -103,7 +103,7 @@ class FaqManager {
     public static function getNotificheUtente($idUtente) {
         $conn = DBConnection::getConnessione();
         $sql = "SELECT idDomanda, testo_domanda, testo_risposta, data_invio, lettura_user
-                FROM DOMANDE 
+                FROM DOMANDA 
                 WHERE idUtente = ? AND testo_risposta IS NOT NULL AND testo_risposta != ''
                 ORDER BY data_invio DESC";
         $stmt = $conn->prepare($sql);

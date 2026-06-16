@@ -38,7 +38,7 @@ class CampioniManager {
     public static function getCampioni() {
         $conn = DBConnection::getConnessione();
         $sql = "SELECT idCampione, nome, categoria, anno, immagine, alt_immagine, ordine
-                FROM CAMPIONI
+                FROM CAMPIONE
                 ORDER BY ordine ASC, anno DESC";
         $risultato = $conn->query($sql);
         $campioni_estratti = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
@@ -49,7 +49,7 @@ class CampioniManager {
     public static function getCampioniHome() {
         $conn = DBConnection::getConnessione();
         $sql = "SELECT idCampione, nome, categoria, anno, immagine, alt_immagine, ordine
-                FROM CAMPIONI
+                FROM CAMPIONE
                 ORDER BY ordine ASC, anno DESC";
         $risultato = $conn->query($sql);
         $campioni_estratti = ($risultato && $risultato->num_rows > 0) ? $risultato->fetch_all(MYSQLI_ASSOC) : [];
@@ -65,7 +65,7 @@ class CampioniManager {
         $anno   = (int) $anno;
         $ordine = (int) $ordine;
         $conn = DBConnection::getConnessione();
-        $sql = "INSERT INTO CAMPIONI (nome, categoria, anno, immagine, alt_immagine, ordine) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO CAMPIONE (nome, categoria, anno, immagine, alt_immagine, ordine) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssissi", $nome, $categoria, $anno, $immagine, $alt_immagine, $ordine);
         $esito = $stmt->execute();
@@ -84,12 +84,12 @@ class CampioniManager {
         $idCampione = (int) $idCampione;
         $conn = DBConnection::getConnessione();
         if ($immagine != "") {
-            $sql = "UPDATE CAMPIONI SET nome=?, categoria=?, anno=?, immagine=?, alt_immagine=?, ordine=? WHERE idCampione=?";
+            $sql = "UPDATE CAMPIONE SET nome=?, categoria=?, anno=?, immagine=?, alt_immagine=?, ordine=? WHERE idCampione=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssissii", $nome, $categoria, $anno, $immagine, $alt_immagine, $ordine, $idCampione);
         } else {
             // L'alt si aggiorna comunque, indipendentemente dal cambio immagine
-            $sql = "UPDATE CAMPIONI SET nome=?, categoria=?, anno=?, alt_immagine=?, ordine=? WHERE idCampione=?";
+            $sql = "UPDATE CAMPIONE SET nome=?, categoria=?, anno=?, alt_immagine=?, ordine=? WHERE idCampione=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssisii", $nome, $categoria, $anno, $alt_immagine, $ordine, $idCampione);
         }
@@ -101,7 +101,7 @@ class CampioniManager {
     // Elimina un campione
     public static function eliminaCampione($idCampione) {
         $conn = DBConnection::getConnessione();
-        $sql = "DELETE FROM CAMPIONI WHERE idCampione = ?";
+        $sql = "DELETE FROM CAMPIONE WHERE idCampione = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $idCampione);
         $esito = $stmt->execute();

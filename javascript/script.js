@@ -382,7 +382,7 @@ if (btnMinus && btnPlus) {
             const isGroundPass = (!isSingleSession && !isAbbonamento);
 
             // FUNZIONE INTERNA 1: Calcola l'ID del programma basandosi sulla data
-            function calcolaIdProgramma(dataScelta, sessioneScelta, tipo) {
+            function calcolaIdIncontro(dataScelta, sessioneScelta, tipo) {
                 if (tipo === "Abbonamento") return null;
 
                 // Estrae il numero del giorno (es. "18" da "18 Maggio 2027")
@@ -415,7 +415,7 @@ if (btnMinus && btnPlus) {
                 statoAcquisto.tipo = "Single Session";
                 const postoScelto = document.querySelector('.seat-category.selected .seat-price');
                 statoAcquisto.prezzoSingolo = pulisciPrezzo(postoScelto);
-                statoAcquisto.idProgramma = calcolaIdProgramma(statoAcquisto.data, statoAcquisto.sessione, "Single Session");
+                statoAcquisto.idIncontro = calcolaIdIncontro(statoAcquisto.data, statoAcquisto.sessione, "Single Session");
 
             } else if (isAbbonamento) {
                 if (!statoAcquisto.tribuna) {
@@ -427,7 +427,7 @@ if (btnMinus && btnPlus) {
                 statoAcquisto.sessione = "Tutte le sessioni";
                 const abbScelto = document.querySelector('.seat-category.selected .seat-price');
                 statoAcquisto.prezzoSingolo = pulisciPrezzo(abbScelto);
-                statoAcquisto.idProgramma = null;
+                statoAcquisto.idIncontro = null;
 
             } else if (isGroundPass) {
                 if (!statoAcquisto.data) {
@@ -439,7 +439,7 @@ if (btnMinus && btnPlus) {
                 statoAcquisto.tribuna = "Ingresso Generale";
                 const prezzoDisplay = document.getElementById('prezzo-ground');
                 statoAcquisto.prezzoSingolo = pulisciPrezzo(prezzoDisplay);
-                statoAcquisto.idProgramma = calcolaIdProgramma(statoAcquisto.data, null, "Ground Pass");
+                statoAcquisto.idIncontro = calcolaIdIncontro(statoAcquisto.data, null, "Ground Pass");
             }
 
             // INVIO DATI AL SERVER
@@ -450,7 +450,7 @@ if (btnMinus && btnPlus) {
                 sessione: statoAcquisto.sessione,
                 prezzo: statoAcquisto.prezzoSingolo,
                 quantita: statoAcquisto.quantita,
-                idProgramma: statoAcquisto.idProgramma
+                idIncontro: statoAcquisto.idIncontro
             };
 
             fetch('../php-manager/aggiungi_carrello.php', {
@@ -461,26 +461,23 @@ if (btnMinus && btnPlus) {
                 .then(risposta => risposta.json())
                 .then(dati => {
                     if (dati.status === 'success') {
-                        // Feedback visivo: Successo
+                        // Feedback visivo: Successo (stile interamente nella classe .added-to-cart)
                         acquistaBtn.classList.add('added-to-cart');
                         acquistaBtn.textContent = 'AGGIUNTO ✓';
-                        acquistaBtn.style.opacity = '0.7';
 
                         // Mostra il link al carrello se non esiste
+                        // (aspetto gestito dalla regola CSS #link-vai-carrello)
                         if (!document.getElementById('link-vai-carrello')) {
                             const linkCarrello = document.createElement('a');
                             linkCarrello.id = 'link-vai-carrello';
                             linkCarrello.href = '../php-pages/carrello.php';
                             linkCarrello.innerHTML = 'Vai al carrello ➔';
-                            linkCarrello.style.display = 'block';
-                            linkCarrello.style.marginTop = '10px';
                             acquistaBtn.parentNode.insertBefore(linkCarrello, acquistaBtn.nextSibling);
                         }
 
                         setTimeout(() => {
                             acquistaBtn.classList.remove('added-to-cart');
                             acquistaBtn.textContent = 'AGGIUNGI AL CARRELLO';
-                            acquistaBtn.style.opacity = '1';
                         }, 3000);
                     } else {
                         const avviso = document.getElementById('avviso-disponibilita');
@@ -513,10 +510,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = form.querySelector('button[type="submit"], .btn-checkout');
 
             if (submitBtn) {
-                // Blocca il bottone e dà un feedback visivo
+                // Blocca il bottone e dà un feedback visivo (stile nella classe .btn-loading)
                 submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.7';
-                submitBtn.style.cursor = 'wait';
+                submitBtn.classList.add('btn-loading');
+                // Accessibilità: segnala agli screen reader che l'azione è in corso
+                submitBtn.setAttribute('aria-busy', 'true');
 
                 // Cambiamo il testo per far capire che sta caricando
                 // Manteniamo le icone originali se ci sono, cambiando solo il testo

@@ -234,7 +234,7 @@ class AccountManager
     }
     public static function segnaRispostaComeLetta($idDomanda, $idUtente) {
         $conn = DBConnection::getConnessione();
-        $sql = "UPDATE DOMANDE SET lettura_user = 1 WHERE idDomanda = ? AND idUtente = ?";
+        $sql = "UPDATE DOMANDA SET lettura_user = 1 WHERE idDomanda = ? AND idUtente = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $idDomanda, $idUtente);
         $esito = $stmt->execute();

@@ -19,7 +19,7 @@ if ($dati) {
         'sessione'    => isset($dati['sessione']) ? $dati['sessione'] : '',
         'prezzo'      => isset($dati['prezzo']) ? $dati['prezzo'] : 0,
         'quantita'    => isset($dati['quantita']) ? (int)$dati['quantita'] : 1,
-        'idProgramma' => isset($dati['idProgramma']) ? $dati['idProgramma'] : null
+        'idIncontro' => isset($dati['idIncontro']) ? $dati['idIncontro'] : null
     );
 
     // VALIDAZIONE QUANTITÀ
@@ -29,12 +29,12 @@ if ($dati) {
     }
 
     // CONTROLLO DISPONIBILITÀ DB PER SINGLE SESSION
-    if ($nuovo_item['tipologia'] === 'Single Session' && $nuovo_item['idProgramma'] && $nuovo_item['titolo']) {
+    if ($nuovo_item['tipologia'] === 'Single Session' && $nuovo_item['idIncontro'] && $nuovo_item['titolo']) {
         require_once 'db_connection.php';
         $conn = DBConnection::getConnessione();
-        $sql_check = "SELECT COUNT(idBiglietto) AS disponibili FROM BIGLIETTI WHERE tribuna = ? AND idProgramma = ? AND numero_ordine IS NULL AND tipo IS NULL";
+        $sql_check = "SELECT COUNT(idBiglietto) AS disponibili FROM BIGLIETTO WHERE tribuna = ? AND idIncontro = ? AND numero_ordine IS NULL AND tipo IS NULL";
         $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bind_param("si", $nuovo_item['titolo'], $nuovo_item['idProgramma']);
+        $stmt_check->bind_param("si", $nuovo_item['titolo'], $nuovo_item['idIncontro']);
         $stmt_check->execute();
         $row_check = $stmt_check->get_result()->fetch_assoc();
         $stmt_check->close();
@@ -46,9 +46,9 @@ if ($dati) {
     }
 
     // CONTROLLO DISPONIBILITÀ DB PER GROUND PASS
-    if ($nuovo_item['tipologia'] === 'Ground Pass' && $nuovo_item['idProgramma']) {
+    if ($nuovo_item['tipologia'] === 'Ground Pass' && $nuovo_item['idIncontro']) {
         require_once 'ticket_manager.php';
-        $disponibili = TicketManager::getDisponibilitaGroundPass((int)$nuovo_item['idProgramma']);
+        $disponibili = TicketManager::getDisponibilitaGroundPass((int)$nuovo_item['idIncontro']);
         if ($nuovo_item['quantita'] > $disponibili) {
             echo json_encode(array('status' => 'error', 'message' => "Sono rimasti solo {$disponibili} biglietti per questa data."));
             exit();
@@ -71,7 +71,7 @@ if ($dati) {
     foreach ($_SESSION['carrello'] as $indice => $item_esistente) {
 
         // Controllo incrociato: ID, Titolo, Data e Sessione devono coincidere perfettamente
-        if ($item_esistente['idProgramma'] == $nuovo_item['idProgramma'] &&
+        if ($item_esistente['idIncontro'] == $nuovo_item['idIncontro'] &&
             $item_esistente['titolo'] == $nuovo_item['titolo'] &&
             $item_esistente['data'] == $nuovo_item['data'] &&
             $item_esistente['sessione'] == $nuovo_item['sessione']) {
