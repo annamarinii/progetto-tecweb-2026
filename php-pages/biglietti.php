@@ -22,19 +22,19 @@ if (empty($categorie)) {
             $cat_class = 'card-abbonamento';
             $cat_text  = 'Abbonamento';
             $img_url   = '../assets/images/abbonamento.webp';
-            $img_alt   = 'Panoramica del campo centrale con le tribune gremite di spettatori durante il Patavium Open';
+            $img_alt   = 'Campo centrale gremito di spettatori durante il Patavium Open';
         } elseif ($tipo === 'single') {
             $link      = 'single_session.php';
             $cat_class = 'card-single';
             $cat_text  = 'Single Session';
             $img_url   = '../assets/images/single_session.webp';
-            $img_alt   = 'Spettatori in tribuna che assistono a un match sul campo del Patavium Open';
+            $img_alt   = 'Spettatori in tribuna durante un match del Patavium Open';
         } else {
             $link      = 'ground_passes.php';
             $cat_class = 'card-ground';
             $cat_text  = 'Ground Pass';
             $img_url   = '../assets/images/ground_passes.webp';
-            $img_alt   = 'Vista dell\'area hospitality e del villaggio del torneo Patavium Open';
+            $img_alt   = 'Area hospitality e villaggio del torneo Patavium Open';
         }
 
         $html_cards .= str_replace(

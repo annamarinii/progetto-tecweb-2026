@@ -49,8 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
             erroreSpan.textContent = "";
         }
 
-        // Non mostrare errori "campo vuoto" su blur (solo su submit)
-        if (input.value.trim() === '' && !isSubmit) {
+        // Normalizzazione: nei campi NON password togliamo gli spazi iniziali/finali,
+        // coerentemente col trim() eseguito dal server. Così una stringa di soli spazi
+        // ("   ") diventa vuota (→ campo obbligatorio non compilato) e " Mario " diventa
+        // "Mario": gli spazi non possono più superare silenziosamente i controlli.
+        if (input.type !== 'password') {
+            input.value = input.value.trim();
+        }
+
+        // Campo vuoto (anche se conteneva solo spazi): è un errore bloccante solo in
+        // fase di submit; su blur non infastidiamo l'utente che sta ancora compilando.
+        if (input.value === '') {
+            if (isSubmit && input.required) {
+                input.classList.add('invalid');
+                if (erroreSpan) {
+                    erroreSpan.textContent = "Questo campo è obbligatorio.";
+                    erroreSpan.classList.add('visible');
+                }
+                return false;
+            }
             return true;
         }
 

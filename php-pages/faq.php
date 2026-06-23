@@ -12,18 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!Tool::isLoggedIn()) {
         $messaggio_esito_form = Tool::buildMessage('Attenzione:', 'Devi effettuare l\'accesso per inviare una richiesta. <a href=\'login.php\'>Clicca qui per accedere</a>.');
     } else {
-        // Dati puliti solo da tag dannosi in ingresso (strip_tags) senza convertire entità HTML
-        $testo_messaggio = trim(strip_tags($_POST['messaggio']));
+        // Sanificazione input al confine HTTP (solo rimozione tag dannosi, senza
+        // convertire entità HTML). La validazione di merito è delegata al Manager.
+        $testo_messaggio = trim(strip_tags($_POST['messaggio'] ?? ''));
         $id_utente_corrente = $_SESSION['idUtente'];
 
-        if (!empty($testo_messaggio)) {
-            $salvataggio_ok = FaqManager::inserisciDomanda($testo_messaggio, $id_utente_corrente);
+        // Il Manager valida e ritorna uno stato; qui lo si mappa in un messaggio utente.
+        $esito = FaqManager::inserisciDomanda($testo_messaggio, $id_utente_corrente);
 
-            if ($salvataggio_ok) {
-                $messaggio_esito_form = Tool::buildMessage('Ottimo!', 'La tua richiesta è stata inviata. Riceverai risposta nella tua Area Personale.', 'success');
-            } else {
-                $messaggio_esito_form = Tool::buildMessage('Errore:', 'Problema tecnico durante l\'invio. Riprova più tardi.');
-            }
+        if ($esito === true) {
+            $messaggio_esito_form = Tool::buildMessage('Ottimo!', 'La tua richiesta è stata inviata. Riceverai risposta nella tua Area Personale.', 'success');
+        } elseif ($esito === 'dati_non_validi') {
+            $messaggio_esito_form = Tool::buildMessage('Errore:', 'Il messaggio non può essere vuoto.');
+        } else {
+            $messaggio_esito_form = Tool::buildMessage('Errore:', 'Problema tecnico durante l\'invio. Riprova più tardi.');
         }
     }
 }

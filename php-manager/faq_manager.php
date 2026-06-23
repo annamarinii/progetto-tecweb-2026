@@ -58,14 +58,32 @@ class FaqManager {
         return $esito;
     }
 
-    // Inserisce una domanda inviata da un utente loggato (Tabella DOMANDA)
+    /**
+     * Inserisce una domanda inviata da un utente loggato (Tabella DOMANDA).
+     *
+     * Validazione difensiva lato Manager (stesso schema di AccountManager::registraUtente):
+     * il testo viene ri-controllato QUI, a prescindere dal controller chiamante o dalla
+     * validazione lato client. Nessuna INSERT se il testo è vuoto.
+     *
+     * @return true|string  true se inserita; 'dati_non_validi' se il testo è vuoto
+     *                       (anche solo spazi); false su errore tecnico.
+     */
     public static function inserisciDomanda($testo_domanda, $idUtente) {
+        // 1. Validazione: il testo non può essere vuoto o composto da soli spazi.
+        if (trim((string) $testo_domanda) === '') {
+            return 'dati_non_validi';
+        }
+
+        // 2. Inserimento (prepared statement)
         $conn = DBConnection::getConnessione();
         $stmt = $conn->prepare("INSERT INTO DOMANDA (testo_domanda, idUtente) VALUES (?, ?)");
+        if (!$stmt) {
+            return false;
+        }
         $stmt->bind_param("si", $testo_domanda, $idUtente);
         $esito = $stmt->execute();
         $stmt->close();
-        return $esito;
+        return $esito === true ? true : false;
     }
 
     // Recupera domande utenti (non ancora risposte)

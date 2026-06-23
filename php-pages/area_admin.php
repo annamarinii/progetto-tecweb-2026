@@ -355,7 +355,7 @@ foreach ($faqArray as $f) {
 
 // Preparazione Domande Utenti
 $domandeUtenti = FaqManager::getDomandeUtenti();
-$html_domande = !empty($domandeUtenti) ? '' : '<p class="no-data-msg" role="status">Nessuna nuova domanda.</p>';
+$html_domande = !empty($domandeUtenti) ? '' : '<li class="no-data-row"><p class="no-data-msg" role="status">Nessuna nuova domanda.</p></li>';
 foreach ($domandeUtenti as $d) {
     $stato_letta = $d['lettura_admin'] ? '' : 'unread';
     $stato_testo = $d['lettura_admin'] ? 'Messaggio letto' : 'Messaggio non letto';

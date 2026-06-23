@@ -132,7 +132,7 @@ INSERT INTO INCONTRO (data, sessione, stadio) VALUES
 ('2027-05-23 09:00:00', 'ground', 'Accesso Ground'),
 ('2027-05-24 09:00:00', 'ground', 'Accesso Ground');
 
--- verranno 560 biglietti totali divisi in 30 per la diurna e 50 per la serale
+-- 560 biglietti totali divisi in 30 per la diurna e 50 per la serale
 INSERT INTO BIGLIETTO (prezzo, tribuna, idIncontro) VALUES
 
 -- ================= GIORNATA 1
@@ -278,7 +278,7 @@ INSERT INTO NEWS (idNews, titolo, testo, data_pubblicazione, immagine, idAutore,
 (6, 'Un torneo sempre più verde: il nostro impegno per la sostenibilità', 'Il Patavium Open scende in campo per difendere l''ambiente. Quest''anno abbiamo intrapreso una svolta "green" eliminando quasi totalmente la plastica monouso nell''impianto. I visitatori troveranno colonnine per il rifornimento di acqua gratuita e tutti i punti ristoro useranno esclusivamente materiali biodegradabili. Inoltre, grazie alla collaborazione con il Comune di Padova, abbiamo potenziato il servizio di navette elettriche gratuite dalla stazione centrale per disincentivare l''uso delle auto private. Un piccolo gesto concreto per proteggere il nostro futuro.', '2026-05-29 15:06:41', 'assets/images/torneo_sostenibile.webp', 1, 0),
 (7, 'Partnership Trenitalia: sconti esclusivi per chi arriva in treno', 'Raggiungere la Patavium Arena non è mai stato così comodo ed ecologico. Grazie al nuovo accordo di partnership siglato oggi, tutti gli appassionati che arriveranno a Padova a bordo dei treni Frecce o Intercity avranno diritto a uno sconto del 15% sui biglietti delle sessioni diurne e del 10% sulle finali serali. Vogliamo premiare i tifosi che scelgono i mezzi pubblici, promuovendo una mobilità sostenibile e riducendo l''impatto ambientale dell''evento. Scopri tutti i dettagli per richiedere lo sconto nella sezione FAQ.', '2026-05-29 15:37:05', 'assets/images/treno_partnership.webp', 1, 0);
 
--- Inserimento nella tabella DOMANDA (separato dal punto e virgola sopra)
+-- Inserimento nella tabella DOMANDA
 INSERT INTO DOMANDA (testo_domanda, testo_risposta, lettura_admin, lettura_user, idUtente) VALUES
 ('È possibile acquistare i biglietti direttamente ai botteghini dello stadio il giorno del match?', NULL, 0, 0, 2),
 ('Quali sono le restrizioni per il parcheggio vicino alla Patavium Arena?', NULL, 1, 0, 2),
@@ -291,9 +291,9 @@ INSERT INTO DOMANDA (testo_domanda, testo_risposta, lettura_admin, lettura_user,
 ('La tribuna Fondo Campo è accessibile con sedia a rotelle?', 'Certamente, la tribuna è dotata di rampa dedicata e posti riservati.', 1, 1, 2),
 ('A che ora è prevista la finale del singolare maschile di domenica?', NULL, 0, 0, 2);
 
--- Inserimento nella tabella CAMPIONE (gli stessi 4 campioni della home, con i loro alt-text reali)
+-- Inserimento nella tabella CAMPIONE
 INSERT INTO CAMPIONE (nome, categoria, anno, immagine, alt_immagine, ordine) VALUES
-('Lorenzo Costa', 'Singolo Maschile', 2026, 'assets/images/lorenzo_costa.webp', 'Il tennista Lorenzo Costa sorridente mentre solleva la coppa del torneo dopo la vittoria', 1),
-('Sofia Esposito', 'Singolo Femminile', 2026, 'assets/images/sofia_esposito.webp', 'La tennista Sofia Esposito in azione mentre colpisce la palla con un potente rovescio a due mani', 2),
-('David Richard', 'Singolo Maschile', 2025, 'assets/images/david_richard.webp', 'Il tennista David Richard in posa sul campo con la racchetta appoggiata sulla spalla', 3),
-('Alicia Schneider', 'Singolo Femminile', 2025, 'assets/images/alicia_schneider.webp', 'La tennista Alicia Schneider concentrata mentre prepara il servizio lanciando la palla in alto', 4);
+('Lorenzo Costa', 'Singolo Maschile', 2026, 'assets/images/lorenzo_costa.webp', 'Lorenzo Costa solleva la coppa del torneo dopo la vittoria', 1),
+('Sofia Esposito', 'Singolo Femminile', 2026, 'assets/images/sofia_esposito.webp', 'Sofia Esposito colpisce la palla con un rovescio a due mani', 2),
+('David Richard', 'Singolo Maschile', 2025, 'assets/images/david_richard.webp', 'David Richard in posa sul campo con la racchetta sulla spalla', 3),
+('Alicia Schneider', 'Singolo Femminile', 2025, 'assets/images/alicia_schneider.webp', 'Alicia Schneider prepara il servizio lanciando la palla in alto', 4);

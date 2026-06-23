@@ -205,7 +205,7 @@ function selectTribune(element) {
     allSeats.forEach(seat => seat.classList.remove('selected'));
 
     element.classList.add('selected');
-    statoAcquisto.tribuna = element.querySelector('h3').textContent;
+    statoAcquisto.tribuna = element.querySelector('.seat-title').textContent;
 
     const priceSpan = element.querySelector('.seat-price');
     statoAcquisto.prezzoSingolo = pulisciPrezzo(priceSpan);

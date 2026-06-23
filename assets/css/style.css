@@ -1793,12 +1793,12 @@ main {
     background-color: var(--col-surface);
 }
 
-.seat-category.selected h3 {
+.seat-category.selected .seat-title {
     color: var(--col-text-heading);
     font-weight: 800;
 }
 
-.seat-category.selected p {
+.seat-category.selected .seat-desc {
     color: var(--col-text);
     font-weight: 500;
 }
@@ -1809,14 +1809,21 @@ main {
     border-color: var(--col-accent);
 }
 
-.seat-info h3 {
+.seat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.seat-title {
+    display: block;
     font-size: 1.25em;
     color: var(--col-text-heading);
     margin-bottom: 5px;
     font-weight: 700;
 }
 
-.seat-info p {
+.seat-desc {
+    display: block;
     font-size: 0.95em;
     color: var(--col-text);
     margin: 0;
@@ -2580,7 +2587,7 @@ label.label-richiesta::after {
     box-shadow: 2px 2px 0px var(--col-text-heading);
 }
 
-#main-carrello {
+.main-carrello {
     background-color: var(--col-bg);
     min-height: 80vh;
     padding-bottom: 60px;
@@ -3313,6 +3320,11 @@ a.btn-logout-small:focus-visible {
     box-shadow: 0 8px 15px var(--col-shadow-10);
 }
 
+.action-icon {
+    display: block;
+    margin-bottom: 12px;
+}
+
 .action-icon img,
 .action-icon .icon-themed {
     width: 60px;
@@ -3325,9 +3337,15 @@ a.btn-logout-small:focus-visible {
     font-size: 1.3em;
 }
 
-.action-card p {
+.action-card-title,
+.action-card-text {
+    display: block;
     color: var(--col-text);
     font-size: 0.95em;
+}
+
+.action-card-title {
+    margin-bottom: 6px;
 }
 
 .btn-back-news,

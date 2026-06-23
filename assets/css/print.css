@@ -235,7 +235,7 @@ html body main .seat-price {
     min-width: 120px;
 }
 
-html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card {
+html body main.main-carrello .carrello-layout #cart-items-container article.cart-item-card {
     display: block;
     border: 1.5pt solid var(--nero-puro);
     padding: 15pt;
@@ -244,7 +244,7 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
     background-color: transparent;
 }
 
-html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card h3 {
+html body main.main-carrello .carrello-layout #cart-items-container article.cart-item-card h3 {
     margin-top: 0;
     font-size: 14pt;
     border-bottom: 0.5pt solid var(--grigio-bordo);
@@ -252,12 +252,12 @@ html body main#main-carrello .carrello-layout #cart-items-container article.cart
     margin-bottom: 10pt;
 }
 
-html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-info .spec-riga {
+html body main.main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-info .spec-riga {
     margin: 5pt 0;
     font-size: 11pt;
 }
 
-html body main#main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-actions .cart-item-price {
+html body main.main-carrello .carrello-layout #cart-items-container article.cart-item-card .cart-item-actions .cart-item-price {
     display: block;
     text-align: right;
     font-weight: bold;
