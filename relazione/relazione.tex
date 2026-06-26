@@ -108,7 +108,7 @@
 
 \section{Origine del progetto}
 
-Il progetto \textbf{Patavium Open} nasce dall'esperienza diretta di quattro studenti del corso di Tecnologie Web, accomunati da una passione per il tennis. Nel corso degli ultimi anni, durante la frequentazione di tornei (sia dal vivo che in preparazione di eventuali acquisti di biglietti), ci siamo spesso imbattuti in siti web ufficiali di eventi tennistici che presentavano criticità non trascurabili dal punto di vista dell'usabilità e dell'accessibilità.
+Abbiamo ideato il progetto \textbf{Patavium Open} unendo le competenze apprese durante il corso di Tecnologie Web al nostro comune interesse per il tennis. Nel corso degli ultimi anni, durante la frequentazione di tornei (sia dal vivo che in preparazione di eventuali acquisti di biglietti), ci siamo spesso imbattuti in siti web ufficiali di eventi tennistici che presentavano criticità non trascurabili dal punto di vista dell'usabilità e dell'accessibilità.
 
 In particolare, abbiamo osservato ripetutamente:
 \begin{itemize}
@@ -206,6 +206,21 @@ Il portale web del Patavium Open presenta un'architettura dell'informazione soli
     \item \textbf{Boa di segnalazione:} Il sistema di carrello è stato progettato per garantire la massima persistenza e continuità durante l'esperienza di navigazione. Abbandonando un approccio puramente client-side, la gestione dello stato è stata centralizzata lato server mediante l'utilizzo dell'array \texttt{\$\_SESSION}. Questa scelta architetturale assicura che gli articoli selezionati non vadano persi durante il cambio di pagina o i ricaricamenti. Dal punto di vista dell'interfaccia, l'icona del carrello (costantemente visibile nell'header globale) funge da punto di ancoraggio per l'utente: ciò gli consente di interrompere temporaneamente il flusso di acquisto per esplorare altre sezioni del sito o consultare materiali di supporto, con la totale sicurezza di poter riprendere e finalizzare la transazione in qualsiasi momento, senza alcuna perdita del contesto operativo.
 \end{itemize}
 
+\subsection{Pagine di Errore personalizzate}
+
+Per garantire un'esperienza utente fluida ed evitare che i visitatori si sentano disorientati in caso di imprevisti, abbiamo progettato delle pagine di errore personalizzate per i codici HTTP più comuni (403, 404 e 500). 
+
+Dal punto di vista dell'infrastruttura di backend, il reindirizzamento automatico a queste schermate è gestito a livello di server tramite il file di configurazione \texttt{.htaccess}. Sfruttando la direttiva \texttt{ErrorDocument} di Apache, il sistema intercetta nativamente gli stati di errore HTTP e instrada l'utente verso i rispettivi file HTML personalizzati, impedendo la visualizzazione dei messaggi standard del server che risulterebbero estranei al contesto dell'applicazione.
+
+In questo modo, anche in situazioni di errore le pagine mantengono intatto il \textit{Design System} del sito (inclusi \textit{header}, \textit{footer} e il percorso \textit{breadcrumb}) e utilizzano un tono di voce ironico e coerente con il tema del torneo. Ogni errore è infatti associato a una metafora tennistica e accompagnato da un'immagine dedicata (una pallina da tennis "triste"), offrendo sempre una chiara \textit{Call to Action} per tornare rapidamente alla \textit{Home Page}:
+
+\begin{itemize}
+    \item \textbf{Errore 403 (Accesso Negato):} Accompagnato dal messaggio \textit{"Area riservata ai giocatori!"}, spiega all'utente che sta tentando di accedere a una risorsa per cui non ha i permessi necessari (come il pannello di amministrazione senza un login valido).
+    \item \textbf{Errore 404 (Pagina non trovata):} Introdotto dalla frase \textit{"Palla fuori campo!"}, rassicura l'utente nel caso in cui abbia digitato un indirizzo errato o cercato una risorsa non più disponibile nel server.
+    \item \textbf{Errore 500 (Errore interno del server):} Segnalato come \textit{"Interruzione per pioggia!"}, informa in modo controllato che si è verificato un problema tecnico lato applicazione e che lo staff è già al lavoro per ripristinare il corretto funzionamento del sistema.
+\end{itemize}
+
+Anche in queste pagine secondarie abbiamo mantenuto un forte rigore per l'accessibilità: gli elementi puramente visivi e decorativi (come i grandi numeri di errore sullo sfondo e l'immagine della pallina triste) sono stati silenziati per le tecnologie assistive tramite l'attributo \texttt{aria-hidden="true"}, mentre gli \textit{skip-link} rimangono attivi per consentire di saltare i blocchi ripetitivi e raggiungere subito il testo informativo.
 \section{Accessibilità}
 \subsection{Colori}
 La seguente sezione illustra la palette cromatica adottata per l'interfaccia utente del progetto. I colori sono stati rigorosamente selezionati per bilanciare l'identità visiva dello scopo del sito (scegliendo colori che ricordassero la terra rossa e il suolo blu dei campi da tennis) con i fondamentali requisiti di accessibilità. 
@@ -280,9 +295,17 @@ Il portale offre anche una modalità scura (\textit{Dark Mode}). La figura segue
     \label{fig:color_palette_dark}
 \end{figure}
 
+\subsection{Validazione}
+Al fine di verificare la correttezza del codice e garantire un elevato livello di accessibilità, abbiamo sottoposto le pagine del sito a validazione. L'analisi è stata condotta utilizzando due differenti strumenti, ottenendo in entrambi i casi risultati positivi:
+
+\begin{itemize}
+    \item \textbf{Lighthouse}: i test hanno confermato l'ottima qualità del codice, assegnando alle pagine un punteggio di accessibilità pari al 100\%.
+    \item \textbf{Total Validator}: le pagine hanno superato la validazione senza presentare alcun errore; lo strumento si è limitato a segnalare esclusivamente alcuni warning.
+\end{itemize}
+
 \section{Progettazione del Database}
 
-Per la gestione dei dati del portale abbiamo optato per un database relazionale (MySQL/MariaDB), progettato partendo dalla definizione del modello Entità-Relazione (ER). L'obiettivo principale è stato mantenere il database normalizzato, evitando la ridondanza delle informazioni e garantendo l'integrità dei dati tramite l'uso rigoroso delle chiavi esterne (\textit{Foreign Key}).
+Per la gestione dei dati del portale abbiamo optato per un database relazionale (MySQL/MariaDB), progettato partendo dalla definizione del modello Entità-Relazione (ER). L'obiettivo principale è stato mantenere il database normalizzato, evitando la ridondanza delle informazioni e garantendo l'integrità dei dati tramite l'uso rigoroso delle chiavi esterne.
 
 \begin{figure}[H]
     \centering
